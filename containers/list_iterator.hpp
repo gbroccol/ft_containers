@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:57:07 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/01 20:46:54 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/02 18:54:09 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 namespace ft 
 {
-	
 	template < typename T>
 	struct			Node
 	{
@@ -71,9 +70,20 @@ namespace ft
 
 			// iterator &				operator=(iterator const & rhs )
 			// {
-			// 	if ( this != &rhs )
-			// 		*this = rhs;
+			// 	this->clear();
+			// // 	this->head->next = this->tail;
+			// // 	this->tail->prev = this->head;
+			// // 	this->length = 0;
+			// // 	this->assign(x.begin(), x.end());
 			// 	return *this;
+
+
+			// // 	// std::cout << "hi" << std::endl;
+			
+			// // 	// if ( this != &rhs )
+			// // 		*this = rhs;
+				
+			// // 	return *this;
 			// }
 
 			// bool						operator==(const iterator &x)
@@ -83,12 +93,12 @@ namespace ft
 			// 	return false;
 			// }
 			
-			// bool						operator!=(const iterator &x)
-			// {
-			// 	if (x.ptr != ptr)
-			// 		return true;
-			// 	return false;
-			// }
+			bool						operator!=(const iterator &x)
+			{
+				if (x.ptr != ptr)
+					return true;
+				return false;
+			}
 			
 			value_type					&operator*()
 			{
@@ -110,37 +120,37 @@ namespace ft
 			// 	return &ptr->data;
 			// }
 			
-			// iterator					&operator++() // check
-			// {
-			// 	ptr++;
-			// 	return *this;
-			// }
+			iterator					&operator++() // ++a 
+			{
+				ptr = ptr->next;
+				return *this;
+			}
 
-			// iterator					&operator++(int) // check
-			// {
-			// 	iterator tmp(*this);
-			// 	operator++();
-			// 	return tmp;
-			// }
+			iterator					&operator++(int) // a++ 
+			{
+				iterator tmp(*this);
+				operator++();
+				return *this;
+			}
 			
-			// iterator					&operator--()  // check
-			// {
-			// 	ptr--;
-			// 	return *this;
-			// }
+			iterator					&operator--()  // check
+			{
+				if (ptr->pre)
+					ptr = ptr->pre;
+				return *this;
+			}
 
-			// iterator					&operator--(int)  // check
-			// {
-			// 	iterator tmp(*this);
-			// 	operator--();
-			// 	return tmp;
-			// }
+			iterator					&operator--(int)  // check
+			{
+				iterator tmp(*this);
+				operator--();
+				return *this;
+			}
 			
-
 			/*
 			** --------------------------------- METHODS ----------------------------------
 			*/
-
+			
 
 			/*
 			** --------------------------------- ACCESSOR ---------------------------------
@@ -148,14 +158,16 @@ namespace ft
 
 
 			/* ************************************************************************** */
-
-		private: 
-		
-			// previous
-			// next
-
-			// Node <T> ptr;
 			
+			// node_pointer	getnext() const { return ptr->next; }
+			// node_pointer	getprev() const { return ptr->prev; }
+			struct Node <T> *getptr() const { return ptr; }
+
+		private:
+
+		protected:
+		
+		
 			
     }; 
 }

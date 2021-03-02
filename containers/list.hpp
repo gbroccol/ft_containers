@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/01 20:45:14 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/02 19:41:56 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@
 // #include <string>
 // #include <cassert>
 // #include <algorithm>
+
+
+// # include <limits>
+// # include <memory>
+// # include <cstddef>
+// # include <iostream>
+
+
+
 
 namespace ft 
 {
@@ -36,41 +45,81 @@ namespace ft
 			typedef T						value_type;
 			typedef Alloc					allocator_type;
 			typedef size_t					size_type;
-			// typedef value_type&				reference;
-			// typedef const value_type&		const_reference;
+			typedef value_type&				reference;
+			typedef const value_type&		const_reference;
 			// typedef value_type*				pointer;
 			// typedef const value_type*		const_pointer;
 			// typedef ptrdiff_t				difference_type;
-  
-			// typedef T 
-			// typedef Alloc allocator_type;
-			// typedef size_t size_type;
 
 			/*
 			** -------------------------------- CONSTRUCTOR --------------------------------
 			*/
 		
-			explicit list (const allocator_type& alloc = allocator_type()) : _sizeList(0)
+			explicit list (const allocator_type& alloc = allocator_type()) : _SizeList(0), _Alloc(alloc)
 			{
-				_alloc = alloc;
+				this->_Head = new Node <T> ();
+				this->_Tail = new Node <T> ();
+
+				this->_Head->next = this->_Tail;
+				this->_Head->pre  = this->_Tail;
+
+				this->_Tail->next = this->_Head;
+				this->_Tail->pre  = this->_Head;
 				
-				_node = NULL;
-				_start = NULL;
-				_finish = NULL;
+				this->_Node = this->_Head;
 			}
 			
-			// explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
+			explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _SizeList(0), _Alloc(alloc)
+			{
+				this->_Head = new Node <T> ();
+				this->_Tail = new Node <T> ();
+				
+				this->_Head->next = this->_Tail;
+				this->_Head->pre  = this->_Tail;
+
+				this->_Tail->next = this->_Head;
+				this->_Tail->pre  = this->_Head;
+
+				for ( ; n; n--)
+					push_back(val);
+				
+				this->_Node = this->_Head;
+			}
 			
 			// template <class InputIterator>
 			// list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 			
-			// list (const list& x);
+			list (const list& x) : _SizeList(0), _Alloc(x._Alloc)
+			{
+				this->_Head = new Node <T> ();
+				this->_Tail = new Node <T> ();
+				
+				this->_Head->next = this->_Tail;
+				this->_Head->pre  = this->_Tail;
+
+				this->_Tail->next = this->_Head;
+				this->_Tail->pre  = this->_Head;
+				
+				this->_Node = this->_Head;
+
+				Node <T> *tmp = x._Head->next;
+				for (size_t i = 0; i < x._SizeList; i++)
+				{
+					push_back(tmp->data);
+					tmp = tmp->next;
+				}
+			}
 	
 			/*
 			** -------------------------------- DESTRUCTOR --------------------------------
 			*/
 
-			~list() {}
+			~list()
+			{
+				clear();
+				delete _Head;
+				delete _Tail;
+			}
 
 			/*
 			** --------------------------------- OVERLOAD ---------------------------------
@@ -90,13 +139,13 @@ namespace ft
 			** --------------------------------- METHODS ----------------------------------
 			*/
 
-			/* Iterators */
+	/* Iterators */
 
-			iterator begin() { return (iterator (_start)); }
-			// const_iterator begin() const;
+			iterator begin() { return (iterator (_Head->next)); }
+			const_iterator begin() const { return (iterator (_Head->next)); }
 
-			iterator end() { return (iterator (_finish)); }
-			// const_iterator end() const;
+			iterator end() { return (iterator (_Tail)); }
+			const_iterator end() const { return (iterator (_Tail)); }
 
 			// reverse_iterator rbegin();
 			// const_reverse_iterator rbegin() const;
@@ -104,101 +153,149 @@ namespace ft
 			// reverse_iterator rend();
 			// const_reverse_iterator rend() const;
 
-			/* Capacity */
+	/* Capacity */
 
-			// bool empty() const { return (_sizeList == 0 ? true : false); }
-			size_type size() const { return _sizeList; }
+			bool empty() const { return (_SizeList == 0 ? true : false); }
+			size_type size() const { return _SizeList; }
 			// size_type max_size() const;
 
-			/* Element access */
+	/* Element access */
 
-			// reference front();
-			// const_reference front() const;
+			reference front() { return this->_Head->next->data; }
+			const_reference front() const { return this->_Head->next->data; }
 
-			// reference back();
-			// const_reference back() const;
+			reference back() { return this->_Tail->pre->data; }
+			const_reference back() const { return this->_Tail->pre->data; }
 
-			/* Modifiers */
+	/* Modifiers */
 
 			// template <class InputIterator>
-			// void assign (InputIterator first, InputIterator last);
-			// void assign (size_type n, const value_type& val);
+			// void assign (InputIterator first, InputIterator last)
+			// {
+				
+			// }
+			void assign (size_type n, const value_type& val)
+			{
+				clear();
+				for ( ; n; n--)
+					push_back(val);
+			}
 
 			void push_front (const value_type& val)
 			{
-				if (_sizeList == 0)
-				{
-					_node = new Node <T> ();
-					_node->data = val;
-					_node->next = NULL;
-					_node->pre = NULL;
+				Node <T> *tmp = new Node <T>();
 
-					_sizeList++;
+				tmp->data = val;
 
-					_start = _node;
-					_finish = _node;
-				}
-				else
-				{
-					Node <T> * tmp = new Node <T> ();
-					_node->pre = tmp;
-					
-					tmp->data = val;
-					tmp->next = _start;
-					tmp->pre = NULL;
+				tmp->pre = _Head;
+				tmp->next = _Head->next;
 
-					_start = tmp;
+				_Head->next->pre = tmp;
+				_Head->next = tmp;
 
-					_sizeList++;
-				}
+				_Tail->next = tmp;
+
+				_SizeList++;
 			}
 			
-			// void pop_front();
+			void pop_front()
+			{
+				if (_SizeList)
+				{
+					Node <T> *tmp = _Head->next;
+
+					_Head->next = tmp->next;
+					tmp->next = _Head;
+					
+					delete tmp;
+					_SizeList--;
+				}	
+			}
 
 			void push_back (const value_type& val)
 			{
-				if (_sizeList == 0)
-				{
-					_node = new Node <T> ();
-					_node->data = val;
-					_node->next = NULL;
-					_node->pre = NULL;
+				Node <T> *tmp = new Node <T>();
 
-					_sizeList++;
+				tmp->data = val;
+				
+				tmp->next = _Tail;
+				tmp->pre  = _Tail->pre;
+				
+				_Tail->pre->next = tmp;
+				_Tail->pre = tmp;
 
-					_start = _node;
-					_finish = _node;
-				}
-				else
-				{
-					Node <T> * tmp = new Node <T> ();
-					
-					tmp->data = val;
-					tmp->next = NULL;
-					tmp->pre = _finish;
-
-					_finish = tmp;
-					_sizeList++;
-				}
+				_Head->pre = tmp;
+				
+				_SizeList++;
 			}
 
-			// void pop_back();
+			void pop_back()
+			{
+				if (_SizeList)
+				{
+					Node <T> *tmp = _Tail->pre;
 
-			// iterator insert (iterator position, const value_type& val);
-			// void insert (iterator position, size_type n, const value_type& val);
+					_Tail->pre->pre->next =  _Tail;
+					_Tail->pre = _Tail->pre->pre;
+					
+					delete tmp;
+					_SizeList--;
+				}		
+			}
+
+			iterator insert (iterator position, const value_type& val) // insert before position
+			{
+				Node <T> * newElem = new Node <T>();
+				newElem->data = val;
+				
+				newElem->pre  = position.getptr()->pre;
+				newElem->next = position.getptr();
+				
+				newElem->pre->next  = newElem;
+				newElem->next->pre  = newElem;
+				
+				_SizeList++;
+				
+				return iterator(newElem);
+			}
+			
+			void insert (iterator position, size_type n, const value_type& val)
+			{
+				for ( ; n > 0; n--)
+					insert(position, val);
+			}
+			
 			// template <class InputIterator>
 			// void insert (iterator position, InputIterator first, InputIterator last);
 
 			// iterator erase (iterator position);
 			// iterator erase (iterator first, iterator last);
 
-			// void swap (list& x);
+			// void swap (list& x)
+			// {
+				
+			// }
 
 			// void resize (size_type n, value_type val = value_type());
 			
-			// void clear();
+			void clear()
+			{
+				while (_SizeList)
+					pop_back();
+			}
 
-			/* Operations */
+			void print() // delete
+			{
+				Node <T> *tmp = _Head->next;
+				std::cout << "Data: ";
+				for (size_t i = 0; i < _SizeList; i++)
+				{
+					std::cout << tmp->data << ", ";
+				}
+				std::cout << std::endl;
+			}
+
+	/* Operations */
 
 			// void splice (iterator position, list& x);
 			// void splice (iterator position, list& x, iterator i);
@@ -223,11 +320,11 @@ namespace ft
 
 			// void reverse();
 
-			/* Observers */
+	/* Observers */
 
 			// allocator_type get_allocator() const;
 
-			/* Non-member function overloads */
+	/* Non-member function overloads */
 		
 
 			/*
@@ -238,13 +335,13 @@ namespace ft
 
 		private:
 			
-			Node <T>		*_node;
-			Node <T>		*_start;
-			Node <T>		*_finish;
+			Node <T>		*_Node;
+			Node <T>		*_Head;
+			Node <T>		*_Tail;
 
-			size_t			_sizeList;
+			size_t			_SizeList;
 
-			allocator_type	_alloc;
+			allocator_type	_Alloc;
 			
     }; 
 }
