@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:45:56 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/03 13:13:40 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/03 19:04:47 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void				testFunc(int testNmb, T sysValue, T userValue, std::string testName)
 	if (sysValue == userValue)
 	{
 		std::cout << "\x1b[32m" << "OK" << "\x1b[0m" << std::endl;
-		std::cout << std::setw(86) << "Answer: " << sysValue << std::endl;
+		// std::cout << std::setw(86) << "Answer: " << sysValue << std::endl;
 	}
 	else
 	{
@@ -70,11 +70,6 @@ void print_ft_list (std::string testName, T List)
 	for (ft::list <int> ::iterator it = List.begin(); it != List.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
-
-	// std::cout << "UserListSwap1:";
-	// for (ft::list<int>::iterator it = userListSwap1.begin(); it != userListSwap1.end(); it++)
-	// 	std::cout << ' ' << *it;
-	// std::cout << '\n';
 }
 
 #endif
