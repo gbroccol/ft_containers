@@ -6,13 +6,11 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:48:13 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/02 19:44:01 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/03 14:05:50 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "containers_test.hpp"
-#include "../containers/list.hpp"
-#include "../containers/list_iterator.hpp"
 
 // #include <string>
 // #include <cassert>
@@ -374,6 +372,289 @@ void				list_test()
 	testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (insert 2)");
 	testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (insert 2)");
 	std::cout << std::endl;
+
+	/*		erase 1		*/
+	sysList.clear();
+	userList.clear();
+
+	sysList.push_back(1);			// 1 2 3
+	userList.push_back(1);
+
+	sysList.push_back(2);			// 1 2 3
+	userList.push_back(2);
+
+	sysList.push_back(3);			// 1 2 3
+	userList.push_back(3);
+
+	std::cout << "*** BEFORE ***" << std::endl;
+	print_std_list(" Sys Erase:", sysList);
+	print_ft_list("User Erase:", userList);
+	std::cout << std::endl;
+  
+	sysIterator = sysList.erase(sysList.begin());
+	userIterator = userList.erase(userList.begin());
+
+	std::cout << "*** AFTER ***" << std::endl;
+	print_std_list(" Sys Erase:", sysList);
+	print_ft_list("User Erase:", userList);
+	std::cout << std::endl;
+
+	testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 1)");
+	testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (erase 1)");
+	testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (erase 1)");
+	testFunc(testNmb++, *sysIterator, *userIterator, "Return value (erase 1)");
+	std::cout << std::endl;
+
+	/*		erase 1.1		*/
+	sysList.clear();
+	userList.clear();
+
+	sysList.push_back(1);			// 1 
+	userList.push_back(1);
+
+	std::cout << "*** BEFORE ***" << std::endl;
+	print_std_list(" Sys Erase:", sysList);
+	print_ft_list("User Erase:", userList);
+	std::cout << std::endl;
+  
+	sysIterator = sysList.erase(sysList.begin());
+	userIterator = userList.erase(userList.begin());
+
+	std::cout << "*** AFTER ***" << std::endl;
+	print_std_list(" Sys Erase:", sysList);
+	print_ft_list("User Erase:", userList);
+	std::cout << std::endl;
+
+	testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 1.1)");
+	testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (erase 1.1)");
+	testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (erase 1.1)");
+	testFunc(testNmb++, *sysIterator, *userIterator, "Return value (erase 1.1)");
+	std::cout << std::endl;
+
+	/*		erase 2		*/
+	sysList.clear();
+	userList.clear();
+
+	sysList.push_back(1);			// 1 2 3
+	userList.push_back(1);
+
+	sysList.push_back(2);			// 1 2 3
+	userList.push_back(2);
+
+	sysList.push_back(3);			// 1 2 3
+	userList.push_back(3);
+	
+	std::cout << "*** BEFORE ***" << std::endl;
+	print_std_list(" Sys Erase:", sysList);
+	print_ft_list("User Erase:", userList);
+	std::cout << std::endl;
+  
+	sysIterator = sysList.begin();
+
+	userIterator = userList.begin();
+  
+	sysIterator = sysList.erase(sysList.begin(), sysIterator);
+	userIterator = userList.erase(userList.begin(), userIterator);
+
+	std::cout << "*** AFTER ***" << std::endl;
+	print_std_list(" Sys Erase:", sysList);
+	print_ft_list("User Erase:", userList);
+	std::cout << std::endl;
+
+	testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 2)");
+	testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (erase 2)");
+	testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (erase 2)");
+	testFunc(testNmb++, *sysIterator, *userIterator, "Return value (erase 2)");
+	std::cout << std::endl;
+
+	/*		erase 2.0		*/
+	sysList.clear();
+	userList.clear();
+
+	sysList.push_back(1);			// 1 2 3
+	userList.push_back(1);
+
+	sysList.push_back(2);			// 1 2 3
+	userList.push_back(2);
+
+	sysList.push_back(3);			// 1 2 3
+	userList.push_back(3);
+	
+	std::cout << "*** BEFORE ***" << std::endl;
+	print_std_list(" Sys Erase:", sysList);
+	print_ft_list("User Erase:", userList);
+	std::cout << std::endl;
+  
+	sysIterator = sysList.begin();
+	sysIterator++;
+
+	userIterator = userList.begin();
+	userIterator++;
+  
+	sysIterator = sysList.erase(sysList.begin(), sysIterator);
+	userIterator = userList.erase(userList.begin(), userIterator);
+
+	std::cout << "*** AFTER ***" << std::endl;
+	print_std_list(" Sys Erase:", sysList);
+	print_ft_list("User Erase:", userList);
+	std::cout << std::endl;
+
+	testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 2.0)");
+	testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (erase 2.0)");
+	testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (erase 2.0)");
+	testFunc(testNmb++, *sysIterator, *userIterator, "Return value (erase 2.0)");
+	std::cout << std::endl;
+
+	/*		erase 2.1		*/
+	sysList.clear();
+	userList.clear();
+
+	sysList.push_back(1);			// 1 2 3
+	userList.push_back(1);
+
+	sysList.push_back(2);			// 1 2 3
+	userList.push_back(2);
+
+	sysList.push_back(3);			// 1 2 3
+	userList.push_back(3);
+	
+	std::cout << "*** BEFORE ***" << std::endl;
+	print_std_list(" Sys Erase:", sysList);
+	print_ft_list("User Erase:", userList);
+	std::cout << std::endl;
+  
+	sysIterator = sysList.begin();
+	sysIterator++;
+	sysIterator++;
+
+	userIterator = userList.begin();
+	userIterator++;
+	userIterator++;
+  
+	sysIterator = sysList.erase(sysList.begin(), sysIterator);
+	userIterator = userList.erase(userList.begin(), userIterator);
+
+	std::cout << "*** AFTER ***" << std::endl;
+	print_std_list(" Sys Erase:", sysList);
+	print_ft_list("User Erase:", userList);
+	std::cout << std::endl;
+
+	testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 2.1)");
+	testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (erase 2.1)");
+	testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (erase 2.1)");
+	testFunc(testNmb++, *sysIterator, *userIterator, "Return value (erase 2.1)");
+	std::cout << std::endl;
+
+	/*		erase 2.2		*/
+	sysList.clear();
+	userList.clear();
+
+	sysList.push_back(1);			// 1 2 3
+	userList.push_back(1);
+
+	sysList.push_back(2);			// 1 2 3
+	userList.push_back(2);
+
+	sysList.push_back(3);			// 1 2 3
+	userList.push_back(3);
+	
+	std::cout << "*** BEFORE ***" << std::endl;
+	print_std_list(" Sys Erase:", sysList);
+	print_ft_list("User Erase:", userList);
+	std::cout << std::endl;
+  
+	sysIterator = sysList.begin();
+	sysIterator++;
+	sysIterator++;
+	sysIterator++;
+
+	userIterator = userList.begin();
+	userIterator++;
+	userIterator++;
+	userIterator++;
+  
+	sysIterator = sysList.erase(sysList.begin(), sysIterator);
+	userIterator = userList.erase(userList.begin(), userIterator);
+
+	std::cout << "*** AFTER ***" << std::endl;
+	print_std_list(" Sys Erase:", sysList);
+	print_ft_list("User Erase:", userList);
+	std::cout << std::endl;
+
+	testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 2.2)");
+	testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (erase 2.2)");
+	testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (erase 2.2)");
+	testFunc(testNmb++, *sysIterator, *userIterator, "Return value (erase 2.2)");
+	std::cout << std::endl;
+
+	/*		erase 2.3		*/
+	// sysList.clear();
+	// userList.clear();
+
+	// sysList.push_back(1);			// 1 2 3
+	// userList.push_back(1);
+
+	// sysList.push_back(2);			// 1 2 3
+	// userList.push_back(2);
+
+	// sysList.push_back(3);			// 1 2 3
+	// userList.push_back(3);
+	
+	// std::cout << "*** BEFORE ***" << std::endl;
+	// print_std_list(" Sys Erase:", sysList);
+	// print_ft_list("User Erase:", userList);
+	// std::cout << std::endl;
+  
+	// sysIterator = sysList.begin();
+	// sysIterator++;
+	// sysIterator++;
+	// sysIterator++;
+	// sysIterator++;
+
+	// userIterator = userList.begin();
+	// userIterator++;
+	// userIterator++;
+	// userIterator++;
+	// sysIterator++;
+  
+	// sysIterator = sysList.erase(sysList.begin(), sysIterator);
+	// userIterator = userList.erase(userList.begin(), userIterator);
+
+	// std::cout << "*** AFTER ***" << std::endl;
+	// print_std_list(" Sys Erase:", sysList);
+	// print_ft_list("User Erase:", userList);
+	// std::cout << std::endl;
+
+	// testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 2.3)");
+	// testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (erase 2.3)");
+	// testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (erase 2.3)");
+	// testFunc(testNmb++, *sysIterator, *userIterator, "Return value (erase 2.3)");
+	// std::cout << std::endl;
+
+	/*		Size of list CHAR		*/
+	ft::list <char> userListChar;
+	std::list <char> sysListChar;
+	
+	sysList.clear();
+	userList.clear();
+	
+	for (int i = 0; i < 33; i++)
+	{
+		sysListChar.push_back('a');			
+		userListChar.push_back('a');
+	}
+
+	std::list <char> :: iterator sysIteratorChar = sysListChar.begin();
+	ft::list <char> :: iterator userIteratorChar  = userListChar.begin();
+
+	for (int i = 0; i < 33; i++)
+	{
+		sysIteratorChar++;
+		userIteratorChar++;
+	}
+	testFunc(testNmb++, userListChar.size(), userListChar.size(), "Size is <char>");
+	testFunc(testNmb++, *sysIteratorChar, *userIteratorChar, "Size of list <char>");
+	
 
 	/*		swap 1		*/
 	// sysList.clear();

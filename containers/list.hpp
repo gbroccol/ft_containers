@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/02 19:41:56 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/03 14:08:21 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,8 +268,30 @@ namespace ft
 			// template <class InputIterator>
 			// void insert (iterator position, InputIterator first, InputIterator last);
 
-			// iterator erase (iterator position);
-			// iterator erase (iterator first, iterator last);
+			iterator erase (iterator position)
+			{
+				if (_SizeList > 0)
+				{
+					Node <T> *delElem = position.getptr();
+					
+					delElem->pre->next = delElem->next;
+					delElem->next->pre = delElem->pre;
+
+					position++;
+					
+					delete delElem;
+					
+					_SizeList--;
+				}
+				return position;
+			}
+
+			iterator erase (iterator first, iterator last)
+			{
+				for ( ; first != last; first++)
+					erase(first);
+				return first;
+			}
 
 			// void swap (list& x)
 			// {

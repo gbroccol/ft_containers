@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:57:07 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/02 18:54:09 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/03 13:22:52 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ namespace ft
 			
 			value_type					&operator*()
 			{
+				// if (ptr == _Tail)
+				// 	return ptr->pre->data;
 				return ptr->data;
 			}
 			

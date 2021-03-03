@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:45:56 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/02 19:44:42 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/03 13:13:40 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 #include <iostream>
 #include <iomanip>
 #include <list>
+
+#include "../containers/list.hpp"
+#include "../containers/list_iterator.hpp"
 
 void		list_test(void);
 void		map_test(void);
@@ -41,7 +44,7 @@ void				testFunc(int testNmb, T sysValue, T userValue, std::string testName)
 	if (sysValue == userValue)
 	{
 		std::cout << "\x1b[32m" << "OK" << "\x1b[0m" << std::endl;
-		// std::cout << std::setw(86) << "Answer: " << sysValue << std::endl;
+		std::cout << std::setw(86) << "Answer: " << sysValue << std::endl;
 	}
 	else
 	{
@@ -49,6 +52,29 @@ void				testFunc(int testNmb, T sysValue, T userValue, std::string testName)
 		std::cout << std::setw(86) << "Expected answer: " << sysValue << std::endl;
 		std::cout << std::setw(86) << "Your answer: " << userValue << std::endl;
 	}	
+}
+
+template <typename T>
+void print_std_list (std::string testName, T List)
+{
+	std::cout << testName;
+	for (std::list<int>::iterator it = List.begin(); it != List.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+}
+
+template <typename T>
+void print_ft_list (std::string testName, T List)
+{
+	std::cout << testName;
+	for (ft::list <int> ::iterator it = List.begin(); it != List.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+
+	// std::cout << "UserListSwap1:";
+	// for (ft::list<int>::iterator it = userListSwap1.begin(); it != userListSwap1.end(); it++)
+	// 	std::cout << ' ' << *it;
+	// std::cout << '\n';
 }
 
 #endif
