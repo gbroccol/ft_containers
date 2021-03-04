@@ -309,65 +309,183 @@ namespace ft
 
 	/* Operations */
 
-			// void splice (iterator position, list& x)
-			// {
-			// 	splice(position, x, x.begin(), x.end());
-
-			// 	// Node <T> *whereAdd = position.getptr();
-
-			// 	// ft::list <int> :: iterator xBegin = x.begin();
-			// 	// ft::list <int> :: iterator xEnd = x.end();
-				
-			// 	// xEnd--;
-				
-			// 	// whereAdd->next = xBegin.getptr();
-			// 	// whereAdd->pre  = xEnd.getptr();
-				
-			// 	// _SizeList += 6;
-			// }
+			void splice (iterator position, list& x)
+			{
+				splice(position, x, x.begin(), x.end());
+			}
 			
-			// void splice (iterator position, list& x, iterator i)
-			// {
-			// 	iterator next(i);
-			// 	this->splice(position, x, i, ++next);
-			// }
+			void splice (iterator position, list& x, iterator i)
+			{
+				if (position.getptr() == i.getptr())					// ???
+					return ;
+				iterator next(i);
+				this->splice(position, x, i, ++next);
+			}
 			
-			// void splice (iterator position, list& x, iterator first, iterator last)
-			// {
-			// 	Node <T> * firstx = first.getptr();
-			// 	Node <T> * lastx = last.getptr();
-			// 	Node <T> * lastelemx = lastx->prev;
-				
-			// 	difference_type	diff = ft::distance(first, last);
-				
-			// 	Node <T> * pos = position.getptr();
-			// 	x.length -= diff;
-			// 	this->length += diff;
+			void splice (iterator position, list& x, iterator first, iterator last)
+			{
+				/* find first and last Nodes to ADD THEM */
+				Node <T> * firstNodeX = first.getptr();
+				Node <T> * lastNodeX = last.getptr();
 
-			// 	firstx->prev->next = lastx;
-			// 	lastx->prev = firstx->prev;
-				
-			// 	pos->prev->next = firstx;
-			// 	firstx->prev = pos->prev;
-			// 	pos->prev = lastelemx;
-			// 	lastelemx->next = pos;
-			// }
-			
+				/* change Size */
+				int	diff = ft::distance(first, last);
+				x._SizeList -= diff;
+				this->_SizeList += diff;
 
-			// void remove (const value_type& val);
+				x._Tail->data -= diff;
+				this->_Tail->data += diff;
+
+				Node <T> * WhereAdd = position.getptr();
+				Node <T> * lastelemx = lastNodeX->pre; // ??? tmp	
+
+				firstNodeX->pre->next = lastNodeX;
+				lastNodeX->pre = firstNodeX->pre;
+				
+				WhereAdd->pre->next = firstNodeX;
+				firstNodeX->pre = WhereAdd->pre;
+
+
+				WhereAdd->pre = lastelemx;
+				lastelemx->next = WhereAdd;
+			}
+		
+			void remove (const value_type& val)
+			{
+				iterator tmp = this->begin();
+
+				Node <T> * node;
+				
+				for ( ; tmp != this->end(); tmp++)
+				{
+					node = tmp.getptr();
+					if (node->data == val)
+					{
+						node->pre->next = node->next;
+						node->next->pre = node->pre;
+
+						_SizeList--;
+						this->_Tail->data--;
+					
+						delete node;
+					}
+				}
+			}
 
 			// template <class Predicate>
 			// void remove_if (Predicate pred);
 
-			// void unique();
+			void unique()
+			{
+				iterator tmp = this->begin();
+
+				Node <T> * node;
+
+				tmp++;
+				
+				for ( ; tmp != this->end(); tmp++)
+				{
+					node = tmp.getptr();
+					if (node->data == node->pre->data)
+					{
+						node->pre->next = node->next;
+						node->next->pre = node->pre;
+
+						_SizeList--;
+						this->_Tail->data--;
+					
+						delete node;
+					}
+				}
+			}
+
 			// template <class BinaryPredicate>
 			// void unique (BinaryPredicate binary_pred);
 
-			// void merge (list& x);
+			void merge (list& x)
+			{
+				if (&x != this)
+				{
+
+
+
+
+
+					// iterator it = begin();
+					// iterator xit = x.begin();
+
+					// while (it != end() && xit != x.end())
+					// {
+					// 	while (it != end() && !comp(*xit, *it))
+					// 		++it;
+					// 	++xit;
+					// 	this->splice(it, x, xit.getprev());
+					// }
+					// if (xit != x.end())
+					// 	this->splice(it, x, xit, x.end());
+				}
+			}
+
+
+
+					// Node <T> *whereAdd		= this->begin().getptr();		// 1
+
+					// Node <T> *newNode		= x.begin().getptr();			// 1
+					// Node <T> *newNodeEnd	= x.end().getptr(); 
+
+					// Node <T> *tmp;
+
+					// while (newNodeEnd->data > 0)
+					// {
+					// 	std::cout << "size is " << newNodeEnd->data << std::endl;
+
+					// 	if (newNode->data <= whereAdd->data)
+					// 	{
+					// 		std::cout << "LET'S ADD" << std::endl;
+
+					// 		tmp = newNode;
+
+					// 		/* change list x */ 
+					// 		newNode->pre->next = newNode->next;
+					// 		newNode->next->pre = newNode->pre;
+
+					// 		delete tmp;
+
+					// 		// newNode->pre = whereAdd->pre;
+							
+					// 		// whereAdd->pre = newNode;
+
+					// 		// // newNode->pre->next = newNode->next;
+					// 		// // newNode->next = newNode->pre->next;
+
+					// 		// newNode->next = whereAdd;
+
+							
+					// 		// this->end().getptr()->next = newNode;
+						
+
+					// 	}
+					// 	// else
+					// 	// {
+							
+					// 	// }
+
+					// 		/* change size */
+					// 		newNodeEnd->data--;
+					// 		this->end().getptr()->data++;
+
+					// 		newNode = x.begin().getptr();
+					// 		whereAdd = whereAdd->next;
+
+				// 	}
+				// }
+			// }
+
 			// template <class Compare>
 			// void merge (list& x, Compare comp);
 
 			// void sort();
+
 			// template <class Compare>
 			// void sort (Compare comp);
 

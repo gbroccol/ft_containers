@@ -16,17 +16,22 @@
 // # include <cstddef>
 // # include <functional>
 
+# include "list_iterator.hpp"
+
 namespace ft
 {
-	// template<typename Iterator>
-	// ptrdiff_t distance(Iterator first, Iterator last) { //, typename ft::check_type<typename ft::iterator_traits<Iterator>::iterator_category>::type* = 0) {
-	// 	ptrdiff_t dist = 0;
-	// 	while (first != last) {
-	// 		++dist;
-	// 		++first;
-	// 	}
-	// 	return dist;
-	// }
+	template<typename Iterator>
+	int distance(Iterator first, Iterator last) // return value - value_type <T>
+	{
+		int dist = 0;
+
+		while (first != last)
+		{
+			++dist;
+			++first;
+		}
+		return dist;
+	}
 	// template <class InputIterator, class Distance>
 	// void advance (InputIterator& it, Distance n) { //typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
 	// 	if (n > 0)

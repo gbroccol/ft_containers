@@ -15,16 +15,18 @@
 
 #include <iostream>
 #include <iomanip>
+#include <cstdio>
+
 #include <list>
 
 #include "../containers/list.hpp"
 #include "../containers/list_iterator.hpp"
 
 void		list_test(void);
-void		map_test(void);
-void		queue_test(void);
-void		stack_test(void);
-void		vector_test(void);
+// void		map_test(void);
+// void		queue_test(void);
+// void		stack_test(void);
+// void		vector_test(void);
 
 template <typename T>
 void				testFunc(int testNmb, T sysValue, T userValue, std::string testName)
@@ -44,7 +46,7 @@ void				testFunc(int testNmb, T sysValue, T userValue, std::string testName)
 	if (sysValue == userValue)
 	{
 		std::cout << "\x1b[32m" << "OK" << "\x1b[0m" << std::endl;
-		// std::cout << std::setw(86) << "Answer: " << sysValue << std::endl;
+		std::cout << std::setw(86) << "Answer: " << sysValue << std::endl;
 	}
 	else
 	{

@@ -20,10 +20,10 @@ FLAGS =		-Wall -Werror -Wextra -std=c++98
 
 SRCS =		main.cpp \
 			list_test.cpp \
-			map_test.cpp \
-			queue_test.cpp \
-			stack_test.cpp \
-			vector_test.cpp \
+			# map_test.cpp \
+			# queue_test.cpp \
+			# stack_test.cpp \
+			# vector_test.cpp \
 			
 OBJ =		$(SRCS:.cpp=.o)
 
