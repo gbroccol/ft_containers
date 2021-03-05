@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:57:07 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/03 13:22:52 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/05 18:56:33 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,8 @@ namespace ft
 			/* ************************************************************************** */
 			
 			// node_pointer	getnext() const { return ptr->next; }
-			// node_pointer	getprev() const { return ptr->prev; }
-			struct Node <T> *getptr() const { return ptr; }
+			struct Node <T>		*getpre() const { return ptr->pre; }
+			struct Node <T>		*getptr() const { return ptr; }
 
 		private:
 

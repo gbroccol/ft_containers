@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:11:27 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/03 17:12:14 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:22:43 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,21 @@
 
 namespace ft
 {
+	template<typename Iterator>
+	bool checkin(Iterator xBegin, Iterator xEnd, Iterator first)
+	{
+		// Iterator check = x.begin();
+		
+		while (xBegin != xEnd)
+		{
+			if (xBegin.getptr() == first.getptr())
+				return true;
+			xBegin++;
+		}
+		return false;
+	}
+
+	
 	template<typename Iterator>
 	int distance(Iterator first, Iterator last) // return value - value_type <T>
 	{
