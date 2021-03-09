@@ -1663,20 +1663,22 @@ void				operations(int testNmb, int testAll)
 		sysList.push_back(100);
 		userList.push_back(100);
 
-		int j = -10;
-		for (int i = 0; i <= 10; i++)
+		// int j = -10;
+		for (int i = 1; i <= 10; i++)
 		{
 			sysList.push_back(i);
 			userList.push_back(i);
 
-			sysList.push_back(j);
-			userList.push_back(j);
+			// sysList.push_back(j);
+			// userList.push_back(j);
 
-			j++;
+			// j++;
 		}
 
-		sysList.push_back(-5);
-		userList.push_back(-5);
+
+
+		// sysList.push_back(-5);
+		// userList.push_back(-5);
 
 		std::cout << "*** BEFORE ***" << std::endl;
 		print_std_list(" sysList:", sysList);
@@ -1704,60 +1706,111 @@ void				operations(int testNmb, int testAll)
 		getchar();
 		// std::system("clear");
 
+
+		// /*		sort		*/
+		// std::cout << std::endl << "\x1b[33m" << "sort 1" << "\x1b[0m" << std::endl;
+
+		// sysList.clear();
+		// userList.clear();
+
+		// sysList.push_back(100);
+		// userList.push_back(100);
+
+		// int j = -10;
+		// for (int i = 0; i <= 10; i++)
+		// {
+		// 	sysList.push_back(i);
+		// 	userList.push_back(i);
+
+		// 	sysList.push_back(j);
+		// 	userList.push_back(j);
+
+		// 	j++;
+		// }
+
+		// sysList.push_back(-5);
+		// userList.push_back(-5);
+
+		// std::cout << "*** BEFORE ***" << std::endl;
+		// print_std_list(" sysList:", sysList);
+		// std::cout << std::endl;
+		// print_ft_list("userList:", userList);
+		// std::cout << std::endl;
+
+		// sysList.sort();
+		// userList.sort();
+
+		// std::cout << "*** AFTER ***" << std::endl;
+		// print_std_list(" SysList:", sysList);
+		// std::cout << std::endl;
+		// print_ft_list("UserList:", userList);
+		// std::cout << std::endl;
+
+		// testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
+		// testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
+		// testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
+
+		// testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
+		// testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
+		// testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
+
+		// getchar();
+		// // std::system("clear");
+
 		/*		sort		*/
-		std::cout << std::endl << "\x1b[33m" << "sort 2" << "\x1b[0m" << std::endl;
+		// std::cout << std::endl << "\x1b[33m" << "sort 2" << "\x1b[0m" << std::endl;
 
-		sysList.clear();
-		userList.clear();
+		// sysList.clear();
+		// userList.clear();
 
-		sysList.push_back(5);
-		userList.push_back(5);
+		// sysList.push_back(5);
+		// userList.push_back(5);
 
-		sysList.push_back(2);
-		userList.push_back(2);
+		// sysList.push_back(2);
+		// userList.push_back(2);
 
-		sysList.push_back(100);
-		userList.push_back(100);
+		// sysList.push_back(100);
+		// userList.push_back(100);
 
-		sysList.push_back(30);
-		userList.push_back(30);
+		// sysList.push_back(30);
+		// userList.push_back(30);
 
-		sysList.push_back(10);
-		userList.push_back(10);
+		// sysList.push_back(10);
+		// userList.push_back(10);
 
-		sysList.push_back(1);
-		userList.push_back(1);
+		// sysList.push_back(1);
+		// userList.push_back(1);
 		
-		sysList.push_back(6);
-		userList.push_back(6);
+		// sysList.push_back(6);
+		// userList.push_back(6);
 
-		sysList.push_back(150);
-		userList.push_back(150);
+		// sysList.push_back(150);
+		// userList.push_back(150);
 
-		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
-		std::cout << std::endl;
-		print_ft_list("userList:", userList);
-		std::cout << std::endl;
+		// std::cout << "*** BEFORE ***" << std::endl;
+		// print_std_list(" sysList:", sysList);
+		// std::cout << std::endl;
+		// print_ft_list("userList:", userList);
+		// std::cout << std::endl;
 
-		sysList.sort();
-		userList.sort();
+		// sysList.sort();
+		// userList.sort();
 
-		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
-		std::cout << std::endl;
-		print_ft_list("UserList:", userList);
-		std::cout << std::endl;
+		// std::cout << "*** AFTER ***" << std::endl;
+		// print_std_list(" SysList:", sysList);
+		// std::cout << std::endl;
+		// print_ft_list("UserList:", userList);
+		// std::cout << std::endl;
 
-		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
-		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
-		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
+		// testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
+		// testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
+		// testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
 
-		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
-		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
-		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
+		// testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
+		// testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
+		// testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
 
-		getchar();
+		// getchar();
 		// std::system("clear");
 	}
 

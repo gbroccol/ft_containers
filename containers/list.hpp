@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/05 19:58:20 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:04:18 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -439,101 +439,57 @@ namespace ft
 			// template <class Compare>
 			// void merge (list& x, Compare comp);
 
-
-			void		sortExtra(iterator beginX, iterator middleX, iterator endX)
+			void	swap(Node <T> *first, Node <T> *second)
 			{
-				std::cout << "-> " << *beginX << std::endl;
-				std::cout << "-> " << *middleX << std::endl;
-				std::cout << "-> " << *endX << std::endl << std::endl;
 
-				// iterator begin2  = begin;
-				// // iterator middle2 = middle; 
-				// iterator end2     = end;
+				// std::cout << "01. first " << first->data << " second " << second->data << std::endl;
+				
+				if (first == second)
+					return ;
+				
+				Node <T> *tmp = first;
 
-				while (beginX != middleX)
+				std::cout << "tmp data " << tmp->data << std::endl;
+				std::cout << "first data " << first->data << std::endl;
+				std::cout << "second data " << second->data << std::endl;
+				
+					first->next = second->next;
+					first->pre = second;
+
+					tmp->pre->next = second;
+					
+					second->next->pre = first;
+
+					second->next = first;
+					second->pre = tmp->pre;
+			}
+
+			void sort()
+			{
+				iterator it = begin();
+				it++;
+				
+				while (it != end())
 				{
-					while (*beginX < *middleX)
-					{
-						std::cout << "------------------------ BeginX (" << *beginX << ") < MiddleX(" << *middleX << ")" << std::endl;
-						beginX++;
-					}
+
+					std::cout << "pre - " << it.getpre()->data << " next - " << *it << std::endl;
+
+					// getchar();
 					
-					std::cout << std::endl << "BeginX (" << *beginX << ") > MiddleX (" << *middleX << ")" << std::endl;
-					
-					while (endX != middleX)
+					if (*it < it.getpre()->data)
 					{
-						while (*endX > *middleX)
-						{
-							std::cout << "------------------------   EndX (" << *endX << ") > MiddleX(" << *middleX << ")" << std::endl;
-							endX--;
-						}
-						
-						if (endX != middleX)
-						{
-							std::cout << std::endl << "  EndX (" << *endX << ") < MiddleX (" << *middleX << ")" << std::endl;
-							std::cout << std::endl << "CHANGE " << *endX << " AND " << *beginX << std::endl;
-							
-							ft::itemswap(beginX.getptr()->data, endX.getptr()->data);
-							beginX++;
-							endX--;			
-												
-							break ;
-						}
-						else
-						{
-							// endX++;
-							// middleX.getptr()->next->pre = beginX.getptr();
-							// middleX.getptr()->next = beginX.getptr();
-							 
+						// std::cout << "01. first " << first->data << " second " << second->data << std::endl;
 
-							
-							// beginX.getptr()->next->pre = beginX.getptr()->pre;
-							// beginX.getptr()->pre = beginX.getptr()->next->pre;
-
-							// beginX.getptr() = middleX.getptr()->next 
-							
-
-							return;
-						}
 						
-						
+						this->swap(it.getpre(), it.getptr());
+						// ft::itemswap(it.getptr()->data, it.getpre()->data); // swap nodes
+						it = begin();
+						// std::cout << "Begin " << it.getptr()->data << std::endl;
 					}
-					beginX++;
+					it++;
 				}
-				// if ()
 			}
-
-
-
-			void sort() // var1
-			{
-				int size = ((int)_Tail->data / 2);
-				iterator middle = begin();
-				while (size--)
-					middle++;
-					
-				sortExtra(begin(), middle, (end()--));
-			}
-
-
-			// void sort() // var2
-			// {
-			// 	iterator it = begin();
-			// 	++it;
-			// 	while (it != end())
-			// 	{
-			// 		if (*it < it.getpre()->data)
-			// 		{
-			// 			ft::itemswap(it.getptr()->data, it.getpre()->data); // swap nodes
-			// 			it = begin();
-			// 		}
-			// 		++it;
-			// 	}
-			// }
-
-
 			
-
 			// template <class Compare>
 			// void sort (Compare comp);
 
@@ -560,11 +516,6 @@ namespace ft
 			// size_t			_SizeList;
 
 			allocator_type	_Alloc;
-
-
-
-
-
 			
     }; 
 }
