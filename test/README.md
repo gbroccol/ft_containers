@@ -21,3 +21,6 @@ git checkout new_branch    # перейти в указанную ветку
 git checkout -b new_branch # создать новую ветку с указанным именем и перейти в неё
 
 https://github.com/nicothin/web-development/tree/master/git
+
+
+hi

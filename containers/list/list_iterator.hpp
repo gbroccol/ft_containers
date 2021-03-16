@@ -6,12 +6,12 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:57:07 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/05 18:56:33 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/16 15:22:31 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ITERATOR_HPP
-#define ITERATOR_HPP
+#ifndef LIST_ITERATOR_HPP
+#define LIST_ITERATOR_HPP
 
 #include <iostream>
 #include <string>
@@ -50,8 +50,7 @@ namespace ft
 			** -------------------------------- CONSTRUCTOR --------------------------------
 			*/
 
-			// iterator() {}
-
+			iterator() {}
 			iterator(struct Node <T> *src) {  ptr = src; }
 
 			// iterator(const iterator &src) { *this = src; }
@@ -171,7 +170,23 @@ namespace ft
 		
 		
 			
-    }; 
+    };
+
+	template <class T>
+	class const_iterator : public iterator <T>
+	{
+		public:
+		const_iterator() {}
+		const_iterator(struct Node <T> *list) { this->ptr = list; }
+		const_iterator(const const_iterator &copy) { *this = copy; }
+		const_iterator &operator=(const const_iterator &target)
+		{
+			this->ptr = target.ptr;
+			return (*this);
+		}
+		~const_iterator() {}
+		const T &operator*() { return (this->ptr->data); }
+	};
 }
 
 #endif //CONT_ITERATOR_HPP

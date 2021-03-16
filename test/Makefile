@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+         #
+#    By: ssnowbir <ssnowbir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/01 11:32:12 by gbroccol          #+#    #+#              #
-#    Updated: 2021/03/03 19:58:39 by gbroccol         ###   ########.fr        #
+#    Updated: 2021/03/11 15:40:29 by ssnowbir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME =		ft_containers
 
 CC =		clang++
 
-FLAGS =		-Wall -Werror -Wextra -std=c++98
+FLAGS =		-Wall -Werror -Wextra -g -std=c++98
 
 # HEADER = /.
 

@@ -6,27 +6,18 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/09 14:04:18 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/16 20:56:32 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONT_LIST_HPP
 #define CONT_LIST_HPP
 
+#include <iterator>
 #include <iostream>
 #include "list_iterator.hpp"
-#include "extra.hpp"
-
-#include <iterator>
-
-// #include <string>
-// #include <cassert>
-// #include <algorithm>
-
-// # include <limits>
-// # include <memory>
-// # include <cstddef>
-// # include <iostream>
+#include "list_reverse_iterator.hpp"
+#include "../extra.hpp"
 
 namespace ft 
 {
@@ -36,7 +27,10 @@ namespace ft
 		public: 
 			
 			typedef ft::iterator<T>					iterator;
-			// typedef const ft::iterator<T>			const_iterator;
+			typedef ft::const_iterator <T>			const_iterator;
+
+			typedef ft::reverse_iterator<T>			reverse_iterator;
+			typedef ft::const_reverse_iterator <T>			const_reverse_iterator;
 			
 			// typedef ft::reverse_iterator<T>			reverse_iterator;
 			// typedef const ft::reverse_iterator<T>	const_reverse_iterator;
@@ -79,27 +73,29 @@ namespace ft
 				_Node = _Tail->next;
 			}
 			
-			// template <class InputIterator>
-			// list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
-			
-			list (const list& x) : _Alloc(x._Alloc)
+			template <class InputIterator>
+			list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
+											typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0) : _Alloc(alloc)
 			{
 				_Tail = new Node <T> ();
-				
 				_Tail->next = _Tail;
 				_Tail->pre  = _Tail;
 				_Tail->data = 0;
-				
-				_Node = _Tail->next;
 
-				Node <T> *tmp = x._Tail->next;
-				for (size_t i = 0; (T)i < x._Tail->data; i++)
-				{
-					push_back(tmp->data);
-					tmp = tmp->next;
-				}
+				for ( ; first != last; first++)
+					push_back(first.getptr()->data);
+				_Node = _Tail->next;
 			}
-	
+
+			list (const list& x)
+			{
+				_Tail = new struct Node <T>;
+				_Tail->pre  = _Tail;
+				_Tail->next = _Tail;
+				*this = x;
+				return ;
+			}
+
 			/*
 			** -------------------------------- DESTRUCTOR --------------------------------
 			*/
@@ -114,16 +110,22 @@ namespace ft
 			** --------------------------------- OVERLOAD ---------------------------------
 			*/
 
-			// list &				operator=( const list & rhs )
-			// {
-			// 	//if ( this != &rhs )
-			// 	//{
-			// 		//this->_value = rhs.getValue();
-			// 	//}
-			// 	return *this;
-			// }
-
-
+			list&         operator=(const list& x)
+			{
+				_Tail->data = 0;
+				
+				struct Node <T> *list_tmp = x._Tail->next;
+				if (x._Tail->data > 0)
+				{
+					while (list_tmp != x._Tail)
+					{
+						push_back(list_tmp->data);
+						list_tmp = list_tmp->next;
+					}
+				}
+				return *this;
+			}
+			
 			/*
 			** --------------------------------- METHODS ----------------------------------
 			*/
@@ -131,22 +133,22 @@ namespace ft
 	/* Iterators */
 
 			iterator begin() { return (iterator (_Tail->next)); }
-			// const_iterator begin() const { return (iterator (_Tail->next)); }
+			const_iterator begin() const { return (const_iterator (_Tail->next)); }
 
 			iterator end() { return (iterator (_Tail)); }
-			// const_iterator end() const { return (iterator (_Tail)); }
+			const_iterator end() const { return (const_iterator (_Tail)); }
 
-			// reverse_iterator rbegin();
-			// const_reverse_iterator rbegin() const;
+			reverse_iterator rbegin() { return (reverse_iterator (_Tail->pre)); }
+			const_reverse_iterator rbegin() const { return (const_reverse_iterator (_Tail->pre)); }
 
-			// reverse_iterator rend();
-			// const_reverse_iterator rend() const;
+			reverse_iterator rend(){ return (reverse_iterator (_Tail)); } 
+			const_reverse_iterator rend() const { return (const_reverse_iterator (_Tail)); }
 
 	/* Capacity */
 
 			bool empty() const { return (_Tail->data == 0 ? true : false); }
 			size_type size() const { return (size_t)_Tail->data; }
-			// size_type max_size() const;
+			size_type max_size() const { return (std::numeric_limits<size_type>::max() / (sizeof(Node <T>))); }
 
 	/* Element access */
 
@@ -204,23 +206,50 @@ namespace ft
 				}	
 			}
 
-			void push_back (const value_type& val)
-			{
-				Node <T> *tmp = new Node <T>();
 
+			void          push_back(const T &val)
+			{
+				Node <T> * tmp = new Node< T>;          
 				tmp->data = val;
 				
-				tmp->next = _Tail;
-				tmp->pre  = _Tail->pre;
-				
-				_Tail->pre->next = tmp;
-				_Tail->pre = tmp;
-
-				_Tail->pre = tmp;
-				
-				// _SizeList++;
-				_Tail->data = ((int)_Tail->data + 1);
+				if(_Tail->data == 0)
+				{
+					_Tail->next  = tmp;
+					_Tail->pre  = tmp;
+					tmp->next = _Tail;
+					tmp->pre = _Tail;
+					_Tail->data++;
+					// _Tail->data = _list_size;
+				}
+				else
+				{
+					tmp->pre  = _Tail->pre;
+					tmp->next = _Tail;
+					_Tail->pre->next = tmp;
+					_Tail->pre = tmp;
+					_Tail->data++;
+					// _tail_lst->data = _list_size;
+				}
 			}
+
+
+			// void push_back (const value_type& val)
+			// {
+			// 	Node <T> *tmp = new Node <T>();
+
+			// 	tmp->data = val;
+				
+			// 	tmp->next = _Tail;
+			// 	tmp->pre  = _Tail->pre;
+				
+			// 	_Tail->pre->next = tmp;
+			// 	_Tail->pre = tmp;
+
+			// 	_Tail->pre = tmp;
+				
+			// 	// _SizeList++;
+			// 	_Tail->data = ((int)_Tail->data + 1);
+			// }
 
 			void pop_back()
 			{
@@ -512,9 +541,6 @@ namespace ft
 			
 			Node <T>		*_Node;
 			Node <T>		*_Tail;
-
-			// size_t			_SizeList;
-
 			allocator_type	_Alloc;
 			
     }; 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   containers_test.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssnowbir <ssnowbir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:45:56 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/05 15:06:46 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/15 17:01:00 by ssnowbir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 #include <list>
 
-#include "../containers/list.hpp"
-#include "../containers/list_iterator.hpp"
+#include "../containers/list/list.hpp"
+#include "../containers/list/list_iterator.hpp"
 
 void		list_test(void);
 // void		map_test(void);
