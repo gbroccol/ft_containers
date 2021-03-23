@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   containers_test.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssnowbir <ssnowbir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:45:56 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/15 17:01:00 by ssnowbir         ###   ########.fr       */
+/*   Updated: 2021/03/23 18:10:24 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void				testFunc(int testNmb, T sysValue, T userValue, std::string testName)
 	if (sysValue == userValue)
 	{
 		std::cout << "\x1b[32m" << "OK" << "\x1b[0m" << std::endl;
-		std::cout << std::setw(86) << "Answer: " << sysValue << std::endl;
+		// std::cout << std::setw(86) << "Answer: " << sysValue << std::endl;
 	}
 	else
 	{

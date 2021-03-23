@@ -1,13 +1,29 @@
 #include "containers_test.hpp"
 
-// struct myclass {
-//   bool operator() (int i,int j) { return (i<j);}
-// } myobject;
+struct myclass
+{
+	bool operator() (int i, int j)
+	{
+		return (i < j);
+	}
+} myobject;
 
-// bool same_integral_part (double first, double second)
-// { return ( int(first)==int(second) ); }
+// compare only integral part:
+bool mycomparison (double first, double second)
+{
+	return ( (int(first) > int(second)));
+}
 
-// bool single_digit (const int& value) { return (value<10); }
+bool same_integral_part (double first, double second)
+{
+	return ( int(first) == int(second) );
+}
+
+// a predicate implemented as a function:
+bool single_digit (const int& value)
+{
+	return (value < 10);
+}
 
 void				constructor(int testNmb, int testAll)
 {
@@ -398,7 +414,7 @@ void				modifiers(int testNmb, int testAll)
 	std::cout << std::endl << "\x1b[33m" << "                              *** MODIFIERS ***                          " << "\x1b[0m" << std::endl;
 
 
-	int			assign = 1;
+	int			assign = 0;
 	int			push_front = 0;
 	int			pop_front = 0;
 	int			push_back = 0;
@@ -451,7 +467,7 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (assign 1)");
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (assign 1)");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (assign 1)");
-		std::cout << std::endl;
+		// std::cout << std::endl;
 		getchar();
 
 		/*		assign 2		*/
@@ -478,7 +494,7 @@ void				modifiers(int testNmb, int testAll)
 		print_ft_list("User Erase:", newUserList);
 		std::cout << std::endl;
 
-		// newUserList.assign(userList.begin(), userList.end());
+		newUserList.assign(userList.begin(), userList.end());
 		newSysList.assign(sysList.begin(), sysList.end());
 
 		std::cout << "*** AFTER ***" << std::endl;
@@ -491,7 +507,7 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, newSysList.back(), newUserList.back(), "Back value is");
 		getchar();
 	
-		/*		assign 2		*/
+		/*		assign 3		*/
 		std::cout << std::endl << "\x1b[33m" << "assign3" << "\x1b[0m" << std::endl;
 		int myints[] = { 1776, 7, 4 };
 
@@ -501,7 +517,7 @@ void				modifiers(int testNmb, int testAll)
 		std::cout << std::endl;
 		
 		newSysList.assign (myints, myints + 3);
-		// newUserList.assign(myints, myints + 3);
+		newUserList.assign(myints, myints + 3);
 
 		std::cout << "*** AFTER ***" << std::endl;
 		print_std_list(" Sys assign:", newSysList);
@@ -513,6 +529,8 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, newSysList.back(), newUserList.back(), "Back value is");
 		getchar();
 	}
+
+	std::system("clear");
 
 	if (push_front || pop_front)
 	{
@@ -547,46 +565,116 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (pop_front and push_front)");
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (pop_front and push_front)");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (pop_front and push_front)");
-		std::cout << std::endl;
-	}
+		getchar();
 
-	if (push_back || pop_back)
-	{
 		/*		pop_front and push_front(one element)		*/
+		std::cout << std::endl << "\x1b[33m" << "pop_front and push_front (one element)" << "\x1b[0m" << std::endl;
 		sysList.clear();
 		userList.clear();
 
-		sysList.push_front(1);			// 1 2 3
+		sysList.push_front(1);
 		userList.push_front(1);
 
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" Sys Erase:", sysList);
+		print_ft_list("User Erase:", userList);
+		std::cout << std::endl;
+	
+		sysList.pop_front();
+		userList.pop_front();
+
+		// sysList.pop_front();
+		// userList.pop_front();
+
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" Sys Erase:", sysList);
+		print_ft_list("User Erase:", userList);
+		std::cout << std::endl;
+
+		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (pop_front and push_front(one element))");
+		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (pop_front and push_front(one element))");
+		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (pop_front and push_front(one element))");
+		getchar();
+		std::system("clear");
+	}
+
+	std::system("clear");
+
+	if (push_back || pop_back)
+	{
+		/*		pop_back and push_back		*/
+		std::cout << std::endl << "\x1b[33m" << "pop_back and push_back" << "\x1b[0m" << std::endl;
+	
+		sysList.clear();
+		userList.clear();
+
+		sysList.push_back(1);			// 1 2 3
+		userList.push_back(1);
+
+		sysList.push_back(2);			// 1 2 3
+		userList.push_back(2);
+
+		sysList.push_back(3);			// 1 2 3
+		userList.push_back(3);
 
 		// std::cout << "*** BEFORE ***" << std::endl;
 		// print_std_list(" Sys Erase:", sysList);
 		// print_ft_list("User Erase:", userList);
 		// std::cout << std::endl;
 	
-		sysList.pop_front();
-		userList.pop_front();
+		sysList.pop_back();
+		userList.pop_back();
 
 		// std::cout << "*** AFTER ***" << std::endl;
 		// print_std_list(" Sys Erase:", sysList);
 		// print_ft_list("User Erase:", userList);
 		// std::cout << std::endl;
 
-		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (pop_front and push_front(one element))");
-		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (pop_front and push_front(one element))");
-		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (pop_front and push_front(one element))");
+		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (pop_back and push_back)");
+		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (pop_back and push_back)");
+		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (pop_back and push_back)");
+		getchar();
+
+		/*		pop_back and push_back(one element)		*/
+		std::cout << std::endl << "\x1b[33m" << "pop_back and push_back (one element)" << "\x1b[0m" << std::endl;
+		sysList.clear();
+		userList.clear();
+
+		sysList.push_back(1);
+		userList.push_back(1);
+
+		// sysList.push_back(2);
+		// userList.push_back(2);
+
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" Sys Erase:", sysList);
+		print_ft_list("User Erase:", userList);
 		std::cout << std::endl;
-		
+	
+		sysList.pop_back();
+		userList.pop_back();
+
+		// sysList.pop_back();
+		// userList.pop_back();
+
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" Sys Erase:", sysList);
+		print_ft_list("User Erase:", userList);
+		std::cout << std::endl;
+
+		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (pop_back and push_back(one element))");
+		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (pop_back and push_back(one element))");
+		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (pop_back and push_back(one element))");
 		getchar();
 		std::system("clear");
 	}
 
+	std::system("clear");
+
 	if (insert)
 	{
-		std::cout << std::endl << "\x1b[33m" << "insert" << "\x1b[0m" << std::endl;
-	
     	/*		insert 1		*/
+		std::cout << std::endl << "\x1b[33m" << "insert 1" << "\x1b[0m" << std::endl;
 		sysList.clear();
 		userList.clear();
 
@@ -599,9 +687,10 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (insert 1)");
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (insert 1)");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (insert 1)");
-		std::cout << std::endl;
+		getchar();
 		
 		/*		insert 2		*/
+		std::cout << std::endl << "\x1b[33m" << "insert 2" << "\x1b[0m" << std::endl;
 		sysList.clear();
 		userList.clear();
 
@@ -616,27 +705,54 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (insert 2)");
 		std::cout << std::endl;
 		getchar();
-		// std::system("clear");
-
 
 		/*		insert 3		*/
 		std::cout << std::endl << "\x1b[33m" << "insert 3" << "\x1b[0m" << std::endl;
 		sysList.clear();
 		userList.clear();
 
-		for (int i = 0; i < 10; i++)
+		for (int i = 5; i < 10; i++)
 		{
 			sysList.push_back(i);			
 			userList.push_back(i);
 		}
 
-		std::list <int> :: iterator sysIterator1 = sysList.begin();
-		ft::list <int> :: iterator userIterator1 = userList.begin();
-		std::list <int> :: iterator sysIteratorEnd = sysList.end();
-		ft::list <int> :: iterator userIteratorEnd = userList.end();
+		sysList2.clear();
+		userList2.clear();
 
-		sysList.insert(sysList.begin(), sysIterator1, sysIteratorEnd);
-		// userList.insert(userList.begin(), userIterator1, userIteratorEnd);
+		for (int i = 111; i < 115; i++)
+		{
+			sysList2.push_back(i);			
+			userList2.push_back(i);
+		}
+
+		std::list <int> :: iterator sysIterator1 = sysList2.begin();
+		ft::list <int> :: iterator userIterator1 = userList2.begin();
+
+		std::list <int> :: iterator sysIteratorEnd = sysList2.end();
+		ft::list <int> :: iterator userIteratorEnd = userList2.end();
+
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" Sys Erase:", sysList);
+		print_ft_list("User Erase:", userList);
+		std::cout << std::endl;
+
+		std::list <int> :: iterator whereAddSys = sysList.begin();
+		ft::list <int> :: iterator whereAddUser = userList.begin();
+
+		whereAddSys++;
+		whereAddUser++;
+
+		whereAddSys++;
+		whereAddUser++;
+
+		sysList.insert(whereAddSys, sysIterator1, sysIteratorEnd);
+		userList.insert(whereAddUser, userIterator1, userIteratorEnd);
+
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" Sys Erase:", sysList);
+		print_ft_list("User Erase:", userList);
+		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (insert 2)");
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (insert 2)");
@@ -645,7 +761,9 @@ void				modifiers(int testNmb, int testAll)
 		getchar();
 		std::system("clear");
 	}
-  
+
+	std::system("clear");
+
 	if (erase)
 	{
 		std::cout << std::endl << "\x1b[33m" << "erase" << "\x1b[0m" << std::endl;
@@ -680,7 +798,7 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (erase 1)");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (erase 1)");
 		testFunc(testNmb++, *sysIterator, *userIterator, "Return value (erase 1)");
-		std::cout << std::endl;
+		getchar();
 
 		/*		erase 1.1		*/
 		sysList.clear();
@@ -706,7 +824,7 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (erase 1.1)");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (erase 1.1)");
 		testFunc(testNmb++, *sysIterator, *userIterator, "Return value (erase 1.1)");
-		std::cout << std::endl;
+		getchar();
 
 		/*		erase 2		*/
 		sysList.clear();
@@ -727,7 +845,6 @@ void				modifiers(int testNmb, int testAll)
 		// std::cout << std::endl;
 	
 		sysIterator = sysList.begin();
-
 		userIterator = userList.begin();
 	
 		sysIterator = sysList.erase(sysList.begin(), sysIterator);
@@ -742,7 +859,7 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (erase 2)");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (erase 2)");
 		testFunc(testNmb++, *sysIterator, *userIterator, "Return value (erase 2)");
-		std::cout << std::endl;
+		getchar();
 
 		/*		erase 2.0		*/
 		sysList.clear();
@@ -780,7 +897,7 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (erase 2.0)");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (erase 2.0)");
 		testFunc(testNmb++, *sysIterator, *userIterator, "Return value (erase 2.0)");
-		std::cout << std::endl;
+		getchar();
 
 		/*		erase 2.1		*/
 		sysList.clear();
@@ -820,7 +937,7 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (erase 2.1)");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (erase 2.1)");
 		testFunc(testNmb++, *sysIterator, *userIterator, "Return value (erase 2.1)");
-		std::cout << std::endl;
+		getchar();
 
 		/*		erase 2.2		*/
 		sysList.clear();
@@ -862,7 +979,7 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (erase 2.2)");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (erase 2.2)");
 		testFunc(testNmb++, *sysIterator, *userIterator, "Return value (erase 2.2)");
-		std::cout << std::endl;
+		getchar();
 
 		/*		erase 2.3		*/
 		sysList.clear();
@@ -913,6 +1030,8 @@ void				modifiers(int testNmb, int testAll)
 		getchar();
 		// std::system("clear");
 	}
+
+	std::system("clear"); 
 
 	if (swap)
 	{
@@ -982,7 +1101,9 @@ void				modifiers(int testNmb, int testAll)
 		getchar();
 		// std::system("clear");
 	}
-	
+
+	std::system("clear");
+
 	if (resize)
 	{
 		/*		resize 1		*/
@@ -1008,7 +1129,6 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (resize 1)");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (resize 1)");
 		getchar();
-		// std::system("clear");
 
 		/*		resize 2		*/
 		std::cout << std::endl << "\x1b[33m" << "resize" << "\x1b[0m" << std::endl;
@@ -1042,7 +1162,6 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (resize 2)");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (resize 2)");
 		getchar();
-		// std::system("clear");
 
 		/*		resize 3		*/
 		std::cout << std::endl << "\x1b[33m" << "resize" << "\x1b[0m" << std::endl;
@@ -1076,7 +1195,6 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (resize 3)");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (resize 3)");
 		getchar();
-		// std::system("clear");
 
 
 		/*		resize 4		*/
@@ -1111,7 +1229,6 @@ void				modifiers(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (resize 4)");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is (resize 4)");
 		getchar();
-		// std::system("clear");
 	}
 	
 }
@@ -1120,13 +1237,13 @@ void				operations(int testNmb, int testAll)
 {
 	std::cout << std::endl << "\x1b[33m" << "                              *** OPERATIONS ***" << "\x1b[0m" << std::endl;
 
-	int			splice = 1;				// +	3/3
-	int			remove = 1;				// +
-	int			removeIf = 0;			// -			template
-	int			unique = 1;				// -	1/2		template
-	int			merge = 0;				// -
-	int			sort = 1;				// 
-	int			reverse = 1;			// 
+	int			splice = 0;	
+	int			remove = 0;
+	int			removeIf = 0;
+	int			unique = 0;
+	int			merge = 0;
+	int			sort = 0;
+	int			reverse = 0;
 
 	if (testAll)
 	{
@@ -1707,8 +1824,8 @@ void				operations(int testNmb, int testAll)
 	
 	if (remove)
 	{
-		/*		remove		*/
-		std::cout << std::endl << "\x1b[33m" << "remove" << "\x1b[0m" << std::endl;
+		/*		remove 1		*/
+		std::cout << std::endl << "\x1b[33m" << "remove 1" << "\x1b[0m" << std::endl;
 
 		for (int i = -1; i <= 1; i++)
 		{
@@ -1749,155 +1866,145 @@ void				operations(int testNmb, int testAll)
 		getchar();
 		// std::system("clear");
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-	/*		remove		*/
-	std::cout << std::endl << "\x1b[33m" << "LENA remove" << "\x1b[0m" << std::endl;
+		/*		remove 1	*/
+		std::cout << std::endl << "\x1b[33m" << "LENA remove 1" << "\x1b[0m" << std::endl;
 
-	std::list <int> sysListRemove;
-	ft::list <int> userListRemove;
+		std::list <int> sysListRemove;
+		ft::list <int> userListRemove;
 
-	for (int i = 4; i <= 9; i++)
+		for (int i = 4; i <= 9; i++)
+		{
+			sysListRemove.push_back(i);
+			userListRemove.push_back(i);
+		}
+
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" SysListSplice2:", sysListRemove);
+		std::cout << std::endl;
+		print_ft_list("userListRemove:", userListRemove);
+		std::cout << std::endl;
+		sysListRemove.remove(6);
+		userListRemove.remove(6);
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" sysListRemove:", sysListRemove);
+		std::cout << std::endl;
+		print_ft_list("userListRemove:", userListRemove);
+		std::cout << std::endl;
+
+		testFunc(testNmb++,sysListRemove.size(), userListRemove.size(), "Size is (Splice 3)");
+		testFunc(testNmb++, sysListRemove.front(), userListRemove.front(), "Front value is (Splice 3)");
+		testFunc(testNmb++, sysListRemove.back(), userListRemove.back(), "Back value is (Splice 3)");
+
+		getchar();
+		std::system("clear");
+
+		/*		remove 2		*/
+		std::cout << std::endl << "\x1b[33m" << "remove 2" << "\x1b[0m" << std::endl;
+
+		sysListRemove.clear();
+		userListRemove.clear();
+
+		for (int i = 4; i <= 9; i++)
+		{
+			sysListRemove.push_back(i);
+			userListRemove.push_back(i);
+		}
+
+		sysListRemove.push_back(6);
+		userListRemove.push_back(6);
+
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" SysListSplice2:", sysListRemove);
+		std::cout << std::endl;
+		print_ft_list("userListRemove:", userListRemove);
+		std::cout << std::endl;
+		sysListRemove.remove(6);
+		userListRemove.remove(6);
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" sysListRemove:", sysListRemove);
+		std::cout << std::endl;
+		print_ft_list("userListRemove:", userListRemove);
+		std::cout << std::endl;
+
+		testFunc(testNmb++,sysListRemove.size(), userListRemove.size(), "Size is (Splice 3)");
+		testFunc(testNmb++, sysListRemove.front(), userListRemove.front(), "Front value is (Splice 3)");
+		testFunc(testNmb++, sysListRemove.back(), userListRemove.back(), "Back value is (Splice 3)");
+
+		getchar();
+		std::system("clear");
+
+		/*		remove 3		*/
+		std::cout << std::endl << "\x1b[33m" << "remove 3" << "\x1b[0m" << std::endl;
+
+		sysListRemove.clear();
+		userListRemove.clear();
+
+		for (int i = 4; i <= 9; i++)
+		{
+			sysListRemove.push_back(i);
+			userListRemove.push_back(i);
+		}
+
+		sysListRemove.push_back(10);
+		userListRemove.push_back(10);
+
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" SysListSplice2:", sysListRemove);
+		std::cout << std::endl;
+		print_ft_list("userListRemove:", userListRemove);
+		std::cout << std::endl;
+		sysListRemove.remove(6);
+		userListRemove.remove(6);
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" sysListRemove:", sysListRemove);
+		std::cout << std::endl;
+		print_ft_list("userListRemove:", userListRemove);
+		std::cout << std::endl;
+
+		testFunc(testNmb++,sysListRemove.size(), userListRemove.size(), "Size is (Splice 3)");
+		testFunc(testNmb++, sysListRemove.front(), userListRemove.front(), "Front value is (Splice 3)");
+		testFunc(testNmb++, sysListRemove.back(), userListRemove.back(), "Back value is (Splice 3)");
+
+		getchar();
+		std::system("clear");
+	}
+
+	if (removeIf)
 	{
-		sysListRemove.push_back(i);
-		userListRemove.push_back(i);
+        /*		remove_if		*/
+      std::cout << std::endl << "\x1b[33m" << "remove_if" << "\x1b[0m" << std::endl;
+
+      std::list <int> sysListRemoveIf;
+      ft::list <int> userListRemoveIf;
+
+      for (int i = 0; i <= 15; i++)
+      {
+        sysListRemoveIf.push_back(i);
+        userListRemoveIf.push_back(i);
+      }
+
+      std::cout << "*** BEFORE ***" << std::endl;
+      print_std_list("sysListRemoveIf:", sysListRemoveIf);
+      std::cout << std::endl;
+      print_ft_list("userListRemoveIf:", userListRemoveIf);
+      std::cout << std::endl;
+
+      sysListRemoveIf.remove_if(single_digit);
+      userListRemoveIf.remove_if(single_digit);
+
+      std::cout << "*** AFTER ***" << std::endl;
+      print_std_list(" sysListRemoveIf:", sysListRemoveIf);
+      std::cout << std::endl;
+      print_ft_list("userListRemoveIf:", userListRemoveIf);
+      std::cout << std::endl;
+
+      testFunc(testNmb++,sysListRemoveIf.size(), userListRemoveIf.size(), "Size is (remove_if)");
+      testFunc(testNmb++, sysListRemoveIf.front(), userListRemoveIf.front(), "Front value is (remove_if)");
+      testFunc(testNmb++, sysListRemoveIf.back(), userListRemoveIf.back(), "Back value is (remove_if)");
+
+      getchar();
+      std::system("clear");
 	}
-
-	std::cout << "*** BEFORE ***" << std::endl;
-	print_std_list(" SysListSplice2:", sysListRemove);
-	std::cout << std::endl;
-	print_ft_list("userListRemove:", userListRemove);
-	std::cout << std::endl;
-	sysListRemove.remove(6);
-	userListRemove.remove(6);
-	std::cout << "*** AFTER ***" << std::endl;
-	print_std_list(" sysListRemove:", sysListRemove);
-	std::cout << std::endl;
-	print_ft_list("userListRemove:", userListRemove);
-	std::cout << std::endl;
-
-	testFunc(testNmb++,sysListRemove.size(), userListRemove.size(), "Size is (Splice 3)");
-	testFunc(testNmb++, sysListRemove.front(), userListRemove.front(), "Front value is (Splice 3)");
-	testFunc(testNmb++, sysListRemove.back(), userListRemove.back(), "Back value is (Splice 3)");
-
-	getchar();
-	std::system("clear");
-
-	/*		remove 1		*/
-	std::cout << std::endl << "\x1b[33m" << "remove 1" << "\x1b[0m" << std::endl;
-
-	sysListRemove.clear();
-	userListRemove.clear();
-
-	for (int i = 4; i <= 9; i++)
-	{
-		sysListRemove.push_back(i);
-		userListRemove.push_back(i);
-	}
-
-	sysListRemove.push_back(6);
-	userListRemove.push_back(6);
-
-	std::cout << "*** BEFORE ***" << std::endl;
-	print_std_list(" SysListSplice2:", sysListRemove);
-	std::cout << std::endl;
-	print_ft_list("userListRemove:", userListRemove);
-	std::cout << std::endl;
-	sysListRemove.remove(6);
-	userListRemove.remove(6);
-	std::cout << "*** AFTER ***" << std::endl;
-	print_std_list(" sysListRemove:", sysListRemove);
-	std::cout << std::endl;
-	print_ft_list("userListRemove:", userListRemove);
-	std::cout << std::endl;
-
-	testFunc(testNmb++,sysListRemove.size(), userListRemove.size(), "Size is (Splice 3)");
-	testFunc(testNmb++, sysListRemove.front(), userListRemove.front(), "Front value is (Splice 3)");
-	testFunc(testNmb++, sysListRemove.back(), userListRemove.back(), "Back value is (Splice 3)");
-
-	getchar();
-	std::system("clear");
-	/*		remove 1		*/
-	std::cout << std::endl << "\x1b[33m" << "remove 1" << "\x1b[0m" << std::endl;
-
-	sysListRemove.clear();
-	userListRemove.clear();
-
-	for (int i = 4; i <= 9; i++)
-	{
-		sysListRemove.push_back(i);
-		userListRemove.push_back(i);
-	}
-
-	sysListRemove.push_back(10);
-	userListRemove.push_back(10);
-
-	std::cout << "*** BEFORE ***" << std::endl;
-	print_std_list(" SysListSplice2:", sysListRemove);
-	std::cout << std::endl;
-	print_ft_list("userListRemove:", userListRemove);
-	std::cout << std::endl;
-	sysListRemove.remove(6);
-	userListRemove.remove(6);
-	std::cout << "*** AFTER ***" << std::endl;
-	print_std_list(" sysListRemove:", sysListRemove);
-	std::cout << std::endl;
-	print_ft_list("userListRemove:", userListRemove);
-	std::cout << std::endl;
-
-	testFunc(testNmb++,sysListRemove.size(), userListRemove.size(), "Size is (Splice 3)");
-	testFunc(testNmb++, sysListRemove.front(), userListRemove.front(), "Front value is (Splice 3)");
-	testFunc(testNmb++, sysListRemove.back(), userListRemove.back(), "Back value is (Splice 3)");
-
-	getchar();
-	std::system("clear");
-
-	
-
-	}
-
-// 	if (removeIf)
-// 	{
-//         /*		remove_if		*/
-//       std::cout << std::endl << "\x1b[33m" << "remove_if" << "\x1b[0m" << std::endl;
-
-//       std::list <int> sysListRemoveIf;
-//       ft::list <int> userListRemoveIf;
-
-//       for (int i = 0; i <= 15; i++)
-//       {
-//         sysListRemoveIf.push_back(i);
-//         userListRemoveIf.push_back(i);
-//       }
-
-//       std::cout << "*** BEFORE ***" << std::endl;
-//       print_std_list("sysListRemoveIf:", sysListRemoveIf);
-//       std::cout << std::endl;
-//       print_ft_list("userListRemoveIf:", userListRemoveIf);
-//       std::cout << std::endl;
-//       sysListRemoveIf.remove_if(single_digit);
-//       userListRemoveIf.remove_if(single_digit);
-//       std::cout << "*** AFTER ***" << std::endl;
-//       print_std_list(" sysListRemoveIf:", sysListRemoveIf);
-//       std::cout << std::endl;
-//       print_ft_list("userListRemoveIf:", userListRemoveIf);
-//       std::cout << std::endl;
-
-//       testFunc(testNmb++,sysListRemoveIf.size(), userListRemoveIf.size(), "Size is (remove_if)");
-//       testFunc(testNmb++, sysListRemoveIf.front(), userListRemoveIf.front(), "Front value is (remove_if)");
-//       testFunc(testNmb++, sysListRemoveIf.back(), userListRemoveIf.back(), "Back value is (remove_if)");
-
-//       getchar();
-//       std::system("clear");
-// 	}
 
 	if (unique)
 	{
@@ -2059,7 +2166,7 @@ void				operations(int testNmb, int testAll)
 		getchar();
 		// std::system("clear");
 
-		/*		unique		*/
+		/*		unique	5	*/
 		std::cout << std::endl << "\x1b[33m" << "unique 5" << "\x1b[0m" << std::endl;
 
 		sysList.clear();
@@ -2095,10 +2202,10 @@ void				operations(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is ");
 
 		getchar();
-		// std::system("clear");
+		std::system("clear");
     
-		/*		unique		*/
-		std::cout << std::endl << "\x1b[33m" << "unique 1" << "\x1b[0m" << std::endl;
+		/*		unique	6	*/
+		std::cout << std::endl << "\x1b[33m" << "unique 6" << "\x1b[0m" << std::endl;
 
 		std::list <int> sysListUnique;
 		ft::list <int> userListUnique;
@@ -2112,13 +2219,17 @@ void				operations(int testNmb, int testAll)
 		userListUnique.push_back(9);
 		sysListUnique.push_back(9);
 		userListUnique.push_back(9);
+
 		std::cout << "*** BEFORE ***" << std::endl;
 		print_std_list(" sysListUnique:", sysListUnique);
 		std::cout << std::endl;
+
 		print_ft_list("userListUnique:", userListUnique);
 		std::cout << std::endl;
+
 		sysListUnique.unique();
 		userListUnique.unique();
+
 		std::cout << "*** AFTER ***" << std::endl;
 		print_std_list(" sysListUnique:", sysListUnique);
 		std::cout << std::endl;
@@ -2132,63 +2243,76 @@ void				operations(int testNmb, int testAll)
 		getchar();
 		std::system("clear");
 
-		/*		unique	2	*/
-		// std::cout << std::endl << "\x1b[33m" << "unique 2" << "\x1b[0m" << std::endl;
+		/*		unique	7	*/
+		std::cout << std::endl << "\x1b[33m" << "unique 7" << "\x1b[0m" << std::endl;
 
-		// sysListUnique.clear();
-		// userListUnique.clear();
+		sysListUnique.clear();
+		userListUnique.clear();
 
-		// for (int i = 4; i <= 9; i++)
-		// {
-		// 	sysListUnique.push_back(i);
-		// 	userListUnique.push_back(i);
-		// }
-		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" sysListUnique:", sysListUnique);
-		// std::cout << std::endl;
-		// print_ft_list("userListUnique:", userListUnique);
-		// std::cout << std::endl;
-		// sysListUnique.unique();
-		// userListUnique.unique();
-		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" sysListUnique:", sysListUnique);
-		// std::cout << std::endl;
-		// print_ft_list("userListUnique:", userListUnique);
-		// std::cout << std::endl;
+		for (int i = 4; i <= 9; i++)
+		{
+			sysListUnique.push_back(i);
+			userListUnique.push_back(i);
+		}
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" sysListUnique:", sysListUnique);
+		std::cout << std::endl;
+		print_ft_list("userListUnique:", userListUnique);
+		std::cout << std::endl;
 
-		// testFunc(testNmb++,sysListUnique.size(), userListUnique.size(), "Size is (Splice 3)");
-		// testFunc(testNmb++, sysListUnique.front(), userListUnique.front(), "Front value is (Splice 3)");
-		// testFunc(testNmb++, sysListUnique.back(), userListUnique.back(), "Back value is (Splice 3)");
+		sysListUnique.unique();
+		userListUnique.unique();
 
-		// std::cout << std::endl << "\x1b[33m" << "unique 3" << "\x1b[0m" << std::endl;
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" sysListUnique:", sysListUnique);
+		std::cout << std::endl;
+		print_ft_list("userListUnique:", userListUnique);
+		std::cout << std::endl;
 
-		// sysListUnique.clear();
-		// userListUnique.clear();
+		testFunc(testNmb++,sysListUnique.size(), userListUnique.size(), "Size is (Splice 3)");
+		testFunc(testNmb++, sysListUnique.front(), userListUnique.front(), "Front value is (Splice 3)");
+		testFunc(testNmb++, sysListUnique.back(), userListUnique.back(), "Back value is (Splice 3)");
 
-		// for (int i = 4; i <= 9; i++)
-		// {
-		// 	sysListUnique.push_back(i);
-		// 	userListUnique.push_back(i);
-		// }
-		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" sysListUnique:", sysListUnique);
-		// std::cout << std::endl;
-		// print_ft_list("userListUnique:", userListUnique);
-		// std::cout << std::endl;
-		// sysListUnique.unique(same_integral_part);
-		// userListUnique.unique(same_integral_part);
-		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" sysListUnique:", sysListUnique);
-		// std::cout << std::endl;
-		// print_ft_list("userListUnique:", userListUnique);
-		// std::cout << std::endl;
 
-		// testFunc(testNmb++,sysListUnique.size(), userListUnique.size(), "Size is (Splice 3)");
-		// testFunc(testNmb++, sysListUnique.front(), userListUnique.front(), "Front value is (Splice 3)");
-		// testFunc(testNmb++, sysListUnique.back(), userListUnique.back(), "Back value is (Splice 3)");
+		/*		unique	8	*/
+		std::cout << std::endl << "\x1b[33m" << "unique 8" << "\x1b[0m" << std::endl;
 
-		// getchar();
-		// std::system("clear");
+		sysListUnique.clear();
+		userListUnique.clear();
+
+		for (int i = 4; i <= 9; i++)
+		{
+			sysListUnique.push_back(i);
+			userListUnique.push_back(i);
+
+			sysListUnique.push_back(i);
+			userListUnique.push_back(i);
+		}
+
+		sysListUnique.push_back(7);
+		userListUnique.push_back(7);
+
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" sysListUnique:", sysListUnique);
+		std::cout << std::endl;
+		print_ft_list("userListUnique:", userListUnique);
+		std::cout << std::endl;
+
+		sysListUnique.unique(same_integral_part);
+		userListUnique.unique(same_integral_part);
+
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" sysListUnique:", sysListUnique);
+		std::cout << std::endl;
+		print_ft_list("userListUnique:", userListUnique);
+		std::cout << std::endl;
+
+		testFunc(testNmb++,sysListUnique.size(), userListUnique.size(), "Size is (Splice 3)");
+		testFunc(testNmb++, sysListUnique.front(), userListUnique.front(), "Front value is (Splice 3)");
+		testFunc(testNmb++, sysListUnique.back(), userListUnique.back(), "Back value is (Splice 3)");
+
+		getchar();
+		std::system("clear");
 	}
 
 	if (merge)
@@ -2216,7 +2340,6 @@ void				operations(int testNmb, int testAll)
 
 		std::cout << "*** AFTER ***" << std::endl;
 		print_std_list(" SysList:", sysList);
-		std::cout << std::endl;
 		print_ft_list("UserList:", userList);
 		std::cout << std::endl;
 
@@ -2231,7 +2354,7 @@ void				operations(int testNmb, int testAll)
 		getchar();
 		// std::system("clear");
 
-		/*		merge		*/
+		/*		merge 2		*/
 		std::cout << std::endl << "\x1b[33m" << "merge 2" << "\x1b[0m" << std::endl;
 
 		sysList.clear();
@@ -2264,11 +2387,8 @@ void				operations(int testNmb, int testAll)
 		userList.merge(userList2);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysList:", sysList);
-		print_std_list(" sysList:", sysList2);
-		std::cout << std::endl;
-		print_ft_list("userList:", userList);
-		print_ft_list("userList:", userList2);
+		print_std_list(" SysList:", sysList);
+		print_ft_list("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2282,7 +2402,7 @@ void				operations(int testNmb, int testAll)
 		getchar();
 		// std::system("clear");
 
-		/*		merge		*/
+		/*		merge 3		*/
 		std::cout << std::endl << "\x1b[33m" << "merge 3" << "\x1b[0m" << std::endl;
 
 		sysList.clear();
@@ -2311,14 +2431,10 @@ void				operations(int testNmb, int testAll)
 
 		sysList.merge(sysList2);
 		userList.merge(userList2);
-		// userList.unique();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysList:", sysList);
-		print_std_list(" sysList:", sysList2);
-		std::cout << std::endl;
-		print_ft_list("userList:", userList);
-		print_ft_list("userList:", userList2);
+		print_std_list(" SysList:", sysList);
+		print_ft_list("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2365,11 +2481,8 @@ void				operations(int testNmb, int testAll)
 		userList.merge(userList2);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysList:", sysList);
-		print_std_list(" sysList:", sysList2);
-		std::cout << std::endl;
-		print_ft_list("userList:", userList);
-		print_ft_list("userList:", userList2);
+		print_std_list(" SysList:", sysList);
+		print_ft_list("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2383,8 +2496,8 @@ void				operations(int testNmb, int testAll)
 		getchar();
 		// std::system("clear");
     
-		/*		merge	1	*/
-		std::cout << std::endl << "\x1b[33m" << "LENA merge 1" << "\x1b[0m" << std::endl;
+		/*		merge	5	*/
+		std::cout << std::endl << "\x1b[33m" << "LENA merge 5" << "\x1b[0m" << std::endl;
 
 		std::list <int> sysListMerge;
 		std::list <int> sysListMerge2;
@@ -2407,17 +2520,17 @@ void				operations(int testNmb, int testAll)
 		print_std_list(" sysListMerge:", sysListMerge);
 		print_std_list(" sysListMerge2:", sysListMerge2);
 		std::cout << std::endl;
+
 		print_ft_list("userListMerge:", userListMerge);
 		print_ft_list(" userListMerge2:", userListMerge2);
 		std::cout << std::endl;
+
 		sysListMerge.merge(sysListMerge2);
 		userListMerge.merge(userListMerge2);
+
 		std::cout << "*** AFTER ***" << std::endl;
 		print_std_list(" sysListMerge:", sysListMerge);
-		// print_std_list(" sysListMerge2:", sysListMerge2);
-		std::cout << std::endl;
 		print_ft_list("userListMerge:", userListMerge);
-		// print_std_list(" userListMerge2:", userListMerge2);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListMerge.size(), userListMerge.size(), "Size is (Merge)");
@@ -2427,8 +2540,8 @@ void				operations(int testNmb, int testAll)
 		getchar();
 		std::system("clear");
 
-		/*		merge	2	*/
-		std::cout << std::endl << "\x1b[33m" << "merge 2" << "\x1b[0m" << std::endl;
+		/*		merge 6			*/
+		std::cout << std::endl << "\x1b[33m" << "merge 6" << "\x1b[0m" << std::endl;
 
 		sysListMerge.clear();
 		sysListMerge2.clear();
@@ -2463,17 +2576,17 @@ void				operations(int testNmb, int testAll)
 		print_std_list(" sysListMerge:", sysListMerge);
 		print_std_list(" sysListMerge2:", sysListMerge2);
 		std::cout << std::endl;
+
 		print_ft_list("userListMerge:", userListMerge);
 		print_ft_list(" userListMerge2:", userListMerge2);
 		std::cout << std::endl;
+
 		sysListMerge.merge(sysListMerge2);
 		userListMerge.merge(userListMerge2);
+
 		std::cout << "*** AFTER ***" << std::endl;
 		print_std_list(" sysListMerge:", sysListMerge);
-		// print_std_list(" sysListMerge2:", userListMerge2);
-		std::cout << std::endl;
 		print_ft_list("userListMerge:", userListMerge);
-		// print_std_list(" userListMerge2:", userListMerge2);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListMerge.size(), userListMerge.size(), "Size is (Merge)");
@@ -2481,11 +2594,10 @@ void				operations(int testNmb, int testAll)
 		testFunc(testNmb++, sysListMerge.back(), userListMerge.back(), "Back value is (Merge)");
 
 		getchar();
-		std::system("clear");
-
+		// std::system("clear");
 
 		/*		merge	3	*/
-		std::cout << std::endl << "\x1b[33m" << "merge 3" << "\x1b[0m" << std::endl;
+		std::cout << std::endl << "\x1b[33m" << "merge 7" << "\x1b[0m" << std::endl;
 
 		sysListMerge.clear();
 		sysListMerge2.clear();
@@ -2493,460 +2605,550 @@ void				operations(int testNmb, int testAll)
 		userListMerge2.clear();
 
 		for (int i = 0; i <= 4; i++)
+		{
 			sysListMerge.push_back(i);
-
-		for (int i =5 ; i <= 9; i++)
-			sysListMerge2.push_back(i);
-		
-		for (int i = 0; i <= 4; i++)
 			userListMerge.push_back(i);
+		}
 
-		for (int i = 5; i <= 9; i++)
+		for (int i = 5 ; i <= 9; i++)
+		{
+			sysListMerge2.push_back(i);
 			userListMerge2.push_back(i);
+		}
+			
+		sysListMerge2.push_back(9);
+		userListMerge2.push_back(9);
 		
 		std::cout << "*** BEFORE ***" << std::endl;
 		print_std_list(" sysListMerge:", sysListMerge);
 		print_std_list(" sysListMerge2:", sysListMerge2);
 		std::cout << std::endl;
+
 		print_ft_list("userListMerge:", userListMerge);
 		print_ft_list(" userListMerge2:", userListMerge2);
 		std::cout << std::endl;
+
 		sysListMerge2.merge(sysListMerge);
 		userListMerge2.merge(userListMerge);
+		
 		std::cout << "*** AFTER ***" << std::endl;
 		print_std_list(" sysListMerge:", sysListMerge);
-		std::cout << std::endl;
 		print_ft_list("userListMerge:", userListMerge);
 		std::cout << std::endl;
+		print_std_list(" sysListMerge:", sysListMerge2);
+		print_ft_list("userListMerge:", userListMerge2);
+		std::cout << std::endl;
+
 
 		testFunc(testNmb++,sysListMerge.size(), userListMerge.size(), "Size is (Merge)");
 		testFunc(testNmb++, sysListMerge.front(), userListMerge.front(), "Front value is (Merge)");
 		testFunc(testNmb++, sysListMerge.back(), userListMerge.back(), "Back value is (Merge)");
 		getchar();
-		std::system("clear");
+		// std::system("clear");
 
-		/*		merge	4	*/
-		// std::cout << std::endl << "\x1b[33m" << "merge 4" << "\x1b[0m" << std::endl;
+		/*		merge	8	*/
+		std::cout << std::endl << "\x1b[33m" << "merge 8" << "\x1b[0m" << std::endl;
 
-		// sysListMerge.clear();
-		//  sysListMerge2.clear();
-		//  userListMerge.clear();
-		//   userListMerge2.clear();
+		sysListMerge.clear();
+		 sysListMerge2.clear();
+		 userListMerge.clear();
+		  userListMerge2.clear();
 
-		// for (int i = 0; i <= 4; i++)
-		// 	sysListMerge.push_back(i);
+		for (int i = 0; i <= 4; i++)
+		{
+			sysListMerge.push_back(i);
+			userListMerge.push_back(i);
+		}
 
-		// for (int i =5 ; i <= 9; i++)
-		// 	sysListMerge2.push_back(i);
+		for (int i = 5 ; i <= 9; i++)
+		{
+			sysListMerge2.push_back(i);
+			userListMerge2.push_back(i);
+		}
 		
-		// for (int i = 0; i <= 4; i++)
-		// 	userListMerge.push_back(i);
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" sysListMerge:", sysListMerge);
+		print_std_list(" sysListMerge2:", sysListMerge2);
+		std::cout << std::endl;
 
-		// for (int i = 5; i <= 9; i++)
-		// 	 userListMerge2.push_back(i);
+		print_ft_list("userListMerge:", userListMerge);
+		print_ft_list(" userListMerge2:", userListMerge2);
+		std::cout << std::endl;
+
+		sysListMerge2.merge(sysListMerge, myobject);
+		userListMerge2.merge(userListMerge, myobject);
+
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" sysListMerge:", sysListMerge2);
+		print_ft_list("userListMerge:", userListMerge2);
+		std::cout << std::endl;
+		print_std_list(" sysListMerge:", sysListMerge);
+		print_ft_list("userListMerge:", userListMerge);
+		std::cout << std::endl;
+
+		testFunc(testNmb++,sysListMerge2.size(), userListMerge2.size(), "Size is (Merge)");
+		testFunc(testNmb++, sysListMerge2.front(), userListMerge2.front(), "Front value is (Merge)");
+		testFunc(testNmb++, sysListMerge2.back(), userListMerge2.back(), "Back value is (Merge)");
+
+		getchar();
+		// std::system("clear");
+
+		/*		merge	9	*/
+		std::cout << std::endl << "\x1b[33m" << "merge 9" << "\x1b[0m" << std::endl;
+
+		sysListMerge.clear();
+		 sysListMerge2.clear();
+		 userListMerge.clear();
+		  userListMerge2.clear();
+
+		for (int i = 0; i <= 4; i++)
+		{
+			sysListMerge.push_back(i);
+			userListMerge.push_back(i);
+		}
+
+		for (int i = 5 ; i <= 9; i++)
+		{
+			sysListMerge2.push_back(i);
+			userListMerge2.push_back(i);
+		}
+
+		for (int i = -3 ; i <= 10; i++)
+		{
+			sysListMerge2.push_back(i);
+			userListMerge2.push_back(i);
+		}
 		
-		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" sysListMerge:", sysListMerge);
-		// print_std_list(" sysListMerge2:", sysListMerge2);
-		// std::cout << std::endl;
-		// print_ft_list("userListMerge:",  userListMerge);
-		// print_ft_list(" userListMerge2:",  userListMerge2);
-		// std::cout << std::endl;
-		// sysListMerge2.merge(sysListMerge, myobject);
-		// userListMerge2.merge(userListMerge, myobject);
-		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" sysListMerge:", sysListMerge2);
-		// std::cout << std::endl;
-		// print_ft_list("userListMerge:", userListMerge2);
-		// std::cout << std::endl;
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" sysListMerge:", sysListMerge);
+		print_std_list(" sysListMerge2:", sysListMerge2);
+		std::cout << std::endl;
 
-		// testFunc(testNmb++,sysListMerge2.size(), userListMerge2.size(), "Size is (Merge)");
-		// testFunc(testNmb++, sysListMerge2.front(), userListMerge2.front(), "Front value is (Merge)");
-		// testFunc(testNmb++, sysListMerge2.back(), userListMerge2.back(), "Back value is (Merge)");
+		print_ft_list("userListMerge:", userListMerge);
+		print_ft_list(" userListMerge2:", userListMerge2);
+		std::cout << std::endl;
 
+		sysListMerge2.merge(sysListMerge, mycomparison);
+		userListMerge2.merge(userListMerge, mycomparison);
+
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" sysListMerge:", sysListMerge2);
+		print_ft_list("userListMerge:", userListMerge2);
+		std::cout << std::endl;
+		print_std_list(" sysListMerge:", sysListMerge);
+		print_ft_list("userListMerge:", userListMerge);
+		std::cout << std::endl;
+
+		testFunc(testNmb++,sysListMerge2.size(), userListMerge2.size(), "Size is (Merge)");
+		testFunc(testNmb++, sysListMerge2.front(), userListMerge2.front(), "Front value is (Merge)");
+		testFunc(testNmb++, sysListMerge2.back(), userListMerge2.back(), "Back value is (Merge)");
+
+		getchar();
+		// std::system("clear");
+	}
+
+	if (sort)
+	{
+		/*		sort 1		*/
+		std::cout << std::endl << "\x1b[33m" << "sort 1" << "\x1b[0m" << std::endl;
+
+		sysList.clear();
+		userList.clear();
+
+		for (int i = 1; i <= 5; i++)
+		{
+			sysList.push_back(i);
+			userList.push_back(i);
+		}
+
+		sysList.push_back(100);
+		userList.push_back(100);
+
+		sysList.push_back(99);
+		userList.push_back(99);
+
+		for (int i = 105; i <= 110; i++)
+		{
+			sysList.push_back(i);
+			userList.push_back(i);
+		}
+
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" sysList:", sysList);
+		std::cout << std::endl;
+		print_ft_list("userList:", userList);
+		std::cout << std::endl;
+
+		sysList.sort();
+		userList.sort();
+
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" SysList:", sysList);
+		std::cout << std::endl;
+		print_ft_list("UserList:", userList);
+		std::cout << std::endl;
+
+		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
+		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
+		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
+
+		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
+		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
+		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
+
+		getchar();
+		// std::system("clear");
+    
+    	/*		sort 2		*/
+		std::cout << std::endl << "\x1b[33m" << "sort 2" << "\x1b[0m" << std::endl;
+
+		sysList.clear();
+		userList.clear();
+
+		sysList.push_back(5);
+		userList.push_back(5);
+
+		sysList.push_back(2);
+		userList.push_back(2);
+
+		sysList.push_back(100);
+		userList.push_back(100);
+
+		sysList.push_back(30);
+		userList.push_back(30);
+
+		sysList.push_back(10);
+		userList.push_back(10);
+
+		sysList.push_back(1);
+		userList.push_back(1);
 		
+		sysList.push_back(6);
+		userList.push_back(6);
+
+		sysList.push_back(150);
+		userList.push_back(150);
+
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" sysList:", sysList);
+		std::cout << std::endl;
+		print_ft_list("userList:", userList);
+		std::cout << std::endl;
+
+		sysList.sort();
+		userList.sort();
+
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" SysList:", sysList);
+		std::cout << std::endl;
+		print_ft_list("UserList:", userList);
+		std::cout << std::endl;
+
+		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
+		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
+		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
+
+		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
+		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
+		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
+
+		getchar();
+		// std::system("clear");
+    
+		/*		sort 3		*/
+		std::cout << std::endl << "\x1b[33m" << "LENA sort 3" << "\x1b[0m" << std::endl;
+		std::list <int> sysListSort;
+		ft::list <int> userListSort;
+		
+		sysListSort.push_back(4);
+		sysListSort.push_back(-5);
+		sysListSort.push_back(0);
+		sysListSort.push_back(45);
+		sysListSort.push_back(-50);
+		sysListSort.push_back(11);
+		sysListSort.push_back(0);
+		sysListSort.push_back(3);
+		sysListSort.push_back(10);
+		sysListSort.push_back(-23);   // 4 -5 0 45 -50 11 0 3 10 -23
+
+		userListSort.push_back(4);
+		userListSort.push_back(-5);
+		userListSort.push_back(0);
+		userListSort.push_back(45);
+		userListSort.push_back(-50);
+		userListSort.push_back(11);
+		userListSort.push_back(0);
+		userListSort.push_back(3);
+		userListSort.push_back(10);
+		userListSort.push_back(-23);   // 4 -5 0 45 -50 11 0 3 10 -23
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" sysListSort:", sysListSort);
+		std::cout << std::endl;
+		print_ft_list("userListSort:", userListSort);
+		std::cout << std::endl;
+		sysListSort.sort();
+		userListSort.sort();
+
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" sysListSort:", sysListSort);
+		std::cout << std::endl;
+		print_ft_list("userListSort:", userListSort);
+		std::cout << std::endl;
+
+		testFunc(testNmb++,sysListSort.size(), userListSort.size(), "Size is (sort)");
+		testFunc(testNmb++, sysListSort.front(),userListSort.front(), "Front value is (sort)");
+		testFunc(testNmb++, sysListSort.back(), userListSort.back(), "Back value is (sort)");
+
+		getchar();
+
+		/*		sort 3		*/
+		std::cout << std::endl << "\x1b[33m" << "sort 4 (compare)" << "\x1b[0m" << std::endl;		
+		std::list <int> sysListSortComp;
+		ft::list <int> userListSortComp;
+		
+		sysListSortComp.push_back(4);
+		sysListSortComp.push_back(-5);
+		sysListSortComp.push_back(0);
+		sysListSortComp.push_back(45);
+		sysListSortComp.push_back(-50);
+		sysListSortComp.push_back(11);
+		sysListSortComp.push_back(0);
+		sysListSortComp.push_back(3);
+		sysListSortComp.push_back(10);
+		sysListSortComp.push_back(-23);   // 4 -5 0 45 -50 11 0 3 10 -23
+
+		userListSortComp.push_back(4);
+		userListSortComp.push_back(-5);
+		userListSortComp.push_back(0);
+		userListSortComp.push_back(45);
+		userListSortComp.push_back(-50);
+		userListSortComp.push_back(11);
+		userListSortComp.push_back(0);
+		userListSortComp.push_back(3);
+		userListSortComp.push_back(10);
+		userListSortComp.push_back(-23);   // 4 -5 0 45 -50 11 0 3 10 -23
+
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" sysListSortComp:", sysListSortComp);
+		print_ft_list("userListSort:Comp", userListSortComp);
+		std::cout << std::endl;
+
+		sysListSortComp.sort(myobject);
+		userListSortComp.sort(myobject);
+
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" sysListSortComp:", sysListSortComp);
+		print_ft_list("userListSortComp:", userListSortComp);
+		std::cout << std::endl;
+
+		testFunc(testNmb++,sysListSortComp.size(), userListSortComp.size(), "Size is (sort)");
+		testFunc(testNmb++, sysListSortComp.front(),userListSortComp.front(), "Front value is (sort)");
+		testFunc(testNmb++, sysListSortComp.back(), userListSortComp.back(), "Back value is (sort)");
+
+		getchar();
+  }
+
+    if (reverse)
+	{
+		/*		reverse		*/
+		std::cout << std::endl << "\x1b[33m" << "reverse 1" << "\x1b[0m" << std::endl;
+
+		std::list <int> sysListReverse;
+		ft::list <int> userListReverse;
+
+		for (int i = 4; i <= 9; i++)
+		{
+			sysListReverse.push_back(i);
+			userListReverse.push_back(i);
+		}
+
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" sysListReverse:", sysListReverse);
+		print_ft_list("userListReverse:", userListReverse);
+		std::cout << std::endl;
+
+		sysListReverse.reverse();
+		userListReverse.reverse();
+
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" sysListReverse:", sysListReverse);
+		print_ft_list("userListReverse:", userListReverse);
+		std::cout << std::endl;
+
+		testFunc(testNmb++,sysListReverse.size(), userListReverse.size(), "Size is (Reverse)");
+		testFunc(testNmb++, sysListReverse.front(), userListReverse.front(), "Front value is (Reverse)");
+		testFunc(testNmb++, sysListReverse.back(), userListReverse.back(), "Back value is (Reverse)");
 
 		getchar();
 		std::system("clear");
-	}
 
-// 	if (sort)
-// 	{
-// 		/*		sort		*/
-// 		// std::cout << std::endl << "\x1b[33m" << "sort 1" << "\x1b[0m" << std::endl;
+		/*		reverse	2	*/
+		std::cout << std::endl << "\x1b[33m" << "reverse 2" << "\x1b[0m" << std::endl;
 
-// 		// sysList.clear();
-// 		// userList.clear();
+		sysListReverse.clear();
+		userListReverse.clear();
 
-// 		// for (int i = 1; i <= 5; i++)
-// 		// {
-// 		// 	sysList.push_back(i);
-// 		// 	userList.push_back(i);
-// 		// }
+		for (int i = 4; i <= 9; i++)
+		{
+			sysListReverse.push_back(4);
+			userListReverse.push_back(4);
+		}
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" sysListReverse:", sysListReverse);
+		print_ft_list("userListReverse:", userListReverse);
+		std::cout << std::endl;
 
-// 		// sysList.push_back(100);
-// 		// userList.push_back(100);
+		sysListReverse.reverse();
+		userListReverse.reverse();
 
-// 		// sysList.push_back(99);
-// 		// userList.push_back(99);
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" sysListReverse:", sysListReverse);
+		print_ft_list("userListReverse:", userListReverse);
+		std::cout << std::endl;
 
-// 		// for (int i = 105; i <= 110; i++)
-// 		// {
-// 		// 	sysList.push_back(i);
-// 		// 	userList.push_back(i);
-// 		// }
+		testFunc(testNmb++,sysListReverse.size(), userListReverse.size(), "Size is (Reverse)");
+		testFunc(testNmb++, sysListReverse.front(), userListReverse.front(), "Front value is (Reverse)");
+		testFunc(testNmb++, sysListReverse.back(), userListReverse.back(), "Back value is (Reverse)");
 
-// 		// std::cout << "*** BEFORE ***" << std::endl;
-// 		// print_std_list(" sysList:", sysList);
-// 		// std::cout << std::endl;
-// 		// print_ft_list("userList:", userList);
-// 		// std::cout << std::endl;
+		getchar();
+		// std::system("clear");
 
-// 		// sysList.sort();
-// 		// userList.sort();
+		/*		reverse	3	*/
+		std::cout << std::endl << "\x1b[33m" << "reverse 3" << "\x1b[0m" << std::endl;
 
-// 		// std::cout << "*** AFTER ***" << std::endl;
-// 		// print_std_list(" SysList:", sysList);
-// 		// std::cout << std::endl;
-// 		// print_ft_list("UserList:", userList);
-// 		// std::cout << std::endl;
+		sysListReverse.clear();
+		userListReverse.clear();
 
-// 		// testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
-// 		// testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
-// 		// testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
+		for (int i = 4; i < 5; i++)
+		{
+			sysListReverse.push_back(4);
+			userListReverse.push_back(4);
+		}
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" sysListReverse:", sysListReverse);
+		print_ft_list("userListReverse:", userListReverse);
+		std::cout << std::endl;
 
-// 		// testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
-// 		// testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
-// 		// testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
+		sysListReverse.reverse();
+		userListReverse.reverse();
 
-// 		// getchar();
-// 		// std::system("clear");
-    
-//     /*		sort		*/
-// 		// std::cout << std::endl << "\x1b[33m" << "sort 2" << "\x1b[0m" << std::endl;
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" sysListReverse:", sysListReverse);
+		print_ft_list("userListReverse:", userListReverse);
+		std::cout << std::endl;
 
-// 		// sysList.clear();
-// 		// userList.clear();
+		testFunc(testNmb++,sysListReverse.size(), userListReverse.size(), "Size is (Reverse)");
+		testFunc(testNmb++, sysListReverse.front(), userListReverse.front(), "Front value is (Reverse)");
+		testFunc(testNmb++, sysListReverse.back(), userListReverse.back(), "Back value is (Reverse)");
 
-// 		// sysList.push_back(5);
-// 		// userList.push_back(5);
-
-// 		// sysList.push_back(2);
-// 		// userList.push_back(2);
-
-// 		// sysList.push_back(100);
-// 		// userList.push_back(100);
-
-// 		// sysList.push_back(30);
-// 		// userList.push_back(30);
-
-// 		// sysList.push_back(10);
-// 		// userList.push_back(10);
-
-// 		// sysList.push_back(1);
-// 		// userList.push_back(1);
-		
-// 		// sysList.push_back(6);
-// 		// userList.push_back(6);
-
-// 		// sysList.push_back(150);
-// 		// userList.push_back(150);
-
-// 		// std::cout << "*** BEFORE ***" << std::endl;
-// 		// print_std_list(" sysList:", sysList);
-// 		// std::cout << std::endl;
-// 		// print_ft_list("userList:", userList);
-// 		// std::cout << std::endl;
-
-// 		// sysList.sort();
-// 		// userList.sort();
-
-// 		// std::cout << "*** AFTER ***" << std::endl;
-// 		// print_std_list(" SysList:", sysList);
-// 		// std::cout << std::endl;
-// 		// print_ft_list("UserList:", userList);
-// 		// std::cout << std::endl;
-
-// 		// testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
-// 		// testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
-// 		// testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
-
-// 		// testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
-// 		// testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
-// 		// testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
-
-// 		// getchar();
-// 		// std::system("clear");
-    
-    
-//     /*		sort		*/
-// 	std::cout << std::endl << "\x1b[33m" << "LENA sort" << "\x1b[0m" << std::endl;
-// 	std::list <int> sysListSort;
-// 	ft::list <int> userListSort;
-	
-// 	sysListSort.push_back(4);
-// 	sysListSort.push_back(-5);
-// 	sysListSort.push_back(0);
-// 	sysListSort.push_back(45);
-// 	sysListSort.push_back(-50);
-// 	sysListSort.push_back(11);
-// 	sysListSort.push_back(0);
-// 	sysListSort.push_back(3);
-// 	sysListSort.push_back(10);
-// 	sysListSort.push_back(-23);   // 4 -5 0 45 -50 11 0 3 10 -23
-
-// 	userListSort.push_back(4);
-// 	userListSort.push_back(-5);
-// 	userListSort.push_back(0);
-// 	userListSort.push_back(45);
-// 	userListSort.push_back(-50);
-// 	userListSort.push_back(11);
-// 	userListSort.push_back(0);
-// 	userListSort.push_back(3);
-// 	userListSort.push_back(10);
-// 	userListSort.push_back(-23);   // 4 -5 0 45 -50 11 0 3 10 -23
-// 	std::cout << "*** BEFORE ***" << std::endl;
-// 	print_std_list(" sysListSort:", sysListSort);
-// 	std::cout << std::endl;
-// 	print_ft_list("userListSort:", userListSort);
-// 	std::cout << std::endl;
-// 	sysListSort.sort();
-// 	userListSort.sort();
-
-// 	std::cout << "*** AFTER ***" << std::endl;
-// 	print_std_list(" sysListSort:", sysListSort);
-// 	std::cout << std::endl;
-// 	print_ft_list("userListSort:", userListSort);
-// 	std::cout << std::endl;
-
-// 	testFunc(testNmb++,sysListSort.size(), userListSort.size(), "Size is (sort)");
-// 	testFunc(testNmb++, sysListSort.front(),userListSort.front(), "Front value is (sort)");
-// 	testFunc(testNmb++, sysListSort.back(), userListSort.back(), "Back value is (sort)");
-
-// 	getchar();
-// 	std::system("clear");
-
-// 		std::cout << std::endl << "\x1b[33m" << "sort compare" << "\x1b[0m" << std::endl;
-
-
-
-	
-// 	std::list <int> sysListSortComp;
-// 	ft::list <int> userListSortComp;
-	
-// 	sysListSortComp.push_back(4);
-// 	sysListSortComp.push_back(-5);
-// 	sysListSortComp.push_back(0);
-// 	sysListSortComp.push_back(45);
-// 	sysListSortComp.push_back(-50);
-// 	sysListSortComp.push_back(11);
-// 	sysListSortComp.push_back(0);
-// 	sysListSortComp.push_back(3);
-// 	sysListSortComp.push_back(10);
-// 	sysListSortComp.push_back(-23);   // 4 -5 0 45 -50 11 0 3 10 -23
-
-// 	userListSortComp.push_back(4);
-// 	userListSortComp.push_back(-5);
-// 	userListSortComp.push_back(0);
-// 	userListSortComp.push_back(45);
-// 	userListSortComp.push_back(-50);
-// 	userListSortComp.push_back(11);
-// 	userListSortComp.push_back(0);
-// 	userListSortComp.push_back(3);
-// 	userListSortComp.push_back(10);
-// 	userListSortComp.push_back(-23);   // 4 -5 0 45 -50 11 0 3 10 -23
-// 	std::cout << "*** BEFORE ***" << std::endl;
-// 	print_std_list(" sysListSortComp:", sysListSortComp);
-// 	std::cout << std::endl;
-// 	print_ft_list("userListSort:Comp", userListSortComp);
-// 	std::cout << std::endl;
-// 	sysListSortComp.sort(myobject);
-// 	userListSortComp.sort(myobject);
-
-// 	std::cout << "*** AFTER ***" << std::endl;
-// 	print_std_list(" sysListSortComp:", sysListSortComp);
-// 	std::cout << std::endl;
-// 	print_ft_list("userListSortComp:", userListSortComp);
-// 	std::cout << std::endl;
-
-// 	testFunc(testNmb++,sysListSortComp.size(), userListSortComp.size(), "Size is (sort)");
-// 	testFunc(testNmb++, sysListSortComp.front(),userListSortComp.front(), "Front value is (sort)");
-// 	testFunc(testNmb++, sysListSortComp.back(), userListSortComp.back(), "Back value is (sort)");
-
-// 	getchar();
-// 	std::system("clear");
-    
-    
-//     // /*		sort		*/
-// 		// std::cout << std::endl << "\x1b[33m" << "sort 1" << "\x1b[0m" << std::endl;
-    
-    
-//   }
-
-
-
-//   if (reverse)
-// 	{
-//     /*		reverse		*/
-// 	std::cout << std::endl << "\x1b[33m" << "reverse 1" << "\x1b[0m" << std::endl;
-
-// 	std::list <int> sysListReverse;
-// 	ft::list <int> userListReverse;
-
-// 	for (int i = 4; i <= 9; i++)
-// 	{
-// 		sysListReverse.push_back(i);
-// 		userListReverse.push_back(i);
-// 	}
-// 	std::cout << "*** BEFORE ***" << std::endl;
-// 	print_std_list(" sysListReverse:", sysListReverse);
-// 	std::cout << std::endl;
-// 	print_ft_list("userListReverse:", userListReverse);
-// 	std::cout << std::endl;
-// 	sysListReverse.reverse();
-// 	userListReverse.reverse();
-// 	std::cout << "*** AFTER ***" << std::endl;
-// 	print_std_list(" sysListReverse:", sysListReverse);
-// 	std::cout << std::endl;
-// 	print_ft_list("userListReverse:", userListReverse);
-// 	std::cout << std::endl;
-
-// 	testFunc(testNmb++,sysListReverse.size(), userListReverse.size(), "Size is (Reverse)");
-// 	testFunc(testNmb++, sysListReverse.front(), userListReverse.front(), "Front value is (Reverse)");
-// 	testFunc(testNmb++, sysListReverse.back(), userListReverse.back(), "Back value is (Reverse)");
-
-// 	getchar();
-// 	std::system("clear");
-// 	/*		reverse	2	*/
-// 	std::cout << std::endl << "\x1b[33m" << "reverse 2" << "\x1b[0m" << std::endl;
-
-// 	sysListReverse.clear();
-// 	userListReverse.clear();
-
-// 	for (int i = 4; i <= 9; i++)
-// 	{
-// 		sysListReverse.push_back(4);
-// 		userListReverse.push_back(4);
-// 	}
-// 	std::cout << "*** BEFORE ***" << std::endl;
-// 	print_std_list(" sysListReverse:", sysListReverse);
-// 	std::cout << std::endl;
-// 	print_ft_list("userListReverse:", userListReverse);
-// 	std::cout << std::endl;
-// 	sysListReverse.reverse();
-// 	userListReverse.reverse();
-// 	std::cout << "*** AFTER ***" << std::endl;
-// 	print_std_list(" sysListReverse:", sysListReverse);
-// 	std::cout << std::endl;
-// 	print_ft_list("userListReverse:", userListReverse);
-// 	std::cout << std::endl;
-
-// 	testFunc(testNmb++,sysListReverse.size(), userListReverse.size(), "Size is (Reverse)");
-// 	testFunc(testNmb++, sysListReverse.front(), userListReverse.front(), "Front value is (Reverse)");
-// 	testFunc(testNmb++, sysListReverse.back(), userListReverse.back(), "Back value is (Reverse)");
-
-// 	getchar();
-// 	std::system("clear");
-// 	/*		reverse	3	*/
-// 	std::cout << std::endl << "\x1b[33m" << "reverse 3" << "\x1b[0m" << std::endl;
-
-// 	sysListReverse.clear();
-// 	userListReverse.clear();
-
-// 	for (int i = 4; i < 5; i++)
-// 	{
-// 		sysListReverse.push_back(4);
-// 		userListReverse.push_back(4);
-// 	}
-// 	std::cout << "*** BEFORE ***" << std::endl;
-// 	print_std_list(" sysListReverse:", sysListReverse);
-// 	std::cout << std::endl;
-// 	print_ft_list("userListReverse:", userListReverse);
-// 	std::cout << std::endl;
-// 	sysListReverse.reverse();
-// 	userListReverse.reverse();
-// 	std::cout << "*** AFTER ***" << std::endl;
-// 	print_std_list(" sysListReverse:", sysListReverse);
-// 	std::cout << std::endl;
-// 	print_ft_list("userListReverse:", userListReverse);
-// 	std::cout << std::endl;
-
-// 	testFunc(testNmb++,sysListReverse.size(), userListReverse.size(), "Size is (Reverse)");
-// 	testFunc(testNmb++, sysListReverse.front(), userListReverse.front(), "Front value is (Reverse)");
-// 	testFunc(testNmb++, sysListReverse.back(), userListReverse.back(), "Back value is (Reverse)");
-
-// 	getchar();
-// 	std::system("clear");
-//   }
-  
+		getchar();
+	// 	std::system("clear");
+  }
 
 }
   
-//   void				overloads(int testNmb)
-// {
-// 	std::cout << std::endl << "\x1b[33m" << "                         *** OVERLOADES ***                          " << "\x1b[0m" << std::endl;
+  void				overloads(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** OVERLOADES ***                          " << "\x1b[0m" << std::endl;
 
-// 	std::list<int> Sys_a;
-// 	std::list<int> Sys_b;
-// 	std::list<int> Sys_c;
+	std::list<int> Sys_a;
+	std::list<int> Sys_b;
+	std::list<int> Sys_c;
+	std::list<int> Sys_d;
+	std::list<int> Sys_f;
 
-// 	ft::list<int> User_a;
-//   	ft::list<int> User_b;
-//   	ft::list<int> User_c;
-// 	for (int i = 10; i < 40;)
-// 	{
-// 		Sys_a.push_back(i);
-// 		Sys_b.push_back(i);
-// 		User_a.push_back(i);
-// 		User_b.push_back(i);
-// 		i += 10;
-// 	}
-// 	for (int i = 30; i >= 10;)
-// 	{
-// 		Sys_c.push_back(i);
-// 		User_c.push_back(i);
-// 		i -= 10;
-// 	}
+	ft::list<int> User_a;
+  	ft::list<int> User_b;
+  	ft::list<int> User_c;
+	ft::list<int> User_d;
+	ft::list<int> User_f;
+
+	for (int i = 10; i < 40;)
+	{
+		Sys_a.push_back(i);
+		Sys_b.push_back(i);
+		User_a.push_back(i);
+		User_b.push_back(i);
+		i += 10;
+	}
+
+	for (int i = 30; i >= 10;)
+	{
+		Sys_c.push_back(i);
+		User_c.push_back(i);
+		i -= 10;
+	}
+
+	Sys_f.push_back(30);
+	User_f.push_back(30);
 	
-// 	std::cout << "*** BEFORE ***" << std::endl;
-// 	print_std_list(" Sys_a:", Sys_a);
-// 	print_std_list(" Sys_b:", Sys_b);
-// 	print_std_list(" Sys_c:", Sys_c);
-// 	std::cout << std::endl;
-// 	print_ft_list("User_a:", User_a);
-// 	print_ft_list("User_b:", User_b);
-// 	print_ft_list("User_c:", User_c);
-// 	std::cout << std::endl;
-// 	try
-// 	{
-// 		bool equality = (User_a == User_b);
-// 		bool unequality = (User_b != User_c);
-// 		bool less = (User_b < User_c);
-// 		bool more = (User_c > User_b);
-// 		bool lessAndEquality = (User_a <= User_b);
-// 		bool moreAndEquality = (User_a >= User_b);
+	std::cout << "*** BEFORE ***" << std::endl;
+	print_std_list(" Sys_a:", Sys_a);
+	print_std_list(" Sys_b:", Sys_b);
+	print_std_list(" Sys_c:", Sys_c);
+	print_std_list(" Sys_d:", Sys_d);
+	print_std_list(" Sys_f:", Sys_f);
+	std::cout << std::endl;
+	
+	print_ft_list("User_a:", User_a);
+	print_ft_list("User_b:", User_b);
+	print_ft_list("User_c:", User_c);
+	print_ft_list("User_d:", User_d);
+	print_ft_list("User_f:", User_f);
+	std::cout << std::endl;
 
+	try
+	{
+		testFunc(testNmb++, (Sys_a == Sys_b), (User_a == User_b), "a == b");
+		testFunc(testNmb++, (Sys_b == Sys_c), (User_b == User_c), "b == c");
+		testFunc(testNmb++, (Sys_a == Sys_d), (User_a == User_d), "a == d");
+		testFunc(testNmb++, (Sys_d == Sys_c), (User_d == User_c), "d == c");
+		testFunc(testNmb++, (Sys_a == Sys_f), (User_a == User_f), "a == f");
+		testFunc(testNmb++, (Sys_f == Sys_c), (User_f == User_c), "f == c");
 
-// 		bool equality2 = (Sys_a == Sys_b);
-// 		bool unequality2 = (Sys_b != Sys_c);
-// 		bool less2 = (Sys_b < Sys_c);
-// 		bool more2 = (Sys_c > Sys_b);
-// 		bool lessAndEquality2 = (Sys_a <= Sys_b);
-// 		bool moreAndEquality2 = (Sys_a >= Sys_b);
+		testFunc(testNmb++, (Sys_a != Sys_b), (User_a != User_b), "a != b");
+		testFunc(testNmb++, (Sys_b != Sys_c), (User_b != User_c), "b != c");
+		testFunc(testNmb++, (Sys_a != Sys_d), (User_a != User_d), "a != d");
+		testFunc(testNmb++, (Sys_d != Sys_c), (User_d != User_c), "d != c");
+		testFunc(testNmb++, (Sys_a != Sys_f), (User_a != User_f), "a != f");
+		testFunc(testNmb++, (Sys_f != Sys_c), (User_f != User_c), "f != c");
 
-// 		testFunc(testNmb++, equality, equality2, "a == b");
-// 		testFunc(testNmb++, unequality, unequality2, "b != c");
-// 		testFunc(testNmb++, less, less2, "b < c");
-// 		testFunc(testNmb++, more, more2, "c > b");
-// 		testFunc(testNmb++, lessAndEquality, lessAndEquality2, "a <= b");
-// 		testFunc(testNmb++, moreAndEquality, moreAndEquality2, "a >= b");
+		testFunc(testNmb++, (Sys_a < Sys_b), (User_a < User_b), "a < b");
+		testFunc(testNmb++, (Sys_b < Sys_c), (User_b < User_c), "b < c");
+		testFunc(testNmb++, (Sys_a < Sys_d), (User_a < User_d), "a < d");
+		testFunc(testNmb++, (Sys_d < Sys_c), (User_d < User_c), "d < c");
+		testFunc(testNmb++, (Sys_a < Sys_f), (User_a < User_f), "a < f");
+		testFunc(testNmb++, (Sys_f < Sys_c), (User_f < User_c), "f < c");
 
-// 	}
-// 	catch(const std::exception& e)
-// 	{
-// 		std::cerr << e.what() << '\n';
-// 	}
-// }
+		testFunc(testNmb++, (Sys_a > Sys_b), (User_a > User_b), "a > b");
+		testFunc(testNmb++, (Sys_b > Sys_c), (User_b > User_c), "b > c");
+		testFunc(testNmb++, (Sys_a > Sys_d), (User_a > User_d), "a > d");
+		testFunc(testNmb++, (Sys_d > Sys_c), (User_d > User_c), "d > c");
+		testFunc(testNmb++, (Sys_a > Sys_f), (User_a > User_f), "a > f");
+		testFunc(testNmb++, (Sys_f > Sys_c), (User_f > User_c), "f > c");
+
+		testFunc(testNmb++, (Sys_a <= Sys_b), (User_a <= User_b), "a <= b");
+		testFunc(testNmb++, (Sys_b <= Sys_c), (User_b <= User_c), "b <= c");
+		testFunc(testNmb++, (Sys_a <= Sys_d), (User_a <= User_d), "a <= d");
+		testFunc(testNmb++, (Sys_d <= Sys_c), (User_d <= User_c), "d <= c");
+		testFunc(testNmb++, (Sys_a <= Sys_f), (User_a <= User_f), "a <= f");
+		testFunc(testNmb++, (Sys_f <= Sys_c), (User_f <= User_c), "f <= c");
+
+		testFunc(testNmb++, (Sys_a >= Sys_b), (User_a >= User_b), "a >= b");
+		testFunc(testNmb++, (Sys_b >= Sys_c), (User_b >= User_c), "b >= c");
+		testFunc(testNmb++, (Sys_a >= Sys_d), (User_a >= User_d), "a >= d");
+		testFunc(testNmb++, (Sys_d >= Sys_c), (User_d >= User_c), "d >= c");
+		testFunc(testNmb++, (Sys_a >= Sys_f), (User_a >= User_f), "a >= f");
+		testFunc(testNmb++, (Sys_f >= Sys_c), (User_f >= User_c), "f >= c");
+
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+
+	
+}
 
 /* extra */
 void				operators(int testNmb)
@@ -3046,7 +3248,9 @@ void				operators(int testNmb)
 void				list_test()
 {
 	int testNmb = 0;
-	int testAll = 0;
+	int testAll = 1;
+
+	std::system("clear");
 	
 	std::cout << "\x1b[33m" << std::endl;
 	std::cout << "+ ------------------------------ +" << std::endl;
@@ -3058,16 +3262,16 @@ void				list_test()
 
 	/*			Member functions			*/
 	
-	// constructor(testNmb, testAll);
+	constructor(testNmb, testAll);
 	// destructor(testNmb);						// need tests
-  	// operEquall(testNmb, testAll);			
-	// iterators(testNmb, testAll);
-	// capacity(testNmb, testAll);
-	// elementAccess(testNmb, testAll);
+  	operEquall(testNmb, testAll);			
+	iterators(testNmb, testAll);
+	capacity(testNmb, testAll);
+	elementAccess(testNmb, testAll);
 	modifiers(testNmb, testAll);
-	// operations(testNmb, testAll);
-	// overloads(testNmb);
+	operations(testNmb, testAll);
+	overloads(testNmb);
 
 	/* extra */
-	// operators(testNmb);		
+	operators(testNmb);		
 }

@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:57:07 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/16 15:18:54 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/23 17:07:02 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,12 @@ namespace ft
 			// // 	return *this;
 			// }
 
-			// bool						operator==(const reverse_iterator &x)
-			// {
-			// 	if (x.ptr == ptr)
-			// 		return true;
-			// 	return false;
-			// }
+			bool						operator==(const reverse_iterator &x)
+			{
+				if (x.ptr == ptr)
+					return true;
+				return false;
+			}
 			
 			bool						operator!=(const reverse_iterator &x)
 			{
