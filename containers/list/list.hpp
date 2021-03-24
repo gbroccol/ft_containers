@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/23 18:58:54 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/24 15:33:32 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,19 @@ namespace ft
 	class list 
     { 
 		public: 
-			
-			typedef ft::iterator<T>					iterator;
-			typedef ft::const_iterator <T>			const_iterator;
 
-			typedef ft::reverse_iterator<T>			reverse_iterator;
+			typedef T										value_type;
+			typedef Alloc									allocator_type;
+			typedef size_t									size_type;
+			typedef value_type&								reference;
+			
+			typedef ft::iterator<T>							iterator;
+			typedef ft::const_iterator <T>					const_iterator;
+
+			typedef ft::reverse_iterator<T>					reverse_iterator;
 			typedef ft::const_reverse_iterator <T>			const_reverse_iterator;
 			
-			// typedef ft::reverse_iterator<T>			reverse_iterator;
-			// typedef const ft::reverse_iterator<T>	const_reverse_iterator;
 			
-			typedef T						value_type;
-			typedef Alloc					allocator_type;
-			typedef size_t					size_type;
-			typedef value_type&				reference;
 			// typedef const value_type&		const_reference;
 			// typedef value_type*				pointer;
 			// typedef const value_type*		const_pointer;
