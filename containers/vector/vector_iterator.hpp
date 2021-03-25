@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_iteratorVector.hpp                                :+:      :+:    :+:   */
+/*   vector_iterator.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 15:34:09 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/24 17:38:23 by gbroccol         ###   ########.fr       */
+/*   Created: 2021/03/25 13:16:15 by gbroccol          #+#    #+#             */
+/*   Updated: 2021/03/25 14:20:46 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-#ifndef VECTOR_ITERATORVector_HPP
-#define VECTOR_ITERATORVector_HPP
+#ifndef VECTOR_ITERATOR_HPP
+#define VECTOR_ITERATOR_HPP
 
 #include <iostream>
 #include <string>
 
 namespace ft 
 {
+
 	template < class T >
 	class iteratorVector 
     {
@@ -44,29 +43,13 @@ namespace ft
 			** -------------------------------- DESTRUCTOR --------------------------------
 			*/
 
-			~iteratorVector() {}
+			virtual ~iteratorVector() {}
 
 			/*
 			** --------------------------------- OVERLOAD ---------------------------------
 			*/
 
-			// iteratorVector &				operator=(iteratorVector const & rhs )
-			// {
-			// 	this->clear();
-			// // 	this->head->next = this->tail;
-			// // 	this->tail->prev = this->head;
-			// // 	this->length = 0;
-			// // 	this->assign(x.begin(), x.end());
-			// 	return *this;
-
-
-			// // 	// std::cout << "hi" << std::endl;
-			
-			// // 	// if ( this != &rhs )
-			// // 		*this = rhs;
-				
-			// // 	return *this;
-			// }
+			// iteratorVector &				operator=(iteratorVector const & rhs ) {}
 
 			bool						operator==(const iteratorVector &x)
 			{
@@ -84,8 +67,6 @@ namespace ft
 			
 			value_type					&operator*()
 			{
-				// if (ptr == _Tail)
-				// 	return ptr->pre->data;
 				return *ptr;
 			}
 			
@@ -117,28 +98,18 @@ namespace ft
 				return *this;
 			}
 			
-			iteratorVector					&operator--()  // check
+			iteratorVector					&operator--()
 			{
 				ptr--;
 				return *this;
 			}
 
-			iteratorVector					&operator--(int)  // check
+			iteratorVector					&operator--(int)
 			{
 				iteratorVector tmp(*this);
 				operator--();
 				return *this;
 			}
-			
-			/*
-			** --------------------------------- METHODS ----------------------------------
-			*/
-			
-
-			/*
-			** --------------------------------- ACCESSOR ---------------------------------
-			*/
-
 
 			/* ************************************************************************** */
 			
@@ -149,41 +120,29 @@ namespace ft
         protected: 
 
 			pointer ptr;
-		
-		
 			
     };
 
-	// template <class T>
-	// class const_iteratorVector : public iteratorVector <T>
-	// {
-	// 	public:
-	// 	const_iteratorVector() {}
-	// 	const_iteratorVector(pointer *list) { this->ptr = list; }
-	// 	const_iteratorVector(const const_iteratorVector &copy) { *this = copy; }
-	// 	const_iteratorVector &operator=(const const_iteratorVector &target)
-	// 	{
-	// 		this->ptr = target.ptr;
-	// 		return (*this);
-	// 	}
-	// 	~const_iteratorVector() {}
-	// 	const T &operator*() { return (this->ptr->data); }
-	// };
+	template <class T>
+	class const_iteratorVector : public iteratorVector <T>
+	{
+		public:
+
+			typedef T		*pointer;
+		
+			const_iteratorVector() {}
+			const_iteratorVector(pointer vector) { this->ptr = vector; }
+			const_iteratorVector(const const_iteratorVector &copy) { *this = copy; }
+			const_iteratorVector &operator=(const const_iteratorVector &target)
+			{
+				this->ptr = target.ptr;
+				return (*this);
+			}
+			~const_iteratorVector() {}
+			const T &operator*() { return (* (this->ptr)); }
+	};
+
+
 }
 
-#endif //CONT_ITERATORVector_HPP
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#endif

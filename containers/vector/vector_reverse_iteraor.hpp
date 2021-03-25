@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_reverse_iterator.hpp                          :+:      :+:    :+:   */
+/*   vector_reverse_iteraor.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/01 14:57:07 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/25 12:50:58 by gbroccol         ###   ########.fr       */
+/*   Created: 2021/03/25 12:53:07 by gbroccol          #+#    #+#             */
+/*   Updated: 2021/03/25 14:24:03 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIST_REVERSE_ITERATOR_HPP
-#define LIST_REVERSE_ITERATOR_HPP
+#ifndef VECTOR_REVERSE_ITERATOR_HPP
+#define VECTOR_REVERSE_ITERATOR_HPP
 
 #include <iostream>
 #include <string>
 
 namespace ft 
 {
-
 	template < class T >
-	class reverse_iterator 
+	class reverseIteratorVector 
     {
-		protected: // ???
-
-			Node <T> *ptr;
-			
 		public: 
 			
 			typedef T		value_type;
@@ -36,24 +31,24 @@ namespace ft
 			** -------------------------------- CONSTRUCTOR --------------------------------
 			*/
 
-			reverse_iterator() {}
-			reverse_iterator(struct Node <T> *src) {  ptr = src; }
+			reverseIteratorVector() {}
+			reverseIteratorVector(pointer src) {  ptr = src; }
 
-			// reverse_iterator(const reverse_iterator &src) { *this = src; }
+			// reverseIteratorVector(const reverseIteratorVector &src) { *this = src; }
 				
-			// reverse_iterator(struct Node <T> &src) { ptr = src; }
+			// reverseIteratorVector(pointer &src) { ptr = src; }
 
 			/*
 			** -------------------------------- DESTRUCTOR --------------------------------
 			*/
 
-			~reverse_iterator() {}
+			~reverseIteratorVector() {}
 
 			/*
 			** --------------------------------- OVERLOAD ---------------------------------
 			*/
 
-			// reverse_iterator &				operator=(reverse_iterator const & rhs )
+			// reverseIteratorVector &				operator=(reverseIteratorVector const & rhs )
 			// {
 			// 	this->clear();
 			// // 	this->head->next = this->tail;
@@ -71,14 +66,14 @@ namespace ft
 			// // 	return *this;
 			// }
 
-			bool						operator==(const reverse_iterator &x)
+			bool						operator==(const reverseIteratorVector &x)
 			{
 				if (x.ptr == ptr)
 					return true;
 				return false;
 			}
 			
-			bool						operator!=(const reverse_iterator &x)
+			bool						operator!=(const reverseIteratorVector &x)
 			{
 				if (x.ptr != ptr)
 					return true;
@@ -89,7 +84,7 @@ namespace ft
 			{
 				// if (ptr == _Tail)
 				// 	return ptr->pre->data;
-				return ptr->data;
+				return *ptr;
 			}
 			
 			// const value_type			&operator*() const
@@ -107,29 +102,28 @@ namespace ft
 			// 	return &ptr->data;
 			// }
 			
-			reverse_iterator					&operator++() // ++a 
+			reverseIteratorVector					&operator++() // ++a 
 			{
-				ptr = ptr->next;
+				ptr--;
 				return *this;
 			}
 
-			reverse_iterator					&operator++(int) // a++ 
+			reverseIteratorVector					&operator++(int) // a++ 
 			{
-				reverse_iterator tmp(*this);
+				reverseIteratorVector tmp(*this);
 				operator++();
 				return *this;
 			}
 			
-			reverse_iterator					&operator--()  // check
+			reverseIteratorVector					&operator--()  // check
 			{
-				if (ptr->pre)
-					ptr = ptr->pre;
+				ptr++;
 				return *this;
 			}
 
-			reverse_iterator					&operator--(int)  // check
+			reverseIteratorVector					&operator--(int)  // check
 			{
-				reverse_iterator tmp(*this);
+				reverseIteratorVector tmp(*this);
 				operator--();
 				return *this;
 			}
@@ -137,32 +131,46 @@ namespace ft
 			/*
 			** --------------------------------- METHODS ----------------------------------
 			*/
-				// node_pointer	getnext() const { return ptr->next; }
-				struct Node <T>		*getpre() const { return ptr->pre; }
-				struct Node <T>		*getptr() const { return ptr; }
+			
+
 			/*
 			** --------------------------------- ACCESSOR ---------------------------------
 			*/
 
+
 			/* ************************************************************************** */
+			
+			// node_pointer	getnext() const { return ptr->next; }
+			// pointer		*getpre() const { return ptr->pre; }
+			pointer		getptr() const { return ptr; }
+
+        protected: 
+
+			pointer ptr;
+		
+		
 			
     };
 
 	template <class T>
-	class const_reverse_iterator : public reverse_iterator <T>
+	class const_reverseIteratorVector : public reverseIteratorVector <T>
 	{
 		public:
-		const_reverse_iterator() {}
-		const_reverse_iterator(struct Node <T> *list) { this->ptr = list; }
-		const_reverse_iterator(const const_reverse_iterator &copy) { *this = copy; }
-		const_reverse_iterator &operator=(const const_reverse_iterator &target)
-		{
-			this->ptr = target.ptr;
-			return (*this);
-		}
-		~const_reverse_iterator() {}
-		const T &operator*() { return (this->ptr->data); }
+
+			typedef T		*pointer;
+		
+			const_reverseIteratorVector() {}
+			const_reverseIteratorVector(pointer vector) { this->ptr = vector; }
+			const_reverseIteratorVector(const const_reverseIteratorVector &copy) { *this = copy; }
+			const_reverseIteratorVector &operator=(const const_reverseIteratorVector &target)
+			{
+				this->ptr = target.ptr;
+				return (*this);
+			}
+			~const_reverseIteratorVector() {}
+			const T &operator*() { return (* (this->ptr)); }
 	};
+
 }
 
-#endif //CONT_ITERATOR_HPP
+#endif
