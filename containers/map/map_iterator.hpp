@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:11:42 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/25 18:37:51 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/29 20:52:47 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #define BLACK   1
 #define RED     0
 
+#define LAST    2
+
 // const int RED(0);
 // const int BLACK(1);
 
@@ -29,18 +31,19 @@ namespace ft
 	{
         std::pair <Key, T>  data;
 		nodeMap		        *parent;
-		nodeMap    	    	*less;
-        nodeMap	    	    *more;
-        bool                color;
+		nodeMap    	    	*left;
+        nodeMap	    	    *right;
+		
+        int                color;
 	};
 
 	template <class Key, class T>
 	class iteratorMap 
     {
-		protected: // ???
+		protected:
 
-			// nodeMap <Key, T> *ptr;
-            struct nodeMap <Key, T> *ptr;
+			nodeMap <Key, T> *ptr;
+            // struct nodeMap <Key, T> *ptr;
 			
 		public: 
 			
@@ -186,12 +189,15 @@ namespace ft
 			// 		return(true);
 			// 	return(false);
 			// }
-			// bool 									operator!=(const iteratorMap &x)
-			// {
-			// 	if(ptr != x.ptr)
-			// 		return(true);
-			// 	return(false);
-			// }
+			
+			bool 									operator!=(const iteratorMap &x)
+			{
+				if (ptr != x.ptr)
+					return(true);
+				return(false);
+			}
+
+			
 			// value_type 								&operator*()
 			// {
 			// 	return (this->ptr->data);
@@ -202,10 +208,10 @@ namespace ft
 			// }	
 
 
-			value_type &operator*()
-			{
-				return (ptr->data);
-			}
+			// value_type &operator*()
+			// {
+			// 	return (ptr->data);
+			// }
 
 			// std::pair<Key, T> *operator->()
 			// {
@@ -213,59 +219,170 @@ namespace ft
 			// }
 
 			
-			// pointer									operator->()
-			// {
-			// 	// return (&ptr->data);	
-			// 	return (&(this->ptr->data));
-			// }
+			pointer									operator->()
+			{
+				return (&(this->ptr->data));
+			}
 			// const pointer							operator->() const
 			// {
 			// 	return (&ptr->data);	
 			// }
-			// iteratorMap							&operator++()
+
+
+			// iteratorMap	operator++(int)
 			// {
-			// 	struct nodeMap<Key,T> tmp;
-			// 	if(ptr)
-			// 	{
-			// 		if(ptr->more)
-			// 		{
-			// 			tmp = ptr->more;
-			// 			while(tmp->less)
-			// 				tmp = tmp->less;
-			// 		}
-			// 		else
-			// 		{
-			// 			if(ptr->less)
-			// 			{
-			// 				tmp = ptr->less;
-			// 				while(tmp->more)
-			// 					tmp = tmp->more;
-			// 			}
-			// 			else
-			// 				return ;
-			// 		}
-			// 		ptr = tmp;
-			// 		return (*this);
+			// 	iteratorMap	out(*this);
+			// 	this->ptr = ptr->getnext();
+			// 	return out;
+			// }
+			
+			// iteratorMap&	operator++()
+			// {
+			// 	this->ptr = ptr->getnext();
+			// 	return *this;
+			// }
+
+			// node*   getnext() 
+			// {
+			// 	node* it(this);
+
+			// 	if (it->right) {
+			// 		it = it->right;
+			// 		while (it->left)
+			// 			it = it->left;
 			// 	}
-			// 	else
-			// 		return ;
-			// }
-			// iteratorMap							operator++(int)
-			// {
-			// 	iteratorMap tmp(*this);
-			// 	operator++();
-			// 	return tmp;
-			// }
+			// 	else {
+			// 		node *tmp = it;
+			// 		it = it->parent;
+			// 		while (it->left != tmp) { //it->data <= this->data)
+			// 			tmp = it;
+			// 			it = it->parent;
+			// 		}
+			// 	}
+			// 	return (it);
+        	// }
+			
+			iteratorMap							&operator++()
+			{
+				// int flag = 0;
+				// if (ptr->data.first == 16)
+				// {
+				// 	std::cout << "\n\n" << "check ++" << std::endl;
+				// 	flag = 1;
+				// }
+				nodeMap <Key, T> * it = ptr;
+
+				if (it->right)
+				{
+					// if (flag)
+					// {
+					// 	std::cout << "----------- 1 -----------" << std::endl;
+					// }
+					
+					it = it->right;
+					while (it->left)
+						it = it->left;
+				}
+				else if (it->right == nullptr && it->parent && it->data.first < it->parent->data.first)
+				{
+
+					
+					// if (flag)
+					// {
+					// 	std::cout << "----------- 2 -----------" << std::endl;
+					// }
+					
+					it = it->parent;
+				}
+				else if (it->right == nullptr && it->parent && it->parent->parent)
+				{
+					// if (flag)
+					// {
+					// 	std::cout << "----------- 3 -----------" << std::endl;
+					// }
+
+					while (it->parent && it->data.first > it->parent->data.first)
+					{
+						it = it->parent;
+					}
+					it = it->parent;
+					
+				}
+				else if (it->right == nullptr)
+				{
+					// if (flag)
+					// {
+					// 	std::cout << "----------- 4 -----------" << std::endl;
+					// }
+					it = it->right;
+				}
+				this->ptr = it;
+				return (*this);
+			}
+			
+			iteratorMap							operator++(int)
+			{
+				iteratorMap tmp(*this);
+				operator++();
+				return tmp;
+			}
+
+			iteratorMap							&operator--()
+			{
+
+				// std::cout << "here 2 " << std::endl;
+
+				
+				// ptr = ptr->parent;
+				// ptr = ptr->parent;
+
+				
+				nodeMap <Key, T> * it = ptr;
+
+
+				// std::cout << "VALUE = " << it->data.first << std::endl;
+
+				// std::cout << "here 3 " << std::endl;
+				
+				if (it->left)
+				{
+					it = it->left;
+					while (it->right)
+						it = it->right;
+				}
+				else if (it->left == nullptr && it->parent && it->data.first > it->parent->data.first)
+				{
+					it = it->parent;
+				}
+				// else if (it->left == nullptr)
+				// {
+				// 	it = it->left;
+				// }
+				
+				this->ptr = it;
+				return (*this);
+			}
+			
+			iteratorMap							operator--(int)
+			{
+				iteratorMap tmp(*this);
+				operator--();
+				return tmp;
+			}
+
+
+			
+			
 			// iteratorMap							&operator--()
 			// {
 			// 	struct nodeMap<Key,T> tmp;
 			// 	if(ptr)
 			// 	{
-			// 		if(ptr->less)
+			// 		if(ptr->left)
 			// 		{
-			// 			tmp = ptr->less;
-			// 			while(tmp->more)
-			// 				tmp = tmp->more;
+			// 			tmp = ptr->left;
+			// 			while(tmp->right)
+			// 				tmp = tmp->right;
 			// 		}
 			// 		else
 			// 		{
@@ -307,6 +424,20 @@ namespace ft
 			// {
 			// 	return (this->ptr);
 			// }
+
+			   	std::string getColor() const
+                {
+					if (this->ptr->color == BLACK)
+						return ("\x1b[34;1m");
+					else if (this->ptr->color == LAST)
+						return ("\x1b[33;1m");
+					else
+						return ("\x1b[31;1m");
+                }
+
+			// node_pointer	getnext() const { return ptr->next; }
+			// struct Node <T>		*getpre() const { return ptr->pre; }
+			nodeMap <Key, T> 		*getptr() const { return this->ptr; }
 			
     };
 

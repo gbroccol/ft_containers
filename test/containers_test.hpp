@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:45:56 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/25 18:42:30 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/29 21:14:53 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void print_std_map (std::string testName, T & Map)
 {
 	std::cout << testName << " |";
 	std::map <int, int> :: iterator itSys = Map.begin();
-	for (; itSys != Map.end(); itSys++)
+	for ( ; itSys != Map.end(); itSys++)
 	{
 		std::cout << "" << std::setw(7) << itSys->first << "    | ";
 	}
@@ -137,26 +137,80 @@ void print_std_map (std::string testName, T & Map)
 	std::cout << '\n' << '\n';
 }
 
+template <typename T>
+void print_ft_map (std::string testName, T & Map)
+{
+	std::cout << testName << " |";
+	ft::map <int, int> :: iterator itUserBegin = Map.begin();
 
 
+	// std::cout << "                                            find sega"<< std::endl;
+	
+	for (; itUserBegin != Map.end(); itUserBegin++)
+	{
+		std::cout << "" << itUserBegin.getColor() << std::setw(7) << itUserBegin->first << "\x1b[0m    | ";
+	}
+	std::cout << "" << itUserBegin.getColor() << itUserBegin->first << "\x1b[0m | ";
+	std::cout << '\n' << "              |" ;
+
+
+
+	itUserBegin = Map.begin();
+	for (; itUserBegin != Map.end(); itUserBegin++)
+	{
+		std::cout << "" << itUserBegin.getColor() << std::setw(7) << itUserBegin->second << "\x1b[0m    | ";
+	}
+	std::cout << "" << itUserBegin.getColor() << itUserBegin->second << "\x1b[0m | ";
+	std::cout << '\n' << '\n';
+}
 
 // template <typename T>
-// void print_ft_map (std::string testName, T & Map)
+// void print_std_map_inv (std::string testName, T & Map)
 // {
 // 	std::cout << testName << " |";
-// 	ft::map <int, int> :: iterator itUser = Map.begin();
-// 	// for (; itUser != Map.end(); itUser++)
-// 	// {
-// 		std::cout << "" << std::setw(7) << itUser->second << "    | ";
-// 	// }
+// 	std::map <int, int> :: iterator itSys = Map.end();
+// 	itSys--;
+// 	for ( ; itSys != Map.begin(); itSys--)
+// 	{
+// 		std::cout << "" << std::setw(7) << itSys->first << "    | ";
+// 	}
+// 	std::cout << "" << std::setw(7) << itSys->first << "    | ";
 // 	std::cout << '\n' << "              |" ;
 
-// 	// itUser = Map.begin();
-// 	// // for (; itUser != Map.end(); itUser++)
-// 	// // {
-// 	// 	std::cout << "" << std::setw(7) << *itUser << "    | ";
-// 	// // }
-// 	// std::cout << '\n' << '\n';
+// 	itSys = Map.end();
+// 	itSys--;
+// 	for (; itSys != Map.begin(); itSys--)
+// 	{
+// 		std::cout << "" << std::setw(7) << itSys->second << "    | ";
+// 	}
+// 	std::cout << "" << std::setw(7) << itSys->second << "    | ";
+// 	std::cout << '\n' << '\n';
+// }
+
+// template <typename T>
+// void print_ft_map_inv (std::string testName, T & Map)
+// {
+// 	std::cout << testName << " |";
+// 	ft::map <int, int> :: iterator itUserBegin = Map.end();
+
+// 	std::cout << "here 1 " << std::endl;
+// 	itUserBegin--;
+// 	std::cout << "here 4 " << std::endl;
+	
+// 	for (; itUserBegin != Map.begin(); itUserBegin--)
+// 	{
+// 		std::cout << "" << itUserBegin.getColor() << std::setw(7) << itUserBegin->first << "\x1b[0m    | ";
+// 	}
+// 	std::cout << "" << itUserBegin.getColor() << std::setw(7) << itUserBegin->first << "\x1b[0m    | ";
+// 	std::cout << '\n' << "              |" ;
+// 	itUserBegin--;
+// 	itUserBegin = Map.end();
+// 	for (; itUserBegin != Map.begin(); itUserBegin--)
+// 	{
+// 		std::cout << "" << itUserBegin.getColor() << std::setw(7) << itUserBegin->second << "\x1b[0m    | ";
+// 	}
+// 	std::cout << "" << itUserBegin.getColor() << std::setw(7) << itUserBegin->second << "\x1b[0m    | ";
+// 	std::cout << '\n' << '\n';
 // }
 
 #endif
