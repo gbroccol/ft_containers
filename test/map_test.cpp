@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:48:16 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/29 21:03:15 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/30 16:34:05 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ void				modifiers_map(int testNmb, int testAll)
 	int			insert = 0;
 	int			erase = 0; 
 	int			swap = 0;
-	int			clear = 0;
+	int			clear = 1;
 
 	if (testAll)
 	{
@@ -179,7 +179,7 @@ void				modifiers_map(int testNmb, int testAll)
 	}
 
 	std::map <int, int> mapSys;
-		ft::map <int, int> mapUser;
+	ft::map <int, int> mapUser;
 
 	//***************************INSERT************************//
 	if(insert)
@@ -211,9 +211,9 @@ void				modifiers_map(int testNmb, int testAll)
 
 		/* user part */
 
-		mapUser.insert ( std::pair <int, int> (20, 42) );
-		mapUser.insert ( std::pair <int, int> (20, 42) );
-		mapUser.insert ( std::pair <int, int> (10, 10) );
+		mapUser.insert ( std::pair <int, int> (20, 0) );
+		mapUser.insert ( std::pair <int, int> (20, 0) );
+		mapUser.insert ( std::pair <int, int> (10, 0) );
 		mapUser.insert ( std::pair <int, int> (42, 0) );
 		
 		mapUser.insert ( std::pair <int, int> (-50, 0) );
@@ -239,10 +239,21 @@ void				modifiers_map(int testNmb, int testAll)
 		/* insert 2 */
 		std::cout << std::endl << "\x1b[33m" << "insert 2 (print it inverted tree)" << "\x1b[0m" << std::endl;
 
-		// print_std_map_inv("     sysMap: ", mapSys);
-		// print_ft_map_inv("    userMap: ", mapUser);
+		print_std_map_inv("     sysMap: ", mapSys);
+		print_ft_map_inv("    userMap: ", mapUser);
 
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
+
+		/* insert 4 */
+		// std::cout << std::endl << "\x1b[33m" << "insert 4 (turn left)" << "\x1b[0m" << std::endl;
+
+
+		/* insert 5 */
+		// std::cout << std::endl << "\x1b[33m" << "insert 5 (turn right)" << "\x1b[0m" << std::endl;
+		
+
+		// /* insert 3 */
+		// std::cout << std::endl << "\x1b[33m" << "insert 3 (check BLACK-RED painting)" << "\x1b[0m" << std::endl;
 
 	}
 
@@ -260,11 +271,23 @@ void				modifiers_map(int testNmb, int testAll)
 	// 	std::cout << std::endl << "\x1b[33m" << "swap" << "\x1b[0m" << std::endl;
 	// }
 	
-	// //***************************CLEAR************************//
-	// if(clear)
-	// {
-	// 	std::cout << std::endl << "\x1b[33m" << "clear" << "\x1b[0m" << std::endl;
-	// }
+	//***************************CLEAR************************//
+	if(clear)
+	{
+		/* clear 1 */
+		std::cout << std::endl << "\x1b[33m" << "clear 1 (print empty map)" << "\x1b[0m" << std::endl;
+		
+		std::map <int, int> mapSys1;
+		ft::map <int, int> mapUser1;
+		
+		print_std_map("     sysMap: ", mapSys1);
+		print_ft_map("    userMap: ", mapUser1);
+		
+		/* clear 2 */
+		// std::cout << std::endl << "\x1b[33m" << "clear" << "\x1b[0m" << std::endl;
+
+		
+	}
 
 }
 
@@ -292,7 +315,7 @@ void				modifiers_map(int testNmb, int testAll)
 void map_test()
 {
 	int testNmb = 0;
-	int testAll = 1;
+	int testAll = 0;
 
 	system("clear");
 
@@ -305,7 +328,7 @@ void map_test()
 	std::cout << "\x1b[0m";
 
 	/*			Member functions			*/
-	constructor_map(testNmb);	
+	// constructor_map(testNmb);	
 	// iterators_map(testNmb, testAll);
 	// capacity_map(testNmb, testAll);
 	// elementAccess_map(testNmb, testAll);

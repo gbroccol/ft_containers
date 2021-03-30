@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:19 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/29 21:02:23 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/30 16:37:35 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,19 @@ namespace ft
                     _alloc = alloc;
                     _key = comp;
                     
-                    _map            = nullptr;
-                    
-                    _start          = nullptr;
-                    _finish         = nullptr;
-                    _root           = nullptr;
-                    _size           = 0;
-
                     _TNULL           = new nodeMap;
                     _TNULL->parent    = nullptr;
                     _TNULL->right      = nullptr;
                     _TNULL->left      = nullptr;
                     _TNULL->color     = LAST;
-                    // _TNULL->data.first = 999;
-                    // _TNULL->data.second = 999;
-                    
+                    _TNULL->data.first = 1;
+                    _TNULL->data.second = 1;
+
+                    _map            = nullptr;
+                    _start          = nullptr;
+                    _finish         = nullptr;
+                    _root           = nullptr;
+                    _size           = 0;
                 }
                 
                 // template <class InputIterator>
@@ -96,10 +94,20 @@ namespace ft
 
 	/* Iterators */
 
-                iterator begin() { return _start; }
+                iterator begin()
+                {
+                    if (_size == 0)
+                        return _TNULL;
+                    return _start;
+                }
                 // const_iterator begin() const;
 
-                iterator end() { return _finish->right; } // _TNULL
+                iterator end()
+                {
+                    if (_size == 0)
+                        return _TNULL;
+                    return _finish->right;
+                }
                 // const_iterator end() const;
 
                 // reverse_iterator rbegin();
@@ -229,7 +237,24 @@ namespace ft
                 
                 // void swap (map& x);
 
-                // void clear();
+                // void clear()
+                // {
+                //     // if (empty())
+                //     //     return;
+
+                //     _map            = nullptr;
+                //     _start          = nullptr;
+                //     _finish         = nullptr;
+                //     _root           = nullptr;
+                //     _size           = 0;
+
+                //     _TNULL->parent    = nullptr;
+                //     _TNULL->right     = nullptr;
+                //     _TNULL->left      = nullptr;
+                                            
+                //     // this->clear(this->_root);
+                //     // this->link_outer();
+                // }
 
     /* Observers */
                 
@@ -287,29 +312,6 @@ namespace ft
                 //     }
                 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-             
-
-
-        
 
 		private:
 
