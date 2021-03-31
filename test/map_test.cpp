@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:48:16 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/30 16:34:05 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/31 18:42:16 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,77 +98,127 @@ void				constructor_map(int testNmb)
 // 	getchar();
 // }
 
-// void				capacity_map(int testNmb, int testAll)
-// {
-// 	std::cout << std::endl << "\x1b[33m" << "                              *** CAPACITY ***                          " << "\x1b[0m" << std::endl;
+void				capacity_map(int testNmb, int testAll)
+{
+	std::cout << std::endl << "\x1b[33m" << "                              *** CAPACITY ***                          " << "\x1b[0m" << std::endl;
 	
-// 	int			size = 0;	  
-// 	int			max_size = 0; 
-// 	int			empty = 0;	  
+	int			size = 0;	  
+	int			max_size = 0; 
+	int			empty = 0;	 
 
-// 	if (testAll)
-// 	{
-// 		size = 1;	  
-// 		max_size = 1;
-// 		empty = 1;
-// 	}
+	testNmb++; 
+
+	if (testAll)
+	{
+		size = 1;	  
+		max_size = 1;
+		empty = 1;
+	}
+
+	std::map <int, int> mapSys;
+	ft::map <int, int> mapUser;
 	
-// 	//***************************SIZE************************//
-// 	if(size)
-// 	{
-// 		std::cout << std::endl << "\x1b[33m" << "size" << "\x1b[0m" << std::endl;
+	//*************************** SIZE ************************//
+	if(size)
+	{
+		std::cout << std::endl << "\x1b[33m" << "size" << "\x1b[0m" << std::endl;
+
+		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
+	}
+
+	//*************************** MAX_SIZE ************************//
+	if(max_size)
+	{
+		std::cout << std::endl << "\x1b[33m" << "max_size" << "\x1b[0m" << std::endl;
+
+		testFunc(testNmb++, mapSys.max_size(), mapUser.size(), "Size is");
+
+		getchar();
+	}
+
+	//*************************** EMPTY ************************//
+	if(empty)
+	{
+		std::cout << std::endl << "\x1b[33m" << "empty" << "\x1b[0m" << std::endl;
+	
+		getchar();
+	}
+}
+
+void				elementAccess_map(int testNmb, int testAll)
+{
+	std::cout << std::endl << "\x1b[33m" << "                              *** ELEMENT ACCESS ***                          " << "\x1b[0m" << std::endl;
+	
+	int			Operator = 0;	  
+
+	if (testAll)
+	{
+		Operator = 1;	  
+	}
+	
+	//***************************OPERATOR []************************//
+	if (Operator)
+	{
+		std::cout << std::endl << "\x1b[33m" << "operator []" << "\x1b[0m" << std::endl;
 		
-// 		getchar();
-// 	}
+		std::map <int, int> mapSys;
+		ft::map <int, int> mapUser;
 
-// 	//***************************MAX_SIZE************************//
-// 	if(max_size)
-// 	{
-// 		std::cout << std::endl << "\x1b[33m" << "max_size" << "\x1b[0m" << std::endl;
-
-// 		getchar();
-// 	}
-
-
-	
-// 	//***************************EMPTY************************//
-// 	if(empty)
-// 	{
-// 		std::cout << std::endl << "\x1b[33m" << "empty" << "\x1b[0m" << std::endl;
-	
-// 		getchar();
-// 	}
-// }
-
-// void				elementAccess_map(int testNmb, int testAll)
-// {
-// 	std::cout << std::endl << "\x1b[33m" << "                              *** ELEMENT ACCESS ***                          " << "\x1b[0m" << std::endl;
-	
-// 	int			Operator = 0;	  
-
-// 	if (testAll)
-// 	{
-// 		Operator = 1;	  
-// 	}
-	
-// 	//***************************OPERATOR []************************//
-// 	if(Operator)
-// 	{
-// 		std::cout << std::endl << "\x1b[33m" << "operator []" << "\x1b[0m" << std::endl;
-
-// 		getchar();
+		mapSys.insert ( std::pair <int, int> (20, 1) );
+		mapSys.insert ( std::pair <int, int> (20, 2) );
+		mapSys.insert ( std::pair <int, int> (10, 3) );
+		mapSys.insert ( std::pair <int, int> (42, 4) );
 		
-// 	}
-// }
+		mapSys.insert ( std::pair <int, int> (-50, 5) );
+		mapSys.insert ( std::pair <int, int> (15, 6) );
+		mapSys.insert ( std::pair <int, int> (30, 7) );
+		mapSys.insert ( std::pair <int, int> (100, 8) );
+
+		mapSys.insert ( std::pair <int, int> (-99, 9) );
+		mapSys.insert ( std::pair <int, int> (1, 10) );
+
+		/* user part */
+
+		mapUser.insert ( std::pair <int, int> (20, 1) );
+		mapUser.insert ( std::pair <int, int> (20, 2) );
+		mapUser.insert ( std::pair <int, int> (10, 3) );
+		mapUser.insert ( std::pair <int, int> (42, 4) );
+		
+		mapUser.insert ( std::pair <int, int> (-50, 5) );
+		mapUser.insert ( std::pair <int, int> (15, 6) );
+		mapUser.insert ( std::pair <int, int> (30, 7) );
+		mapUser.insert ( std::pair <int, int> (100, 8) );
+
+		mapUser.insert ( std::pair <int, int> (-99, 9) );
+		mapUser.insert ( std::pair <int, int> (1, 10) );
+
+		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
+		
+		testFunc(testNmb++, mapSys[20], mapUser[20],		"Value is");
+		testFunc(testNmb++, mapSys[10], mapUser[10],		"Value is");
+		testFunc(testNmb++, mapSys[42], mapUser[42],		"Value is");
+		testFunc(testNmb++, mapSys[-50], mapUser[-50],		"Value is");
+		testFunc(testNmb++, mapSys[15], mapUser[15],		"Value is");
+		testFunc(testNmb++, mapSys[30], mapUser[30],		"Value is");
+		testFunc(testNmb++, mapSys[100], mapUser[100],		"Value is");
+		testFunc(testNmb++, mapSys[-99], mapUser[-99],		"Value is");
+		testFunc(testNmb++, mapSys[1], mapUser[1],			"Value is");
+
+		testFunc(testNmb++, mapSys[15555], mapUser[15555],			"No Such Value");
+		
+		print_std_map("     sysMap: ", mapSys);
+		print_ft_map("    userMap: ", mapUser);
+	}
+}
 
 void				modifiers_map(int testNmb, int testAll)
 {
 	std::cout << std::endl << "\x1b[33m" << "                              *** MODIFIERS ***                          " << "\x1b[0m" << std::endl;
 
-	int			insert = 0;
+	int			insert = 1;
 	int			erase = 0; 
 	int			swap = 0;
-	int			clear = 1;
+	int			clear = 0;
 
 	if (testAll)
 	{
@@ -244,26 +294,249 @@ void				modifiers_map(int testNmb, int testAll)
 
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 
-		/* insert 4 */
-		// std::cout << std::endl << "\x1b[33m" << "insert 4 (turn left)" << "\x1b[0m" << std::endl;
-
-
-		/* insert 5 */
-		// std::cout << std::endl << "\x1b[33m" << "insert 5 (turn right)" << "\x1b[0m" << std::endl;
+		std::cout << std::endl << "\x1b[33m" << "insert 40" << "\x1b[0m" << std::endl;
 		
+		mapSys.clear();
+		mapUser.clear();
 
-		// /* insert 3 */
-		// std::cout << std::endl << "\x1b[33m" << "insert 3 (check BLACK-RED painting)" << "\x1b[0m" << std::endl;
+		mapSys.insert ( std::pair <int, int> (55 , 0) );
+		mapSys.insert ( std::pair <int, int> (40 , 0) );
+		mapSys.insert ( std::pair <int, int> (65 , 0) );
+		mapSys.insert ( std::pair <int, int> (60 , 0) );
+		mapSys.insert ( std::pair <int, int> (75 , 0) );
+		mapSys.insert ( std::pair <int, int> (57 , 0) );
+		mapSys.insert ( std::pair <int, int> (45 , 0) );
+		mapSys.insert ( std::pair <int, int> (41 , 0) );
+
+		/* user part */
+
+		mapUser.insert ( std::pair <int, int> (55 , 0) );
+		mapUser.insert ( std::pair <int, int> (40 , 0) );
+		mapUser.insert ( std::pair <int, int> (65 , 0) );
+		mapUser.insert ( std::pair <int, int> (60 , 0) );
+		mapUser.insert ( std::pair <int, int> (75 , 0) );
+		mapUser.insert ( std::pair <int, int> (57 , 0) );
+		mapUser.insert ( std::pair <int, int> (45 , 0) );
+		mapUser.insert ( std::pair <int, int> (41 , 0) );
+		
+		print_std_map("     sysMap: ", mapSys);
+		print_ft_map("    userMap: ", mapUser);
 
 	}
 
-	// //***************************ERASE************************//
-	// if(erase)
-	// {
-	// 	std::cout << std::endl << "\x1b[33m" << "erase" << "\x1b[0m" << std::endl;
+	//***************************ERASE************************//
+	if(erase)
+	{
 		
+		// std::cout << std::endl << "\x1b[33m" << "erase 40" << "\x1b[0m" << std::endl;
 		
-	// }
+		// mapSys.clear();
+		// mapUser.clear();
+
+		// mapSys.insert ( std::pair <int, int> (55 , 0) );
+		// mapSys.insert ( std::pair <int, int> (40 , 0) );
+		// mapSys.insert ( std::pair <int, int> (65 , 0) );
+		// mapSys.insert ( std::pair <int, int> (60 , 0) );
+		// mapSys.insert ( std::pair <int, int> (75 , 0) );
+		// mapSys.insert ( std::pair <int, int> (57 , 0) );
+
+		// /* user part */
+
+		// mapUser.insert ( std::pair <int, int> (55 , 0) );
+		// mapUser.insert ( std::pair <int, int> (40 , 0) );
+		// mapUser.insert ( std::pair <int, int> (65 , 0) );
+		// mapUser.insert ( std::pair <int, int> (60 , 0) );
+		// mapUser.insert ( std::pair <int, int> (75 , 0) );
+		// mapUser.insert ( std::pair <int, int> (57 , 0) );
+		
+		// // std::cout << "*** BEFORE ***" << std::endl;
+		// // print_std_map("     sysMap: ", mapSys);
+		// // print_ft_map("    userMap: ", mapUser);
+
+		// std::map <int, int> :: iterator itSysBegin = mapSys.begin();
+		// ft::map <int, int> :: iterator itUserBegin = mapUser.begin();
+		
+		// mapSys.erase(itSysBegin);
+		// mapUser.erase(itUserBegin);
+
+		// std::cout << "*** AFTER ***" << std::endl;
+		// print_std_map("     sysMap: ", mapSys);
+		// print_ft_map("    userMap: ", mapUser);
+
+		// std::cout << std::endl << "\x1b[33m" << "erase 41" << "\x1b[0m" << std::endl;
+		
+		// mapSys.clear();
+		// mapUser.clear();
+
+		// mapSys.insert ( std::pair <int, int> (55 , 0) );
+		// mapSys.insert ( std::pair <int, int> (40 , 0) );
+		// mapSys.insert ( std::pair <int, int> (65 , 0) );
+		// mapSys.insert ( std::pair <int, int> (60 , 0) );
+		// mapSys.insert ( std::pair <int, int> (75 , 0) );
+		// mapSys.insert ( std::pair <int, int> (57 , 0) );
+		// mapSys.insert ( std::pair <int, int> (41 , 0) );
+
+		// /* user part */
+
+		// mapUser.insert ( std::pair <int, int> (55 , 0) );
+		// mapUser.insert ( std::pair <int, int> (40 , 0) );
+		// mapUser.insert ( std::pair <int, int> (65 , 0) );
+		// mapUser.insert ( std::pair <int, int> (60 , 0) );
+		// mapUser.insert ( std::pair <int, int> (75 , 0) );
+		// mapUser.insert ( std::pair <int, int> (57 , 0) );
+		// mapUser.insert ( std::pair <int, int> (41 , 0) );
+		
+		// std::cout << "*** BEFORE ***" << std::endl;
+		// print_std_map("     sysMap: ", mapSys);
+		// print_ft_map("    userMap: ", mapUser);
+
+		// itSysBegin = mapSys.begin();
+		// itUserBegin = mapUser.begin();
+
+		// itSysBegin++;
+		// itUserBegin++;
+		
+		// mapSys.erase(itSysBegin);
+		// mapUser.erase(itUserBegin);
+
+		// std::cout << "*** AFTER ***" << std::endl;
+		// print_std_map("     sysMap: ", mapSys);
+		// print_ft_map("    userMap: ", mapUser);
+
+		// std::cout << std::endl << "\x1b[33m" << "erase 40" << "\x1b[0m" << std::endl;
+		
+		// mapSys.clear();
+		// mapUser.clear();
+
+		// mapSys.insert ( std::pair <int, int> (55 , 0) );
+		// mapSys.insert ( std::pair <int, int> (40 , 0) );
+		// mapSys.insert ( std::pair <int, int> (65 , 0) );
+		// mapSys.insert ( std::pair <int, int> (60 , 0) );
+		// mapSys.insert ( std::pair <int, int> (75 , 0) );
+		// mapSys.insert ( std::pair <int, int> (57 , 0) );
+		// mapSys.insert ( std::pair <int, int> (45 , 0) );
+
+		// /* user part */
+
+		// mapUser.insert ( std::pair <int, int> (55 , 0) );
+		// mapUser.insert ( std::pair <int, int> (40 , 0) );
+		// mapUser.insert ( std::pair <int, int> (65 , 0) );
+		// mapUser.insert ( std::pair <int, int> (60 , 0) );
+		// mapUser.insert ( std::pair <int, int> (75 , 0) );
+		// mapUser.insert ( std::pair <int, int> (57 , 0) );
+		// mapUser.insert ( std::pair <int, int> (45 , 0) );
+		
+		// std::cout << "*** BEFORE ***" << std::endl;
+		// print_std_map("     sysMap: ", mapSys);
+		// print_ft_map("    userMap: ", mapUser);
+		
+		// mapSys.erase(40);
+		// mapUser.erase(40);
+
+		// std::cout << "*** AFTER ***" << std::endl;
+		// print_std_map("     sysMap: ", mapSys);
+		// print_ft_map("    userMap: ", mapUser);
+
+		// std::cout << std::endl << "\x1b[33m" << "erase 100 (size_type erase (const key_type& k);)" << "\x1b[0m" << std::endl;
+		
+		// mapSys.clear();
+		// mapUser.clear();
+
+		// mapSys.insert ( std::pair <int, int> (55 , 0) );
+		// mapSys.insert ( std::pair <int, int> (40 , 0) );
+		// mapSys.insert ( std::pair <int, int> (65 , 0) );
+		// mapSys.insert ( std::pair <int, int> (60 , 0) );
+		// mapSys.insert ( std::pair <int, int> (75 , 0) );
+		// mapSys.insert ( std::pair <int, int> (57 , 0) );
+
+		// /* user part */
+
+		// mapUser.insert ( std::pair <int, int> (55 , 0) );
+		// mapUser.insert ( std::pair <int, int> (40 , 0) );
+		// mapUser.insert ( std::pair <int, int> (65 , 0) );
+		// mapUser.insert ( std::pair <int, int> (60 , 0) );
+		// mapUser.insert ( std::pair <int, int> (75 , 0) );
+		// mapUser.insert ( std::pair <int, int> (57 , 0) );
+		
+		// // std::cout << "*** BEFORE ***" << std::endl;
+		// // print_std_map("     sysMap: ", mapSys);
+		// // print_ft_map("    userMap: ", mapUser);
+		
+		// testFunc(testNmb++, mapSys.erase(100), mapUser.erase(100), "Size is");
+
+		// // std::cout << "*** AFTER ***" << std::endl;
+		// // print_std_map("     sysMap: ", mapSys);
+		// // print_ft_map("    userMap: ", mapUser);
+
+		// std::cout << std::endl << "\x1b[33m" << "erase 40 (size_type erase (const key_type& k);)" << "\x1b[0m" << std::endl;
+		
+		// mapSys.clear();
+		// mapUser.clear();
+
+		// mapSys.insert ( std::pair <int, int> (55 , 0) );
+		// mapSys.insert ( std::pair <int, int> (40 , 0) );
+		// mapSys.insert ( std::pair <int, int> (65 , 0) );
+		// mapSys.insert ( std::pair <int, int> (60 , 0) );
+		// mapSys.insert ( std::pair <int, int> (75 , 0) );
+		// mapSys.insert ( std::pair <int, int> (57 , 0) );
+
+		// /* user part */
+
+		// mapUser.insert ( std::pair <int, int> (55 , 0) );
+		// mapUser.insert ( std::pair <int, int> (40 , 0) );
+		// mapUser.insert ( std::pair <int, int> (65 , 0) );
+		// mapUser.insert ( std::pair <int, int> (60 , 0) );
+		// mapUser.insert ( std::pair <int, int> (75 , 0) );
+		// mapUser.insert ( std::pair <int, int> (57 , 0) );
+		
+		// // std::cout << "*** BEFORE ***" << std::endl;
+		// // print_std_map("     sysMap: ", mapSys);
+		// // print_ft_map("    userMap: ", mapUser);
+		
+		// testFunc(testNmb++, mapSys.erase(40), mapUser.erase(40), "Size is");
+
+		// // std::cout << "*** AFTER ***" << std::endl;
+		// // print_std_map("     sysMap: ", mapSys);
+		// // print_ft_map("    userMap: ", mapUser);
+
+
+
+
+		// std::cout << std::endl << "\x1b[33m" << "erase 65" << "\x1b[0m" << std::endl;
+		
+		// mapSys.clear();
+		// mapUser.clear();
+
+		// mapSys.insert ( std::pair <int, int> (55 , 0) );
+		// mapSys.insert ( std::pair <int, int> (40 , 0) );
+		// mapSys.insert ( std::pair <int, int> (65 , 0) );
+		// mapSys.insert ( std::pair <int, int> (60 , 0) );
+		// mapSys.insert ( std::pair <int, int> (75 , 0) );
+		// mapSys.insert ( std::pair <int, int> (57 , 0) );
+
+		// /* user part */
+
+		// mapUser.insert ( std::pair <int, int> (55 , 0) );
+		// mapUser.insert ( std::pair <int, int> (40 , 0) );
+		// mapUser.insert ( std::pair <int, int> (65 , 0) );
+		// mapUser.insert ( std::pair <int, int> (60 , 0) );
+		// mapUser.insert ( std::pair <int, int> (75 , 0) );
+		// mapUser.insert ( std::pair <int, int> (57 , 0) );
+		
+		// std::cout << "*** BEFORE ***" << std::endl;
+		// print_std_map("     sysMap: ", mapSys);
+		// print_ft_map("    userMap: ", mapUser);
+		
+		// mapSys.erase(65);
+		// mapUser.erase(65);
+
+		// std::cout << "*** AFTER ***" << std::endl;
+		// print_std_map("     sysMap: ", mapSys);
+		// print_ft_map("    userMap: ", mapUser);
+
+		
+	
+	}
 	
 	// //***************************SWAP************************//
 	// if(swap)
@@ -284,8 +557,66 @@ void				modifiers_map(int testNmb, int testAll)
 		print_ft_map("    userMap: ", mapUser1);
 		
 		/* clear 2 */
-		// std::cout << std::endl << "\x1b[33m" << "clear" << "\x1b[0m" << std::endl;
+		std::cout << std::endl << "\x1b[33m" << "clear" << "\x1b[0m" << std::endl;
 
+		mapSys.insert ( std::pair <int, int> (20, 42) );
+		mapSys.insert ( std::pair <int, int> (20, 42) );
+		mapSys.insert ( std::pair <int, int> (10, 10) );
+		mapSys.insert ( std::pair <int, int> (42, 0) );
+		
+		mapSys.insert ( std::pair <int, int> (-50, 0) );
+		mapSys.insert ( std::pair <int, int> (15, 0) );
+		mapSys.insert ( std::pair <int, int> (30, 0) );
+		mapSys.insert ( std::pair <int, int> (100, 0) );
+
+		mapSys.insert ( std::pair <int, int> (-99, 0) );
+		mapSys.insert ( std::pair <int, int> (1, 0) );
+
+		mapSys.insert ( std::pair <int, int> (14, 0) );
+		mapSys.insert ( std::pair <int, int> (16, 0) );
+		
+		mapSys.insert ( std::pair <int, int> (29, 0) );
+		mapSys.insert ( std::pair <int, int> (40, 0) );
+		
+		mapSys.insert ( std::pair <int, int> (45, 0) );
+		mapSys.insert ( std::pair <int, int> (105, 0) );
+
+		/* user part */
+
+		mapUser.insert ( std::pair <int, int> (20, 0) );
+		mapUser.insert ( std::pair <int, int> (20, 0) );
+		mapUser.insert ( std::pair <int, int> (10, 0) );
+		mapUser.insert ( std::pair <int, int> (42, 0) );
+		
+		mapUser.insert ( std::pair <int, int> (-50, 0) );
+		mapUser.insert ( std::pair <int, int> (15, 0) );
+		mapUser.insert ( std::pair <int, int> (30, 0) );
+		mapUser.insert ( std::pair <int, int> (100, 0) );
+
+		mapUser.insert ( std::pair <int, int> (-99, 0) );
+		mapUser.insert ( std::pair <int, int> (1, 0) );
+
+		mapUser.insert ( std::pair <int, int> (14, 0) );
+		mapUser.insert ( std::pair <int, int> (16, 0) );
+		
+		mapUser.insert ( std::pair <int, int> (29, 0) );
+		mapUser.insert ( std::pair <int, int> (40, 0) );
+		
+		mapUser.insert ( std::pair <int, int> (45, 0) );
+		mapUser.insert ( std::pair <int, int> (105, 0) );
+		
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_map("     sysMap: ", mapSys);
+		print_ft_map("    userMap: ", mapUser);
+		
+		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
+		
+		mapSys.clear();
+		mapUser.clear();
+
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_map("     sysMap: ", mapSys);
+		print_ft_map("    userMap: ", mapUser);
 		
 	}
 
@@ -331,7 +662,7 @@ void map_test()
 	// constructor_map(testNmb);	
 	// iterators_map(testNmb, testAll);
 	// capacity_map(testNmb, testAll);
-	// elementAccess_map(testNmb, testAll);
+	// elementAccess_map(testNmb, testAll);			// +
 	modifiers_map(testNmb, testAll);
 	// overloads_map(testNmb, testAll);
 }

@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:19 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/30 16:37:35 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/31 18:40:59 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,11 @@ namespace ft
 			** -------------------------------- DESTRUCTOR --------------------------------
 			*/
 
-                // ~map();
+                ~map()
+                {
+                    this->clear();
+                    delete this->_TNULL;
+                }
 
 			/*
 			** --------------------------------- OVERLOAD ---------------------------------
@@ -118,13 +122,20 @@ namespace ft
 
 	/* Capacity */
 
-                // bool empty() const;
+                bool empty() const { return (_size == 0 ? true : false); }
                 size_type size() const { return this->_size; }
-                // size_type max_size() const;
+                // size_type max_size() const {
+                    
+                //     return (5);
+                //     return (std::numeric_limits<size_type>::max() / (sizeof(nodeMap)));
+                // }
 
 	/* Element access */
 
-                // mapped_type& operator[] (const key_type& k);
+                mapped_type& operator[] (const key_type& key)
+                {
+                    return insert(std::make_pair(key, mapped_type())).first->second;
+                }
 
 	/* Modifiers */
 
@@ -138,7 +149,7 @@ namespace ft
                     
                     
                     if (whereAdd->data.first == val.first)
-                        return std::make_pair(iterator(this->_root), false); // rewrite
+                        return std::make_pair(iterator(whereAdd), false); // rewrite
                     else
                     {
                         nodeMap	*newNode = new nodeMap;
@@ -173,88 +184,198 @@ namespace ft
                             // std::cout << "NEW VALUE [" << std::setw(3) << newNode->data.first << "]     " << std::setw(4) << newNode->data.first  << "   >   " << whereAdd->data.first << std::endl;
                         }
                         _size++;
-                        // repaint(newNode);
-                        // rotation();
+                        insertFix(newNode);
+                        return std::make_pair(iterator(newNode), true);    // 11 st 
                     }
                     return std::make_pair(iterator(this->_root), true);    // 11 st              
                 }
                 
                 iterator insert (iterator position, const value_type& val);
                 
-                template <class InputIterator>
-                void insert (InputIterator first, InputIterator last);
+                // template <class InputIterator>
+                // void insert (InputIterator first, InputIterator last);
+
+                void rbTransplant(nodeMap * nodeToBeDeleted, nodeMap * x) // z , y 
+                {
+                    std::cout << "--- 2 ---" << std::endl;
+                    if (nodeToBeDeleted->parent == nullptr)
+                    {
+                        std::cout << "---- 1 ----"<< std::endl;
+                        _root = x;
+                    }
+                    else if (nodeToBeDeleted == nodeToBeDeleted->parent->left)
+                    {
+                        std::cout << "---- 2 ----"<< std::endl;
+                        nodeToBeDeleted->parent->left = x;
+                        // std::cout << "---- 2 ----"<< std::endl;
+                    }
+                    else if (nodeToBeDeleted == nodeToBeDeleted->parent->right)
+                    {
+                        std::cout << "---- 3 ----"<< std::endl;
+                        nodeToBeDeleted->parent->right = x;
+                    }
+                    
+                    // std::cout << "here 1"<< std::endl;
+                    if (x)
+                    {
+                        std::cout << "--- 3 ---" << std::endl;
+                        x->parent = nodeToBeDeleted->parent;
+                    }
+                        
+                    // std::cout << "here 2"<< std::endl;
+                    
+                }
+
+                // For balancing the tree after deletion
+                void deleteFix(nodeMap *x)
+                {
+                    nodeMap * s;
+                    while (x != _root && x->color == BLACK) {
+                    if (x == x->parent->left) {
+                        s = x->parent->right;
+                        if (s->color == RED) {
+                        s->color = BLACK;
+                        x->parent->color = RED;
+                        turnLeft(x->parent);
+                        s = x->parent->right;
+                        }
+
+                        if (s->left->color == BLACK && s->right->color == BLACK) {
+                        s->color = RED;
+                        x = x->parent;
+                        } else {
+                        if (s->right->color == BLACK) {
+                            s->left->color = BLACK;
+                            s->color = RED;
+                            turnRight(s);
+                            s = x->parent->right;
+                        }
+
+                        s->color = x->parent->color;
+                        x->parent->color = BLACK;
+                        s->right->color = BLACK;
+                        turnLeft(x->parent);
+                        x = _root;
+                        }
+                    } else {
+                        s = x->parent->left;
+                        if (s->color == RED) {
+                        s->color = BLACK;
+                        x->parent->color = RED;
+                        turnRight(x->parent);
+                        s = x->parent->left;
+                        }
+
+                        if (s->right->color == BLACK && s->right->color == BLACK) {
+                        s->color = RED;
+                        x = x->parent;
+                        } else {
+                        if (s->left->color == BLACK) {
+                            s->right->color = BLACK;
+                            s->color = RED;
+                            turnLeft(s);
+                            s = x->parent->left;
+                        }
+
+                        s->color = x->parent->color;
+                        x->parent->color = BLACK;
+                        s->left->color = BLACK;
+                        turnRight(x->parent);
+                        x = _root;
+                        }
+                    }
+                    }
+                    x->color = BLACK;
+                }
+
+                void erase (iterator position)
+                {
+                    nodeMap *x;
+                    nodeMap *y;
+                    nodeMap *   nodeToBeDeleted = position.getptr();
+                    int         originalColor  = nodeToBeDeleted->color;
+                    std::cout << "ELEMENT TO DELETE IS " << nodeToBeDeleted->data.first << std::endl;
+
+                    if (nodeToBeDeleted->left == nullptr)
+                    {
+                        std::cout << "--- 1 ---" << std::endl;
+                        x = nodeToBeDeleted->right;
+                        rbTransplant(nodeToBeDeleted, x);
 
 
+                        if (nodeToBeDeleted == _start)
+                        {
+                            _start = minimum(x);
+                        }
+                            
+                    }
+                    else if (nodeToBeDeleted->right == nullptr)
+                    {
+                        x = nodeToBeDeleted->left;
+                        rbTransplant(nodeToBeDeleted, x);
+                    }
+                    else
+                    {
+                        y = minimum(nodeToBeDeleted->right);
+                        originalColor = y->color;
+                        x = y->right;
 
+                        if (y->parent == nodeToBeDeleted)
+                        {
+                            x->parent = y;
+                        }
+                        else
+                        {
+                            rbTransplant(y, y->right);
+                            y->right = nodeToBeDeleted->right;
+                            y->right->parent = y;
+                        }
 
-// ft::pair<iterator, bool>	insert(const value_type& val) {
-// 			if (this->_size == 0)
-// 				return (ft::make_pair(iterator(Base::insert_root(val)), true));
-// 			mapnode	*it(this->_root);
-// 			while (it) {
-// 				if (key_compare()(val.first, it->data.first)) {
-// 					if (it->left && it->left != this->_first)
-// 						it = it->left;
-// 					else return ft::make_pair(iterator(Base::insert_left(it, val)), true);
-// 				}
-// 				else if (key_compare()(it->data.first, val.first)) {
-// 					if (it->right && it->right != this->_last)
-// 						it = it->right;
-// 					else return ft::make_pair(iterator(Base::insert_right(it, val)), true);
-// 				}
-// 				else break ;
-// 			}
-// 			return ft::make_pair(iterator(it), false);
-// 		}
-// 		iterator	insert(iterator position, const value_type& val) {
-// 			(void)position;
-// 			return insert(val).first;
-// 		}
-// 		template <class InputIterator>
-// 		void		insert(InputIterator first, InputIterator last, typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
-// 			while (first != last) {
-// 				insert(*first);
-// 				++first;
-// 			}
-// 		}
+                        rbTransplant(nodeToBeDeleted, y);
+                        y->left = nodeToBeDeleted->left;
+                        y->left->parent = y;
+                        y->color = nodeToBeDeleted->color;
+                    }
+                    
+                    // nodeToBeDeleted->parent->left = nullptr;
+                    
+                    delete nodeToBeDeleted;
+                    _size--;
 
+                    // if (originalColor == BLACK) {
+                    //     deleteFix(x);
+                    // }
+                }
 
+                size_type erase (const key_type& key)
+                {
+                    nodeMap * findNoda = nullptr;
+                    findNoda = findNodaKey(key);
+                    
+                    if (findNoda == nullptr || findNoda == _TNULL)
+                        return 0;
 
-
-
-
-
-
-
-
-
-
-                // void erase (iterator position);
-
-                // size_type erase (const key_type& k);
+                    erase (iterator(findNoda));
+                    return 1;
+                }
 
                 // void erase (iterator first, iterator last);
                 
                 // void swap (map& x);
 
-                // void clear()
-                // {
-                //     // if (empty())
-                //     //     return;
-
-                //     _map            = nullptr;
-                //     _start          = nullptr;
-                //     _finish         = nullptr;
-                //     _root           = nullptr;
-                //     _size           = 0;
-
-                //     _TNULL->parent    = nullptr;
-                //     _TNULL->right     = nullptr;
-                //     _TNULL->left      = nullptr;
-                                            
-                //     // this->clear(this->_root);
-                //     // this->link_outer();
-                // }
+                void clear()
+                {
+                    if (empty())
+                        return;
+                    _finish->right = nullptr;
+                    this->clear(this->_root);
+                    _map            = nullptr;
+                    _start          = nullptr;
+                    _finish         = nullptr;
+                    _root           = nullptr;
+                    _size           = 0;
+                    _TNULL->parent    = nullptr;
+                }
 
     /* Observers */
                 
@@ -282,7 +403,7 @@ namespace ft
 
 
 
-                // void printHelper(NodePtr root, string indent, bool last) {
+                // void printHelper(nodeMap root, string indent, bool last) {
                 //     if (root != TNULL)
                 //     {
                 //         cout << indent;
@@ -372,85 +493,156 @@ namespace ft
                     return (whereAdd);
                 }
 
-                void        repaint(nodeMap * newNode)
+                void turnLeft(nodeMap *node)
                 {
-                   
-
-
-                    
-                    iterator newNodeIt = begin();
-                    while (newNodeIt != end())
+                    nodeMap *tmp = node->right;
+                    if(node->left != nullptr)
                     {
-                        if (newNodeIt.getptr()->data.first == newNode->data.first)
-                            break;
-                        newNodeIt++;
+                        node->parent->right = node->left;
                     }
-                    // iterator tmp = newNodeIt;
-
-                    std::cout << "find sega -> " << newNodeIt.getptr()->data.first << std::endl;
-                    std::cout << "find sega -> " << newNodeIt.getptr()->parent->data.first << std::endl;
-                    
-                    
-                    int previous = RED;
-                    newNodeIt++;
-
-                    std::cout << "find sega -> " << newNodeIt.getptr()->data.first << std::endl;
-                    // std::cout << "find sega -> " << newNodeIt.getptr()->parent->data.first << std::endl;
-
-
-                    // std::cout << "****************" << std::endl;
-                    while (newNodeIt != this->end())
+                    if(node->parent->parent == nullptr)
                     {
-                        // std::cout << "****************" << std::endl;
-                        
-                        // std::cout << previous << std::endl;
-                        
-                        
-                        if (previous == RED && newNodeIt.getptr()->color == RED)
-                        {
-                            // std::cout << "------- 1 --------" << std::endl;
-                            newNodeIt.getptr()->color = BLACK;
-                            previous = BLACK;
-                        }
-                        else if (previous == BLACK && newNodeIt.getptr()->color == BLACK)
-                        {
-                            // std::cout << "------- 2 --------" << std::endl;
-                            newNodeIt.getptr()->color = RED;
-                            previous = RED;
+                        _root = node;
+                    }
+                    else if(tmp->parent == tmp->parent->parent->left)
+                    {
+                        tmp->parent->parent->left = node;
+                    }
+                    else
+                    {
+                        tmp->parent->parent->right = node;
+                    }
+                    tmp->left = node;
+                    node->parent = tmp;
+                }
+
+                void turnRight(nodeMap *node)
+                {
+                    nodeMap *tmp = node->parent;
+                    if(node->right != nullptr)
+                    {
+                        tmp->left = node->right;
+                    }
+                    if(tmp->parent == nullptr)
+                    {
+                        _root = node;
+                    }
+                    else if(tmp == tmp->parent->right)
+                    {
+                        tmp->parent->right = node;
+                    }
+                    else
+                    {
+                        tmp->parent->left = node;
+                    }
+                    node->right = tmp;
+                    tmp->parent = node;
+                }
+                void insertFix(nodeMap *node)
+                {
+                    nodeMap *tmp;
+
+                    while(node->parent->color == RED) // пока родитель ноды красный мы в цикле
+                    {
+                        if(node->parent->parent->left == node->parent) // если родитель ноды является
+                        {                                              //  левым элементом бабушки
+                            tmp = node->parent;
+                            if(tmp->parent->right->color == RED)       //и правый элемент бабушки красный
+                            {
+                                tmp->parent->right->color = BLACK;     //делаем дочерние элементы бабушки(а значит и родителя черн)
+                                tmp->color = BLACK;
+                                tmp->parent->color = RED;
+                                node = node->parent->parent;           // переходит к ноде бабушки
+                            }
+                            else
+                            {
+                                if(node == node->parent->right)        // иначе если нода  правый ребенок
+                                {
+                                    node = node->parent;               // переходим на родителя
+                                    turnLeft(node);                    //и переварачиваем влево
+                                }
+                                node->parent->color = BLACK;           //делаем родителя черным
+                                node->parent->parent->color = RED;     // а бабушку красным
+                                turnRight(node->parent->parent);       //поворачиваем бабушку вправо
+                            }
                         }
                         else
                         {
-                            // std::cout << "------- 3 --------" << std::endl;
-                            previous = newNodeIt.getptr()->color;
+                            if(node->parent->parent->right == node->parent)
+                            {
+                                tmp = node->parent;
+                                if(tmp->parent->left->color == RED)       //и левый элемент бабушки красный
+                                {
+                                    tmp->parent->left->color = BLACK;     //делаем дочерние элементы бабушки(а значит и родителя черн)
+                                    tmp->color = BLACK;
+                                    tmp->parent->color = RED;
+                                    node = node->parent->parent;           // переходит к ноде бабушки
+                                }
+                                else
+                                {
+                                    if(node == node->parent->left)        // иначе если нода  левый ребенок
+                                    {
+                                        node = node->parent;              //переходим к родителю 
+                                        turnRight(node);                 // поворачиваем вправо
+                                    }
+                                    node->parent->color = BLACK;           //делаем родителя черным
+                                    node->parent->parent->color = RED;     // а бабушку красным
+                                    turnLeft(node->parent->parent);       //поворачиваем бабушку влево	
+                                }
+                            }
                         }
-                        
-                        // std::cout << "^^^^^^^^^^^^^^^^" << std::endl;
-                        newNodeIt++;
+                        if(node == _root)
+                            break ;
                     }
-
-                    
-
-                    
-                    // newNodeIt = tmp;
-                    // while (newNodeIt != this->end())
-                    // {
-                    //     if (previous == RED && newNodeIt.getptr()->color == RED)
-                    //     {
-                    //         newNodeIt.getptr()->color = BLACK;
-                    //         previous = BLACK;
-                    //     }
-                    //     else if (previous == BLACK && newNodeIt.getptr()->color == BLACK)
-                    //     {
-                    //         newNodeIt.getptr()->color = RED;
-                    //         previous = RED;
-                    //     }
-                    //     else
-                    //         previous = newNodeIt.getptr()->color;
-                    //     newNodeIt++;
-                    // }
                     _root->color = BLACK;
                 }
-			
+
+                nodeMap * minimum(nodeMap * node)
+                {
+                    while (node->left != nullptr)
+                        node = node->left;
+                    return node;
+                }
+
+                nodeMap * maximum(nodeMap * node)
+                {
+                    while (node->right != nullptr && node->right != _TNULL)
+                        node = node->right;
+                    return node;
+                }
+
+                void	clear(nodeMap *position)
+                {
+                    if (!position)
+                        return ;
+                    clear(position->left);
+                    clear(position->right);
+                    // std::cout << "*** DELETE " << position->data.first << " ***" << std::endl;
+                    delete position;
+                    _size--;
+			    }
+
+                nodeMap *  findNodaKey(const key_type& key)
+                {
+                    nodeMap * findNoda = nullptr;
+                    nodeMap *begin = _root;
+
+                    while (begin != _TNULL && begin != nullptr)
+                    {
+                        if (begin->data.first == key)
+                        {
+                            findNoda = begin;
+                            break ;
+                        }
+                        else if (begin->data.first <= key)
+                            begin = begin->right;
+                        else
+                            begin = begin->left;
+                    }
+                    if (findNoda == nullptr || findNoda == _TNULL)
+                        return nullptr;
+                    return findNoda;
+                }
     }; 
 
 	/* Non-member function overloads */
