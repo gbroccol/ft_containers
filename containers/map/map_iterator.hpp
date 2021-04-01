@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:11:42 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/30 15:44:12 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/01 18:19:22 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,15 +272,15 @@ namespace ft
 					while (it->left)
 						it = it->left;
 				}
-				else if (it->right == nullptr && it->parent && it->data.first < it->parent->data.first)  // case 2
+				else if (it->parent && it->data.first < it->parent->data.first)  // case 2
 					it = it->parent;
-				else if (it->right == nullptr && it->parent && it->parent->parent) // case 3
+				else if (it->parent && it->parent->parent) // case 3
 				{
 					while (it->parent && it->data.first > it->parent->data.first)
 						it = it->parent;
 					it = it->parent;
 				}
-				else if (it->right == nullptr) // case 4
+				else // if (it->right == nullptr) // case 4
 					it = it->right;
 				this->ptr = it;
 				return (*this);
@@ -307,17 +307,17 @@ namespace ft
 					while (it->right)
 						it = it->right;
 				}
-				else if (it->left == nullptr && it->parent && it->data.first > it->parent->data.first) // case 2
+				else if (it->parent && it->data.first > it->parent->data.first) // case 2
 				{
 					it = it->parent;
 				}
-				else if (it->left == nullptr && it->parent && it->parent->parent) // case 3
+				else if (it->parent && it->parent->parent) // case 3
 				{
 					while (it->parent && it->data.first < it->parent->data.first)
 						it = it->parent;
 					it = it->parent;
 				}
-				else if (it->left == nullptr) // case 4
+				else // if (it->left == nullptr) // case 4
 					it = it->left;
 				this->ptr = it;
 				return (*this);
