@@ -1322,7 +1322,7 @@ void				operations(int testNmb, int testAll)
 		// std::system("clear");
 
 		/*		void splice (iterator position, list& x, iterator i);		*/
-		std::cout << std::endl << "\x1b[33m" << "splice" << "\x1b[0m" << std::endl;
+		std::cout << std::endl << "\x1b[33m" << "splice 2" << "\x1b[0m" << std::endl;
 
 			sysListSplice1.clear();
 		userListSplice1.clear();
@@ -1387,7 +1387,7 @@ void				operations(int testNmb, int testAll)
 		// std::system("clear");
 
 		/*		void splice (iterator position, list& x, iterator i);		*/
-		std::cout << std::endl << "\x1b[33m" << "splice" << "\x1b[0m" << std::endl;
+		std::cout << std::endl << "\x1b[33m" << "splice 3" << "\x1b[0m" << std::endl;
 
 		sysListSplice1.clear();
 		userListSplice1.clear();
@@ -3147,7 +3147,7 @@ void				operations(int testNmb, int testAll)
 		std::cerr << e.what() << '\n';
 	}
 
-	
+	getchar();
 }
 
 /* extra */

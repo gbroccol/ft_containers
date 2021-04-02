@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:04:46 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/25 16:07:50 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/03/24 19:48:38 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <iostream>
 #include <vector>
 
-void				constructor(int testNmb)
+void				constructor_vector(int testNmb)
 {
 	std::cout << std::endl << "\x1b[33m" << "                              *** CONSTRUCTOR ***                          " << "\x1b[0m" << std::endl;
 
@@ -29,220 +29,224 @@ void				constructor(int testNmb)
 	std::vector <int> vectorConstrSysFree;
 
 	testFunc(testNmb++, vectorConstrSysFree.size(), vectorConstrUserFree.size(),  "vector size()");
-	// getchar();
+
 
 	/* simple constructor */
 	std::cout << std::endl << "\x1b[33m" << "simple constructor" << "\x1b[0m" << std::endl;	
 	ft::vector<int> vUser(4, 100);
 	std::vector <int> vSys(4,100);
 
-	// print_std_vector(" Sys Erase:", vSys);
-	// print_ft_vector("User Erase:", vUser);
-	// std::cout << std::endl;
+	std::cout << "*** PRINT VECTOR ***" << std::endl;
+	print_std_vector(" Sys Erase:", vSys);
+	print_ft_vector("User Erase:", vUser);
+	std::cout << std::endl;
 
 	ft::vector<int>::iterator itUser = vUser.begin();
 	std::vector<int>::iterator itSys = vSys.begin();
 
 	ft::vector<int>::iterator itUser2 = vUser.end();
 	std::vector<int>::iterator itSys2 = vSys.end();
-	itUser2--;
-	itSys2--;
 
 	testFunc(testNmb++, *itSys, *itUser, "vector begin()");
+	testFunc(testNmb++, *itSys2, *itUser2, "vector end()"); // trash
+	itUser2--;
+	itSys2--;
 	testFunc(testNmb++, *itSys2, *itUser2, "vector end()");
 	testFunc(testNmb++, vUser.size(), vSys.size(),  "vector size()");
-	// getchar();
-	
+	getchar();
+
+
 	/* copy constructor */
 	std::cout << std::endl << "\x1b[33m" << "copy constructor" << "\x1b[0m" << std::endl;
 	ft::vector  <int> vUserCopy(vUser);
 	std::vector <int> vSysCopy(vSys);
 
-	// print_std_vector(" Sys Erase:", vSysCopy);
-	// print_ft_vector("User Erase:", vUserCopy);
-	// std::cout << std::endl;
-
-	std::vector<int>::iterator itSysCopy = vSysCopy.begin();
-	ft::vector<int>::iterator itUserCopy = vUserCopy.begin();
+	std::cout << "*** PRINT COPY CONSTRUCTOR ***" << std::endl;
+	print_std_vector(" Sys Erase:", vSysCopy);
+	print_ft_vector("User Erase:", vUserCopy);
+	std::cout << std::endl;
 	
 	testFunc(testNmb++, vSysCopy.size(), vUserCopy.size(), "Constructor copy");
-	testFunc(testNmb++, *itSysCopy, *itUserCopy, "Constructor copy - value");
-
-	itSysCopy =  vSysCopy.end();
-	itUserCopy =  vUserCopy.end();
 	
-	itSysCopy--;
-	itUserCopy--;
+	// std::vector<int>::iterator itConstrCopySys = sysVectorCopy.begin();
+	// ft::vector<int>::iterator itConstrCopy = userVectorCopy.begin();
+	
+	
+	// testFunc(testNmb++, *itConstrCopySys, *itConstrCopy, "Constructor copy - value");
+
+	// itConstrCopySys =  sysVectorCopy.end();
+	// itConstrCopySys--;
+	// itConstrCopy =  userVectorCopy.end();
+	// itConstrCopy--;
+
+	// std::cout << std::endl << "\x1b[33m" << "constructor InputIterator" << "\x1b[0m" << std::endl;
+
+	
+	// itConstrCopySys = sysVectorCopy.begin();
+	// itConstrCopy = userVectorCopy.begin();
+
+	// std::vector  <int>::iterator itConstrCopySys2 = sysVectorCopy.end();
+	// ft::vector  <int>::iterator itConstrCopy2 = userVectorCopy.end();
+
+	// ft::vector  <int> userVectorInputIt(itConstrCopy,itConstrCopy2);
+	// std::vector <int> sysVectorInpuIt(itConstrCopySys, itConstrCopySys2);
+	
+	// testFunc(testNmb++, sysVectorCopy.size(), userVectorCopy.size(), "Constructor InputIterator");
+	// testFunc(testNmb++, *itConstrCopySys, *itConstrCopy, "Constructor InputIterator - value");
+
+	// itConstrCopySys =  sysVectorCopy.end();
+	// itConstrCopySys--;
+	// itConstrCopy =  userVectorCopy.end();
+	// itConstrCopy--;
+	
+	// testFunc(testNmb++, *itConstrCopySys, *itConstrCopy, "Back value is");
 	// getchar();
-	
-	/* constructor InputIterator */
-	std::cout << std::endl << "\x1b[33m" << "constructor InputIterator" << "\x1b[0m" << std::endl;
-	
-	itSysCopy = vSysCopy.begin();
-	itUserCopy = vUserCopy.begin();
+	// std::system("clear");
 
-	std::vector  <int>::iterator itSysCopy2 = vSysCopy.end();
-	ft::vector  <int>::iterator itUserCopy2 = vUserCopy.end();
-
-	ft::vector  <int> userVectorInputIt(itUserCopy,itUserCopy2);
-	std::vector <int> sysVectorInpuIt(itSysCopy, itSysCopy2);
-
-	// print_std_vector(" Sys Erase:", sysVectorInpuIt);
-	// print_ft_vector("User Erase:", userVectorInputIt);
-	// std::cout << std::endl;
-	
-	testFunc(testNmb++, sysVectorInpuIt.size(), userVectorInputIt.size(), "Constructor InputIterator Size");
-	testFunc(testNmb++, *(sysVectorInpuIt.begin()), *(sysVectorInpuIt.begin()), "Constructor InputIterator - value");
-
-	itSysCopy =  vSysCopy.end();
-	itUserCopy =  vUserCopy.end();
-
-	itSysCopy--;
-	itUserCopy--;
-	testFunc(testNmb++, *itSysCopy, *itUserCopy, "Back value is");
-	getchar();
 }
 
-void				iterators_vector(int testNmb, int testAll)
-{
-	std::cout << std::endl << "\x1b[33m" << "                              *** ITERATORS ***                          " << "\x1b[0m" << std::endl;
+// void				iterators_vector(int testNmb, int testAll)
+// {
+// 	std::cout << std::endl << "\x1b[33m" << "                              *** ITERATORS ***                          " << "\x1b[0m" << std::endl;
 	
-	int			begin = 0;
-	int			end = 0;
-	int			rbegin = 0;
-	int			rend = 0;
-	int			const_begin = 0;
-	int			const_end = 0;
-	int			const_rbegin = 0;
-	int			const_rend = 0;
+// 	int			begin = 0;				//  
+// 	int			end = 0;			// 
+// 	int			rbegin = 0;			// 
+// 	int			rend = 0;			// 
+// 	int			const_begin = 0;				//  
+// 	int			const_end = 0;
+// 	int			const_rbegin = 0;			// 
+// 	int			const_rend = 0;
 
-	if (testAll)
-	{
-		begin = 1;
-		end = 1;
-		rbegin = 1;
-		rend = 1;
-		const_begin = 1;
-		const_end = 1;
-		const_rbegin = 1; 
-		const_rend = 1;
-	}
-
-	const ft::vector  <int> vConstUser(5,4);
-	const std::vector <int> vConstSys(5,4);
-
-	ft::vector  <int> vUser(5,4);
-	std::vector <int> vSys(5,4);
+// 	if (testAll)
+// 	{
+// 		begin = 1;				//  
+// 		end = 1;			// 
+// 		rbegin = 1;			// 
+// 		rend = 1;			//
+// 		const_begin = 1;				//  
+// 		const_end = 1;
+// 		const_rbegin = 1;			// 
+// 		const_rend = 1;
+// 	}
 	
-	// *************************** CONST BEGIN AND CONST END ************************//
+// 	//***************************CONST BEGIN AND CONST END************************//
+// 	if(const_begin && const_end)
+// 	{
+// 		std::cout << std::endl << "\x1b[33m" << "const begin and const end" << "\x1b[0m" << std::endl;
+
+// 		const ft::vector  <int> userVectorConst(5,4);
+// 		const std::vector <int> sysVectorConst(5,4);
+
+// 		std::vector <int>::const_iterator const_s_s = sysVectorConst.begin(); 
+// 		ft::vector <int>::const_iterator const_m_s = userVectorConst.begin();
+// 		std::vector <int>::const_iterator const_s_f;
+// 		const_s_f  = sysVectorConst.end();
+// 		const_s_f--;
+// 		ft::vector <int>::const_iterator const_m_f;
+// 		const_m_f = userVectorConst.end();
+// 		const_m_f--;
+
+// 		testFunc(testNmb++, *const_s_s, *const_m_s, "Const test begin");
+// 		testFunc(testNmb++, *const_s_f, *const_m_f, "Const test end");
+// 	}
 	
-	if(const_begin && const_end)
-	{
-		std::cout << std::endl << "\x1b[33m" << "const begin and const end" << "\x1b[0m" << std::endl;
 
-		std::vector <int>::const_iterator const_s_s = vConstSys.begin(); 
-		ft::vector <int>::const_iterator const_m_s  = vConstUser.begin();
-		
-		std::vector <int>::const_iterator const_s_f;
-		ft::vector <int>::const_iterator const_m_f;
-		
-		const_s_f  = vConstSys.end();
-		const_m_f = vConstUser.end();
 
-		const_s_f--;
-		const_m_f--;
-
-		testFunc(testNmb++, *const_s_s, *const_m_s, "Const test begin");
-		testFunc(testNmb++, *const_s_f, *const_m_f, "Const test end");
-	}
-
-	//***************************CONST RBEGIN AND CONST REND************************//
-	if(const_rbegin && const_rend)
-	{
-		std::cout << std::endl << "\x1b[33m" << "const rbegin and const rend" << "\x1b[0m" << std::endl;
-
-		std::vector <int>::const_reverse_iterator constr_s_s = vConstSys.rbegin(); 
-		ft::vector <int>::const_reverse_iterator constr_m_s = vConstUser.rbegin();
+// 	//***************************CONST RBEGIN AND CONST REND************************//
+// 	if(const_rbegin && const_rend)
+// 	{
+// 		const ft::vector  <int> userVectorConst(5,4);
+// 		const std::vector <int> sysVectorConst(5,4);
 		
-		constr_s_s++;
-		constr_m_s++;
-		
-		std::vector <int>::const_reverse_iterator constr_s_f;
-		ft::vector <int>::const_reverse_iterator constr_m_f;
-		
-		constr_s_f  = vConstSys.rend();
-		constr_m_f  = vConstUser.rend();
-		
-		constr_s_f--;
-		constr_m_f--;
+// 		std::cout << std::endl << "\x1b[33m" << "const rbegin and const rend" << "\x1b[0m" << std::endl;
 
-		testFunc(testNmb++, *constr_s_s, *constr_m_s, "Const reverse test begin");
-		testFunc(testNmb++, *constr_s_f, *constr_m_f, "Const reverse test end");
-	}
+// 		std::vector <int>::const_reverse_iterator constr_s_s = sysVectorConst.rbegin(); 
+// 		constr_s_s++;
+// 		ft::vector <int>::const_reverse_iterator constr_m_s = userVectorConst.rbegin();
+// 		constr_m_s++;
+// 		std::vector <int>::const_reverse_iterator constr_s_f;
+// 		constr_s_f  = sysVectorConst.rend();
+// 		constr_s_f--;
+// 		ft::vector <int>::const_reverse_iterator constr_m_f;
+// 		constr_m_f = userVectorConst.rend();
+// 		constr_m_f--;
+
+		
+// 		testFunc(testNmb++, *constr_s_s, *constr_m_s, "Const reverse test begin");
+// 		testFunc(testNmb++, *constr_s_f, *constr_m_f, "Const reverse test end");
+// 	}
 	
-	/* *************************** BEGIN AND END ************************/
-	if(begin && end)
-	{
-		std::cout << std::endl << "\x1b[33m" << "begin and end" << "\x1b[0m" << std::endl;
+// 	//***************************BEGIN AND END************************//
 
-		std::vector <int>::iterator simple_s_s = vSys.begin(); 
-		ft::vector <int>::iterator simple_m_s = vUser.begin();
-		
-		std::vector <int>::iterator simple_s_f = vSys.end();
-		ft::vector <int>::iterator simple_m_f  = vUser.end();
+// 	if(begin && end)
+// 	{
+// 		std::cout << std::endl << "\x1b[33m" << "begin and end" << "\x1b[0m" << std::endl;
 
-		simple_s_f--;
-		simple_m_f--;
+// 		ft::vector  <int> userVectorSimple(5,4);
+// 		std::vector <int> sysVectorSimple(5,4);
 
-		testFunc(testNmb++, *simple_s_s, *simple_m_s, "test begin");
-		testFunc(testNmb++, *simple_s_f, *simple_m_f, "test end");
-	}
+// 		std::vector <int>::iterator simple_s_s = sysVectorSimple.begin(); 
+// 		ft::vector <int>::iterator simple_m_s = userVectorSimple.begin();
+// 		std::vector <int>::iterator simple_s_f;
+// 		simple_s_f  = sysVectorSimple.end();
+// 		simple_s_f--;
+// 		ft::vector <int>::iterator simple_m_f;
+// 		simple_m_f = userVectorSimple.end();
+// 		simple_m_f--;
+			
 
-	/* ************************** REVERSE BEGIN AND END *********************** */
-	if(rbegin && rend)
-	{
-		std::cout << std::endl << "\x1b[33m" << "reverse begin and end" << "\x1b[0m" << std::endl;
+// 		testFunc(testNmb++, *simple_s_s, *simple_m_s, "test begin");
+// 		testFunc(testNmb++, *simple_s_f, *simple_m_f, "test end");
+// 	}
 
-		std::vector <int>::reverse_iterator simpler_s_s = vSys.rbegin();
-		ft::vector <int>::reverse_iterator simpler_m_s = vUser.rbegin();
-		
-		simpler_s_s++;
-		simpler_m_s++;
-		
-		std::vector <int>::reverse_iterator simpler_s_f;
-		simpler_s_f  = vSys.rend();
-		simpler_s_f--;
-		
-		ft::vector <int>::reverse_iterator simpler_m_f;
-		simpler_m_f = vUser.rend();
-		simpler_m_f--;
 
-		testFunc(testNmb++, *simpler_s_s, *simpler_m_s, "reverse test begin");
-		testFunc(testNmb++, *simpler_s_f, *simpler_m_s, "reverse test end");
-	}
 
-	getchar();
-}
+// 	//***************************REVERSE BEGIN AND END************************//
+// 	if(rbegin && rend)
+// 	{
+// 		ft::vector  <int> userVectorSimple(5,4);
+// 		std::vector <int> sysVectorSimple(5,4);
+
+// 		std::cout << std::endl << "\x1b[33m" << "reverse begin and end" << "\x1b[0m" << std::endl;
+
+// 		std::vector <int>::reverse_iterator simpler_s_s = sysVectorSimple.rbegin(); 
+// 		simpler_s_s++;
+// 		ft::vector <int>::reverse_iterator simpler_m_s = userVectorSimple.rbegin();
+// 		simpler_m_s++;
+// 		std::vector <int>::reverse_iterator simpler_s_f;
+// 		simpler_s_f  = sysVectorSimple.rend();
+// 		simpler_s_f--;
+// 		ft::vector <int>::reverse_iterator simpler_m_f;
+// 		simpler_m_f = userVectorSimple.rend();
+
+// 		testFunc(testNmb++, *simpler_s_s, *simpler_m_s, "reverse test begin");
+// 		testFunc(testNmb++, *simpler_s_f, *simpler_m_s, "reverse test end");
+// 	}
+
+// 	getchar();
+// 	system("clear");
+// }
 
 // void				capacity_vector(int testNmb, int testAll)
 // {
 // 	std::cout << std::endl << "\x1b[33m" << "                              *** CAPACITY ***                          " << "\x1b[0m" << std::endl;
 	
-// 	int			size = 0;	  
-// 	int			max_size = 0; 
-// 	int			resize = 0; 
-// 	int			capacity = 0; 
-// 	int			empty = 0;	  
+// 	int			size = 0;				//  
+// 	int			max_size = 0;			// 
+// 	int			resize = 0;			// 
+// 	int			capacity = 0;			// 
+// 	int			empty = 0;				//  
 // 	int			reserve = 0;
 
 
 // 	if (testAll)
 // 	{
-// 		size = 1;	  
-// 		max_size = 1; 
-// 		resize = 1; 
-// 		capacity = 1; 
-// 		empty = 1;	  
+// 		size = 1;				//  
+// 		max_size = 1;			// 
+// 		resize = 1;			// 
+// 		capacity = 1;			// 
+// 		empty = 1;				//  
 // 		reserve = 1;
 // 	}
 	
@@ -252,21 +256,21 @@ void				iterators_vector(int testNmb, int testAll)
 // 	{
 // 		std::cout << std::endl << "\x1b[33m" << "size" << "\x1b[0m" << std::endl;
 
-// 		ft::vector  <int> vUser(7,4);
-// 		std::vector <int> vSys(7,4);
+// 		ft::vector  <int> userVectorSimple(7,4);
+// 		std::vector <int> sysVectorSimple(7,4);
 
-// 		testFunc(testNmb++, vSys.size(), vUser.size(), "size");
+// 		testFunc(testNmb++, sysVectorSimple.size(), userVectorSimple.size(), "size");
 // 		getchar();
 // 	}
 
 // 	//***************************MAX_SIZE************************//
 // 	if(max_size)
 // 	{
-// 		ft::vector  <int> vUser(7,4);
-// 		std::vector <int> vSys(7,4);
+// 		ft::vector  <int> userVectorSimple(7,4);
+// 		std::vector <int> sysVectorSimple(7,4);
 
 // 		std::cout << std::endl << "\x1b[33m" << "max_size" << "\x1b[0m" << std::endl;
-// 		testFunc(testNmb++, vSys.max_size(), vUser.max_size(), "max_size");
+// 		testFunc(testNmb++, sysVectorSimple.max_size(), userVectorSimple.max_size(), "max_size");
 // 		getchar();
 // 	}
 
@@ -442,17 +446,17 @@ void				iterators_vector(int testNmb, int testAll)
 // {
 // 	std::cout << std::endl << "\x1b[33m" << "                              *** ELEMENT ACCESS ***                          " << "\x1b[0m" << std::endl;
 	
-// 	int			Operator = 0;	  
-// 	int			at = 0; 
-// 	int			front = 0; 
-// 	int			back = 0; 
+// 	int			Operator = 0;				//  
+// 	int			at = 0;			// 
+// 	int			front = 0;			// 
+// 	int			back = 0;			// 
 
 
 // 	if (testAll)
 // 	{
-// 		Operator = 1;	  
-// 		at = 1; 
-// 		front = 1; 
+// 		Operator = 1;				//  
+// 		at = 1;			// 
+// 		front = 1;			// 
 // 		back = 1;
 // 	}
 	
@@ -501,7 +505,7 @@ void				iterators_vector(int testNmb, int testAll)
 			
 // 			testFunc(testNmb++, userVectorAt.at(5), sysVectorAt.at(5), ".at(5)");
 
- 			// //testFunc(testNmb++, userVectorAt.at(30), sysVectorAt.at(30), ".at(30) - wrong"); раскомментить когда надо
+// 			// testFunc(testNmb++, userVectorAt.at(30), sysVectorAt.at(30), ".at(30) - wrong"); раскомментить когда надо
 // 		}
 // 		catch(const std::exception& e)
 // 		{
@@ -2121,7 +2125,7 @@ void				iterators_vector(int testNmb, int testAll)
 void				vector_test()
 {
 	int testNmb = 0;
-	int testAll = 1;
+	// int testAll = 1;
 
 	system("clear");
 	
@@ -2134,8 +2138,8 @@ void				vector_test()
 	std::cout << "\x1b[0m";
 
 	/*			Member functions			*/
-	constructor(testNmb);	
-	iterators_vector(testNmb, testAll);
+	constructor_vector(testNmb);	
+	// iterators_vector(testNmb, 1);
 	// capacity_vector(testNmb, 1);
 	// elementAccess_vector(testNmb, 1);
 	// modifiers_vector(testNmb, testAll);

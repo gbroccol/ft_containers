@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:11:42 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/01 18:19:22 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/02 19:56:56 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ namespace ft
 		protected:
 
 			nodeMap <Key, T> *ptr;
-            // struct nodeMap <Key, T> *ptr;
 			
 		public: 
 			
@@ -198,10 +197,10 @@ namespace ft
 			}
 
 			
-			// value_type 								&operator*()
-			// {
-			// 	return (this->ptr->data);
-			// }
+			value_type 								&operator*()
+			{
+				return (this->ptr->data);
+			}
 			// const value_type 						&operator*() const
 			// {
 			// 	return (ptr->data);	
@@ -346,21 +345,21 @@ namespace ft
 			
     };
 
-	// template <class T>
-	// class const_iterator : public iteratorMap <T>
-	// {
-	// 	public:
-	// 	const_iterator() {}
-	// 	const_iterator(struct nodeMap <T> *list) { this->ptr = list; }
-	// 	const_iterator(const const_iterator &copy) { *this = copy; }
-	// 	const_iterator &operator=(const const_iterator &target)
-	// 	{
-	// 		this->ptr = target.ptr;
-	// 		return (*this);
-	// 	}
-	// 	~const_iterator() {}
-	// 	const T &operator*() { return (this->ptr->data); }
-	// };
+	template < class Key, class T>
+	class const_iterator_map : public iteratorMap <Key, T>
+	{
+		public:
+		const_iterator_map() {}
+		const_iterator_map(struct nodeMap <Key, T> *list) { this->ptr = list; }
+		const_iterator_map(const const_iterator_map &copy) { *this = copy; }
+		const_iterator_map &operator=(const const_iterator_map &target)
+		{
+			this->ptr = target.ptr;
+			return (*this);
+		}
+		~const_iterator_map() {}
+		const T &operator*() { return (this->ptr->data); }
+	};
 }
 
 #endif
