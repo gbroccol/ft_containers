@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:19 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/02 20:32:21 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/03 18:03:59 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@
 #include <iterator>
 #include <iostream>
 #include "map_iterator.hpp"
-// #include "map_reverse_iterator.hpp"
+#include "map_reverse_iterator.hpp"
 #include "../extra.hpp"
 
 namespace ft
 {
-	// template < class T, class Alloc = std::allocator<T> >
 	template <class Key, class T, class Compare = std::less<Key>,
 			  class Alloc = std::allocator<std::pair<const Key, T> > >
 	class map
@@ -39,7 +38,8 @@ namespace ft
 		typedef const value_type *						const_pointer;
 		typedef ft::iteratorMap<Key, T> 				iterator;
 		typedef ft::const_iterator_map <Key, T> 		const_iterator;
-		// typedef ft::const_reverse_iterator <Key, T> 			const_reverse_iterator;
+		typedef ft::map_reverse_iterator <Key, T> 		reverse_iterator;
+		typedef ft::const_reverse_iterator_map <Key, T> 	const_reverse_iterator;
 		typedef ptrdiff_t 								difference_type;
 		typedef size_t 									size_type;
 
@@ -74,6 +74,14 @@ namespace ft
 			_alloc = alloc;
 			_comp = comp;
 
+			_TSTART = new nodeMap;
+			_TSTART->parent = nullptr;
+			_TSTART->right = nullptr;
+			_TSTART->left = nullptr;
+			_TSTART->color = FIRST;
+			_TSTART->data.first = 1;
+			_TSTART->data.second = 1;
+			
 			_TNULL = new nodeMap;
 			_TNULL->parent = nullptr;
 			_TNULL->right = nullptr;
@@ -83,38 +91,54 @@ namespace ft
 			_TNULL->data.second = 1;
 
 			_map = nullptr;
-			_start = nullptr;
-			_finish = nullptr;
+			_TSTART->parent = nullptr;
+			_TNULL->parent = nullptr;
 			_root = nullptr;
 			_size = 0;
 		}
 
-		// template <class InputIterator>
-		// map (InputIterator first, InputIterator last, const key_compare & comp = key_compare(),
-		//                                                 const allocator_type& alloc = allocator_type());
+		template <class InputIterator>
+		map (InputIterator first, InputIterator last, const key_compare & comp = key_compare(),
+														const allocator_type& alloc = allocator_type(), 
+														typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
+		{
+			_alloc = alloc;
+			_comp = comp;
 
-		// map (const map& x)
-		// {
-		// 	_alloc = x._alloc;
-		// 	_comp = x._comp;
+			_TSTART = new nodeMap;
+			_TSTART->parent = nullptr;
+			_TSTART->right = nullptr;
+			_TSTART->left = nullptr;
+			_TSTART->color = FIRST;
+			_TSTART->data.first = 1;
+			_TSTART->data.second = 1;
 
-		// 	_TNULL = new nodeMap;
-		// 	_TNULL->parent = nullptr;
-		// 	_TNULL->right = nullptr;
-		// 	_TNULL->left = nullptr;
-		// 	_TNULL->color = LAST;
-		// 	_TNULL->data.first = 1;
-		// 	_TNULL->data.second = 1;
+			_TNULL = new nodeMap;
+			_TNULL->parent = nullptr;
+			_TNULL->right = nullptr;
+			_TNULL->left = nullptr;
+			_TNULL->color = LAST;
+			_TNULL->data.first = 1;
+			_TNULL->data.second = 1;
 
-		// 	_map = nullptr;
-		// 	_start = nullptr;
-		// 	_finish = nullptr;
-		// 	_root = nullptr;
-		// 	_size = 0;
+			_map = nullptr;
+			_TSTART->parent = nullptr;
+			_TNULL->parent = nullptr;
+			_root = nullptr;
+			_size = 0;
 
-		// 	if (x._size)
-		// 		this->insert(x.begin, x.rbegin);
-		// }
+			this->insert(first, last);
+
+			
+		}
+
+		map (const map& x)
+		{
+			_TNULL = new nodeMap;
+			_TSTART = new nodeMap;
+
+			*this = x;
+		}
 
 		/*
 			** -------------------------------- DESTRUCTOR --------------------------------
@@ -124,13 +148,35 @@ namespace ft
 		{
 			this->clear();
 			delete this->_TNULL;
+			// delete this->_TSTART;
 		}
 
 		/*
 			** --------------------------------- OVERLOAD ---------------------------------
 			*/
 
-		// map& operator= (const map& x);
+		map& operator= (const map& x)
+		{
+			_TNULL->parent = nullptr;
+			_TNULL->right = nullptr;
+			_TNULL->left = nullptr;
+			_TNULL->color = LAST;
+			_TNULL->data.first = 1;
+			_TNULL->data.second = 1;
+
+			_map = nullptr;
+			_TSTART->parent = nullptr;
+			_TNULL->parent = nullptr;
+			_root = nullptr;
+			_size = 0;
+
+			this->clear();
+			
+			if (x._size)
+				this->insert(x.begin(), x.end());
+				
+			return (*this);
+		}
 
 		/*
 			** --------------------------------- METHODS ----------------------------------
@@ -142,35 +188,53 @@ namespace ft
 		{
 			if (_size == 0)
 				return _TNULL;
-			return _start;
+			return _TSTART->parent;
 		}
 		
 		const_iterator begin() const
 		{
 			if (_size == 0)
 				return _TNULL;
-			return _start;
+			return _TSTART->parent;
 		}
 
 		iterator end()
 		{
 			if (_size == 0)
 				return _TNULL;
-			return _finish->right;
+			return _TNULL->parent->right;
 		}
 		
 		const_iterator end() const
 		{
 			if (_size == 0)
 				return _TNULL;
-			return _finish->right;
+			return _TNULL->parent->right;
 		}
 
-		// reverse_iterator rbegin();
-		// const_reverse_iterator rbegin() const;
+		reverse_iterator rbegin()
+		{
+			if (_size == 0)
+				return _TNULL;
+			return _TNULL->parent;
+		}
+		
+		const_reverse_iterator rbegin() const
+		{
+			if (_size == 0)
+				return _TNULL;
+			return _TNULL->parent;
+		}
 
-		// reverse_iterator rend();
-		// const_reverse_iterator rend() const;
+		reverse_iterator rend()
+		{
+			return _TSTART;
+		}
+		
+		const_reverse_iterator rend() const
+		{
+			return _TSTART;
+		}
 
 		/* Capacity */
 
@@ -192,7 +256,7 @@ namespace ft
 			if (_size == 0)
 				return (createFirstNode(val));
 
-			nodeMap *whereAdd = whereAddNode(val, _root);
+			nodeMap *whereAdd = findNode(val, _root);
 
 			if (whereAdd->data.first == val.first)
 				return std::make_pair(iterator(whereAdd), false); // rewrite
@@ -208,8 +272,8 @@ namespace ft
 				if (whereAdd->data.first > val.first)
 				{
 					whereAdd->left = newNode;
-					if (newNode->data.first < _start->data.first)
-						_start = newNode;
+					if (newNode->data.first < _TSTART->parent->data.first)
+						_TSTART->parent = newNode;
 
 					// std::cout << "NEW VALUE [" << std::setw(3) << newNode->data.first << "]     " << std::setw(4) << newNode->data.first << "   <   " << whereAdd->data.first  << std::endl;
 				}
@@ -221,9 +285,9 @@ namespace ft
 						_TNULL->parent = newNode;
 					}
 					whereAdd->right = newNode;
-					if (newNode->data.first > _finish->data.first)
+					if (newNode->data.first > _TNULL->parent->data.first)
 					{
-						_finish = newNode;
+						_TNULL->parent = newNode;
 					}
 					// std::cout << "NEW VALUE [" << std::setw(3) << newNode->data.first << "]     " << std::setw(4) << newNode->data.first  << "   >   " << whereAdd->data.first << std::endl;
 				}
@@ -234,16 +298,40 @@ namespace ft
 			return std::make_pair(iterator(this->_root), true); // 11 st
 		}
 
+
+		bool	checkTruePositionForKey(nodeMap *node, const value_type &val)
+		{
+			if (val.first < node->data.first)
+			{
+				while (node->parent && node->parent->left == node && node->parent->data.first > val.first)
+					node = node->parent;
+					
+				if (node->parent == nullptr)
+					return true;
+				else if (node->parent && node->parent->right == node && node->parent->data.first < val.first)
+					return true;
+			}
+			else if (val.first > node->data.first)
+			{
+				while (node->parent && node->parent->right == node && node->parent->data.first < val.first)
+					node = node->parent;
+					
+				if (node->parent == nullptr)
+					return true;
+				else if (node->parent && node->parent->left == node && node->parent->data.first > val.first)
+					return true;
+			}
+			return false;
+		}
+
+
 		iterator insert(iterator position, const value_type &val)
 		{
 			nodeMap *whereAdd = position.getptr();
 
-			std::cout << "*** " << whereAdd->data.first << "  ***" << std::endl;
-
-			if ((whereAdd->parent && whereAdd->parent->right == whereAdd && whereAdd->parent->data.first < val.first) ||
-				(whereAdd->parent && whereAdd->parent->left == whereAdd && whereAdd->parent->data.first > val.first))
+			if (checkTruePositionForKey(whereAdd, val))
 			{
-				whereAdd = whereAddNode(val, whereAdd);
+				whereAdd = findNode(val, whereAdd);
 				if (whereAdd->data.first > val.first && whereAdd->left == nullptr)
 				{
 					std::cout << "*** here1 ***" << std::endl;
@@ -253,8 +341,8 @@ namespace ft
 
 					whereAdd->left = newNode;
 
-					if (_start == whereAdd)
-						_start = newNode;
+					if (_TSTART->parent == whereAdd)
+						_TSTART->parent = newNode;
 					_size++;
 					insertFix(newNode);
 					return (iterator)newNode;
@@ -268,9 +356,9 @@ namespace ft
 
 					whereAdd->right = newNode;
 
-					if (_finish == whereAdd)
+					if (_TNULL->parent == whereAdd)
 					{
-						_finish = newNode;
+						_TNULL->parent = newNode;
 						newNode->right = _TNULL;
 						_TNULL->parent = newNode;
 					}
@@ -287,10 +375,7 @@ namespace ft
 										typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 		{
 			for ( ; first != last; first++)
-			{
-				std::cout << "here" << std::endl;
 				insert(first.getptr()->data);
-			}
 		}
 
 		void erase(iterator position)
@@ -299,7 +384,7 @@ namespace ft
 			nodeMap *y;
 			nodeMap *nodeToBeDeleted = position.getptr();
 			int originalColor = nodeToBeDeleted->color;
-			std::cout << "ELEMENT TO DELETE IS " << nodeToBeDeleted->data.first << std::endl;
+			// std::cout << "ELEMENT TO DELETE IS " << nodeToBeDeleted->data.first << std::endl;
 
 			if (nodeToBeDeleted->left == nullptr)
 			{
@@ -307,15 +392,15 @@ namespace ft
 				x = nodeToBeDeleted->right;
 				rbTransplant(nodeToBeDeleted, x);
 
-				if (nodeToBeDeleted == _start)
+				if (nodeToBeDeleted == _TSTART->parent)
 				{
 					if (x)
-						_start = minimum(x);
+						_TSTART->parent = minimum(x);
 					else
-						_start = nodeToBeDeleted->parent;
+						_TSTART->parent = nodeToBeDeleted->parent;
 				}
-				if (nodeToBeDeleted == _finish)
-					_finish = _TNULL->parent;
+				if (nodeToBeDeleted == _TNULL->parent)
+					_TNULL->parent = _TNULL->parent;
 			}
 			else if (nodeToBeDeleted->right == nullptr)
 			{
@@ -368,29 +453,36 @@ namespace ft
 			return 1;
 		}
 
-		// void erase (iterator first, iterator last);
+		void erase (iterator first, iterator last)
+		{
+			while (_size && first != last)
+			{
+				erase(first);
+				first++;
+			}
+		}
 
 		void swap(map &x)
 		{
 			ft::itemswap(this->_alloc, x._alloc);
 			ft::itemswap(this->_comp, x._comp);
 			ft::itemswap(this->_map, x._map);
-			ft::itemswap(this->_start, x._start);
-			ft::itemswap(this->_finish, x._finish);
 			ft::itemswap(this->_root, x._root);
 			ft::itemswap(this->_size, x._size);
 			ft::itemswap(this->_TNULL, x._TNULL);
+			ft::itemswap(this->_TSTART, x._TSTART);
 		}
 
 		void clear()
 		{
 			if (empty())
 				return;
-			_finish->right = nullptr;
+				
+			_TNULL->parent->right = nullptr;
 			this->clear(this->_root);
 			_map = nullptr;
-			_start = nullptr;
-			_finish = nullptr;
+			_TSTART->parent = nullptr;
+			_TNULL->parent = nullptr;
 			_root = nullptr;
 			_size = 0;
 			_TNULL->parent = nullptr;
@@ -400,24 +492,104 @@ namespace ft
 
 		key_compare key_comp() const { return this->_comp; }
 
-		// value_compare value_comp() const { return value_compare(this->_comp); }
 		value_compare value_comp() const { return value_compare(this->_comp); }
 
 		/* Operations */
 
-		// iterator find (const key_type& k);
-		// const_iterator find (const key_type& k) const;
+		iterator find (const key_type& key)
+		{
+			nodeMap * tmp = _root;
+			int flag = 1;
 
-		// size_type count (const key_type& k) const;
+			while (flag)
+			{
+				flag = 0;
+				for (; tmp->data.first > key && tmp->left != NULL; flag++)
+					tmp = tmp->left;
 
-		// iterator lower_bound (const key_type& k);
-		// const_iterator lower_bound (const key_type& k) const;
+				for (; tmp->data.first < key && tmp->right != NULL; flag++)
+					tmp = tmp->right;
+			}
+			return (iterator)tmp;
+		}
+		
+		const_iterator find (const key_type& key) const
+		{
+			nodeMap * tmp = _root;
+			int flag = 1;
 
-		// iterator upper_bound (const key_type& k);
-		// const_iterator upper_bound (const key_type& k) const;
+			while (flag)
+			{
+				flag = 0;
+				for (; tmp->data.first > key && tmp->left != NULL; flag++)
+					tmp = tmp->left;
 
-		// pair<const_iterator,const_iterator> equal_range (const key_type& k) const;
-		// pair<iterator,iterator>             equal_range (const key_type& k);
+				for (; tmp->data.first < key && tmp->right != NULL; flag++)
+					tmp = tmp->right;
+			}
+			return (const_iterator)tmp;
+		}
+
+		size_type count (const key_type& k) const
+		{
+			if (find(k).getptr()->color == LAST)
+				return (0);
+			return (1);
+		}
+
+		iterator lower_bound (const key_type& k)
+		{
+			iterator it = find(k);
+			if (it.getptr() == _TNULL)
+				return (it);
+			if (it.getptr()->data.first < k)
+			{
+				it++;
+				return (it);
+			}
+			return (it);
+		}
+		
+		const_iterator lower_bound (const key_type& k) const
+		{
+			const_iterator it = find(k);
+			if (it.getptr() == _TNULL)
+				return (it);
+			if (it.getptr()->data.first < k)
+			{
+				it++;
+				return (it);
+			}
+			return (it);
+		}
+
+		iterator upper_bound (const key_type& k)
+		{
+			iterator it = find(k);
+			if (it.getptr() == _TNULL)
+				return (it);
+			it++;
+			return (it);
+		}
+		
+		const_iterator upper_bound (const key_type& k) const
+		{
+			const_iterator it = find(k);
+			if (it.getptr() == _TNULL)
+				return (it);
+			it++;
+			return (it);
+		}
+
+		std::pair <const_iterator, const_iterator> equal_range (const key_type& k) const
+		{
+			return std::make_pair(const_iterator(lower_bound(k)), const_iterator(upper_bound(k)));
+		}
+				
+		std::pair <iterator, iterator> equal_range (const key_type& k)
+		{
+			return std::make_pair(iterator(lower_bound(k)), iterator(upper_bound(k)));
+		}
 
 		void printHelper(nodeMap *root, std::string indent, bool last)
 		{
@@ -456,12 +628,11 @@ namespace ft
 		allocator_type _alloc;
 		key_compare _comp;
 		nodeMap *_map;
-		nodeMap *_start;
-		nodeMap *_finish;
 		nodeMap *_root;
 		size_type _size;
 		nodeMap *_TNULL;
-		// enum color {BLACK, RED, LAST};
+		nodeMap *_TSTART;
+		// enum color {BLACK, RED, LAST, FIRST};
 
 		std::pair<iterator, bool> createFirstNode(const value_type &val)
 		{
@@ -474,8 +645,8 @@ namespace ft
 			_map->data = val;
 			_map->color = BLACK;
 
-			_start = _map;
-			_finish = _map;
+			_TSTART->parent = _map; // 	_TSTART->parent
+			_TNULL->parent = _map;
 			_root = _map;
 			_size++;
 
@@ -497,7 +668,7 @@ namespace ft
 			return newNode;
 		}
 
-		nodeMap *whereAddNode(const value_type &value, nodeMap *whereAdd)
+		nodeMap *findNode(const value_type &value, nodeMap *whereAdd) 
 		{
 			int flag = 1;
 
@@ -654,7 +825,6 @@ namespace ft
 			// std::cout << "here 2"<< std::endl;
 		}
 
-		// For balancing the tree after deletion
 		void deleteFix(nodeMap *x)
 		{
 			nodeMap *s;
@@ -754,7 +924,6 @@ namespace ft
 				return;
 			clear(position->left);
 			clear(position->right);
-			// std::cout << "*** DELETE " << position->data.first << " ***" << std::endl;
 			delete position;
 			_size--;
 		}
@@ -781,8 +950,6 @@ namespace ft
 			return findNoda;
 		}
 	};
-
-	/* Non-member function overloads */
 
 }
 #endif

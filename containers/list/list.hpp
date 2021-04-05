@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/02 19:56:28 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/05 16:14:28 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,24 @@ namespace ft
  			void assign (InputIterator first, InputIterator last,
 						typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
+
+
+
+				// if (checkin(begin(), end(), first) || checkin(begin(), end(), last))		// проверка на принадлежность этому листу ?????
+				// 	return ;
+
+
+				// if (checkin(x.begin(), x.end(), first) == false)
+				// 	return ;
+
+			
+
+
+
+
+
+
+
 				clear();
 				for ( ; first != last; first++)
 					push_back(*first);

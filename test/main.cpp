@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssnowbir <ssnowbir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:44:26 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/26 18:06:05 by ssnowbir         ###   ########.fr       */
+/*   Updated: 2021/04/05 11:32:10 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int main()
 	// 	if ("list" == command)
 			// list_test();
 	// 	else if ("map" == command)
-			map_test();
+			// map_test();
 	// 	else if ("queue" == command)
 			// queue_test();
 	// 	else if ("stack" == command)
 			// stack_test();
 	// 	else if ("vector" == command)
-			// vector_test();	
+			vector_test();	
 		// else if ("exit" == command)
 	// 		return (0);
 	// 	else if (command.empty())

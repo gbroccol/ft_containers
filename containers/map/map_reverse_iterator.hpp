@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_iterator.hpp                                   :+:      :+:    :+:   */
+/*   map_reverse_iterator.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 18:11:42 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/03 14:44:50 by gbroccol         ###   ########.fr       */
+/*   Created: 2021/04/03 12:25:08 by gbroccol          #+#    #+#             */
+/*   Updated: 2021/04/03 13:12:02 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_ITERATOR_HPP
-#define MAP_ITERATOR_HPP
+#ifndef MAP_REVERSE_ITERATOR_HPP
+#define MAP_REVERSE_ITERATOR_HPP
 
 #include <iostream>
 #include <string>
@@ -20,25 +20,15 @@
 #define RED     0
 
 #define LAST    2
+#define FIRST   3
 
 // const int RED(0);
 // const int BLACK(1);
 
 namespace ft 
 {
-	template < class Key, class T>
-	struct			        nodeMap
-	{
-        std::pair <Key, T>  data;
-		nodeMap		        *parent;
-		nodeMap    	    	*left;
-        nodeMap	    	    *right;
-		
-        int                color;
-	};
-
 	template <class Key, class T>
-	class iteratorMap 
+	class map_reverse_iterator 
     {
 		protected:
 
@@ -55,13 +45,13 @@ namespace ft
 			** -------------------------------- CONSTRUCTOR --------------------------------
 			*/
 
-				iteratorMap(){}
-				iteratorMap(const iteratorMap &src) { *this = src; }
-				iteratorMap(struct nodeMap<Key,T> &src) { ptr = src; };
+				map_reverse_iterator(){}
+				map_reverse_iterator(const map_reverse_iterator &src) { *this = src; }
+				map_reverse_iterator(struct nodeMap<Key,T> &src) { ptr = src; };
 
-				iteratorMap(struct nodeMap<Key,T> *_list) { ptr = _list; }
+				map_reverse_iterator(struct nodeMap<Key,T> *_list) { ptr = _list; }
 				
-				iteratorMap &operator=( const struct nodeMap<Key,T> &x )
+				map_reverse_iterator &operator=( const struct nodeMap<Key,T> &x )
 				{
 					if (ptr != x)
 					{
@@ -69,26 +59,26 @@ namespace ft
 					}
 					return ptr;
 				}
-				virtual ~iteratorMap() {}
+				virtual ~map_reverse_iterator() {}
 
-			// iteratorMap() {}
-			// iteratorMap(struct nodeMap <T> *src) {  ptr = src; }
+			// map_reverse_iterator() {}
+			// map_reverse_iterator(struct nodeMap <T> *src) {  ptr = src; }
 
-			// iteratorMap(const iteratorMap &src) { *this = src; }
+			// map_reverse_iterator(const map_reverse_iterator &src) { *this = src; }
 				
-			// iteratorMap(struct nodeMap <T> &src) { ptr = src; }
+			// map_reverse_iterator(struct nodeMap <T> &src) { ptr = src; }
 
 			/*
 			** -------------------------------- DESTRUCTOR --------------------------------
 			*/
 
-			// virtual ~iteratorMap() {}
+			// virtual ~map_reverse_iterator() {}
 
 			/*
 			** --------------------------------- OVERLOAD ---------------------------------
 			*/
 
-			// iteratorMap &				operator=(iteratorMap const & rhs )
+			// map_reverse_iterator &				operator=(map_reverse_iterator const & rhs )
 			// {
 			// 	this->clear();
 			// // 	this->head->next = this->tail;
@@ -106,14 +96,14 @@ namespace ft
 			// // 	return *this;
 			// }
 
-			// bool						operator==(const iteratorMap &x)
+			// bool						operator==(const map_reverse_iterator &x)
 			// {
 			// 	if (x.ptr == ptr)
 			// 		return true;
 			// 	return false;
 			// }
 			
-			// bool						operator!=(const iteratorMap &x)
+			// bool						operator!=(const map_reverse_iterator &x)
 			// {
 			// 	if (x.ptr != ptr)
 			// 		return true;
@@ -142,29 +132,29 @@ namespace ft
 			// 	return &ptr->data;
 			// }
 			
-			// iteratorMap					&operator++() // ++a 
+			// map_reverse_iterator					&operator++() // ++a 
 			// {
 			// 	ptr = ptr->next;
 			// 	return *this;
 			// }
 
-			// iteratorMap					&operator++(int) // a++ 
+			// map_reverse_iterator					&operator++(int) // a++ 
 			// {
-			// 	iteratorMap tmp(*this);
+			// 	map_reverse_iterator tmp(*this);
 			// 	operator++();
 			// 	return *this;
 			// }
 			
-			// iteratorMap					&operator--()  // check
+			// map_reverse_iterator					&operator--()  // check
 			// {
 			// 	if (ptr->pre)
 			// 		ptr = ptr->pre;
 			// 	return *this;
 			// }
 
-			// iteratorMap					&operator--(int)  // check
+			// map_reverse_iterator					&operator--(int)  // check
 			// {
-			// 	iteratorMap tmp(*this);
+			// 	map_reverse_iterator tmp(*this);
 			// 	operator--();
 			// 	return *this;
 			// }
@@ -182,14 +172,14 @@ namespace ft
 
 
 			//-----------------------Overlodes-------------------------//
-			// bool 									operator==(const iteratorMap &x)
+			// bool 									operator==(const map_reverse_iterator &x)
 			// {
 			// 	if(ptr == x.ptr)
 			// 		return(true);
 			// 	return(false);
 			// }
 			
-			bool 									operator!=(const iteratorMap &x)
+			bool 									operator!=(const map_reverse_iterator &x)
 			{
 				if (ptr != x.ptr)
 					return(true);
@@ -228,14 +218,14 @@ namespace ft
 			// }
 
 
-			// iteratorMap	operator++(int)
+			// map_reverse_iterator	operator++(int)
 			// {
-			// 	iteratorMap	out(*this);
+			// 	map_reverse_iterator	out(*this);
 			// 	this->ptr = ptr->getnext();
 			// 	return out;
 			// }
 			
-			// iteratorMap&	operator++()
+			// map_reverse_iterator&	operator++()
 			// {
 			// 	this->ptr = ptr->getnext();
 			// 	return *this;
@@ -261,45 +251,13 @@ namespace ft
 			// 	return (it);
         	// }
 			
-			iteratorMap							&operator++()
-			{
-				nodeMap <Key, T> * it = ptr;
-
-				if (it->right)  // case 1
-				{
-					it = it->right;
-					while (it->left)
-						it = it->left;
-				}
-				else if (it->parent && it->data.first < it->parent->data.first)  // case 2
-					it = it->parent;
-				else if (it->parent && it->parent->parent) // case 3
-				{
-					while (it->parent && it->data.first > it->parent->data.first)
-						it = it->parent;
-					it = it->parent;
-				}
-				else // if (it->right == nullptr) // case 4
-					it = it->right;
-				this->ptr = it;
-				return (*this);
-			}
-			
-			iteratorMap							operator++(int)
-			{
-				iteratorMap tmp(*this);
-				operator++();
-				return tmp;
-			}
-
-			iteratorMap							&operator--()
+			map_reverse_iterator							&operator++()
 			{
 				nodeMap <Key, T> * it = ptr;
 				
 				if (it->color == LAST) // extra
 				{
-					if (it->parent)
-						it = it->parent;
+					it = it->parent;
 				}
 				else if (it->left) // case 1
 				{
@@ -323,9 +281,42 @@ namespace ft
 				return (*this);
 			}
 			
-			iteratorMap							operator--(int)
+			map_reverse_iterator							operator++(int)
 			{
-				iteratorMap tmp(*this);
+				map_reverse_iterator tmp(*this);
+				operator++();
+				return tmp;
+			}
+
+			map_reverse_iterator							&operator--()
+			{				
+				nodeMap <Key, T> * it = ptr;
+
+				if (it->color == FIRST)
+					it = it->parent;
+				else if (it->right)  // case 1
+				{
+					it = it->right;
+					while (it->left)
+						it = it->left;
+				}
+				else if (it->parent && it->data.first < it->parent->data.first)  // case 2
+					it = it->parent;
+				else if (it->parent && it->parent->parent) // case 3
+				{
+					while (it->parent && it->data.first > it->parent->data.first)
+						it = it->parent;
+					it = it->parent;
+				}
+				else // if (it->right == nullptr) // case 4
+					it = it->right;
+				this->ptr = it;
+				return (*this);
+			}
+			
+			map_reverse_iterator							operator--(int)
+			{
+				map_reverse_iterator tmp(*this);
 				operator--();
 				return tmp;
 			}
@@ -347,18 +338,18 @@ namespace ft
     };
 
 	template < class Key, class T>
-	class const_iterator_map : public iteratorMap <Key, T>
+	class const_reverse_iterator_map : public map_reverse_iterator <Key, T>
 	{
 		public:
-		const_iterator_map() {}
-		const_iterator_map(struct nodeMap <Key, T> *list) { this->ptr = list; }
-		const_iterator_map(const const_iterator_map &copy) { *this = copy; }
-		const_iterator_map &operator=(const const_iterator_map &target)
+		const_reverse_iterator_map() {}
+		const_reverse_iterator_map(struct nodeMap <Key, T> *list) { this->ptr = list; }
+		const_reverse_iterator_map(const const_reverse_iterator_map &copy) { *this = copy; }
+		const_reverse_iterator_map &operator=(const const_reverse_iterator_map &target)
 		{
 			this->ptr = target.ptr;
 			return (*this);
 		}
-		~const_iterator_map() {}
+		~const_reverse_iterator_map() {}
 		const T &operator*() { return (this->ptr->data); }
 	};
 

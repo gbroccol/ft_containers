@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:45:56 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/30 16:42:08 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/05 19:41:31 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void				testFunc(int testNmb, T sysValue, T userValue, std::string testName)
 	int len = testName.length();
 	
 	if (testNmb <= 9)
+		std::cout << "  ";
+	else if (testNmb <= 99)
 		std::cout << " ";
 	
 	std::cout << "\x1b[36m" << testNmb++ << ". " << testName;
@@ -50,13 +52,13 @@ void				testFunc(int testNmb, T sysValue, T userValue, std::string testName)
 	if (sysValue == userValue)
 	{
 		std::cout << "\x1b[32m" << "OK" << "\x1b[0m" << std::endl;
-		std::cout << std::setw(86) << "Answer: " << sysValue << std::endl;
+		std::cout << std::setw(87) << "Answer: " << sysValue << std::endl;
 	}
 	else
 	{
 		std::cout << "\x1b[31m" << "WRONG" << "\x1b[0m" << std::endl;
-		std::cout << std::setw(86) << "Expected answer: " << sysValue << std::endl;
-		std::cout << std::setw(86) << "Your answer: " << userValue << std::endl;
+		std::cout << std::setw(87) << "Expected answer: " << sysValue << std::endl;
+		std::cout << std::setw(87) << "Your answer: " << userValue << std::endl;
 	}	
 }
 
@@ -112,6 +114,33 @@ void print_ft_vector (std::string testName,  T & Vector)
 		std::cout << ' ' << *it;
 	}
 	std::cout << '\n';
+}
+
+template <typename T1, typename T2>
+int compareClasses(int testNmb, T1 & sysClass, T2 & userClass)
+{
+	typename T1 :: iterator itResize = sysClass.begin();
+	typename T2 :: iterator itResize2 = userClass.begin();
+	
+	std::string name;
+		
+	for (int i = 0; itResize != sysClass.end(); i++)
+	{
+		name = "Value [" + std::to_string(i);
+		name = name + "]";
+		if (itResize2 != userClass.end())
+			testFunc(testNmb++, *itResize, *itResize2, name);
+		itResize++;
+		itResize2++;
+	}
+	if (itResize == sysClass.end() && itResize2 != userClass.end())
+	{
+		testFunc(testNmb++, true, false, "FALSE EXIT ERROR");
+	}
+	print_std_vector("  Sys vector: ", sysClass);	
+	print_ft_vector (" User vector: ", userClass);
+	std::cout << std::endl;
+	return (testNmb);
 }
 
 /* 

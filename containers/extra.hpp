@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:11:27 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/16 13:03:51 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/05 16:26:18 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ namespace ft
 	bool checkin(Iterator xBegin, Iterator xEnd, Iterator first)
 	{
 		// Iterator check = x.begin();
+
+		if (xBegin.getptr() == first.getptr()) // new
+			return true;
 		
 		while (xBegin != xEnd)
 		{
