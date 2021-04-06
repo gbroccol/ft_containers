@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_test.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssnowbir <ssnowbir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:48:20 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/23 14:20:23 by ssnowbir         ###   ########.fr       */
+/*   Updated: 2021/04/06 15:53:55 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,49 +173,77 @@ void memberFunc_stack(int testNmb,  int testAll)
 void non_memberFunc_stack(int testNmb)
 {
 	std::cout << std::endl << "\x1b[33m" << "                              *** OVERLOADES ***                          " << "\x1b[0m" << std::endl;
+	
 	std::list<int> stackSys_a ;
+	
+    stackSys_a.push_back(10);
+    stackSys_a.push_back(20);
+    stackSys_a.push_back(30);
 
-	stackSys_a.push_back(10);
-	stackSys_a.push_back(20);
-	stackSys_a.push_back(30);
+    std::list<int> stackSys_b ;
 
-	std::list<int> stackSys_b ;
+    stackSys_b.push_back(10);
+    stackSys_b.push_back(20);
+    stackSys_b.push_back(30);
 
-	stackSys_b.push_back(10);
-	stackSys_b.push_back(20);
-	stackSys_b.push_back(30);
+    std::list<int> stackSys_c;
 
-	std::list<int> stackSys_c;
+    stackSys_c.push_back(30);
+    stackSys_c.push_back(20);
+    stackSys_c.push_back(10);
+	
+    std::list<int> stackSys_d;
+    std::list<int> stackSys_f;
+	
+    stackSys_f.push_back(30);
 
-	stackSys_c.push_back(30);
-	stackSys_c.push_back(20);
-	stackSys_c.push_back(10);
+    ft::queue<int, std::list<int> > stack_a(stackSys_a);
+    ft::queue<int, std::list<int> > stack_b(stackSys_b);
+    ft::queue<int, std::list<int> > stack_c(stackSys_c);
+    ft::queue<int, std::list<int> > stack_d(stackSys_d);
+    ft::queue<int, std::list<int> > stack_f(stackSys_f);
 
-    ft::stack<int, std::list<int> > stack_a(stackSys_a);
-    ft::stack<int, std::list<int> > stack_b(stackSys_b);
-    ft::stack<int, std::list<int> > stack_c(stackSys_c);
-
-	bool equality = (stack_a == stack_b);
-	bool unequality = (stack_b != stack_c);
-	bool less = (stack_b < stack_c);
-	bool more = (stack_c > stack_b);
-	bool lessAndEquality = (stack_a <= stack_b);
-	bool moreAndEquality = (stack_a >= stack_b);
-
-
-	bool equality2 = (stackSys_a == stackSys_b);
-	bool unequality2 = (stackSys_b != stackSys_c);
-	bool less2 = (stackSys_b < stackSys_c);
-	bool more2 = (stackSys_c > stackSys_b);
-	bool lessAndEquality2 = (stackSys_a <= stackSys_b);
-	bool moreAndEquality2 = (stackSys_a >= stackSys_b);
-
-	testFunc(testNmb++, equality, equality2, "a == b");
-	testFunc(testNmb++, unequality, unequality2, "b != c");
-	testFunc(testNmb++, less, less2, "b < c");
-	testFunc(testNmb++, more, more2, "c > b");
-	testFunc(testNmb++, lessAndEquality, lessAndEquality2, "a <= b");
-	testFunc(testNmb++, moreAndEquality, moreAndEquality2, "a >= b");
+    testFunc(testNmb++, (stackSys_a == stackSys_b), (stack_a == stack_b), "a == b");
+    testFunc(testNmb++, (stackSys_b == stackSys_c), (stack_b == stack_c), "b == c");
+    testFunc(testNmb++, (stackSys_a == stackSys_d), (stack_a == stack_d), "a == d");
+    testFunc(testNmb++, (stackSys_d == stackSys_c), (stack_d == stack_c), "d == c");
+    testFunc(testNmb++, (stackSys_a == stackSys_f), (stack_a == stack_f), "a == f");
+    testFunc(testNmb++, (stackSys_f == stackSys_c), (stack_f == stack_c), "f == c");
+	
+    testFunc(testNmb++, (stackSys_a != stackSys_b), (stack_a != stack_b), "a != b");
+    testFunc(testNmb++, (stackSys_b != stackSys_c), (stack_b != stack_c), "b != c");
+    testFunc(testNmb++, (stackSys_a != stackSys_d), (stack_a != stack_d), "a != d");
+    testFunc(testNmb++, (stackSys_d != stackSys_c), (stack_d != stack_c), "d != c");
+    testFunc(testNmb++, (stackSys_a != stackSys_f), (stack_a != stack_f), "a != f");
+    testFunc(testNmb++, (stackSys_f != stackSys_c), (stack_f != stack_c), "f != c");
+	
+    testFunc(testNmb++, (stackSys_a < stackSys_b), (stack_a < stack_b), "a < b");
+    testFunc(testNmb++, (stackSys_b < stackSys_c), (stack_b < stack_c), "b < c");
+    testFunc(testNmb++, (stackSys_a < stackSys_d), (stack_a < stack_d), "a < d");
+    testFunc(testNmb++, (stackSys_d < stackSys_c), (stack_d < stack_c), "d < c");
+    testFunc(testNmb++, (stackSys_a < stackSys_f), (stack_a < stack_f), "a < f");
+    testFunc(testNmb++, (stackSys_f < stackSys_c), (stack_f < stack_c), "f < c");
+	
+    testFunc(testNmb++, (stackSys_a > stackSys_b), (stack_a > stack_b), "a > b");
+    testFunc(testNmb++, (stackSys_b > stackSys_c), (stack_b > stack_c), "b > c");
+    testFunc(testNmb++, (stackSys_a > stackSys_d), (stack_a > stack_d), "a > d");
+    testFunc(testNmb++, (stackSys_d > stackSys_c), (stack_d > stack_c), "d > c");
+    testFunc(testNmb++, (stackSys_a > stackSys_f), (stack_a > stack_f), "a > f");
+    testFunc(testNmb++, (stackSys_f > stackSys_c), (stack_f > stack_c), "f > c");
+	
+    testFunc(testNmb++, (stackSys_a <= stackSys_b), (stack_a <= stack_b), "a <= b");
+    testFunc(testNmb++, (stackSys_b <= stackSys_c), (stack_b <= stack_c), "b <= c");
+    testFunc(testNmb++, (stackSys_a <= stackSys_d), (stack_a <= stack_d), "a <= d");
+    testFunc(testNmb++, (stackSys_d <= stackSys_c), (stack_d <= stack_c), "d <= c");
+    testFunc(testNmb++, (stackSys_a <= stackSys_f), (stack_a <= stack_f), "a <= f");
+    testFunc(testNmb++, (stackSys_f <= stackSys_c), (stack_f <= stack_c), "f <= c");
+	
+    testFunc(testNmb++, (stackSys_a >= stackSys_b), (stack_a >= stack_b), "a >= b");
+    testFunc(testNmb++, (stackSys_b >= stackSys_c), (stack_b >= stack_c), "b >= c");
+    testFunc(testNmb++, (stackSys_a >= stackSys_d), (stack_a >= stack_d), "a >= d");
+    testFunc(testNmb++, (stackSys_d >= stackSys_c), (stack_d >= stack_c), "d >= c");
+    testFunc(testNmb++, (stackSys_a >= stackSys_f), (stack_a >= stack_f), "a >= f");
+    testFunc(testNmb++, (stackSys_f >= stackSys_c), (stack_f >= stack_c), "f >= c");
 }
 
 void stack_test()

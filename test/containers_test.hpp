@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:45:56 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/05 19:41:31 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/06 20:17:25 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,23 @@
 #include "../containers/list/list.hpp"
 #include "../containers/vector/vector.hpp"
 #include "../containers/map/map.hpp"
+#include "../containers/queue/queue.hpp"
+
+
+#include <string>
+#include <cassert>
+#include <algorithm>
+#include <iostream>       // std::cout
+#include <deque>          // std::deque
+#include <list>           // std::list
+#include <queue>          // std::queue
+
+
 
 void		list_test(void);
 void		map_test(void);
-// void		queue_test(void);
-// void		stack_test(void);
+void		queue_test(void);
+void		stack_test(void);
 void		vector_test(void);
 
 template <typename T>
@@ -137,8 +149,8 @@ int compareClasses(int testNmb, T1 & sysClass, T2 & userClass)
 	{
 		testFunc(testNmb++, true, false, "FALSE EXIT ERROR");
 	}
-	print_std_vector("  Sys vector: ", sysClass);	
-	print_ft_vector (" User vector: ", userClass);
+	// print_std_vector("  Sys vector: ", sysClass);	
+	// print_ft_vector (" User vector: ", userClass);
 	std::cout << std::endl;
 	return (testNmb);
 }

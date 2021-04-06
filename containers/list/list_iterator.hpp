@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:57:07 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/25 13:51:40 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/06 20:24:59 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,25 +127,25 @@ namespace ft
 				return *this;
 			}
 
-			iterator					&operator++(int) // a++ 
+			iterator					operator++(int) // a++ 
 			{
 				iterator tmp(*this);
 				operator++();
-				return *this;
+				return tmp;
 			}
 			
-			iterator					&operator--()  // check
+			iterator					&operator--()
 			{
 				if (ptr->pre)
 					ptr = ptr->pre;
 				return *this;
 			}
 
-			iterator					&operator--(int)  // check
+			iterator					operator--(int)
 			{
 				iterator tmp(*this);
 				operator--();
-				return *this;
+				return tmp;
 			}
 			
 			/*

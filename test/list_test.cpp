@@ -185,6 +185,7 @@ void				operEquall(int testNmb, int testAll)
 	
 		/* operator= 1 */
 		std::cout << std::endl << "\x1b[33m" << "operator= 1" << "\x1b[0m" << std::endl;
+		
 		ft::list <int> userList;
 		std::list <int> sysList;
 
@@ -232,6 +233,7 @@ void				operEquall(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is");
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
 		getchar();
+		std::system("clear");
 
 		/* operator= 2 */
 		std::cout << std::endl << "\x1b[33m" << "operator= 2" << "\x1b[0m" << std::endl;
@@ -254,6 +256,8 @@ void				operEquall(int testNmb, int testAll)
 
 		testFunc(testNmb++,first.size(), first.size(), "first Size is (Operator=)");
 		testFunc(testNmb++, second2.size(), second.size(), "second Size  is (Operator=)");
+		getchar();
+		std::system("clear");
 
 		/* operator= 3 */
 		std::cout << std::endl << "\x1b[33m" << "operator= 3" << "\x1b[0m" << std::endl;
@@ -276,6 +280,9 @@ void				operEquall(int testNmb, int testAll)
 
 		testFunc(testNmb++,firstx.size(), firstx.size(), "first Size is (Operator=)");
 		testFunc(testNmb++, second2x.size(), secondx.size(), "second Size  is (Operator=)");
+
+		getchar();
+		std::system("clear");
 	}
 }
 
@@ -549,18 +556,18 @@ void				modifiers(int testNmb, int testAll)
 		sysList.push_front(3);			// 1 2 3
 		userList.push_front(3);
 
-		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
-		// std::cout << std::endl;
+		std::cout << "*** BEFORE ***" << std::endl;
+		print_std_list(" Sys Erase:", sysList);
+		print_ft_list("User Erase:", userList);
+		std::cout << std::endl;
 	
 		sysList.pop_front();
 		userList.pop_front();
 
-		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
-		// std::cout << std::endl;
+		std::cout << "*** AFTER ***" << std::endl;
+		print_std_list(" Sys Erase:", sysList);
+		print_ft_list("User Erase:", userList);
+		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (pop_front and push_front)");
 		testFunc(testNmb++, sysList.front(), userList.front(), "Front value is (pop_front and push_front)");
@@ -582,9 +589,6 @@ void				modifiers(int testNmb, int testAll)
 	
 		sysList.pop_front();
 		userList.pop_front();
-
-		// sysList.pop_front();
-		// userList.pop_front();
 
 		std::cout << "*** AFTER ***" << std::endl;
 		print_std_list(" Sys Erase:", sysList);
@@ -3245,6 +3249,84 @@ void				operators(int testNmb)
 
 }
 
+void				iterator_for_list(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** ITERATORS FOR MAP ***                          " << "\x1b[0m" << std::endl;
+
+	std::list<int> listSys;
+	ft::list<int> listUser;
+
+	for(int i = 0; i < 10; i++)
+	{
+		listSys.push_back(i);
+		listUser.push_back(i);
+	}
+
+	std::list<int> listSys2;
+	ft::list<int> listUser2;
+
+	for(int i = 11; i < 20; i++)
+	{
+		listSys2.push_back(i);
+		listUser2.push_back(i);
+	}
+
+	std::list<int> listSys3;
+	ft::list<int> listUser3;
+
+	for(int i = 0; i < 10; i++)
+	{
+		listSys3.push_back(i);
+		listUser3.push_back(i);
+	}
+	
+	std::cout << "*** ARRAYS ***" << std::endl;
+	print_std_list(" a:", listSys);
+	print_std_list(" b:", listSys2);
+	print_std_list(" c:", listSys3);
+	std::cout<< std::endl;
+	print_ft_list(" a:", listUser);
+	print_ft_list(" b:", listUser2);
+	print_ft_list(" c:", listUser3);
+		
+	std::list<int> ::iterator iterSys = listSys.begin();
+	ft::list<int> ::iterator iterUser = listUser.begin();
+
+	std::list<int> ::iterator iterSysSecond = listSys2.begin();
+	ft::list<int> ::iterator iterUserSecond = listUser2.begin();
+
+	std::list<int> ::iterator iterSysThird = listSys2.begin();
+	ft::list<int> ::iterator iterUserThird = listUser2.begin();
+
+	std::cout << std::endl << "\x1b[33m" << "iterator: constructor copy" << "\x1b[0m" << std::endl;
+	std::list<int> ::iterator iterSys2(iterSys);
+	ft::list<int> ::iterator iterUser2(iterUser);
+
+	testFunc(testNmb++, *iterSys2, *iterUser2, "begin");
+
+	std::cout << std::endl << "\x1b[33m" << "iterator: operator =" << "\x1b[0m" << std::endl;
+	std::list<int> ::iterator iterSys3 = iterSys;
+	ft::list<int> ::iterator iterUser3 = iterUser;
+	
+	testFunc(testNmb++, *iterSys3, *iterUser3, "begin");
+	
+	testFunc(testNmb++, *iterSys == *iterSys2, *iterUser == *iterUser , "a == a(true)");
+	testFunc(testNmb++, *iterSys == *iterSysSecond, *iterUser == *iterUserSecond , "a == b(false)");
+	testFunc(testNmb++, *iterSys == *iterSysThird, *iterUser == *iterUserThird , "a == c");
+
+	testFunc(testNmb++, *iterSys != *iterSys2, *iterUser != *iterUser , "a != a(true)");
+	testFunc(testNmb++, *iterSys != *iterSysSecond, *iterUser != *iterUserSecond , "a != b(false)");
+	testFunc(testNmb++, *iterSys != *iterSysThird, *iterUser != *iterUserThird , "a != c");
+	
+
+	testFunc(testNmb++, *iterSys, *iterUser , "a");
+
+	testFunc(testNmb++, *iterSys++, *iterUser++ , "a++");
+	testFunc(testNmb++, *++iterSys, *++iterUser , "++a");
+	testFunc(testNmb++, *iterSys--, *iterUser-- , "a--");
+	testFunc(testNmb++, *--iterSys, *--iterUser , "--a");
+}
+
 void				list_test()
 {
 	int testNmb = 0;
@@ -3263,7 +3345,6 @@ void				list_test()
 	/*			Member functions			*/
 	
 	constructor(testNmb, testAll);
-	// destructor(testNmb);						// need tests
   	operEquall(testNmb, testAll);			
 	iterators(testNmb, testAll);
 	capacity(testNmb, testAll);
@@ -3272,6 +3353,7 @@ void				list_test()
 	operations(testNmb, testAll);
 	overloads(testNmb);
 
-	/* extra */
-	operators(testNmb);		
+	// /* extra */
+	operators(testNmb);
+	iterator_for_list(testNmb);
 }

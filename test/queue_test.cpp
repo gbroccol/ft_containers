@@ -3,47 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   queue_test.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssnowbir <ssnowbir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:48:18 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/23 14:14:51 by ssnowbir         ###   ########.fr       */
+/*   Updated: 2021/04/06 15:52:53 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "containers_test.hpp"
 
-#include <string>
-#include <cassert>
-#include <algorithm>
-#include <iostream>       // std::cout
-#include <deque>          // std::deque
-#include <list>           // std::list
-#include <queue>          // std::queue
-
-// #include <list>
-// #include <map>
-// #include <stack>
-// #include <dequeue>
-#include <queue>
-
-#include <iostream>
-
-#include "../containers/Queue/queue.hpp"
-#include "../containers/list/list.hpp"
-// #include <vector>
-
-// using namespace std; // delete
-// using namespace ft; // delete
-
 void memberFunc_queue(int testNmb,  int testAll)
 {
-	int constructor = 0;
+	int constructor = 1;
 	int empty = 0;
 	int size = 0;
 	int front = 0;
 	int back = 0;
 	int push = 0;
 	int pop = 0;
+
+	testNmb++;
 
 	if(testAll)
 	{
@@ -55,32 +34,34 @@ void memberFunc_queue(int testNmb,  int testAll)
 		push = 1;
 		pop = 1;	
 	}
+	
 	if(constructor)
 	{
 		std::cout << std::endl << "\x1b[33m" << "                              *** CONSTRUCTOR ***                          " << "\x1b[0m" << std::endl;
-		std::cout << std::endl << "\x1b[33m" << "constructor test" << "\x1b[0m" << std::endl;
+		std::cout << std::endl << "\x1b[33m" << "constructor" << "\x1b[0m" << std::endl;
+
+		std::queue <int> queueSys0;                 // empty queue
+		ft::queue  <int> queueUser0;                 // empty queue
+	
+		std::list <int> mylist (2, 200);         // list with 2 elements
+		ft::queue <int, std::list <int> > queueUser1 (mylist);
+		std::queue<int, std::list<int> > queueSys1 (mylist);
+
+		queueSys1.push(5);
+		queueUser1.push(5);
+
+		testFunc(testNmb++,  queueSys1.empty(), queueUser1.empty(), "empty");
+		testFunc(testNmb++,  queueSys1.size(), queueUser1.size(), "size");
+		testFunc(testNmb++, queueSys1.front(), queueUser1.front(), "front");
+		testFunc(testNmb++, queueSys1.back(), queueUser1.back(), "back");
 		
-		std::deque<int> mydeck (3,100);        // deque with 3 elements
-		std::list<int> mylist (2,200);         // list with 2 elements
+		queueSys1.pop();
+		queueUser1.pop();
 
-		ft::queue<int> first;                 // empty queue
-		ft::queue<int> second (mydeck);       // queue initialized to copy of deque
-
-		ft::queue<int,std::list<int> > third; // empty queue with list as underlying container
-		ft::queue<int,std::list<int> > fourth (mylist);
-
-		std::queue<int> first2;                 // empty queue
-		std::queue<int> second2 (mydeck);       // queue initialized to copy of deque
-
-		std::queue<int,std::list<int> > third2; // empty queue with list as underlying container
-		std::queue<int,std::list<int> > fourth2 (mylist);
-
-		testFunc(testNmb++,  fourth2.size(), fourth.size(), "size");
-		testFunc(testNmb++, fourth2.front(), fourth.front(), "front");
-		testFunc(testNmb++, fourth2.back(), fourth.back(), "back");
-		testFunc(testNmb++,  second2.size(), second.size(), "size");
-		testFunc(testNmb++, second2.front(), second.front(), "front");
-		testFunc(testNmb++, second2.back(), second.back(), "back");
+		testFunc(testNmb++,  queueSys1.empty(), queueUser1.empty(), "empty");
+		testFunc(testNmb++,  queueSys1.size(), queueUser1.size(), "size");
+		testFunc(testNmb++, queueSys1.front(), queueUser1.front(), "front");
+		testFunc(testNmb++, queueSys1.back(), queueUser1.back(), "back");
 		getchar();
 		std::system("clear");
 	}
@@ -195,48 +176,64 @@ void non_memberFunc_queue(int testNmb)
 {
 	std::cout << std::endl << "\x1b[33m" << "                              *** OVERLOADES ***                          " << "\x1b[0m" << std::endl;
 	std::list<int> queueSys_a ;
-
-	queueSys_a.push_back(10);
-	queueSys_a.push_back(20);
-	queueSys_a.push_back(30);
-
-	std::list<int> queueSys_b ;
-
-	queueSys_b.push_back(10);
-	queueSys_b.push_back(20);
-	queueSys_b.push_back(30);
-
-	std::list<int> queueSys_c;
-
-	queueSys_c.push_back(30);
-	queueSys_c.push_back(20);
-	queueSys_c.push_back(10);
-
+    queueSys_a.push_back(10);
+    queueSys_a.push_back(20);
+    queueSys_a.push_back(30);
+    std::list<int> queueSys_b ;
+    queueSys_b.push_back(10);
+    queueSys_b.push_back(20);
+    queueSys_b.push_back(30);
+    std::list<int> queueSys_c;
+    queueSys_c.push_back(30);
+    queueSys_c.push_back(20);
+    queueSys_c.push_back(10);
+    std::list<int> queueSys_d;
+    std::list<int> queueSys_f;
+    queueSys_f.push_back(30);
+	
     ft::queue<int, std::list<int> > queue_a(queueSys_a);
     ft::queue<int, std::list<int> > queue_b(queueSys_b);
     ft::queue<int, std::list<int> > queue_c(queueSys_c);
+    ft::queue<int, std::list<int> > queue_d(queueSys_d);
+    ft::queue<int, std::list<int> > queue_f(queueSys_f);
 
-	bool equality = (queue_a == queue_b);
-	bool unequality = (queue_b != queue_c);
-	bool less = (queue_b < queue_c);
-	bool more = (queue_c > queue_b);
-	bool lessAndEquality = (queue_a <= queue_b);
-	bool moreAndEquality = (queue_a >= queue_b);
-
-
-	bool equality2 = (queueSys_a == queueSys_b);
-	bool unequality2 = (queueSys_b != queueSys_c);
-	bool less2 = (queueSys_b < queueSys_c);
-	bool more2 = (queueSys_c > queueSys_b);
-	bool lessAndEquality2 = (queueSys_a <= queueSys_b);
-	bool moreAndEquality2 = (queueSys_a >= queueSys_b);
-
-	testFunc(testNmb++, equality, equality2, "a == b");
-	testFunc(testNmb++, unequality, unequality2, "b != c");
-	testFunc(testNmb++, less, less2, "b < c");
-	testFunc(testNmb++, more, more2, "c > b");
-	testFunc(testNmb++, lessAndEquality, lessAndEquality2, "a <= b");
-	testFunc(testNmb++, moreAndEquality, moreAndEquality2, "a >= b");
+    testFunc(testNmb++, (queueSys_a == queueSys_b), (queue_a == queue_b), "a == b");
+    testFunc(testNmb++, (queueSys_b == queueSys_c), (queue_b == queue_c), "b == c");
+    testFunc(testNmb++, (queueSys_a == queueSys_d), (queue_a == queue_d), "a == d");
+    testFunc(testNmb++, (queueSys_d == queueSys_c), (queue_d == queue_c), "d == c");
+    testFunc(testNmb++, (queueSys_a == queueSys_f), (queue_a == queue_f), "a == f");
+    testFunc(testNmb++, (queueSys_f == queueSys_c), (queue_f == queue_c), "f == c");
+    testFunc(testNmb++, (queueSys_a != queueSys_b), (queue_a != queue_b), "a != b");
+    testFunc(testNmb++, (queueSys_b != queueSys_c), (queue_b != queue_c), "b != c");
+    testFunc(testNmb++, (queueSys_a != queueSys_d), (queue_a != queue_d), "a != d");
+    testFunc(testNmb++, (queueSys_d != queueSys_c), (queue_d != queue_c), "d != c");
+    testFunc(testNmb++, (queueSys_a != queueSys_f), (queue_a != queue_f), "a != f");
+    testFunc(testNmb++, (queueSys_f != queueSys_c), (queue_f != queue_c), "f != c");
+    testFunc(testNmb++, (queueSys_a < queueSys_b), (queue_a < queue_b), "a < b");
+    testFunc(testNmb++, (queueSys_b < queueSys_c), (queue_b < queue_c), "b < c");
+    testFunc(testNmb++, (queueSys_a < queueSys_d), (queue_a < queue_d), "a < d");
+    testFunc(testNmb++, (queueSys_d < queueSys_c), (queue_d < queue_c), "d < c");
+    testFunc(testNmb++, (queueSys_a < queueSys_f), (queue_a < queue_f), "a < f");
+    testFunc(testNmb++, (queueSys_f < queueSys_c), (queue_f < queue_c), "f < c");
+    testFunc(testNmb++, (queueSys_a > queueSys_b), (queue_a > queue_b), "a > b");
+    testFunc(testNmb++, (queueSys_b > queueSys_c), (queue_b > queue_c), "b > c");
+    testFunc(testNmb++, (queueSys_a > queueSys_d), (queue_a > queue_d), "a > d");
+    testFunc(testNmb++, (queueSys_d > queueSys_c), (queue_d > queue_c), "d > c");
+    testFunc(testNmb++, (queueSys_a > queueSys_f), (queue_a > queue_f), "a > f");
+    testFunc(testNmb++, (queueSys_f > queueSys_c), (queue_f > queue_c), "f > c");
+    testFunc(testNmb++, (queueSys_a <= queueSys_b), (queue_a <= queue_b), "a <= b");
+    testFunc(testNmb++, (queueSys_b <= queueSys_c), (queue_b <= queue_c), "b <= c");
+    testFunc(testNmb++, (queueSys_a <= queueSys_d), (queue_a <= queue_d), "a <= d");
+    testFunc(testNmb++, (queueSys_d <= queueSys_c), (queue_d <= queue_c), "d <= c");
+    testFunc(testNmb++, (queueSys_a <= queueSys_f), (queue_a <= queue_f), "a <= f");
+    testFunc(testNmb++, (queueSys_f <= queueSys_c), (queue_f <= queue_c), "f <= c");
+    testFunc(testNmb++, (queueSys_a >= queueSys_b), (queue_a >= queue_b), "a >= b");
+    testFunc(testNmb++, (queueSys_b >= queueSys_c), (queue_b >= queue_c), "b >= c");
+    testFunc(testNmb++, (queueSys_a >= queueSys_d), (queue_a >= queue_d), "a >= d");
+    testFunc(testNmb++, (queueSys_d >= queueSys_c), (queue_d >= queue_c), "d >= c");
+    testFunc(testNmb++, (queueSys_a >= queueSys_f), (queue_a >= queue_f), "a >= f");
+    testFunc(testNmb++, (queueSys_f >= queueSys_c), (queue_f >= queue_c), "f >= c");
+    getchar();
 }
 
 void queue_test()
@@ -254,6 +251,4 @@ void queue_test()
 
 	memberFunc_queue(testNmb,  testAll);
 	non_memberFunc_queue(testNmb);
-	
-
 }

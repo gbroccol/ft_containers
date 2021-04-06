@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/05 16:14:28 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/06 20:08:52 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,10 @@ namespace ft
 			typedef Alloc									allocator_type;
 			typedef size_t									size_type;
 			typedef value_type&								reference;
-			
 			typedef ft::iterator<T>							iterator;
 			typedef ft::const_iterator <T>					const_iterator;
-
 			typedef ft::reverse_iterator<T>					reverse_iterator;
 			typedef ft::const_reverse_iterator <T>			const_reverse_iterator;
-			
-			
-			// typedef const value_type&		const_reference;
-			// typedef value_type*				pointer;
-			// typedef const value_type*		const_pointer;
-			// typedef ptrdiff_t				difference_type;
 
 			/*
 			** -------------------------------- CONSTRUCTOR --------------------------------
@@ -91,6 +83,7 @@ namespace ft
 				_Tail = new struct Node <T>;
 				_Tail->pre  = _Tail;
 				_Tail->next = _Tail;
+				_Tail->data = 0;
 				*this = x;
 				return ;
 			}
@@ -111,7 +104,9 @@ namespace ft
 
 			list&         operator=(const list& x)
 			{
-				_Tail->data = 0;
+				// _Tail->data = 0;
+				if (_Tail->data)
+					clear();
 				
 				struct Node <T> *list_tmp = x._Tail->next;
 				if (x._Tail->data > 0)
@@ -217,10 +212,18 @@ namespace ft
 			void pop_front()
 			{
 				Node <T> *tmp = _Tail->next;
-				_Tail->next = tmp->next;
-				tmp->next->pre = _Tail;
-				_Tail->data--;
+				if(_Tail->data == 1)
+				{
+					_Tail->next = _Tail;
+					_Tail->pre = _Tail;
+				}
+				else
+				{
+					_Tail->next = tmp->next;
+					tmp->next->pre = _Tail;
+				}
 				delete tmp;
+				_Tail->data--;
 			}
 
 			void push_back(const T &val)
@@ -248,11 +251,19 @@ namespace ft
 
 			void pop_back()
 			{
-				Node <T> *tmp = _Tail->pre;
-				_Tail->pre->pre->next = _Tail;
-				_Tail->pre = _Tail->pre->pre;
-				_Tail->data--;
-				delete tmp;		
+				Node <T> *tmp  = _Tail->pre;
+				if (_Tail->data == 1)
+                {
+                    _Tail->pre = _Tail;
+                    _Tail->next = _Tail;
+                }
+                else
+                {
+                    _Tail->pre = _Tail->pre->pre;
+                    _Tail->pre->next =_Tail;
+                }
+				delete tmp;
+            	_Tail->data--;
 			}
 
 			iterator insert (iterator position, const value_type& val) // insert before position
@@ -323,8 +334,14 @@ namespace ft
 			
 			void clear()
 			{
-				while (_Tail->data)
+				// if (_Tail->data == 0)
+				// 	std::cout << "*** CLEAR = 0 = " << _Tail->data << " ***" << std::endl;
+				// std::cout << "*** CLEAR " << _Tail->data << " ***" << std::endl;
+				while (_Tail->data > 0)
+				{
+					// std::cout << "-> "<< _Tail->data << std::endl;
 					pop_back();
+				}
 			}
 
 	/* Operations */
@@ -605,7 +622,6 @@ namespace ft
 			template <class T, class Alloc>
 			bool operator>  (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs)
 			{
-
 				if (lhs.size() == 0)
 					return false;
 				else if (rhs.size() == 0)
@@ -642,16 +658,8 @@ namespace ft
 				return (lhs == rhs || lhs > rhs);
 			}
 
-			// template <class T, class Alloc>
-			// void swap (list<T, Alloc> & x, list<T, Alloc> & y)
-			// {
-
-				
-				// ft::itemswap(x.head, y.head);
-				// ft::itemswap(x.tail, y.tail);
-				// ft::itemswap(x.length, y.length);
-				// ft::itemswap(x.alloc, y.alloc);
-			// }
+			template <class T, class Alloc>
+			void swap (list<T, Alloc> & x, list<T, Alloc> & y) { x.swap(y); }
 }
 
 #endif //CONT_LIST_H

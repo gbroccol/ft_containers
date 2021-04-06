@@ -6,22 +6,12 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:11:15 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/05 21:35:15 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/06 18:26:23 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONT_VECTOR_HPP
 #define CONT_VECTOR_HPP
-
-// # include <memory>
-// # include <cstddef>
-// # include "RandomAccessIterator.hpp"
-// # include "ReverseIterator.hpp"
-// # include "Traits.hpp"
-// # include "Extra.hpp"
-// # include <stdexcept>
-// #include <iostream>
-
 
 #include <iterator>
 #include <iostream>
@@ -45,12 +35,9 @@ namespace ft
 			typedef ft::iteratorVector <T>							iterator;
 			typedef ft::const_iteratorVector <T>					const_iterator;
 			typedef ft::reverseIteratorVector<T>					reverse_iterator;
-			typedef ft::const_reverseIteratorVector <T>			const_reverse_iterator;
+			typedef ft::const_reverseIteratorVector <T>				const_reverse_iterator;
+			typedef size_t											size_type;
 			
-			typedef size_t							size_type;
-			
-
-
 			/*
 			** -------------------------------- CONSTRUCTOR --------------------------------
 			*/
@@ -96,7 +83,7 @@ namespace ft
 
 			~vector() 
 			{
-				// delete _vector
+				_alloc.deallocate(_vector, _capacity);
 			}
 
 			/*
@@ -227,6 +214,8 @@ namespace ft
 			{
 				pointer tmp;
 				pointer posVector = position.getptr();
+
+				int dealCapacity = _capacity;
 				
 				if (_capacity < (_size + 1))
 				{
@@ -235,6 +224,7 @@ namespace ft
 				}
 				else
 					tmp = _alloc.allocate(_capacity);
+					
 				
 				size_t i = 0;
 				for ( ; &_vector[i] != &posVector[0]; i++)
@@ -245,6 +235,9 @@ namespace ft
 				
 				for ( ; i != _size; i++)
 					tmp[i + 1] = _vector[i];
+
+				_alloc.deallocate(_vector, dealCapacity);
+				
 				_vector = tmp;
 				_size++;
 				
@@ -255,6 +248,7 @@ namespace ft
 			{
 				pointer tmp;
 				pointer posVector = position.getptr();
+				int dealCapacity = _capacity;
 				
 				if (_capacity < (_size + n))
 				{
@@ -277,6 +271,8 @@ namespace ft
 
 				for ( ; i != _size; i++)
 					tmp[i + n] = _vector[i];
+
+				_alloc.deallocate(_vector, dealCapacity);
 					
 				_vector = tmp;
 				_size += n;
@@ -286,22 +282,21 @@ namespace ft
 			void insert (iterator position, InputIterator first, InputIterator last,
 												typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
-				pointer tmp;
+				pointer tmp = nullptr;
 				pointer posVector = position.getptr();
+				size_t sum = _capacity;
 
 				int n = distance(first, last);
 				
-				if (_capacity < (_size + n))
+				if (sum < (_size + n))
 				{
-					while (_capacity < (_size + n))
-					{
-						tmp = _alloc.allocate(_capacity * 2);
-						_capacity *= 2;
-					}
+					while (sum < (_size + n))
+						sum = sum * 2;
+					tmp = _alloc.allocate(sum);
 				}
 				else
-					tmp = _alloc.allocate(_capacity);
-					
+					tmp = _alloc.allocate(sum);
+
 				size_t i = 0;
 				for ( ; &_vector[i] != &posVector[0]; i++)
 					tmp[i] = _vector[i];
@@ -313,6 +308,9 @@ namespace ft
 				}
 				for ( ; i != _size; i++)
 					tmp[i + n] = _vector[i];
+
+				_alloc.deallocate(_vector, _capacity);
+                _capacity = sum;
 					
 				_vector = tmp;
 				_size += n;
@@ -382,20 +380,114 @@ namespace ft
 
 			void clear() { _size = 0; }
 			
-	/* Operations */
+	/* Allocator */
 
+			allocator_type get_allocator() const { return _alloc; }
 
 		private:
 			
 			allocator_type		_alloc;
 			size_type			_size;
 			size_type			_capacity;
-			
 			pointer 			_vector;
+    };
+	
+	/* Non-member function overloads */
+	
+			template <class T, class Alloc>
+			bool operator== (const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
+			{
+				if (lhs.size() == rhs.size())
+				{
+					ft::const_iteratorVector <T> it1 = lhs.begin();
+					ft::const_iteratorVector <T> it2 = rhs.begin();
+					
+					while (it1 != lhs.end())
+					{
+						if (*it1 != *it2)
+							return false;
+						it1++;
+						it2++;
+					}
+					return true;
+				}
+				return false;
+			}
+			
+			template <class T, class Alloc>
+			bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+			{
+				return !(lhs == rhs);
+			}
+			
+			template <class T, class Alloc>
+			bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+			{
+				if (lhs.size() == 0)
+					return true;
+				else if (rhs.size() == 0)
+					return false;
+				else if (lhs.size() < rhs.size())
+					return true;
+				else
+				{
+					ft::const_iteratorVector <T> it1 = lhs.begin();
+					ft::const_iteratorVector <T> it2 = rhs.begin();
+						
+					while (it1 != lhs.end() && it2 != rhs.end())
+					{
+						if (*it1 < *it2)
+							return true;
+						else if (*it1 > *it2)
+							return false;
+						it1++;
+						it2++;
+					}
+				}
+				return false;
+			}
+			
+			template <class T, class Alloc>
+			bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+			{
+				return (lhs == rhs || lhs < rhs);
+			}
+			
+			template <class T, class Alloc>
+			bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+			{
+				if (lhs.size() == 0)
+					return false;
+				else if (rhs.size() == 0)
+					return true;
+				else if (lhs.size() > rhs.size())
+					return false;
+				else
+				{
+					ft::const_iteratorVector <T> it1 = lhs.begin();
+					ft::const_iteratorVector <T> it2 = rhs.begin();
+						
+					while (it1 != lhs.end() && it2 != rhs.end())
+					{
+						if (*it1 > *it2)
+							return true;
+						else if (*it1 < *it2)
+							return false;
+						it1++;
+						it2++;
+					}
+				}
+				return false;
+			}
+			
+			template <class T, class Alloc>
+			bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+			{
+				return (lhs == rhs || lhs > rhs);
+			}
 
-    }; 
-
-			/* Non-member function overloads */
+			template <class T, class Alloc>
+			void swap (vector<T,Alloc>& x, vector<T,Alloc>& y) { x.swap(y); }
 			
 }
 

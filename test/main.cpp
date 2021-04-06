@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:44:26 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/05 11:32:10 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/06 18:30:21 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ int main()
 	// 		return (0);
 	// 	}
 	// 	if ("list" == command)
-			// list_test();
+			list_test();
 	// 	else if ("map" == command)
-			// map_test();
+	// 		map_test();
 	// 	else if ("queue" == command)
-			// queue_test();
+	// 		queue_test();
 	// 	else if ("stack" == command)
-			// stack_test();
+	// 		stack_test();
 	// 	else if ("vector" == command)
-			vector_test();	
-		// else if ("exit" == command)
+			// vector_test();	
+	// 	else if ("exit" == command)
 	// 		return (0);
 	// 	else if (command.empty())
 	// 		continue ;
@@ -50,6 +50,8 @@ int main()
 	// 		return (0);
 	// }
 
+	std::cout << "*** CHECK LEAKS ***" << std::endl;
+	getchar();
 
 	return (0);
 }

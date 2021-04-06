@@ -6,7 +6,7 @@
 #    By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/01 11:32:12 by gbroccol          #+#    #+#              #
-#    Updated: 2021/04/02 13:28:54 by gbroccol         ###   ########.fr        #
+#    Updated: 2021/04/06 16:07:50 by gbroccol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ SRCS =		main.cpp \
 			vector_test.cpp \
 			list_test.cpp \
 			map_test.cpp \
-			# queue_test.cpp \
-			# stack_test.cpp \
+			queue_test.cpp \
+			stack_test.cpp \
 
 OBJ =		$(SRCS:.cpp=.o)
 

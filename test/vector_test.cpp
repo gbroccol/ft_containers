@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:04:46 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/05 21:49:52 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/06 18:28:49 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,71 +38,50 @@ void				constructor_vector(int testNmb, int testAll)
 		std::vector <int> vSys(4, 100);
 
 		std::cout << "*** PRINT VECTOR ***" << std::endl;
-		print_std_vector(" Sys Erase:", vSys);
-		print_ft_vector("User Erase:", vUser);
-		std::cout << std::endl;
-
-		ft::vector<int>::iterator itUser = vUser.begin();
-		std::vector<int>::iterator itSys = vSys.begin();
-
-		ft::vector<int>::iterator itUser2 = vUser.end();
-		std::vector<int>::iterator itSys2 = vSys.end();
-
-		testFunc(testNmb++, *itSys, *itUser, "vector begin()");
-		// testFunc(testNmb++, *itSys2, *itUser2, "vector end()"); // trash
-		itUser2--;
-		itSys2--;
-		testFunc(testNmb++, *itSys2, *itUser2, "vector end()");
-		testFunc(testNmb++, vUser.size(), vSys.size(),  "vector size()");
+		testFunc(testNmb++, vSys.size(), vUser.size(), "size after");
+		testFunc(testNmb++, vSys.capacity(), vUser.capacity(), "capacity after");
+		testNmb = compareClasses(testNmb++, vSys, vUser);
+		
 		getchar();
-
+		system("clear");
 
 		/* copy constructor */
-		// std::cout << std::endl << "\x1b[33m" << "copy constructor" << "\x1b[0m" << std::endl;
-		// ft::vector  <int> vUserCopy(vUser);
-		// std::vector <int> vSysCopy(vSys);
+		std::cout << std::endl << "\x1b[33m" << "copy constructor" << "\x1b[0m" << std::endl;
+		ft::vector  <int> vUserCopy(vUser);
+		std::vector <int> vSysCopy(vSys);
 
-		// std::cout << "*** PRINT COPY CONSTRUCTOR ***" << std::endl;
-		// print_std_vector(" Sys Erase:", vSysCopy);
-		// print_ft_vector("User Erase:", vUserCopy);
-		// std::cout << std::endl;
-		
-		// testFunc(testNmb++, vSysCopy.size(), vUserCopy.size(), "Constructor copy");
-		
-		// std::vector<int>::iterator itConstrCopySys = sysVectorCopy.begin();
-		// ft::vector<int>::iterator itConstrCopy = userVectorCopy.begin();
-		
-		
-		// testFunc(testNmb++, *itConstrCopySys, *itConstrCopy, "Constructor copy - value");
+		std::cout << "*** COPY IT ***" << std::endl;
+		testFunc(testNmb++, vSys.size(), vUser.size(), "size after");
+		testFunc(testNmb++, vSys.capacity(), vUser.capacity(), "capacity after");
+		testNmb = compareClasses(testNmb++, vSys, vUser);
 
-		// itConstrCopySys =  sysVectorCopy.end();
-		// itConstrCopySys--;
-		// itConstrCopy =  userVectorCopy.end();
-		// itConstrCopy--;
+		std::cout << "*** RESULT ***" << std::endl;
+		testFunc(testNmb++, vSysCopy.size(), vUserCopy.size(), "size after");
+		testFunc(testNmb++, vSysCopy.capacity(), vUserCopy.capacity(), "capacity after");
+		testNmb = compareClasses(testNmb++, vSysCopy, vUserCopy);
 
-		// std::cout << std::endl << "\x1b[33m" << "constructor InputIterator" << "\x1b[0m" << std::endl;
+		getchar();
+		system("clear");
 
+		/* constructor InputIterator */
+		std::cout << std::endl << "\x1b[33m" << "constructor InputIterator" << "\x1b[0m" << std::endl;
+
+		for (int i = 0; i < 5; i++)
+		{
+			vUserCopy.push_back(i);
+			vSysCopy.push_back(i);
+		}
 		
-		// itConstrCopySys = sysVectorCopy.begin();
-		// itConstrCopy = userVectorCopy.begin();
-
-		// std::vector  <int>::iterator itConstrCopySys2 = sysVectorCopy.end();
-		// ft::vector  <int>::iterator itConstrCopy2 = userVectorCopy.end();
-
-		// ft::vector  <int> userVectorInputIt(itConstrCopy,itConstrCopy2);
-		// std::vector <int> sysVectorInpuIt(itConstrCopySys, itConstrCopySys2);
+		ft::vector  <int> userVectorInputIt(vUserCopy.begin(), vUserCopy.end());
+		std::vector <int> sysVectorInpuIt(vSysCopy.begin(), vSysCopy.end());
 		
-		// testFunc(testNmb++, sysVectorCopy.size(), userVectorCopy.size(), "Constructor InputIterator");
-		// testFunc(testNmb++, *itConstrCopySys, *itConstrCopy, "Constructor InputIterator - value");
-
-		// itConstrCopySys =  sysVectorCopy.end();
-		// itConstrCopySys--;
-		// itConstrCopy =  userVectorCopy.end();
-		// itConstrCopy--;
+		std::cout << "*** RESULT ***" << std::endl;
+		testFunc(testNmb++, vSysCopy.size(), vUserCopy.size(), "size after");
+		testFunc(testNmb++, vSysCopy.capacity(), vUserCopy.capacity(), "capacity after");
+		testNmb = compareClasses(testNmb++, vSysCopy, vUserCopy);
 		
-		// testFunc(testNmb++, *itConstrCopySys, *itConstrCopy, "Back value is");
-		// getchar();
-		// std::system("clear");
+		getchar();
+		std::system("clear");
 	}
 	system("clear");
 }
@@ -385,10 +364,6 @@ void				capacity_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorReserve.size(), userVectorReserve.size(), "size (reserve 0)");
 		testFunc(testNmb++, sysVectorReserve.capacity(), userVectorReserve.capacity(), "capacity (reserve 0)");
 		testNmb = compareClasses(testNmb++, sysVectorReserve, userVectorReserve);
-
-		// print_std_vector("System array:", sysVectorReserve);
-		// print_ft_vector("  User array:", userVectorReserve);
-		
 		getchar();
 	}
 	system("clear");
@@ -572,7 +547,7 @@ void				modifiers_vector(int testNmb, int testAll)
 	int			push_back = 0;
 	int			pop_back = 0;
 	int			insert = 0;	
-	int			erase = 1;
+	int			erase = 0;
 	int			swap = 0;
 	int			clear = 0;
 
@@ -587,13 +562,13 @@ void				modifiers_vector(int testNmb, int testAll)
 
 	if (testAll)
 	{
-		// assign = 1;
-		// push_back = 1;
-		// pop_back = 1;
-		// insert = 1;	
+		assign = 1;
+		push_back = 1;
+		pop_back = 1;
+		insert = 1;	
 		erase = 1;
-		// swap = 1;
-		// clear = 1;
+		swap = 1;
+		clear = 1;
 	}
 	
 	//***************************ASSIGN************************//
@@ -703,7 +678,7 @@ void				modifiers_vector(int testNmb, int testAll)
 		testNmb = compareClasses(testNmb++, sysVectorAssign2, userVectorAssign2);
 		
 		sysVectorAssign2.assign(sysVectorAssign2.begin(), sysVectorAssign2.end());
-		userVectorAssign2.assign(userVectorAssign2.begin(),userVectorAssign.end());
+		userVectorAssign2.assign(userVectorAssign2.begin(), userVectorAssign2.end());
 
 		testFunc(testNmb++, sysVectorAssign2.size(), userVectorAssign2.size(), "size");
 		testFunc(testNmb++, sysVectorAssign2.capacity(), userVectorAssign2.capacity(), "capacity");
@@ -723,7 +698,7 @@ void				modifiers_vector(int testNmb, int testAll)
 		testNmb = compareClasses(testNmb++, sysVectorAssign2, userVectorAssign2);
 		
 		sysVectorAssign2.assign(sysVectorAssign2.begin(), sysVectorAssign2.end());
-		userVectorAssign2.assign(userVectorAssign2.begin(),userVectorAssign.end());
+		userVectorAssign2.assign(userVectorAssign2.begin(),userVectorAssign2.end());
 
 		testFunc(testNmb++, sysVectorAssign2.size(), userVectorAssign2.size(), "size");
 		testFunc(testNmb++, sysVectorAssign2.capacity(), userVectorAssign2.capacity(), "capacity");
@@ -810,40 +785,40 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity before");
 		testNmb = compareClasses(testNmb++, sysVect, userVect);
 
-		for	(int i = 0; i < 3; i++)
-		{
-			sysVect.pop_back();
-			userVect.pop_back();
-		}
+		// for	(int i = 0; i < 3; i++)
+		// {
+		// 	sysVect.pop_back();
+		// 	userVect.pop_back();
+		// }
 
-		testFunc(testNmb++, sysVect.size(), userVect.size(), "size");
-		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
-		testNmb = compareClasses(testNmb++, sysVect, userVect);
+		// testFunc(testNmb++, sysVect.size(), userVect.size(), "size");
+		// testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
+		// testNmb = compareClasses(testNmb++, sysVect, userVect);
 		
-		for	(int i = 0; i < 4; i++)
-		{
-			sysVect.pop_back();
-			userVect.pop_back();
-		}
+		// for	(int i = 0; i < 4; i++)
+		// {
+		// 	sysVect.pop_back();
+		// 	userVect.pop_back();
+		// }
 
-		testFunc(testNmb++, sysVect.size(), userVect.size(), "size OK ");
-		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity OK ");
+		// testFunc(testNmb++, sysVect.size(), userVect.size(), "size OK ");
+		// testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity OK ");
 
-		sysVect.pop_back();
-		userVect.pop_back();
+		// sysVect.pop_back();
+		// userVect.pop_back();
 		
-		testFunc(testNmb++, sysVect.size(), userVect.size(), "size TRASH");
-		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity TRASH");
+		// testFunc(testNmb++, sysVect.size(), userVect.size(), "size TRASH");
+		// testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity TRASH");
 
-		for	(int i = 5; i < 10; i++)
-		{
-			sysVect.push_back(i);
-			userVect.push_back(i);
-		}
+		// for	(int i = 5; i < 10; i++)
+		// {
+		// 	sysVect.push_back(i);
+		// 	userVect.push_back(i);
+		// }
 
-		testFunc(testNmb++, sysVect.size(), userVect.size(), "size");
-		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
-		testNmb = compareClasses(testNmb++, sysVect, userVect);
+		// testFunc(testNmb++, sysVect.size(), userVect.size(), "size");
+		// testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
+		// testNmb = compareClasses(testNmb++, sysVect, userVect);
 
 		getchar();
 		system("clear");
@@ -866,8 +841,6 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysV.size(), userV.size(), "size before");
 		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
 		testNmb = compareClasses(testNmb++, sysV, userV);
-
-		// sysV.insert(sysV.begin(), 12); // если begin не верный
 	
 		testFunc(testNmb++, *(sysV.insert(sysV.begin(), 12)), *(userV.insert(userV.begin(), 12)), "Return value");
 		
@@ -1267,7 +1240,6 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		/* erase */
 		std::cout << std::endl << "\x1b[33m" << "erase 6" << "\x1b[0m" << std::endl;
-		std::cout << std::endl << "iterator erase (iterator first, iterator last)" << std::endl;
 		
 		userVect.clear();
 		sysVect.clear();
@@ -1303,8 +1275,8 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		
 		/* erase */
-		std::cout << std::endl << "\x1b[33m" << "erase 7" << "\x1b[0m" << std::endl;
-		std::cout << std::endl << "iterator erase (iterator first, iterator last)" << std::endl;
+		std::cout << std::endl << "\x1b[33m" << "erase 7 iterator erase (iterator first, iterator last)" << "\x1b[0m" << std::endl;
+
 		userVect.clear();
 		sysVect.clear();
 
@@ -1335,8 +1307,7 @@ void				modifiers_vector(int testNmb, int testAll)
 		system("clear");
 
 		/* erase */
-		std::cout << std::endl << "\x1b[33m" << "erase 8" << "\x1b[0m" << std::endl;
-		std::cout << std::endl << "iterator erase (iterator first, iterator last)" << std::endl;
+		std::cout << std::endl << "\x1b[33m" << "erase 8 iterator erase (iterator first, iterator last)" << "\x1b[0m" << std::endl;
 		userVect.clear();
 		sysVect.clear();
 
@@ -1512,190 +1483,159 @@ void				modifiers_vector(int testNmb, int testAll)
 	system("clear");
 }
 
-void				allocator_vector(int testNmb, int testAll)
+void				overloads_vector(int testNmb)
 {
-	std::cout << std::endl << "\x1b[33m" << "                              *** ALLOCATOR ***                          " << "\x1b[0m" << std::endl;
-	
-	testNmb++;
+	std::cout << std::endl << "\x1b[33m" << "                         *** OVERLOADES ***                          " << "\x1b[0m" << std::endl;
 
-	if (testAll)
+	std::vector<int> Sys_a;
+	std::vector<int> Sys_b;
+	std::vector<int> Sys_c;
+	std::vector<int> Sys_d;
+	std::vector<int> Sys_f;
+
+	ft::vector<int> User_a;
+  	ft::vector<int> User_b;
+  	ft::vector<int> User_c;
+	ft::vector<int> User_d;
+	ft::vector<int> User_f;
+
+	for (int i = 10; i < 40;)
 	{
-		// std::vector<int> sysalloc;
-		// std::vector<int> myalloc;
-		// int * sys;
-		// int * my;
-		// unsigned int i;
+		Sys_a.push_back(i);
+		Sys_b.push_back(i);
+		User_a.push_back(i);
+		User_b.push_back(i);
+		i += 10;
+	}
 
-		// // allocate an array with space for 5 elements using vector's allocator:
-		// sys =sysalloc.get_allocator().allocate(5);
-		// my =  myalloc.get_allocator().allocate(5);
+	for (int i = 30; i >= 10;)
+	{
+		Sys_c.push_back(i);
+		User_c.push_back(i);
+		i -= 10;
+	}
 
-		// // construct values in-place on the array:
-		// for (i=0; i<5; i++) sysalloc.get_allocator().construct(&sys[i],i);
-		// for (i=0; i<5; i++) myalloc.get_allocator().construct(&my[i],i);
+	Sys_f.push_back(30);
+	User_f.push_back(30);
+	
+	std::cout << "*** BEFORE ***" << std::endl;
+	print_std_vector(" Sys_a:", Sys_a);
+	print_std_vector(" Sys_b:", Sys_b);
+	print_std_vector(" Sys_c:", Sys_c);
+	print_std_vector(" Sys_d:", Sys_d);
+	print_std_vector(" Sys_f:", Sys_f);
+	std::cout << std::endl;
+	
+	print_ft_vector("User_a:", User_a);
+	print_ft_vector("User_b:", User_b);
+	print_ft_vector("User_c:", User_c);
+	print_ft_vector("User_d:", User_d);
+	print_ft_vector("User_f:", User_f);
+	std::cout << std::endl;
 
-		// std::cout << "The allocated array contains system:";
-		// for (i=0; i<5; i++) std::cout << ' ' << sys[i];
+	try
+	{
+		testFunc(testNmb++, (Sys_a == Sys_b), (User_a == User_b), "a == b");
+		testFunc(testNmb++, (Sys_b == Sys_c), (User_b == User_c), "b == c");
+		testFunc(testNmb++, (Sys_a == Sys_d), (User_a == User_d), "a == d");
+		testFunc(testNmb++, (Sys_d == Sys_c), (User_d == User_c), "d == c");
+		testFunc(testNmb++, (Sys_a == Sys_f), (User_a == User_f), "a == f");
+		testFunc(testNmb++, (Sys_f == Sys_c), (User_f == User_c), "f == c");
 
-		// std::cout << "The allocated array contains my:";
-		// for (i=0; i<5; i++) std::cout << ' ' << my[i];
+		getchar();
 
-		
-		
-		// std::cout << '\n';
-		// testFunc(testNmb++,  my[0],  sys[0], "alloc[0]");
+		testFunc(testNmb++, (Sys_a != Sys_b), (User_a != User_b), "a != b");
+		testFunc(testNmb++, (Sys_b != Sys_c), (User_b != User_c), "b != c");
+		testFunc(testNmb++, (Sys_a != Sys_d), (User_a != User_d), "a != d");
+		testFunc(testNmb++, (Sys_d != Sys_c), (User_d != User_c), "d != c");
+		testFunc(testNmb++, (Sys_a != Sys_f), (User_a != User_f), "a != f");
+		testFunc(testNmb++, (Sys_f != Sys_c), (User_f != User_c), "f != c");
 
-		// getchar();
-		// 	system("clear");
+		getchar();
+
+		testFunc(testNmb++, (Sys_a < Sys_b), (User_a < User_b), "a < b");
+		testFunc(testNmb++, (Sys_b < Sys_c), (User_b < User_c), "b < c");
+		testFunc(testNmb++, (Sys_a < Sys_d), (User_a < User_d), "a < d");
+		testFunc(testNmb++, (Sys_d < Sys_c), (User_d < User_c), "d < c");
+		testFunc(testNmb++, (Sys_a < Sys_f), (User_a < User_f), "a < f");
+		testFunc(testNmb++, (Sys_f < Sys_c), (User_f < User_c), "f < c");
+
+		getchar();
+
+		testFunc(testNmb++, (Sys_a > Sys_b), (User_a > User_b), "a > b");
+		testFunc(testNmb++, (Sys_b > Sys_c), (User_b > User_c), "b > c");
+		testFunc(testNmb++, (Sys_a > Sys_d), (User_a > User_d), "a > d");
+		testFunc(testNmb++, (Sys_d > Sys_c), (User_d > User_c), "d > c");
+		testFunc(testNmb++, (Sys_a > Sys_f), (User_a > User_f), "a > f");
+		testFunc(testNmb++, (Sys_f > Sys_c), (User_f > User_c), "f > c");
+
+		getchar();
+
+		testFunc(testNmb++, (Sys_a <= Sys_b), (User_a <= User_b), "a <= b");
+		testFunc(testNmb++, (Sys_b <= Sys_c), (User_b <= User_c), "b <= c");
+		testFunc(testNmb++, (Sys_a <= Sys_d), (User_a <= User_d), "a <= d");
+		testFunc(testNmb++, (Sys_d <= Sys_c), (User_d <= User_c), "d <= c");
+		testFunc(testNmb++, (Sys_a <= Sys_f), (User_a <= User_f), "a <= f");
+		testFunc(testNmb++, (Sys_f <= Sys_c), (User_f <= User_c), "f <= c");
+
+		getchar();
+
+		testFunc(testNmb++, (Sys_a >= Sys_b), (User_a >= User_b), "a >= b");
+		testFunc(testNmb++, (Sys_b >= Sys_c), (User_b >= User_c), "b >= c");
+		testFunc(testNmb++, (Sys_a >= Sys_d), (User_a >= User_d), "a >= d");
+		testFunc(testNmb++, (Sys_d >= Sys_c), (User_d >= User_c), "d >= c");
+		testFunc(testNmb++, (Sys_a >= Sys_f), (User_a >= User_f), "a >= f");
+		testFunc(testNmb++, (Sys_f >= Sys_c), (User_f >= User_c), "f >= c");
+
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
 	}
 	
 	system("clear");
+	getchar();
+	
+	std::cout << std::endl << "\x1b[33m" << "                         *** SWAP ***                          " << "\x1b[0m" << std::endl;
+	
+	std::vector<int> SysV (3,100);
+	std::vector<int> SysV2 (5,200);
+
+	ft::vector<int> UserV (3,100);
+	ft::vector<int> UserV2 (5,200);
+	std::cout << "*** BEFORE ***" << std::endl;
+	print_std_vector("  SysV:", SysV);
+	print_std_vector(" SysV2:", SysV2);
+
+	print_ft_vector("  UserV:", UserV);
+	print_ft_vector(" UserV2:", UserV2);
+
+	std::cout << "*** AFTER ***" << std::endl;
+	print_std_vector("  SysV:", SysV);
+	print_std_vector(" SysV2:", SysV2);
+
+	print_ft_vector("  UserV:", UserV);
+	print_ft_vector(" UserV2:", UserV2);
+
+	ft::vector<int>::iterator itSwapUser = UserV.end();
+	itSwapUser--;
+	std::vector<int>::iterator itSwapSys = SysV.end();
+	itSwapSys--;
+
+  	testFunc(testNmb++, SysV.size(), UserV.size(), "size");
+	testFunc(testNmb++, *SysV.begin(), *UserV.begin(), "begin");
+	testFunc(testNmb++, *SysV.end(), *UserV.end(), "end");
+
+	testFunc(testNmb++, SysV2.size(), UserV2.size(), "size");
+	testFunc(testNmb++, *SysV2.begin(), *UserV2.begin(), "begin");
+	testFunc(testNmb++, *itSwapSys, *itSwapUser, "end");
+
 }
-
-// void				overloads_vector(int testNmb)
-// {
-// 	std::cout << std::endl << "\x1b[33m" << "                         *** OVERLOADES ***                          " << "\x1b[0m" << std::endl;
-
-// 	std::vector<int> Sys_a;
-// 	std::vector<int> Sys_b;
-// 	std::vector<int> Sys_c;
-// 	std::vector<int> Sys_d;
-// 	std::vector<int> Sys_f;
-
-// 	ft::vector<int> User_a;
-//   	ft::vector<int> User_b;
-//   	ft::vector<int> User_c;
-// 	ft::vector<int> User_d;
-// 	ft::vector<int> User_f;
-
-// 	for (int i = 10; i < 40;)
-// 	{
-// 		Sys_a.push_back(i);
-// 		Sys_b.push_back(i);
-// 		User_a.push_back(i);
-// 		User_b.push_back(i);
-// 		i += 10;
-// 	}
-
-// 	for (int i = 30; i >= 10;)
-// 	{
-// 		Sys_c.push_back(i);
-// 		User_c.push_back(i);
-// 		i -= 10;
-// 	}
-
-// 	Sys_f.push_back(30);
-// 	User_f.push_back(30);
-	
-// 	std::cout << "*** BEFORE ***" << std::endl;
-// 	print_std_vector(" Sys_a:", Sys_a);
-// 	print_std_vector(" Sys_b:", Sys_b);
-// 	print_std_vector(" Sys_c:", Sys_c);
-// 	print_std_vector(" Sys_d:", Sys_d);
-// 	print_std_vector(" Sys_f:", Sys_f);
-// 	std::cout << std::endl;
-	
-// 	print_ft_vector("User_a:", User_a);
-// 	print_ft_vector("User_b:", User_b);
-// 	print_ft_vector("User_c:", User_c);
-// 	print_ft_vector("User_d:", User_d);
-// 	print_ft_vector("User_f:", User_f);
-// 	std::cout << std::endl;
-
-// 	try
-// 	{
-// 		testFunc(testNmb++, (Sys_a == Sys_b), (User_a == User_b), "a == b");
-// 		testFunc(testNmb++, (Sys_b == Sys_c), (User_b == User_c), "b == c");
-// 		testFunc(testNmb++, (Sys_a == Sys_d), (User_a == User_d), "a == d");
-// 		testFunc(testNmb++, (Sys_d == Sys_c), (User_d == User_c), "d == c");
-// 		testFunc(testNmb++, (Sys_a == Sys_f), (User_a == User_f), "a == f");
-// 		testFunc(testNmb++, (Sys_f == Sys_c), (User_f == User_c), "f == c");
-
-// 		testFunc(testNmb++, (Sys_a != Sys_b), (User_a != User_b), "a != b");
-// 		testFunc(testNmb++, (Sys_b != Sys_c), (User_b != User_c), "b != c");
-// 		testFunc(testNmb++, (Sys_a != Sys_d), (User_a != User_d), "a != d");
-// 		testFunc(testNmb++, (Sys_d != Sys_c), (User_d != User_c), "d != c");
-// 		testFunc(testNmb++, (Sys_a != Sys_f), (User_a != User_f), "a != f");
-// 		testFunc(testNmb++, (Sys_f != Sys_c), (User_f != User_c), "f != c");
-
-// 		testFunc(testNmb++, (Sys_a < Sys_b), (User_a < User_b), "a < b");
-// 		testFunc(testNmb++, (Sys_b < Sys_c), (User_b < User_c), "b < c");
-// 		testFunc(testNmb++, (Sys_a < Sys_d), (User_a < User_d), "a < d");
-// 		testFunc(testNmb++, (Sys_d < Sys_c), (User_d < User_c), "d < c");
-// 		testFunc(testNmb++, (Sys_a < Sys_f), (User_a < User_f), "a < f");
-// 		testFunc(testNmb++, (Sys_f < Sys_c), (User_f < User_c), "f < c");
-
-// 		testFunc(testNmb++, (Sys_a > Sys_b), (User_a > User_b), "a > b");
-// 		testFunc(testNmb++, (Sys_b > Sys_c), (User_b > User_c), "b > c");
-// 		testFunc(testNmb++, (Sys_a > Sys_d), (User_a > User_d), "a > d");
-// 		testFunc(testNmb++, (Sys_d > Sys_c), (User_d > User_c), "d > c");
-// 		testFunc(testNmb++, (Sys_a > Sys_f), (User_a > User_f), "a > f");
-// 		testFunc(testNmb++, (Sys_f > Sys_c), (User_f > User_c), "f > c");
-
-// 		testFunc(testNmb++, (Sys_a <= Sys_b), (User_a <= User_b), "a <= b");
-// 		testFunc(testNmb++, (Sys_b <= Sys_c), (User_b <= User_c), "b <= c");
-// 		testFunc(testNmb++, (Sys_a <= Sys_d), (User_a <= User_d), "a <= d");
-// 		testFunc(testNmb++, (Sys_d <= Sys_c), (User_d <= User_c), "d <= c");
-// 		testFunc(testNmb++, (Sys_a <= Sys_f), (User_a <= User_f), "a <= f");
-// 		testFunc(testNmb++, (Sys_f <= Sys_c), (User_f <= User_c), "f <= c");
-
-// 		testFunc(testNmb++, (Sys_a >= Sys_b), (User_a >= User_b), "a >= b");
-// 		testFunc(testNmb++, (Sys_b >= Sys_c), (User_b >= User_c), "b >= c");
-// 		testFunc(testNmb++, (Sys_a >= Sys_d), (User_a >= User_d), "a >= d");
-// 		testFunc(testNmb++, (Sys_d >= Sys_c), (User_d >= User_c), "d >= c");
-// 		testFunc(testNmb++, (Sys_a >= Sys_f), (User_a >= User_f), "a >= f");
-// 		testFunc(testNmb++, (Sys_f >= Sys_c), (User_f >= User_c), "f >= c");
-
-// 	}
-// 	catch(const std::exception& e)
-// 	{
-// 		std::cerr << e.what() << '\n';
-// 	}
-
-// 	getchar();
-	
-// 	std::cout << std::endl << "\x1b[33m" << "                         *** SWAP ***                          " << "\x1b[0m" << std::endl;
-	
-// 	std::vector<int> SysV (3,100);
-// 	std::vector<int> SysV2 (5,200);
-
-// 	ft::vector<int> UserV (3,100);
-// 	ft::vector<int> UserV2 (5,200);
-// 	std::cout << "*** BEFORE ***" << std::endl;
-// 	print_std_vector("  SysV:", SysV);
-// 	print_std_vector(" SysV2:", SysV2);
-
-// 	print_ft_vector("  UserV:", UserV);
-// 	print_ft_vector(" UserV2:", UserV2);
-
-// 	std::cout << "*** AFTER ***" << std::endl;
-// 	print_std_vector("  SysV:", SysV);
-// 	print_std_vector(" SysV2:", SysV2);
-
-// 	print_ft_vector("  UserV:", UserV);
-// 	print_ft_vector(" UserV2:", UserV2);
-
-// 	ft::vector<int>::iterator itSwapUser = UserV.end();
-// 	itSwapUser--;
-// 	std::vector<int>::iterator itSwapSys = SysV.end();
-// 	itSwapSys--;
-
-//   	testFunc(testNmb++, SysV.size(), UserV.size(), "size");
-// 	testFunc(testNmb++, *SysV.begin(), *UserV.begin(), "begin");
-// 	testFunc(testNmb++, *SysV.end(), *UserV.end(), "end");
-
-// 	testFunc(testNmb++, SysV2.size(), UserV2.size(), "size");
-// 	testFunc(testNmb++, *SysV2.begin(), *UserV2.begin(), "begin");
-// 	testFunc(testNmb++, *itSwapSys, *itSwapUser, "end");
-
-// }
-
-
 
 void				vector_test()
 {
 	int testNmb = 0;
-	int testAll = 0;
+	int testAll = 1;
 
 	system("clear");
 	
@@ -1708,12 +1648,10 @@ void				vector_test()
 	std::cout << "\x1b[0m";
 
 	/*			Member functions			*/
-	constructor_vector(testNmb, testAll);				// -
+	constructor_vector(testNmb, testAll);				// +
 	iterators_vector(testNmb, testAll);					// +
 	capacity_vector(testNmb, testAll);					// +
 	elementAccess_vector(testNmb, testAll);				// +
 	modifiers_vector(testNmb, testAll);					// + 
-	// allocator_vector(testNmb, testAll);				// get_allocator
-	// overloads_vector(testNmb, testAll);
+	overloads_vector(testNmb);							// +
 }
-
