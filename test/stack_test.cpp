@@ -6,54 +6,11 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:48:20 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/06 15:53:55 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:11:08 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "containers_test.hpp"
-
-// #include <string>
-// #include <cassert>
-// #include <algorithm>
-
-// #include <list>
-// #include <map>
-// #include <stack>
-// #include <stack>
-
-// #include <iostream>
-
-// // #include "../containers/vector.hpp"
-// #include <vector>
-
-// using namespace std; // delete
-// using namespace ft; // delete
-
-
-#include "containers_test.hpp"
-
-#include <string>
-#include <cassert>
-#include <algorithm>
-#include <iostream>       // std::cout
-#include <stack>          // std::stack
-#include <list>           // std::list
-#include <stack>          // std::stack
-
-// #include <list>
-// #include <map>
-// #include <stack>
-// #include <dequeue>
-#include <stack>
-
-#include <iostream>
-
-#include "../containers/stack/stack.hpp"
-#include "../containers/list/list.hpp"
-// #include <vector>
-
-// using namespace std; // delete
-// using namespace ft; // delete
 
 void memberFunc_stack(int testNmb,  int testAll)
 {

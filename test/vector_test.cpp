@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:04:46 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/06 18:28:49 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/13 19:37:11 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,12 @@ void				constructor_vector(int testNmb, int testAll)
 		/* constructor InputIterator */
 		std::cout << std::endl << "\x1b[33m" << "constructor InputIterator" << "\x1b[0m" << std::endl;
 
+		testFunc(testNmb++, vSysCopy.size(), vUserCopy.size(), "size");
+		testFunc(testNmb++, vSysCopy.capacity(), vUserCopy.capacity(), "capacity");
+		
 		for (int i = 0; i < 5; i++)
 		{
+			std::cout << i << std::endl;
 			vUserCopy.push_back(i);
 			vSysCopy.push_back(i);
 		}
@@ -76,8 +80,8 @@ void				constructor_vector(int testNmb, int testAll)
 		std::vector <int> sysVectorInpuIt(vSysCopy.begin(), vSysCopy.end());
 		
 		std::cout << "*** RESULT ***" << std::endl;
-		testFunc(testNmb++, vSysCopy.size(), vUserCopy.size(), "size after");
-		testFunc(testNmb++, vSysCopy.capacity(), vUserCopy.capacity(), "capacity after");
+		testFunc(testNmb++, vSysCopy.size(), vUserCopy.size(), "size");
+		testFunc(testNmb++, vSysCopy.capacity(), vUserCopy.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, vSysCopy, vUserCopy);
 		
 		getchar();
@@ -416,13 +420,17 @@ void				elementAccess_vector(int testNmb, int testAll)
 		{
 			std::cout << std::endl << "\x1b[33m" << "at" << "\x1b[0m" << std::endl;
 
+			// std::cout << "Start" << std::endl;
+
 			ft::vector  <int> userVectorAt;
 			std::vector <int> sysVectorAt;
 
 			for(size_t i = 0; i < 10; i++)
 			{
-				 userVectorAt.push_back(i);
-				 sysVectorAt.push_back(i);
+				// std::cout << i << std::endl;
+				
+				userVectorAt.push_back(i);
+				sysVectorAt.push_back(i);
 			}
 			
 			testFunc(testNmb++, userVectorAt.at(5), sysVectorAt.at(5), ".at(5)");
@@ -550,15 +558,6 @@ void				modifiers_vector(int testNmb, int testAll)
 	int			erase = 0;
 	int			swap = 0;
 	int			clear = 0;
-
-	ft::vector  <int> userVect;
-	std::vector <int> sysVect;
-
-	std::vector <int>::iterator itSys; 
-	ft::vector <int>::iterator itUser;
-
-	std::string nameSize;
-	std::string nameCapacity;
 
 	if (testAll)
 	{
@@ -730,6 +729,12 @@ void				modifiers_vector(int testNmb, int testAll)
 	//***************************PUSH_BACK************************//
 	if(push_back)
 	{
+		ft::vector  <int> userVect;
+		std::vector <int> sysVect;
+
+		std::string nameSize;
+		std::string nameCapacity;
+		
 		std::cout << std::endl << "\x1b[33m" << "push_back" << "\x1b[0m" << std::endl;
 		
 		testFunc(testNmb++, sysVect.size(), userVect.size(), "size before");
@@ -768,6 +773,9 @@ void				modifiers_vector(int testNmb, int testAll)
 	{
 		std::cout << std::endl << "\x1b[33m" << "pop_back" << "\x1b[0m" << std::endl;
 
+		ft::vector  <int> userVect;
+		std::vector <int> sysVect;
+
 		userVect.clear();
 		sysVect.clear();
 
@@ -785,40 +793,34 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity before");
 		testNmb = compareClasses(testNmb++, sysVect, userVect);
 
-		// for	(int i = 0; i < 3; i++)
-		// {
-		// 	sysVect.pop_back();
-		// 	userVect.pop_back();
-		// }
+		for	(int i = 0; i < 3; i++)
+		{
+			sysVect.pop_back();
+			userVect.pop_back();
+		}
 
-		// testFunc(testNmb++, sysVect.size(), userVect.size(), "size");
-		// testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
-		// testNmb = compareClasses(testNmb++, sysVect, userVect);
+		testFunc(testNmb++, sysVect.size(), userVect.size(), "size");
+		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
+		testNmb = compareClasses(testNmb++, sysVect, userVect);
 		
-		// for	(int i = 0; i < 4; i++)
-		// {
-		// 	sysVect.pop_back();
-		// 	userVect.pop_back();
-		// }
+		for	(int i = 0; i < 4; i++)
+		{
+			sysVect.pop_back();
+			userVect.pop_back();
+		}
 
-		// testFunc(testNmb++, sysVect.size(), userVect.size(), "size OK ");
-		// testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity OK ");
+		testFunc(testNmb++, sysVect.size(), userVect.size(), "size  ");
+		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
 
-		// sysVect.pop_back();
-		// userVect.pop_back();
-		
-		// testFunc(testNmb++, sysVect.size(), userVect.size(), "size TRASH");
-		// testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity TRASH");
+		for	(int i = 5; i < 10; i++)
+		{
+			sysVect.push_back(i);
+			userVect.push_back(i);
+		}
 
-		// for	(int i = 5; i < 10; i++)
-		// {
-		// 	sysVect.push_back(i);
-		// 	userVect.push_back(i);
-		// }
-
-		// testFunc(testNmb++, sysVect.size(), userVect.size(), "size");
-		// testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
-		// testNmb = compareClasses(testNmb++, sysVect, userVect);
+		testFunc(testNmb++, sysVect.size(), userVect.size(), "size");
+		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
+		testNmb = compareClasses(testNmb++, sysVect, userVect);
 
 		getchar();
 		system("clear");
@@ -831,6 +833,9 @@ void				modifiers_vector(int testNmb, int testAll)
 		
 		ft::vector  <int> userV;
 		std::vector <int> sysV;
+
+		std::vector <int>::iterator itSys; 
+		ft::vector <int>::iterator itUser;
 
 		for(int i = 0; i < 2; i++)
 		{
@@ -1110,6 +1115,9 @@ void				modifiers_vector(int testNmb, int testAll)
 		std::cout << std::endl << "\x1b[33m" << "erase 1" << "\x1b[0m" << std::endl;
 		ft::vector  <int> userVect;
 		std::vector <int> sysVect;
+
+		std::vector <int>::iterator itSys; 
+		ft::vector <int>::iterator itUser;
 
 		for(int i = 0; i < 10; i++)
 		{
@@ -1519,18 +1527,18 @@ void				overloads_vector(int testNmb)
 	User_f.push_back(30);
 	
 	std::cout << "*** BEFORE ***" << std::endl;
-	print_std_vector(" Sys_a:", Sys_a);
-	print_std_vector(" Sys_b:", Sys_b);
-	print_std_vector(" Sys_c:", Sys_c);
-	print_std_vector(" Sys_d:", Sys_d);
-	print_std_vector(" Sys_f:", Sys_f);
+	printContainer(" Sys_a:", Sys_a);
+	printContainer(" Sys_b:", Sys_b);
+	printContainer(" Sys_c:", Sys_c);
+	printContainer(" Sys_d:", Sys_d);
+	printContainer(" Sys_f:", Sys_f);
 	std::cout << std::endl;
 	
-	print_ft_vector("User_a:", User_a);
-	print_ft_vector("User_b:", User_b);
-	print_ft_vector("User_c:", User_c);
-	print_ft_vector("User_d:", User_d);
-	print_ft_vector("User_f:", User_f);
+	printContainer("User_a:", User_a);
+	printContainer("User_b:", User_b);
+	printContainer("User_c:", User_c);
+	printContainer("User_d:", User_d);
+	printContainer("User_f:", User_f);
 	std::cout << std::endl;
 
 	try
@@ -1593,8 +1601,8 @@ void				overloads_vector(int testNmb)
 		std::cerr << e.what() << '\n';
 	}
 	
-	system("clear");
 	getchar();
+	system("clear");
 	
 	std::cout << std::endl << "\x1b[33m" << "                         *** SWAP ***                          " << "\x1b[0m" << std::endl;
 	
@@ -1604,18 +1612,18 @@ void				overloads_vector(int testNmb)
 	ft::vector<int> UserV (3,100);
 	ft::vector<int> UserV2 (5,200);
 	std::cout << "*** BEFORE ***" << std::endl;
-	print_std_vector("  SysV:", SysV);
-	print_std_vector(" SysV2:", SysV2);
+	printContainer("  SysV:", SysV);
+	printContainer(" SysV2:", SysV2);
 
-	print_ft_vector("  UserV:", UserV);
-	print_ft_vector(" UserV2:", UserV2);
+	printContainer("  UserV:", UserV);
+	printContainer(" UserV2:", UserV2);
 
 	std::cout << "*** AFTER ***" << std::endl;
-	print_std_vector("  SysV:", SysV);
-	print_std_vector(" SysV2:", SysV2);
+	printContainer("  SysV:", SysV);
+	printContainer(" SysV2:", SysV2);
 
-	print_ft_vector("  UserV:", UserV);
-	print_ft_vector(" UserV2:", UserV2);
+	printContainer("  UserV:", UserV);
+	printContainer(" UserV2:", UserV2);
 
 	ft::vector<int>::iterator itSwapUser = UserV.end();
 	itSwapUser--;
@@ -1624,12 +1632,643 @@ void				overloads_vector(int testNmb)
 
   	testFunc(testNmb++, SysV.size(), UserV.size(), "size");
 	testFunc(testNmb++, *SysV.begin(), *UserV.begin(), "begin");
-	testFunc(testNmb++, *SysV.end(), *UserV.end(), "end");
 
 	testFunc(testNmb++, SysV2.size(), UserV2.size(), "size");
 	testFunc(testNmb++, *SysV2.begin(), *UserV2.begin(), "begin");
-	testFunc(testNmb++, *itSwapSys, *itSwapUser, "end");
 
+	getchar();
+	system("clear");
+}
+
+void				iterator_for_vector(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** ITERATORS FOR VECTOR ***                          " << "\x1b[0m" << std::endl;
+
+	std::vector<int> vectorSys;
+	ft::vector<int> vectorUser;
+	
+	for(int i = 0; i < 15; i++)
+	{
+		vectorSys.push_back(i);
+		vectorUser.push_back(i);
+	}
+
+	std::vector<int> ::iterator iterSys;						// X a;
+	ft::vector<int> ::iterator iterUser;						// X a;
+
+	iterSys  = vectorSys.begin();								// b = a;
+	iterUser = vectorUser.begin();								// b = a;
+
+	std::vector<int> ::iterator iterSysCopy(iterSys);			// X b(a);
+	ft::vector<int> ::iterator iterUserCopy(iterUser);			// X b(a);
+	
+	testFunc(testNmb++, *iterSysCopy, *iterUserCopy, "Value");
+
+	testFunc(testNmb++, vectorSys.begin() == vectorSys.begin(), vectorUser.begin() == vectorUser.begin() , "begin == begin");
+	testFunc(testNmb++, vectorSys.begin() == vectorSys.end(),   vectorUser.begin() == vectorUser.end(), "begin == end");
+	testFunc(testNmb++, vectorSys.end() == vectorSys.begin(),   vectorUser.end() == vectorUser.begin(), "end == begin");
+
+	testFunc(testNmb++, vectorSys.begin() != vectorSys.begin(), vectorUser.begin() != vectorUser.begin() , "begin != begin");
+	testFunc(testNmb++, vectorSys.begin() != vectorSys.end(),   vectorUser.begin() != vectorUser.end(), "begin != end");
+	testFunc(testNmb++, vectorSys.end() != vectorSys.begin(),   vectorUser.end() != vectorUser.begin(), "end != begin");
+
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+
+	*iterSys = 42;
+	*iterUser = 42;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+
+	testFunc(testNmb++, *(iterSys++), *(iterUser++), "a++");
+	testFunc(testNmb++, *(++iterSys), *(++iterUser), "++a");
+	testFunc(testNmb++, *iterSys++, *iterUser++, "*a++");
+	
+	testFunc(testNmb++, *(iterSys--), *(iterUser--) , "a--");
+	testFunc(testNmb++, *(--iterSys), *(--iterUser), "--a");
+	testFunc(testNmb++, *iterSys--, *iterUser--, "*a--");
+
+	for (int i = 0; i < 5; i++)
+	{
+		iterSys++;
+		iterUser++;
+	}
+
+	testFunc(testNmb++, *(iterSys + 3), *(iterUser + 3), "a + 3");
+	// testFunc(testNmb++, *(3 + iterSys), *(3 + iterUser), "3 + a");
+
+	testFunc(testNmb++, *(iterSys - 3), *(iterUser - 3), "a - 3");
+	// testFunc(testNmb++, *(iterSys - ...), *(iterUser - ...), "a - a");
+	// testFunc(testNmb++, *(iterSys - ...), *(iterUser - ...), "a - b");
+	
+	testFunc(testNmb++, vectorSys.begin() < vectorSys.begin(), vectorUser.begin() < vectorUser.begin() , "begin < begin");
+	testFunc(testNmb++, vectorSys.begin() < vectorSys.end(),   vectorUser.begin() < vectorUser.end(), "begin < end");
+	testFunc(testNmb++, vectorSys.end() < vectorSys.begin(),   vectorUser.end() < vectorUser.begin(), "end < begin");
+
+	testFunc(testNmb++, vectorSys.begin() > vectorSys.begin(), vectorUser.begin() > vectorUser.begin() , "begin > begin");
+	testFunc(testNmb++, vectorSys.begin() > vectorSys.end(),   vectorUser.begin() > vectorUser.end(), "begin > end");
+	testFunc(testNmb++, vectorSys.end() > vectorSys.begin(),   vectorUser.end() > vectorUser.begin(), "end > begin");
+
+	testFunc(testNmb++, vectorSys.begin() <= vectorSys.begin(), vectorUser.begin() <= vectorUser.begin() , "begin <= begin");
+	testFunc(testNmb++, vectorSys.begin() <= vectorSys.end(),   vectorUser.begin() <= vectorUser.end(), "begin <= end");
+	testFunc(testNmb++, vectorSys.end() <= vectorSys.begin(),   vectorUser.end() <= vectorUser.begin(), "end <= begin");
+
+	testFunc(testNmb++, vectorSys.begin() >= vectorSys.begin(), vectorUser.begin() >= vectorUser.begin() , "begin >= begin");
+	testFunc(testNmb++, vectorSys.begin() >= vectorSys.end(),   vectorUser.begin() >= vectorUser.end(), "begin >= end");
+	testFunc(testNmb++, vectorSys.end() >= vectorSys.begin(),   vectorUser.end() >= vectorUser.begin(), "end >= begin");
+
+	testFunc(testNmb++, *vectorSys.begin(), *vectorUser.begin(), "VALUE");
+
+	testFunc(testNmb++, *(iterSys += 1), *(iterUser += 1), "a += 1");
+	testFunc(testNmb++, *(iterSys -= 3), *(iterUser -= 3), "a -= 3");
+
+	testFunc(testNmb++, *(iterSys += 2), *(iterUser += 2), "a += 2");
+	testFunc(testNmb++, *(iterSys -= 2), *(iterUser -= 2), "a -= 2");
+	
+	testFunc(testNmb++, *(iterSys += 3), *(iterUser += 3), "a += 3");
+	testFunc(testNmb++, *(iterSys -= 1), *(iterUser -= 1), "a -= 1");
+	
+	testFunc(testNmb++, iterSys[3] , iterUser[3] , "a[3]");
+
+	*iterSys = 5;
+	*iterUser = 5;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a = t");
+
+	
+	testFunc(testNmb++, *iterSys++.operator->(), *iterUser++.operator->(), "*a++ (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++ (result)");
+
+	testFunc(testNmb++, *iterSys++.operator->(), *iterUser++.operator->(), "*a++ (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++ (result)");
+
+	testFunc(testNmb++, *iterSys--.operator->(), *iterUser--.operator->(), "*a-- (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a-- (result)");
+
+	testFunc(testNmb++, *iterSys--.operator->(), *iterUser--.operator->(), "*a-- (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a-- (result)");
+
+	getchar();
+	std::system("clear");
+
+}
+
+void				const_iterator_for_vector(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** ITERATORS FOR VECTOR ***                          " << "\x1b[0m" << std::endl;
+
+	std::vector<int> vectorSys;
+	ft::vector<int> vectorUser;
+	
+	for(int i = 0; i < 15; i++)
+	{
+		vectorSys.push_back(i);
+		vectorUser.push_back(i);
+	}
+
+	std::vector<int> ::iterator iterSys;						// X a;
+	ft::vector<int> ::iterator iterUser;						// X a;
+
+	iterSys  = vectorSys.begin();								// b = a;
+	iterUser = vectorUser.begin();								// b = a;
+
+	std::vector<int> ::iterator iterSysCopy(iterSys);			// X b(a);
+	ft::vector<int> ::iterator iterUserCopy(iterUser);			// X b(a);
+	
+	testFunc(testNmb++, *iterSysCopy, *iterUserCopy, "Value");
+
+	testFunc(testNmb++, vectorSys.begin() == vectorSys.begin(), vectorUser.begin() == vectorUser.begin() , "begin == begin");
+	testFunc(testNmb++, vectorSys.begin() == vectorSys.end(),   vectorUser.begin() == vectorUser.end(), "begin == end");
+	testFunc(testNmb++, vectorSys.end() == vectorSys.begin(),   vectorUser.end() == vectorUser.begin(), "end == begin");
+
+	testFunc(testNmb++, vectorSys.begin() != vectorSys.begin(), vectorUser.begin() != vectorUser.begin() , "begin != begin");
+	testFunc(testNmb++, vectorSys.begin() != vectorSys.end(),   vectorUser.begin() != vectorUser.end(), "begin != end");
+	testFunc(testNmb++, vectorSys.end() != vectorSys.begin(),   vectorUser.end() != vectorUser.begin(), "end != begin");
+
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+
+	*iterSys = 42;
+	*iterUser = 42;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+
+	testFunc(testNmb++, *(iterSys++), *(iterUser++), "a++");
+	testFunc(testNmb++, *(++iterSys), *(++iterUser), "++a");
+	testFunc(testNmb++, *iterSys++, *iterUser++, "*a++");
+	
+	testFunc(testNmb++, *(iterSys--), *(iterUser--) , "a--");
+	testFunc(testNmb++, *(--iterSys), *(--iterUser), "--a");
+	testFunc(testNmb++, *iterSys--, *iterUser--, "*a--");
+
+	for (int i = 0; i < 5; i++)
+	{
+		iterSys++;
+		iterUser++;
+	}
+
+	testFunc(testNmb++, *(iterSys + 3), *(iterUser + 3), "a + 3");
+	// testFunc(testNmb++, *(3 + iterSys), *(3 + iterUser), "3 + a");
+
+	testFunc(testNmb++, *(iterSys - 3), *(iterUser - 3), "a - 3");
+	// testFunc(testNmb++, *(iterSys - ...), *(iterUser - ...), "a - a");
+	// testFunc(testNmb++, *(iterSys - ...), *(iterUser - ...), "a - b");
+	
+	testFunc(testNmb++, vectorSys.begin() < vectorSys.begin(), vectorUser.begin() < vectorUser.begin() , "begin < begin");
+	testFunc(testNmb++, vectorSys.begin() < vectorSys.end(),   vectorUser.begin() < vectorUser.end(), "begin < end");
+	testFunc(testNmb++, vectorSys.end() < vectorSys.begin(),   vectorUser.end() < vectorUser.begin(), "end < begin");
+
+	testFunc(testNmb++, vectorSys.begin() > vectorSys.begin(), vectorUser.begin() > vectorUser.begin() , "begin > begin");
+	testFunc(testNmb++, vectorSys.begin() > vectorSys.end(),   vectorUser.begin() > vectorUser.end(), "begin > end");
+	testFunc(testNmb++, vectorSys.end() > vectorSys.begin(),   vectorUser.end() > vectorUser.begin(), "end > begin");
+
+	testFunc(testNmb++, vectorSys.begin() <= vectorSys.begin(), vectorUser.begin() <= vectorUser.begin() , "begin <= begin");
+	testFunc(testNmb++, vectorSys.begin() <= vectorSys.end(),   vectorUser.begin() <= vectorUser.end(), "begin <= end");
+	testFunc(testNmb++, vectorSys.end() <= vectorSys.begin(),   vectorUser.end() <= vectorUser.begin(), "end <= begin");
+
+	testFunc(testNmb++, vectorSys.begin() >= vectorSys.begin(), vectorUser.begin() >= vectorUser.begin() , "begin >= begin");
+	testFunc(testNmb++, vectorSys.begin() >= vectorSys.end(),   vectorUser.begin() >= vectorUser.end(), "begin >= end");
+	testFunc(testNmb++, vectorSys.end() >= vectorSys.begin(),   vectorUser.end() >= vectorUser.begin(), "end >= begin");
+
+	testFunc(testNmb++, *vectorSys.begin(), *vectorUser.begin(), "VALUE");
+
+	testFunc(testNmb++, *(iterSys += 1), *(iterUser += 1), "a += 1");
+	testFunc(testNmb++, *(iterSys -= 3), *(iterUser -= 3), "a -= 3");
+
+	testFunc(testNmb++, *(iterSys += 2), *(iterUser += 2), "a += 2");
+	testFunc(testNmb++, *(iterSys -= 2), *(iterUser -= 2), "a -= 2");
+	
+	testFunc(testNmb++, *(iterSys += 3), *(iterUser += 3), "a += 3");
+	testFunc(testNmb++, *(iterSys -= 1), *(iterUser -= 1), "a -= 1");
+	
+	testFunc(testNmb++, iterSys[3] , iterUser[3] , "a[3]");
+
+	*iterSys = 5;
+	*iterUser = 5;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a = t");
+
+	
+	testFunc(testNmb++, *iterSys++.operator->(), *iterUser++.operator->(), "*a++ (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++ (result)");
+
+	testFunc(testNmb++, *iterSys++.operator->(), *iterUser++.operator->(), "*a++ (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++ (result)");
+
+	testFunc(testNmb++, *iterSys--.operator->(), *iterUser--.operator->(), "*a-- (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a-- (result)");
+
+	testFunc(testNmb++, *iterSys--.operator->(), *iterUser--.operator->(), "*a-- (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a-- (result)");
+
+	getchar();
+	std::system("clear");
+
+}
+
+void				rev_iterator_for_vector(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** REVERSE ITERATORS FOR VECTOR ***                          " << "\x1b[0m" << std::endl;
+
+	std::vector<int> vectorSys;
+	ft::vector<int> vectorUser;
+	
+	for(int i = 0; i < 15; i++)
+	{
+		vectorSys.push_back(i);
+		vectorUser.push_back(i);
+	}
+
+	std::vector<int> ::reverse_iterator iterSys;						// X a;
+	ft::vector<int> ::reverse_iterator iterUser;						// X a;
+
+	iterSys  = vectorSys.rbegin();								// b = a;
+	iterUser = vectorUser.rbegin();								// b = a;
+
+	std::vector<int> ::reverse_iterator iterSysCopy(iterSys);			// X b(a);
+	ft::vector<int> ::reverse_iterator iterUserCopy(iterUser);			// X b(a);
+	
+	testFunc(testNmb++, *iterSysCopy, *iterUserCopy, "Value");
+
+	testFunc(testNmb++, vectorSys.rbegin() == vectorSys.rbegin(), vectorUser.rbegin() == vectorUser.rbegin() , "rbegin == rbegin");
+	testFunc(testNmb++, vectorSys.rbegin() == vectorSys.rend(),   vectorUser.rbegin() == vectorUser.rend(), "rbegin == rend");
+	testFunc(testNmb++, vectorSys.rend() == vectorSys.rbegin(),   vectorUser.rend() == vectorUser.rbegin(), "rend == rbegin");
+
+	testFunc(testNmb++, vectorSys.rbegin() != vectorSys.rbegin(), vectorUser.rbegin() != vectorUser.rbegin() , "rbegin != rbegin");
+	testFunc(testNmb++, vectorSys.rbegin() != vectorSys.rend(),   vectorUser.rbegin() != vectorUser.rend(), "rbegin != rend");
+	testFunc(testNmb++, vectorSys.rend() != vectorSys.rbegin(),   vectorUser.rend() != vectorUser.rbegin(), "rend != rbegin");
+
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+
+	*iterSys = 42;
+	*iterUser = 42;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+
+	testFunc(testNmb++, *(iterSys++), *(iterUser++), "a++");
+	testFunc(testNmb++, *(++iterSys), *(++iterUser), "++a");
+	testFunc(testNmb++, *iterSys++, *iterUser++, "*a++");
+	
+	testFunc(testNmb++, *(iterSys--), *(iterUser--) , "a--");
+	testFunc(testNmb++, *(--iterSys), *(--iterUser), "--a");
+	testFunc(testNmb++, *iterSys--, *iterUser--, "*a--");
+
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+	for (int i = 0; i < 5; i++)
+	{
+		iterSys++;
+		iterUser++;
+	}
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+	testFunc(testNmb++, *iterSys, *iterUser, "*a");
+
+	testFunc(testNmb++, *(iterSys + 3), *(iterUser + 3), "a + 3");
+	// testFunc(testNmb++, *(3 + iterSys), *(3 + iterUser), "3 + a");
+
+	testFunc(testNmb++, *(iterSys - 3), *(iterUser - 3), "a - 3");
+	// testFunc(testNmb++, *(iterSys - ...), *(iterUser - ...), "a - a");
+	// testFunc(testNmb++, *(iterSys - ...), *(iterUser - ...), "a - b");
+	
+	testFunc(testNmb++, vectorSys.rbegin() < vectorSys.rbegin(), vectorUser.rbegin() < vectorUser.rbegin() , "rbegin < rbegin");
+	testFunc(testNmb++, vectorSys.rbegin() < vectorSys.rend(),   vectorUser.rbegin() < vectorUser.rend(), "rbegin < rend");
+	testFunc(testNmb++, vectorSys.rend() < vectorSys.rbegin(),   vectorUser.rend() < vectorUser.rbegin(), "rend < rbegin");
+
+	testFunc(testNmb++, vectorSys.rbegin() > vectorSys.rbegin(), vectorUser.rbegin() > vectorUser.rbegin() , "rbegin > rbegin");
+	testFunc(testNmb++, vectorSys.rbegin() > vectorSys.rend(),   vectorUser.rbegin() > vectorUser.rend(), "rbegin > rend");
+	testFunc(testNmb++, vectorSys.rend() > vectorSys.rbegin(),   vectorUser.rend() > vectorUser.rbegin(), "rend > rbegin");
+
+	testFunc(testNmb++, vectorSys.rbegin() <= vectorSys.rbegin(), vectorUser.rbegin() <= vectorUser.rbegin() , "rbegin <= rbegin");
+	testFunc(testNmb++, vectorSys.rbegin() <= vectorSys.rend(),   vectorUser.rbegin() <= vectorUser.rend(), "rbegin <= rend");
+	testFunc(testNmb++, vectorSys.rend() <= vectorSys.rbegin(),   vectorUser.rend() <= vectorUser.rbegin(), "rend <= rbegin");
+
+	testFunc(testNmb++, vectorSys.rbegin() >= vectorSys.rbegin(), vectorUser.rbegin() >= vectorUser.rbegin() , "rbegin >= rbegin");
+	testFunc(testNmb++, vectorSys.rbegin() >= vectorSys.rend(),   vectorUser.rbegin() >= vectorUser.rend(), "rbegin >= rend");
+	testFunc(testNmb++, vectorSys.rend() >= vectorSys.rbegin(),   vectorUser.rend() >= vectorUser.rbegin(), "rend >= rbegin");
+
+	testFunc(testNmb++, *vectorSys.begin(), *vectorUser.begin(), "VALUE");
+
+	testFunc(testNmb++, *(iterSys += 1), *(iterUser += 1), "a += 1");
+	testFunc(testNmb++, *(iterSys -= 3), *(iterUser -= 3), "a -= 3");
+
+	testFunc(testNmb++, *(iterSys += 2), *(iterUser += 2), "a += 2");
+	testFunc(testNmb++, *(iterSys -= 2), *(iterUser -= 2), "a -= 2");
+	
+	testFunc(testNmb++, *(iterSys += 3), *(iterUser += 3), "a += 3");
+	testFunc(testNmb++, *(iterSys -= 1), *(iterUser -= 1), "a -= 1");
+	
+	testFunc(testNmb++, iterSys[3] , iterUser[3] , "a[3]");
+
+	*iterSys = 5;
+	*iterUser = 5;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a = t");
+
+	
+	testFunc(testNmb++, *iterSys++.operator->(), *iterUser++.operator->(), "*a++ (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++ (result)");
+
+	testFunc(testNmb++, *iterSys++.operator->(), *iterUser++.operator->(), "*a++ (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++ (result)");
+
+	testFunc(testNmb++, *iterSys--.operator->(), *iterUser--.operator->(), "*a-- (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a-- (result)");
+
+	testFunc(testNmb++, *iterSys--.operator->(), *iterUser--.operator->(), "*a-- (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a-- (result)");
+
+	getchar();
+	std::system("clear");
+
+}
+
+void				rev_const_iterator_for_vector(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** CONST REVERSE ITERATORS FOR VECTOR ***                          " << "\x1b[0m" << std::endl;
+
+	std::vector<int> vectorSys;
+	ft::vector<int> vectorUser;
+	
+	for(int i = 0; i < 15; i++)
+	{
+		vectorSys.push_back(i);
+		vectorUser.push_back(i);
+	}
+
+	std::vector<int> ::const_reverse_iterator iterSys;						// X a;
+	ft::vector<int> ::const_reverse_iterator iterUser;						// X a;
+
+	iterSys  = vectorSys.rbegin();								// b = a;
+	iterUser = vectorUser.rbegin();								// b = a;
+
+	std::vector<int> ::const_reverse_iterator iterSysCopy(iterSys);			// X b(a);
+	ft::vector<int> ::const_reverse_iterator iterUserCopy(iterUser);			// X b(a);
+	
+	testFunc(testNmb++, *iterSysCopy, *iterUserCopy, "Value");
+
+	testFunc(testNmb++, vectorSys.rbegin() == vectorSys.rbegin(), vectorUser.rbegin() == vectorUser.rbegin() , "rbegin == rbegin");
+	testFunc(testNmb++, vectorSys.rbegin() == vectorSys.rend(),   vectorUser.rbegin() == vectorUser.rend(), "rbegin == rend");
+	testFunc(testNmb++, vectorSys.rend() == vectorSys.rbegin(),   vectorUser.rend() == vectorUser.rbegin(), "rend == rbegin");
+
+	testFunc(testNmb++, vectorSys.rbegin() != vectorSys.rbegin(), vectorUser.rbegin() != vectorUser.rbegin() , "rbegin != rbegin");
+	testFunc(testNmb++, vectorSys.rbegin() != vectorSys.rend(),   vectorUser.rbegin() != vectorUser.rend(), "rbegin != rend");
+	testFunc(testNmb++, vectorSys.rend() != vectorSys.rbegin(),   vectorUser.rend() != vectorUser.rbegin(), "rend != rbegin");
+
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+
+	testFunc(testNmb++, *(iterSys++), *(iterUser++), "a++");
+	testFunc(testNmb++, *(++iterSys), *(++iterUser), "++a");
+	testFunc(testNmb++, *iterSys++, *iterUser++, "*a++");
+	
+	testFunc(testNmb++, *(iterSys--), *(iterUser--) , "a--");
+	testFunc(testNmb++, *(--iterSys), *(--iterUser), "--a");
+	testFunc(testNmb++, *iterSys--, *iterUser--, "*a--");
+
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+	for (int i = 0; i < 5; i++)
+	{
+		iterSys++;
+		iterUser++;
+	}
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+
+	testFunc(testNmb++, *(iterSys + 3), *(iterUser + 3), "a + 3");
+	// testFunc(testNmb++, *(3 + iterSys), *(3 + iterUser), "3 + a");
+
+	testFunc(testNmb++, *(iterSys - 3), *(iterUser - 3), "a - 3");
+	// testFunc(testNmb++, *(iterSys - ...), *(iterUser - ...), "a - a");
+	// testFunc(testNmb++, *(iterSys - ...), *(iterUser - ...), "a - b");
+	
+	testFunc(testNmb++, vectorSys.rbegin() < vectorSys.rbegin(), vectorUser.rbegin() < vectorUser.rbegin() , "rbegin < rbegin");
+	testFunc(testNmb++, vectorSys.rbegin() < vectorSys.rend(),   vectorUser.rbegin() < vectorUser.rend(), "rbegin < rend");
+	testFunc(testNmb++, vectorSys.rend() < vectorSys.rbegin(),   vectorUser.rend() < vectorUser.rbegin(), "rend < rbegin");
+
+	testFunc(testNmb++, vectorSys.rbegin() > vectorSys.rbegin(), vectorUser.rbegin() > vectorUser.rbegin() , "rbegin > rbegin");
+	testFunc(testNmb++, vectorSys.rbegin() > vectorSys.rend(),   vectorUser.rbegin() > vectorUser.rend(), "rbegin > rend");
+	testFunc(testNmb++, vectorSys.rend() > vectorSys.rbegin(),   vectorUser.rend() > vectorUser.rbegin(), "rend > rbegin");
+
+	testFunc(testNmb++, vectorSys.rbegin() <= vectorSys.rbegin(), vectorUser.rbegin() <= vectorUser.rbegin() , "rbegin <= rbegin");
+	testFunc(testNmb++, vectorSys.rbegin() <= vectorSys.rend(),   vectorUser.rbegin() <= vectorUser.rend(), "rbegin <= rend");
+	testFunc(testNmb++, vectorSys.rend() <= vectorSys.rbegin(),   vectorUser.rend() <= vectorUser.rbegin(), "rend <= rbegin");
+
+	testFunc(testNmb++, vectorSys.rbegin() >= vectorSys.rbegin(), vectorUser.rbegin() >= vectorUser.rbegin() , "rbegin >= rbegin");
+	testFunc(testNmb++, vectorSys.rbegin() >= vectorSys.rend(),   vectorUser.rbegin() >= vectorUser.rend(), "rbegin >= rend");
+	testFunc(testNmb++, vectorSys.rend() >= vectorSys.rbegin(),   vectorUser.rend() >= vectorUser.rbegin(), "rend >= rbegin");
+
+	testFunc(testNmb++, *vectorSys.begin(), *vectorUser.begin(), "VALUE");
+
+	testFunc(testNmb++, *(iterSys += 1), *(iterUser += 1), "a += 1");
+	testFunc(testNmb++, *(iterSys -= 3), *(iterUser -= 3), "a -= 3");
+
+	testFunc(testNmb++, *(iterSys += 2), *(iterUser += 2), "a += 2");
+	testFunc(testNmb++, *(iterSys -= 2), *(iterUser -= 2), "a -= 2");
+	
+	testFunc(testNmb++, *(iterSys += 3), *(iterUser += 3), "a += 3");
+	testFunc(testNmb++, *(iterSys -= 1), *(iterUser -= 1), "a -= 1");
+	
+	testFunc(testNmb++, iterSys[3] , iterUser[3] , "a[3]");
+	
+	testFunc(testNmb++, *iterSys++.operator->(), *iterUser++.operator->(), "*a++ (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++ (result)");
+
+	testFunc(testNmb++, *iterSys++.operator->(), *iterUser++.operator->(), "*a++ (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++ (result)");
+
+	testFunc(testNmb++, *iterSys--.operator->(), *iterUser--.operator->(), "*a-- (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a-- (result)");
+
+	testFunc(testNmb++, *iterSys--.operator->(), *iterUser--.operator->(), "*a-- (action)");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a-- (result)");
+
+	getchar();
+	std::system("clear");
+
+}
+
+void				different_types_vector(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** DIFFERENT TYPES ***                          " << "\x1b[0m" << std::endl;
+	
+	/* string */
+	std::cout << std::endl << "\x1b[33m" << "STRING" << "\x1b[0m" << std::endl;
+
+	std::cout << "1" << std::endl;
+
+	ft::vector <std::string> userString;
+	std::vector <std::string> sysString;
+
+	std::cout << "2" << std::endl;
+
+	userString.push_back("string1");
+	sysString.push_back("string1");
+
+	std::cout << "3" << std::endl;
+
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty");
+	testFunc(testNmb++, *sysString.begin(), *userString.begin(), "begin");
+	testFunc(testNmb++, sysString.max_size(), userString.max_size(), "max_size");
+
+	userString.push_back("string2");
+	sysString.push_back("string2");
+
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty");
+	testFunc(testNmb++, sysString.front(), userString.front(), "front");
+	testFunc(testNmb++, sysString.back(), userString.back(), "back");
+
+	sysString.erase(sysString.begin());
+	userString.erase(userString.begin());
+
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty");
+	testFunc(testNmb++, *sysString.begin(), *userString.begin(), "begin");
+
+	sysString.pop_back();
+	userString.pop_back();
+
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty");
+	testFunc(testNmb++, *sysString.begin(), *userString.begin(), "begin");
+	
+	getchar();
+	std::system("clear");
+
+	/* char */
+	std::cout << std::endl << "\x1b[33m" << "CHAR" << "\x1b[0m" << std::endl;
+			
+	ft::vector <char> userChar;
+	std::vector <char> sysChar;
+			
+	for (int i = 33; i < 57; i++)
+	{
+		sysChar.push_back(i);
+		userChar.push_back(i);
+	}
+
+	std::vector <char> :: iterator sysIteratorChar = sysChar.end();
+	ft::vector <char> :: iterator userIteratorChar  = userChar.end();
+
+	sysIteratorChar--;
+	userIteratorChar--;
+
+	testFunc(testNmb++, userChar.size(), userChar.size(), "Size <char>");
+	testFunc(testNmb++, *sysIteratorChar, *userIteratorChar, "Value <char>");
+	getchar();
+	std::system("clear");
+
+	/* const char */
+	std::cout << std::endl << "\x1b[33m" << "CONST CHAR" << "\x1b[0m" << std::endl;
+			
+	ft::vector <const char> userConstChar(5, 5);
+	std::vector  <const char> sysConstChar(5, 5);
+
+	testFunc(testNmb++, *sysConstChar.begin(), *userConstChar.begin(), "Begin <char>");
+	testFunc(testNmb++, userConstChar.size(), userConstChar.size(), "Size is <char>");
+	testFunc(testNmb++, *sysIteratorChar, *userIteratorChar, "Value <char>");
+	getchar();
+	std::system("clear");
+
+	/* const string */
+	std::cout << std::endl << "\x1b[33m" << "CONST STD::STRING" << "\x1b[0m" << std::endl;
+			
+	ft::vector <const std::string> userConstString(5, "HELLO");
+	std::vector  <const std::string> sysConstString(5, "HELLO");
+			
+	testFunc(testNmb++, *sysConstString.begin(), *userConstString.begin(), "Begin <char>");
+	testFunc(testNmb++, userConstString.size(), userConstString.size(), "Size is <char>");
+	getchar();
+	std::system("clear");
+
+	/* for next test */
+	ft::vector <char> userChar2;
+	std::vector <char> sysChar2;
+			
+	for (int i = 57; i < 122; i++)
+	{
+		sysChar2.push_back(i);
+		userChar2.push_back(i);
+	}
+	/* for next test */
+
+	/* std::Vector */
+	// std::cout << std::endl << "\x1b[33m" << "std::Vector <char> / ft::Vector <char>" << "\x1b[0m" << std::endl;
+
+	// // std::cout << "1" << std::endl;
+	
+	// ft::vector <std::vector <char> > userStdVectorChar;
+	// std::vector <std::vector <char> > sysStdVectorChar;
+
+	// // std::cout << "2" << std::endl;
+
+	// testFunc(testNmb++, sysStdVectorChar.size(), userStdVectorChar.size(), "Size");
+
+	// userStdVectorChar.push_back(sysChar);
+	// sysStdVectorChar.push_back(sysChar);
+
+	// // std::cout << "3" << std::endl;
+
+	// testFunc(testNmb++, sysStdVectorChar.size(), userStdVectorChar.size(), "Size");
+	// testFunc(testNmb++, sysStdVectorChar.empty(), userStdVectorChar.empty(), "Empty Vector");
+	// testFunc(testNmb++, *sysStdVectorChar.begin()->begin(), *userStdVectorChar.begin()->begin(), "begin Vector");
+
+	// userStdVectorChar.push_back(sysChar2);
+	// sysStdVectorChar.push_back(sysChar2);
+
+	// testFunc(testNmb++, sysStdVectorChar.size(), userStdVectorChar.size(), "Size");
+	// testFunc(testNmb++, sysStdVectorChar.empty(), userStdVectorChar.empty(), "Empty Vector");
+	// testFunc(testNmb++, *sysStdVectorChar.begin()->begin(), *userStdVectorChar.begin()->begin(), "begin Vector");
+
+	// printContainer(" std::vector <char>:", sysStdVectorChar[0]);
+	// printContainer(" std::vector <char>:", sysStdVectorChar[1]);
+	// std::cout<< std::endl;
+	// printContainer("  ft::vector <char>:", userStdVectorChar[0]);
+	// printContainer("  ft::vector <char>:", userStdVectorChar[1]);
+	// std::cout<< std::endl;
+
+	// sysStdVectorChar.erase(sysStdVectorChar.begin());
+	// userStdVectorChar.erase(userStdVectorChar.begin());
+
+	// testFunc(testNmb++, sysStdVectorChar.size(), userStdVectorChar.size(), "Size");
+	// testFunc(testNmb++, sysStdVectorChar.empty(), userStdVectorChar.empty(), "Empty Vector");
+	// testFunc(testNmb++, *sysStdVectorChar.begin()->begin(), *userStdVectorChar.begin()->begin(), "begin Vector");
+
+	// sysStdVectorChar.pop_back();
+	// userStdVectorChar.pop_back();
+
+	// testFunc(testNmb++, sysStdVectorChar.size(), userStdVectorChar.size(), "Size");
+	// testFunc(testNmb++, sysStdVectorChar.empty(), userStdVectorChar.empty(), "Empty Vector");
+	// getchar();
+	// std::system("clear");
+
+	/* float */
+	std::cout << std::endl << "\x1b[33m" << "FLOAT" << "\x1b[0m" << std::endl;
+
+	ft::vector <float> userFloat;
+	std::vector <float> sysFloat;
+
+	userFloat.push_back(-9.5);
+	sysFloat.push_back(-9.5);
+
+	testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
+	testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
+	testFunc(testNmb++, *sysFloat.begin(), *userFloat.begin(), "begin list");
+	testFunc(testNmb++, sysFloat.max_size(), userFloat.max_size(), "max_size list");
+
+	userFloat.push_back(42.5);
+	sysFloat.push_back(42.5);
+
+	testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
+	testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
+	testFunc(testNmb++, sysFloat.front(), userFloat.front(), "front list");
+	testFunc(testNmb++, sysFloat.back(), userFloat.back(), "back list");
+
+	sysFloat.erase(sysFloat.begin());
+	userFloat.erase(userFloat.begin());
+
+	testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
+	testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
+	testFunc(testNmb++, *sysFloat.begin(), *userFloat.begin(), "begin list");
+
+	sysFloat.pop_back();
+	userFloat.pop_back();
+
+	testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
+	testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
+	testFunc(testNmb++, *sysFloat.begin(), *userFloat.begin(), "begin list");
+	getchar();
+	std::system("clear");
 }
 
 void				vector_test()
@@ -1648,10 +2287,19 @@ void				vector_test()
 	std::cout << "\x1b[0m";
 
 	/*			Member functions			*/
-	constructor_vector(testNmb, testAll);				// +
-	iterators_vector(testNmb, testAll);					// +
-	capacity_vector(testNmb, testAll);					// +
-	elementAccess_vector(testNmb, testAll);				// +
-	modifiers_vector(testNmb, testAll);					// + 
-	overloads_vector(testNmb);							// +
+	constructor_vector(testNmb, testAll);
+	iterators_vector(testNmb, testAll);
+	capacity_vector(testNmb, testAll);
+	elementAccess_vector(testNmb, testAll);
+	modifiers_vector(testNmb, testAll);
+	overloads_vector(testNmb);
+
+	/* extra */
+	iterator_for_vector(testNmb);
+	const_iterator_for_vector(testNmb);
+
+	rev_iterator_for_vector(testNmb);
+	rev_const_iterator_for_vector(testNmb);
+
+	different_types_vector(testNmb);
 }

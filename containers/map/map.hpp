@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:19 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/03 18:03:59 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/13 18:17:59 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ namespace ft
 		typedef ft::iteratorMap<Key, T> 				iterator;
 		typedef ft::const_iterator_map <Key, T> 		const_iterator;
 		typedef ft::map_reverse_iterator <Key, T> 		reverse_iterator;
-		typedef ft::const_reverse_iterator_map <Key, T> 	const_reverse_iterator;
+		typedef ft::const_reverse_iterator_map <Key, T> const_reverse_iterator;
 		typedef ptrdiff_t 								difference_type;
 		typedef size_t 									size_type;
 
@@ -75,25 +75,25 @@ namespace ft
 			_comp = comp;
 
 			_TSTART = new nodeMap;
-			_TSTART->parent = nullptr;
-			_TSTART->right = nullptr;
-			_TSTART->left = nullptr;
+			_TSTART->parent = NULL;
+			_TSTART->right = NULL;
+			_TSTART->left = NULL;
 			_TSTART->color = FIRST;
 			_TSTART->data.first = 1;
 			_TSTART->data.second = 1;
 			
 			_TNULL = new nodeMap;
-			_TNULL->parent = nullptr;
-			_TNULL->right = nullptr;
-			_TNULL->left = nullptr;
+			_TNULL->parent = NULL;
+			_TNULL->right = NULL;
+			_TNULL->left = NULL;
 			_TNULL->color = LAST;
 			_TNULL->data.first = 1;
 			_TNULL->data.second = 1;
 
-			_map = nullptr;
-			_TSTART->parent = nullptr;
-			_TNULL->parent = nullptr;
-			_root = nullptr;
+			_map = NULL;
+			_TSTART->parent = NULL;
+			_TNULL->parent = NULL;
+			_root = NULL;
 			_size = 0;
 		}
 
@@ -106,25 +106,25 @@ namespace ft
 			_comp = comp;
 
 			_TSTART = new nodeMap;
-			_TSTART->parent = nullptr;
-			_TSTART->right = nullptr;
-			_TSTART->left = nullptr;
+			_TSTART->parent = NULL;
+			_TSTART->right = NULL;
+			_TSTART->left = NULL;
 			_TSTART->color = FIRST;
 			_TSTART->data.first = 1;
 			_TSTART->data.second = 1;
 
 			_TNULL = new nodeMap;
-			_TNULL->parent = nullptr;
-			_TNULL->right = nullptr;
-			_TNULL->left = nullptr;
+			_TNULL->parent = NULL;
+			_TNULL->right = NULL;
+			_TNULL->left = NULL;
 			_TNULL->color = LAST;
 			_TNULL->data.first = 1;
 			_TNULL->data.second = 1;
 
-			_map = nullptr;
-			_TSTART->parent = nullptr;
-			_TNULL->parent = nullptr;
-			_root = nullptr;
+			_map = NULL;
+			_TSTART->parent = NULL;
+			_TNULL->parent = NULL;
+			_root = NULL;
 			_size = 0;
 
 			this->insert(first, last);
@@ -148,7 +148,7 @@ namespace ft
 		{
 			this->clear();
 			delete this->_TNULL;
-			// delete this->_TSTART;
+			delete this->_TSTART;
 		}
 
 		/*
@@ -157,17 +157,17 @@ namespace ft
 
 		map& operator= (const map& x)
 		{
-			_TNULL->parent = nullptr;
-			_TNULL->right = nullptr;
-			_TNULL->left = nullptr;
+			_TNULL->parent = NULL;
+			_TNULL->right = NULL;
+			_TNULL->left = NULL;
 			_TNULL->color = LAST;
 			_TNULL->data.first = 1;
 			_TNULL->data.second = 1;
 
-			_map = nullptr;
-			_TSTART->parent = nullptr;
-			_TNULL->parent = nullptr;
-			_root = nullptr;
+			_map = NULL;
+			_TSTART->parent = NULL;
+			_TNULL->parent = NULL;
+			_root = NULL;
 			_size = 0;
 
 			this->clear();
@@ -226,15 +226,8 @@ namespace ft
 			return _TNULL->parent;
 		}
 
-		reverse_iterator rend()
-		{
-			return _TSTART;
-		}
-		
-		const_reverse_iterator rend() const
-		{
-			return _TSTART;
-		}
+		reverse_iterator rend() { return _TSTART; }
+		const_reverse_iterator rend() const { return _TSTART; }
 
 		/* Capacity */
 
@@ -266,8 +259,8 @@ namespace ft
 				newNode->color = RED;
 				newNode->data = val;
 				newNode->parent = whereAdd;
-				newNode->right = nullptr;
-				newNode->left = nullptr;
+				newNode->right = NULL;
+				newNode->left = NULL;
 
 				if (whereAdd->data.first > val.first)
 				{
@@ -306,7 +299,7 @@ namespace ft
 				while (node->parent && node->parent->left == node && node->parent->data.first > val.first)
 					node = node->parent;
 					
-				if (node->parent == nullptr)
+				if (node->parent == NULL)
 					return true;
 				else if (node->parent && node->parent->right == node && node->parent->data.first < val.first)
 					return true;
@@ -316,7 +309,7 @@ namespace ft
 				while (node->parent && node->parent->right == node && node->parent->data.first < val.first)
 					node = node->parent;
 					
-				if (node->parent == nullptr)
+				if (node->parent == NULL)
 					return true;
 				else if (node->parent && node->parent->left == node && node->parent->data.first > val.first)
 					return true;
@@ -327,14 +320,13 @@ namespace ft
 
 		iterator insert(iterator position, const value_type &val)
 		{
-			nodeMap *whereAdd = position.getptr();
+			nodeMap *whereAdd = position.ptr;
 
 			if (checkTruePositionForKey(whereAdd, val))
 			{
 				whereAdd = findNode(val, whereAdd);
-				if (whereAdd->data.first > val.first && whereAdd->left == nullptr)
+				if (whereAdd->data.first > val.first && whereAdd->left == NULL)
 				{
-					std::cout << "*** here1 ***" << std::endl;
 					nodeMap *newNode = createNode(val);
 					newNode->parent = whereAdd;
 					newNode->color = RED;
@@ -347,9 +339,8 @@ namespace ft
 					insertFix(newNode);
 					return (iterator)newNode;
 				}
-				else if (whereAdd->data.first < val.first && (whereAdd->right == nullptr || whereAdd->right == _TNULL))
+				else if (whereAdd->data.first < val.first && (whereAdd->right == NULL || whereAdd->right == _TNULL))
 				{
-					std::cout << "*** here2 ***" << std::endl;
 					nodeMap *newNode = createNode(val);
 					newNode->parent = whereAdd;
 					newNode->color = RED;
@@ -375,20 +366,18 @@ namespace ft
 										typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 		{
 			for ( ; first != last; first++)
-				insert(first.getptr()->data);
+				insert(first.ptr->data);
 		}
 
 		void erase(iterator position)
 		{
 			nodeMap *x;
 			nodeMap *y;
-			nodeMap *nodeToBeDeleted = position.getptr();
+			nodeMap *nodeToBeDeleted = position.ptr;
 			int originalColor = nodeToBeDeleted->color;
-			// std::cout << "ELEMENT TO DELETE IS " << nodeToBeDeleted->data.first << std::endl;
-
-			if (nodeToBeDeleted->left == nullptr)
+	
+			if (nodeToBeDeleted->left == NULL)
 			{
-				// std::cout << "--- 1 ---" << std::endl;
 				x = nodeToBeDeleted->right;
 				rbTransplant(nodeToBeDeleted, x);
 
@@ -402,16 +391,16 @@ namespace ft
 				if (nodeToBeDeleted == _TNULL->parent)
 					_TNULL->parent = _TNULL->parent;
 			}
-			else if (nodeToBeDeleted->right == nullptr)
+			else if (nodeToBeDeleted->right == NULL)
 			{
 				x = nodeToBeDeleted->left;
 				rbTransplant(nodeToBeDeleted, x);
 			}
 			else
 			{
-				y = minimum(nodeToBeDeleted->right); // y = 80
-				// originalColor = y->color;
-				x = y->right; // x = tail
+				y = minimum(nodeToBeDeleted->right);
+				
+				x = y->right;
 
 				if (y->parent == nodeToBeDeleted)
 				{
@@ -427,10 +416,7 @@ namespace ft
 				rbTransplant(nodeToBeDeleted, y);
 				y->left = nodeToBeDeleted->left;
 				y->left->parent = y;
-				// y->color = nodeToBeDeleted->color;
 			}
-
-			// nodeToBeDeleted->parent->left = nullptr;
 
 			if (originalColor == BLACK)
 			{
@@ -443,10 +429,10 @@ namespace ft
 
 		size_type erase(const key_type &key)
 		{
-			nodeMap *findNoda = nullptr;
+			nodeMap *findNoda = NULL;
 			findNoda = findNodaKey(key);
 
-			if (findNoda == nullptr || findNoda == _TNULL)
+			if (findNoda == NULL || findNoda == _TNULL)
 				return 0;
 
 			erase(iterator(findNoda));
@@ -478,14 +464,14 @@ namespace ft
 			if (empty())
 				return;
 				
-			_TNULL->parent->right = nullptr;
+			_TNULL->parent->right = NULL;
 			this->clear(this->_root);
-			_map = nullptr;
-			_TSTART->parent = nullptr;
-			_TNULL->parent = nullptr;
-			_root = nullptr;
+			_map = NULL;
+			_TSTART->parent = NULL;
+			_TNULL->parent = NULL;
+			_root = NULL;
 			_size = 0;
-			_TNULL->parent = nullptr;
+			_TNULL->parent = NULL;
 		}
 
 		/* Observers */
@@ -532,7 +518,7 @@ namespace ft
 
 		size_type count (const key_type& k) const
 		{
-			if (find(k).getptr()->color == LAST)
+			if (find(k).ptr->color == LAST)
 				return (0);
 			return (1);
 		}
@@ -540,9 +526,9 @@ namespace ft
 		iterator lower_bound (const key_type& k)
 		{
 			iterator it = find(k);
-			if (it.getptr() == _TNULL)
+			if (it.ptr == _TNULL)
 				return (it);
-			if (it.getptr()->data.first < k)
+			if (it.ptr->data.first < k)
 			{
 				it++;
 				return (it);
@@ -553,9 +539,9 @@ namespace ft
 		const_iterator lower_bound (const key_type& k) const
 		{
 			const_iterator it = find(k);
-			if (it.getptr() == _TNULL)
+			if (it.ptr == _TNULL)
 				return (it);
-			if (it.getptr()->data.first < k)
+			if (it.ptr->data.first < k)
 			{
 				it++;
 				return (it);
@@ -566,7 +552,7 @@ namespace ft
 		iterator upper_bound (const key_type& k)
 		{
 			iterator it = find(k);
-			if (it.getptr() == _TNULL)
+			if (it.ptr == _TNULL)
 				return (it);
 			it++;
 			return (it);
@@ -575,7 +561,7 @@ namespace ft
 		const_iterator upper_bound (const key_type& k) const
 		{
 			const_iterator it = find(k);
-			if (it.getptr() == _TNULL)
+			if (it.ptr == _TNULL)
 				return (it);
 			it++;
 			return (it);
@@ -591,38 +577,38 @@ namespace ft
 			return std::make_pair(iterator(lower_bound(k)), iterator(upper_bound(k)));
 		}
 
-		void printHelper(nodeMap *root, std::string indent, bool last)
-		{
-			if (root && root != _TNULL)
-			{
-				std::cout << indent;
-				if (last)
-				{
-					std::cout << "R----";
-					indent += "   ";
-				}
-				else
-				{
-					std::cout << "L----";
-					indent += "|  ";
-				}
+		// void printHelper(nodeMap *root, std::string indent, bool last)
+		// {
+		// 	if (root && root != _TNULL)
+		// 	{
+		// 		std::cout << indent;
+		// 		if (last)
+		// 		{
+		// 			std::cout << "R----";
+		// 			indent += "   ";
+		// 		}
+		// 		else
+		// 		{
+		// 			std::cout << "L----";
+		// 			indent += "|  ";
+		// 		}
 
-				std::string sColor = root->color ? "\x1b[34;1m" : "\x1b[31;1m";
-				std::cout << sColor << root->data.first << "\x1b[0m" << std::endl;
-				printHelper(root->left, indent, false);
-				printHelper(root->right, indent, true);
-			}
-		}
+		// 		std::string sColor = root->color ? "\x1b[34;1m" : "\x1b[31;1m";
+		// 		std::cout << sColor << root->data.first << "\x1b[0m" << std::endl;
+		// 		printHelper(root->left, indent, false);
+		// 		printHelper(root->right, indent, true);
+		// 	}
+		// }
 
-		void printTree()
-		{
-			if (_root)
-			{
-				std::cout << std::endl;
-				printHelper(this->_root, "", true);
-				std::cout << std::endl;
-			}
-		}
+		// void printTree()
+		// {
+		// 	if (_root)
+		// 	{
+		// 		std::cout << std::endl;
+		// 		printHelper(this->_root, "", true);
+		// 		std::cout << std::endl;
+		// 	}
+		// }
 
 	private:
 		allocator_type _alloc;
@@ -638,29 +624,29 @@ namespace ft
 		{
 			_map = new nodeMap;
 
-			_map->parent = nullptr;
+			_map->parent = NULL;
 			_map->right = _TNULL;
-			_map->left = nullptr;
+			_map->left = NULL;
 
 			_map->data = val;
 			_map->color = BLACK;
 
-			_TSTART->parent = _map; // 	_TSTART->parent
+			_TSTART->parent = _map;
 			_TNULL->parent = _map;
 			_root = _map;
 			_size++;
 
 			_TNULL->parent = _map;
-			return std::make_pair(iterator(this->_root), true); // 11 st
+			return std::make_pair(iterator(this->_root), true);
 		}
 
 		nodeMap *createNode(const value_type &val)
 		{
 			nodeMap *newNode = new nodeMap;
 
-			newNode->parent = nullptr;
-			newNode->right = nullptr;
-			newNode->left = nullptr;
+			newNode->parent = NULL;
+			newNode->right = NULL;
+			newNode->left = NULL;
 
 			newNode->data = val;
 			newNode->color = BLACK;
@@ -690,12 +676,12 @@ namespace ft
 		{
 			nodeMap *y = node->right;
 			node->right = y->left;
-			if (y->left != nullptr)
+			if (y->left != NULL)
 			{
 				y->left->parent = node;
 			}
 			y->parent = node->parent;
-			if (node->parent == nullptr)
+			if (node->parent == NULL)
 			{
 				_root = y;
 			}
@@ -715,12 +701,12 @@ namespace ft
 		{
 			nodeMap *y = node->left;
 			node->left = y->right;
-			if (y->right != nullptr)
+			if (y->right != NULL)
 			{
 				y->right->parent = node;
 			}
 			y->parent = node->parent;
-			if (node->parent == nullptr)
+			if (node->parent == NULL)
 			{
 				_root = y;
 			}
@@ -797,44 +783,27 @@ namespace ft
 
 		void rbTransplant(nodeMap *nodeToBeDeleted, nodeMap *x) // z , y
 		{
-			// std::cout << "--- 2 ---" << std::endl;
-			if (nodeToBeDeleted->parent == nullptr)
-			{
-				// std::cout << "---- 1 ----" << std::endl;
+			if (nodeToBeDeleted->parent == NULL)
 				_root = x;
-			}
 			else if (nodeToBeDeleted == nodeToBeDeleted->parent->left)
-			{
-				// std::cout << "---- 2 ----" << std::endl;
 				nodeToBeDeleted->parent->left = x;
-				// std::cout << "---- 2 ----"<< std::endl;
-			}
 			else if (nodeToBeDeleted == nodeToBeDeleted->parent->right)
-			{
-				// std::cout << "---- 3 ----" << std::endl;
 				nodeToBeDeleted->parent->right = x;
-			}
-
-			// std::cout << "here 1"<< std::endl;
+			
 			if (x)
-			{
-				// std::cout << "--- 3 ---" << std::endl;
 				x->parent = nodeToBeDeleted->parent;
-			}
-
-			// std::cout << "here 2"<< std::endl;
 		}
 
 		void deleteFix(nodeMap *x)
 		{
 			nodeMap *s;
 
-			if (x == nullptr)
+			if (x == NULL)
 				return;
 
 			while (x && x != _root && x->color == BLACK)
 			{
-				if (x->parent && x == x->parent->left) // если х - левый элемент
+				if (x->parent && x == x->parent->left)
 				{
 					s = x->parent->right;
 					if (s && s->color == RED)
@@ -867,7 +836,7 @@ namespace ft
 						x = _root;
 					}
 				}
-				else // если х - правый элемент
+				else
 				{
 					s = x->parent->left;
 					if (s && s->color == RED)
@@ -901,19 +870,19 @@ namespace ft
 					}
 				}
 			}
-			x->color = BLACK; // _root->color = BLACK;
+			x->color = BLACK;
 		}
 
 		nodeMap *minimum(nodeMap *node)
 		{
-			while (node->left != nullptr)
+			while (node->left != NULL)
 				node = node->left;
 			return node;
 		}
 
 		nodeMap *maximum(nodeMap *node)
 		{
-			while (node->right != nullptr && node->right != _TNULL)
+			while (node->right != NULL && node->right != _TNULL)
 				node = node->right;
 			return node;
 		}
@@ -930,10 +899,10 @@ namespace ft
 
 		nodeMap *findNodaKey(const key_type &key)
 		{
-			nodeMap *findNoda = nullptr;
+			nodeMap *findNoda = NULL;
 			nodeMap *begin = _root;
 
-			while (begin != _TNULL && begin != nullptr)
+			while (begin != _TNULL && begin != NULL)
 			{
 				if (begin->data.first == key)
 				{
@@ -945,8 +914,8 @@ namespace ft
 				else
 					begin = begin->left;
 			}
-			if (findNoda == nullptr || findNoda == _TNULL)
-				return nullptr;
+			if (findNoda == NULL || findNoda == _TNULL)
+				return NULL;
 			return findNoda;
 		}
 	};

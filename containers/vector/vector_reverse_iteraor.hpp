@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 12:53:07 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/03/25 14:24:03 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/13 19:36:57 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,155 +22,126 @@ namespace ft
 	class reverseIteratorVector 
     {
 		public: 
-			
+
 			typedef T		value_type;
 			typedef T		&reference;
 			typedef T		*pointer;
 
+			pointer ptr;
+
 			/*
 			** -------------------------------- CONSTRUCTOR --------------------------------
 			*/
-
-			reverseIteratorVector() {}
-			reverseIteratorVector(pointer src) {  ptr = src; }
-
-			// reverseIteratorVector(const reverseIteratorVector &src) { *this = src; }
-				
-			// reverseIteratorVector(pointer &src) { ptr = src; }
-
+				reverseIteratorVector() { this->ptr = NULL; }
+				reverseIteratorVector(const reverseIteratorVector &src) { *this = src; }
+				reverseIteratorVector(pointer node) { ptr = node; }
+					
 			/*
 			** -------------------------------- DESTRUCTOR --------------------------------
 			*/
-
-			~reverseIteratorVector() {}
-
+				virtual ~reverseIteratorVector() {}
 			/*
 			** --------------------------------- OVERLOAD ---------------------------------
 			*/
 
-			// reverseIteratorVector &				operator=(reverseIteratorVector const & rhs )
-			// {
-			// 	this->clear();
-			// // 	this->head->next = this->tail;
-			// // 	this->tail->prev = this->head;
-			// // 	this->length = 0;
-			// // 	this->assign(x.begin(), x.end());
-			// 	return *this;
+				reverseIteratorVector &					operator=(const reverseIteratorVector& x) {
+					this->ptr = x.ptr;
+					return *this;
+				}
 
-
-			// // 	// std::cout << "hi" << std::endl;
-			
-			// // 	// if ( this != &rhs )
-			// // 		*this = rhs;
+				bool									operator==(const reverseIteratorVector &x) {
+					return (x.ptr == ptr) ? true : false;
+				}
 				
-			// // 	return *this;
-			// }
+				bool									operator!=(const reverseIteratorVector &x) {
+					return (x.ptr != ptr) ? true : false;
+				}
+				
+				value_type								&operator*() {return *ptr; }
+				const value_type						&operator*() const { return *ptr; }
+				
+				pointer									operator->() { return ptr; }
+				const pointer							operator->() const { return ptr; }
 
-			bool						operator==(const reverseIteratorVector &x)
-			{
-				if (x.ptr == ptr)
-					return true;
-				return false;
-			}
-			
-			bool						operator!=(const reverseIteratorVector &x)
-			{
-				if (x.ptr != ptr)
-					return true;
-				return false;
-			}
-			
-			value_type					&operator*()
-			{
-				// if (ptr == _Tail)
-				// 	return ptr->pre->data;
-				return *ptr;
-			}
-			
-			// const value_type			&operator*() const
-			// {
-			// 	return ptr->data;
-			// }
-			
-			// pointer						operator->()
-			// {
-			// 	return &ptr->data;
-			// }
-			
-			// const pointer				operator->() const
-			// {
-			// 	return &ptr->data;
-			// }
-			
-			reverseIteratorVector					&operator++() // ++a 
-			{
-				ptr--;
-				return *this;
-			}
+				reverseIteratorVector					&operator++()
+				{
+					ptr--;
+					return *this;
+				}
 
-			reverseIteratorVector					&operator++(int) // a++ 
-			{
-				reverseIteratorVector tmp(*this);
-				operator++();
-				return *this;
-			}
-			
-			reverseIteratorVector					&operator--()  // check
-			{
-				ptr++;
-				return *this;
-			}
+				reverseIteratorVector					operator++(int)
+				{
+					reverseIteratorVector tmp(*this);
+					operator++();
+					return tmp;
+				}
+				
+				reverseIteratorVector					&operator--()
+				{
+					ptr++;
+					return *this;
+				}
 
-			reverseIteratorVector					&operator--(int)  // check
-			{
-				reverseIteratorVector tmp(*this);
-				operator--();
-				return *this;
-			}
-			
-			/*
-			** --------------------------------- METHODS ----------------------------------
-			*/
-			
+				reverseIteratorVector					operator--(int)
+				{
+					reverseIteratorVector tmp(*this);
+					operator--();
+					return tmp;
+				}
+	
+				reverseIteratorVector operator+(const size_t &x) { return (this->ptr - x); }
+				reverseIteratorVector operator-(const size_t &x) {return (this->ptr + x); }
 
-			/*
-			** --------------------------------- ACCESSOR ---------------------------------
-			*/
+				bool operator<(reverseIteratorVector const &other) const {
+					return (this->ptr > other.ptr);
+				}
 
+				bool operator>(reverseIteratorVector const &other) const {
+					return (this->ptr < other.ptr);
+				}
 
-			/* ************************************************************************** */
-			
-			// node_pointer	getnext() const { return ptr->next; }
-			// pointer		*getpre() const { return ptr->pre; }
-			pointer		getptr() const { return ptr; }
+				bool operator<=(reverseIteratorVector const &other) const {
+					return (this->ptr >= other.ptr);
+				}
 
-        protected: 
+				bool operator>=(reverseIteratorVector const &other) const {
+					return (this->ptr <= other.ptr);
+				}
 
-			pointer ptr;
-		
-		
-			
+				reverseIteratorVector operator+=(const size_t &x) { return (this->ptr = this->ptr - x); }
+				reverseIteratorVector operator-=(const size_t &x) { return (this->ptr = this->ptr + x); }
+
+				value_type &operator[](const size_t &x) { return *(ptr - x); }
+				const value_type &operator[](const size_t &x) const { return *(ptr - x); }
+				
     };
 
 	template <class T>
 	class const_reverseIteratorVector : public reverseIteratorVector <T>
 	{
 		public:
-
-			typedef T		*pointer;
 		
-			const_reverseIteratorVector() {}
-			const_reverseIteratorVector(pointer vector) { this->ptr = vector; }
-			const_reverseIteratorVector(const const_reverseIteratorVector &copy) { *this = copy; }
-			const_reverseIteratorVector &operator=(const const_reverseIteratorVector &target)
+			typedef T		*pointer;
+
+			const_reverseIteratorVector() { this->ptr = NULL; }
+
+			const_reverseIteratorVector(const const_reverseIteratorVector &src) { *this = src; }
+			const_reverseIteratorVector(const reverseIteratorVector <T> &src) { *this = src; }
+			
+			const_reverseIteratorVector(pointer node) { this->ptr = node; }
+		
+			const_reverseIteratorVector &operator=(const_reverseIteratorVector const &target)
+			{
+				this->ptr = target.ptr;
+				return (*this);
+			}
+			const_reverseIteratorVector &operator=(reverseIteratorVector <T> const &target)
 			{
 				this->ptr = target.ptr;
 				return (*this);
 			}
 			~const_reverseIteratorVector() {}
-			const T &operator*() { return (* (this->ptr)); }
 	};
-
 }
 
 #endif

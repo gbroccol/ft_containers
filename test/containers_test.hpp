@@ -6,37 +6,28 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:45:56 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/06 20:17:25 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/13 19:36:05 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONTAINERS_TEST_HPP
 #define CONTAINERS_TEST_HPP
 
+#include <list>
+#include <map>
+#include <queue>
+#include <stack>
+#include <vector>
 #include <iostream>
 #include <iomanip>
 #include <cstdio>
 #include <string>
 
-#include <list>
-#include <vector>
-#include <map>
-
 #include "../containers/list/list.hpp"
 #include "../containers/vector/vector.hpp"
 #include "../containers/map/map.hpp"
 #include "../containers/queue/queue.hpp"
-
-
-#include <string>
-#include <cassert>
-#include <algorithm>
-#include <iostream>       // std::cout
-#include <deque>          // std::deque
-#include <list>           // std::list
-#include <queue>          // std::queue
-
-
+#include "../containers/stack/stack.hpp"
 
 void		list_test(void);
 void		map_test(void);
@@ -64,7 +55,7 @@ void				testFunc(int testNmb, T sysValue, T userValue, std::string testName)
 	if (sysValue == userValue)
 	{
 		std::cout << "\x1b[32m" << "OK" << "\x1b[0m" << std::endl;
-		std::cout << std::setw(87) << "Answer: " << sysValue << std::endl;
+		// std::cout << std::setw(87) << "Answer: " << sysValue << std::endl;
 	}
 	else
 	{
@@ -74,54 +65,11 @@ void				testFunc(int testNmb, T sysValue, T userValue, std::string testName)
 	}	
 }
 
-/* 
-** list 
-*/
-
 template <typename T>
-void print_std_list (std::string testName, T List)
+void printContainer (std::string testName, T List)
 {
 	std::cout << testName;
-	for (std::list<int>::iterator it = List.begin(); it != List.end(); it++)
-	{
-		std::cout << ' ' << *it;
-	}
-	std::cout << '\n';
-}
-
-template <typename T>
-void print_ft_list (std::string testName, T List)
-{
-	std::cout << testName;
-	for (ft::list <int> ::iterator it = List.begin(); it != List.end(); it++)
-	{
-		std::cout << ' ' << *it;
-	}
-	std::cout << '\n';
-}
-
-/* 
-** vector 
-*/
-
-template <typename T>
-void print_std_vector (std::string testName, T & Vector)
-{
-	std::cout << testName;
-
-	for (std::vector <int> :: iterator it = Vector.begin(); it != Vector.end(); it++)
-	{
-		std::cout << ' ' << *it;
-	}
-	std::cout << '\n';
-}
-
-template <typename T>
-void print_ft_vector (std::string testName,  T & Vector)
-{
-	std::cout << testName;
-
-	for (ft::vector <int> ::iterator it = Vector.begin(); it != Vector.end(); it++)
+	for (typename T :: iterator it = List.begin(); it != List.end(); it++)
 	{
 		std::cout << ' ' << *it;
 	}
@@ -149,8 +97,8 @@ int compareClasses(int testNmb, T1 & sysClass, T2 & userClass)
 	{
 		testFunc(testNmb++, true, false, "FALSE EXIT ERROR");
 	}
-	// print_std_vector("  Sys vector: ", sysClass);	
-	// print_ft_vector (" User vector: ", userClass);
+	printContainer("  Sys vector: ", sysClass);	
+	printContainer (" User vector: ", userClass);
 	std::cout << std::endl;
 	return (testNmb);
 }
@@ -160,10 +108,10 @@ int compareClasses(int testNmb, T1 & sysClass, T2 & userClass)
 */
 
 template <typename T>
-void print_std_map (std::string testName, T & Map)
+void printMap (std::string testName, T & Map)
 {
 	std::cout << testName << " |";
-	std::map <int, int> :: iterator itSys = Map.begin();
+	typename T :: iterator itSys = Map.begin();
 	for ( ; itSys != Map.end(); itSys++)
 	{
 		std::cout << "" << std::setw(7) << itSys->first << "    | ";
@@ -181,32 +129,10 @@ void print_std_map (std::string testName, T & Map)
 }
 
 template <typename T>
-void print_ft_map (std::string testName, T & Map)
+void printInvMap (std::string testName, T & Map)
 {
 	std::cout << testName << " |";
-	ft::map <int, int> :: iterator itUserBegin = Map.begin();
-	
-	for (; itUserBegin != Map.end(); itUserBegin++)
-	{
-		std::cout << "" << itUserBegin.getColor() << std::setw(7) << itUserBegin->first << "\x1b[0m    | ";
-	}
-	std::cout << " " << itUserBegin.getColor() << itUserBegin->first << "\x1b[0m | ";
-	std::cout << '\n' << "              |" ;
-
-	itUserBegin = Map.begin();
-	for (; itUserBegin != Map.end(); itUserBegin++)
-	{
-		std::cout << "" << itUserBegin.getColor() << std::setw(7) << itUserBegin->second << "\x1b[0m    | ";
-	}
-	// std::cout << "" << itUserBegin.getColor() << itUserBegin->second << "\x1b[0m | ";
-	std::cout << '\n' << '\n';
-}
-
-template <typename T>
-void print_std_map_inv (std::string testName, T & Map)
-{
-	std::cout << testName << " |";
-	std::map <int, int> :: iterator itSys = Map.end();
+	typename T :: iterator itSys = Map.end();
 	std::cout << "\x1b[33;1m " << itSys->first << "\x1b[0m | ";
 	itSys--;
 	
@@ -226,34 +152,6 @@ void print_std_map_inv (std::string testName, T & Map)
 		std::cout << "" << std::setw(7) << itSys->second << "    | ";
 	}
 	std::cout << "" << std::setw(7) << itSys->second << "    | ";
-	std::cout << '\n' << '\n';
-}
-
-template <typename T>
-void print_ft_map_inv (std::string testName, T & Map)
-{
-	std::cout << testName << " |";
-	ft::map <int, int> :: iterator itUser = Map.end();
-	std::cout << "\x1b[33;1m " << itUser->first << "\x1b[0m | ";
-	itUser--;
-
-	for (; itUser != Map.begin(); itUser--)
-	{
-		std::cout << "" << itUser.getColor() << std::setw(7) << itUser->first << "\x1b[0m    | ";
-	}
-	std::cout << "" << itUser.getColor() << std::setw(7) << itUser->first << "\x1b[0m    | ";
-	std::cout << '\n' << "              |" ;
-
-	itUser = Map.end();
-	std::cout << "\x1b[33;1m " << itUser->first << "\x1b[0m | ";
-	itUser--;
-
-	
-	for (; itUser != Map.begin(); itUser--)
-	{
-		std::cout << "" << itUser.getColor() << std::setw(7) << itUser->second << "\x1b[0m    | ";
-	}
-	std::cout << "" << itUser.getColor() << std::setw(7) << itUser->second << "\x1b[0m    | ";
 	std::cout << '\n' << '\n';
 }
 

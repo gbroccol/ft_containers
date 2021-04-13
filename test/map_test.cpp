@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:48:16 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/03 18:04:38 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/13 18:09:49 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void				constructor_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (10, 10) );
 		mapUser.insert ( std::pair <int, int> (42, 0) );
 		
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		getchar();
@@ -80,8 +80,8 @@ void				constructor_map(int testNmb, int testAll)
 		ft::map  <int, int> mapUserChar2 (mapUserChar.begin(), mapUserChar.end());
 
 		std::cout << "******* AFTER *******"<<std::endl;
-		print_std_map("     sysMap: ",  mapSysChar2);
-		print_ft_map("    userMap: ", mapUserChar2);
+		printMap("     sysMap: ",  mapSysChar2);
+		printMap("    userMap: ", mapUserChar2);
 
 		IterUser = mapUserChar2.end();
 		IterSys = mapSysChar2.end();
@@ -116,8 +116,8 @@ void				constructor_map(int testNmb, int testAll)
 		ft::map  <int, int> mapUserChar22 (mapUserChar.begin(), mapUserChar.end());
 
 		std::cout << "******* AFTER *******"<<std::endl;
-		print_std_map("     sysMap: ",  mapSysChar22);
-		print_ft_map("    userMap: ", mapUserChar22);
+		printMap("     sysMap: ",  mapSysChar22);
+		printMap("    userMap: ", mapUserChar22);
 
 		IterUser = mapUserChar22.end();
 		IterSys = mapSysChar22.end();
@@ -143,8 +143,8 @@ void				constructor_map(int testNmb, int testAll)
 
 		
 		std::cout << "******* AFTER *******"<<std::endl;
-		print_std_map("     sysMap: ",  mapSysChar3);
-		print_ft_map("    userMap: ", mapUserChar3);
+		printMap("     sysMap: ",  mapSysChar3);
+		printMap("    userMap: ", mapUserChar3);
 
 		testFunc(testNmb++, mapSysChar3.size(), mapUserChar3.size(), "Size is");
 
@@ -174,8 +174,8 @@ void				constructor_map(int testNmb, int testAll)
 		ft::map<int, int> mapUser2 (mapUser);
 
 		std::cout << "******* AFTER *******"<<std::endl;
-		print_std_map("     sysMap: ",  mapSys2);
-		print_ft_map("    userMap: ", mapUser2);
+		printMap("     sysMap: ",  mapSys2);
+		printMap("    userMap: ", mapUser2);
 
 		IterUser = mapUser2.end();
 		IterSys = mapSys2.end();
@@ -200,8 +200,8 @@ void				constructor_map(int testNmb, int testAll)
 		ft::map<int,int> mapUser4 (mapUser);
 
 		std::cout << "******* AFTER *******"<<std::endl;
-		print_std_map("     sysMap: ",  mapSys4);
-		print_ft_map("    userMap: ", mapUser4);
+		printMap("     sysMap: ",  mapSys4);
+		printMap("    userMap: ", mapUser4);
 
 		testFunc(testNmb++, mapSys4.size(), mapUser4.size(), "Size is");
 
@@ -324,8 +324,8 @@ void				iterators_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (30, 5) );
 		mapUser.insert ( std::pair <int, int> (12, 45) );
 
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		std::map <int, int>::reverse_iterator iterSysBeginEndRev = mapSys.rbegin();
 		ft::map <int, int>::reverse_iterator iterUserBeginEndRev = mapUser.rbegin();
@@ -507,8 +507,8 @@ void				element_access_map(int testNmb, int testAll)
 
 		testFunc(testNmb++, mapSys[15555], mapUser[15555],			"No Such Value");
 		
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 		
 		getchar();
 		system("clear");
@@ -598,8 +598,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (45, 0) );
 		mapUser.insert ( std::pair <int, int> (105, 0) );
 		
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 		
 		IterUser = mapUser.end();
 		IterSys = mapSys.end();
@@ -617,8 +617,8 @@ void				modifiers_map(int testNmb, int testAll)
 		/* insert 2 */
 		std::cout << std::endl << "\x1b[33m" << "insert 2 (print it inverted tree)" << "\x1b[0m" << std::endl;
 
-		print_std_map_inv("     sysMap: ", mapSys);
-		print_ft_map_inv("    userMap: ", mapUser);
+		printInvMap("     sysMap: ", mapSys);
+		printInvMap("    userMap: ", mapUser);
 
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 
@@ -650,8 +650,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (45 , 0) );
 		mapUser.insert ( std::pair <int, int> (41 , 0) );
 		
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 		IterUser = mapUser.end();
 		IterUser--;
 		IterSys = mapSys.end();
@@ -701,8 +701,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (31, 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		// mapUser.printTree();
 
@@ -712,8 +712,8 @@ void				modifiers_map(int testNmb, int testAll)
 		// mapUser.printTree();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		// mapUser.printTree();
 
@@ -733,8 +733,8 @@ void				modifiers_map(int testNmb, int testAll)
 		std::cout << std::endl << "\x1b[33m" << "insert 2.0 (true position - add -150 to begin())" << "\x1b[0m" << std::endl;
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		// mapUser.printTree();
 
@@ -744,8 +744,8 @@ void				modifiers_map(int testNmb, int testAll)
 		// mapUser.printTree();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		// mapUser.printTree();
 
@@ -817,8 +817,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (105, 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		// mapUser.printTree();
 		
@@ -829,8 +829,8 @@ void				modifiers_map(int testNmb, int testAll)
 		IterUser = mapUser.insert(IterUser, std::pair<int,int>(-150, 300));
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		// mapUser.printTree();
 
@@ -858,8 +858,8 @@ void				modifiers_map(int testNmb, int testAll)
 		IterSys = mapSys.insert(IterSys, std::pair<int,int>(110, 300));
 		IterUser = mapUser.insert(IterUser, std::pair<int,int>(110, 300));
 
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		testFunc(testNmb++, mapSys.begin()->first, mapUser.begin()->first, "Begin");
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
@@ -885,8 +885,8 @@ void				modifiers_map(int testNmb, int testAll)
 		IterSys = mapSys.insert(IterSys, std::pair<int,int>(35, 35));
 		IterUser = mapUser.insert(IterUser, std::pair<int,int>(35, 35));
 
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		testFunc(testNmb++, mapSys.begin()->first, mapUser.begin()->first, "Begin");
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
@@ -906,8 +906,8 @@ void				modifiers_map(int testNmb, int testAll)
 		IterSys = mapSys.insert(IterSys, std::pair<int,int>(35, 35));
 		IterUser = mapUser.insert(IterUser, std::pair<int,int>(35, 35));
 
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		testFunc(testNmb++, mapSys.begin()->first, mapUser.begin()->first, "Begin");
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
@@ -959,15 +959,15 @@ void				modifiers_map(int testNmb, int testAll)
 		std::map<int,int>::iterator IterInsertSysEnd = mapSys.end();
 		IterInsertSysEnd--;
 		std::cout << "******* BEFORE *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys2);
-		print_ft_map("    userMap: ", mapUser2);
+		printMap("     sysMap: ", mapSys2);
+		printMap("    userMap: ", mapUser2);
 		
 		mapSys2.insert (IterInsertSys,  IterInsertSysEnd);
 		mapUser2.insert (IterInsertUser, IterInsertUserEnd);
 
 		std::cout << "******* AFTER *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys2);
-		print_ft_map("    userMap: ", mapUser2);
+		printMap("     sysMap: ", mapSys2);
+		printMap("    userMap: ", mapUser2);
 		ft::map<int, int>:: iterator IterUser = mapUser2.end();
 		IterUser--;
 		std::map<int, int>:: iterator IterSys = mapSys2.end();
@@ -1015,15 +1015,15 @@ void				modifiers_map(int testNmb, int testAll)
 		IterInsertSysEnd--;
 
 		std::cout << "******* BEFORE *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys2);
-		print_ft_map("    userMap: ", mapUser2);
+		printMap("     sysMap: ", mapSys2);
+		printMap("    userMap: ", mapUser2);
 		
 		mapSys2.insert (IterInsertSys,  IterInsertSysEnd);
 		mapUser2.insert (IterInsertUser, IterInsertUserEnd);
 
 		std::cout << "******* AFTER *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys2);
-		print_ft_map("    userMap: ", mapUser2);
+		printMap("     sysMap: ", mapSys2);
+		printMap("    userMap: ", mapUser2);
 		IterUser = mapUser2.end();
 		IterUser--;
 		IterSys = mapSys2.end();
@@ -1066,15 +1066,15 @@ void				modifiers_map(int testNmb, int testAll)
 		IterInsertSys = mapSys.begin();
 		
 		std::cout << "******* BEFORE *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys2);
-		print_ft_map("    userMap: ", mapUser2);
+		printMap("     sysMap: ", mapSys2);
+		printMap("    userMap: ", mapUser2);
 		
 		mapSys2.insert (IterInsertSys,  ++IterInsertSys);
 		mapUser2.insert (IterInsertUser, ++IterInsertUser);
 
 		std::cout << "******* AFTER *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys2);
-		print_ft_map("    userMap: ", mapUser2);
+		printMap("     sysMap: ", mapSys2);
+		printMap("    userMap: ", mapUser2);
 		IterUser = mapUser2.end();
 		IterUser--;
 		IterSys = mapSys2.end();
@@ -1109,15 +1109,15 @@ void				modifiers_map(int testNmb, int testAll)
 		IterInsertSys = mapSys.begin();
 		
 		std::cout << "******* BEFORE *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys2);
-		print_ft_map("    userMap: ", mapUser2);
+		printMap("     sysMap: ", mapSys2);
+		printMap("    userMap: ", mapUser2);
 		
 		mapSys2.insert (IterInsertSys,  ++IterInsertSys);
 		mapUser2.insert (IterInsertUser, ++IterInsertUser);
 
 		std::cout << "******* AFTER *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys2);
-		print_ft_map("    userMap: ", mapUser2);
+		printMap("     sysMap: ", mapSys2);
+		printMap("    userMap: ", mapUser2);
 		IterUser = mapUser2.end();
 		IterUser--;
 		IterSys = mapSys2.end();
@@ -1152,15 +1152,15 @@ void				modifiers_map(int testNmb, int testAll)
 		IterInsertSys = mapSys.begin();
 		
 		std::cout << "******* BEFORE *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys2);
-		print_ft_map("    userMap: ", mapUser2);
+		printMap("     sysMap: ", mapSys2);
+		printMap("    userMap: ", mapUser2);
 		
 		mapSys2.insert (IterInsertSys,  IterInsertSys);
 		mapUser2.insert (IterInsertUser, IterInsertUser);
 
 		std::cout << "******* AFTER *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys2);
-		print_ft_map("    userMap: ", mapUser2);
+		printMap("     sysMap: ", mapSys2);
+		printMap("    userMap: ", mapUser2);
 		IterUser = mapUser2.end();
 		IterUser--;
 		IterSys = mapSys2.end();
@@ -1195,15 +1195,15 @@ void				modifiers_map(int testNmb, int testAll)
 		IterInsertSys = mapSys.begin();
 		
 		std::cout << "******* BEFORE *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys2);
-		print_ft_map("    userMap: ", mapUser2);
+		printMap("     sysMap: ", mapSys2);
+		printMap("    userMap: ", mapUser2);
 		
 		mapSys2.insert (IterInsertSys,  IterInsertSys);
 		mapUser2.insert (IterInsertUser, IterInsertUser);
 
 		std::cout << "******* AFTER *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys2);
-		print_ft_map("    userMap: ", mapUser2);
+		printMap("     sysMap: ", mapSys2);
+		printMap("    userMap: ", mapUser2);
 
 		testFunc(testNmb++, mapSys2.begin()->first, mapUser2.begin()->first, "begin");
 		testFunc(testNmb++, mapSys2.size(), mapUser2.size(), "Size is");
@@ -1231,8 +1231,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (100, 8) );
 
 		std::cout << "******* BEFORE *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		IterInsertUser = mapUser.end();
 		IterInsertSys = mapSys.end();
@@ -1244,8 +1244,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert (mapUser.begin(), IterInsertUser);
 
 		std::cout << "******* AFTER *******"<<std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		IterUser = mapUser.end();
 		IterSys = mapSys.end();
@@ -1286,8 +1286,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (57 , 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		std::map <int, int> :: iterator itSysBegin = mapSys.begin();
 		ft::map <int, int> :: iterator itUserBegin = mapUser.begin();
@@ -1296,8 +1296,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.erase(itUserBegin);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		std::map <int, int> :: iterator itSysEnd = mapSys.end();
 		itSysEnd--;
@@ -1333,15 +1333,15 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (57 , 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 		
 		mapSys.erase(75);
 		mapUser.erase(75);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		itSysEnd = mapSys.end();
 		itSysEnd--;
@@ -1379,8 +1379,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (41 , 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		itSysBegin = mapSys.begin();
 		itUserBegin = mapUser.begin();
@@ -1392,8 +1392,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.erase(itUserBegin);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		itSysEnd = mapSys.end();
 		itSysEnd--;
@@ -1431,15 +1431,15 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (45 , 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 		
 		mapSys.erase(40);
 		mapUser.erase(40);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		itSysEnd = mapSys.end();
 		itSysEnd--;
@@ -1475,14 +1475,14 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (57 , 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 		
 		testFunc(testNmb++, mapSys.erase(100), mapUser.erase(100), "return value");
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 
 		itSysEnd = mapSys.end();
@@ -1519,14 +1519,14 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (57 , 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 		
 		testFunc(testNmb++, mapSys.erase(40), mapUser.erase(40), "return value");
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		itSysEnd = mapSys.end();
 		itUserEnd = mapUser.end();
@@ -1563,14 +1563,14 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (57 , 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 		
 		testFunc(testNmb++, mapSys.erase(200), mapUser.erase(200), "return value");
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		itSysEnd = mapSys.end();
 		itSysEnd--;
@@ -1606,15 +1606,15 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (57 , 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 		
 		mapSys.erase(65);
 		mapUser.erase(65);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		itSysEnd = mapSys.end();
 		itSysEnd--;
@@ -1650,8 +1650,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (57 , 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		ft::map<int, int>::iterator mapUserErase = mapUser.begin();
 		std::map<int, int>::iterator mapSysErase = mapSys.begin();
@@ -1663,8 +1663,8 @@ void				modifiers_map(int testNmb, int testAll)
 		 mapUser.erase(mapUserErase, mapUserEraseEnd);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		
@@ -1694,8 +1694,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (57 , 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		mapUserErase = mapUser.begin();
 		mapSysErase = mapSys.begin();
@@ -1710,8 +1710,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.erase(mapUserErase, mapUserEraseEnd);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		itSysEnd = mapSys.end();
 		itUserEnd = mapUser.end();
@@ -1748,8 +1748,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (57 , 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		mapUserErase = mapUser.end();
 		
@@ -1764,8 +1764,8 @@ void				modifiers_map(int testNmb, int testAll)
 		 mapUser.erase(mapUserErase, mapUserEraseEnd);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		itSysEnd = mapSys.end();
 		itSysEnd--;
@@ -1801,8 +1801,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (57 , 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		ft::map<int, int>::iterator mapUserEraseNull;
 		std::map<int, int>::iterator mapSysEraseNull;
@@ -1811,8 +1811,8 @@ void				modifiers_map(int testNmb, int testAll)
 		 mapUser.erase(mapUserEraseNull, mapUserEraseNull);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
 		itSysEnd = mapSys.end();
 		itUserEnd = mapUser.end();
@@ -1862,21 +1862,21 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser2.insert(std::pair<int, int>(125, 0));
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
-		print_std_map("    sysMap2: ", mapSys2);
-		print_ft_map("   userMap2: ", mapUser2);
+		printMap("    sysMap2: ", mapSys2);
+		printMap("   userMap2: ", mapUser2);
 
 		mapSys.swap(mapSys2);
 		mapUser.swap(mapUser2);
 		
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
-		print_std_map("    sysMap2: ", mapSys2);
-		print_ft_map("   userMap2: ", mapUser2);
+		printMap("    sysMap2: ", mapSys2);
+		printMap("   userMap2: ", mapUser2);
 
 		testFunc(testNmb++, mapSys.begin()->first,  mapUser.begin()->first, "Begin");
 		testFunc(testNmb++, mapSys.size(), 			mapUser.size(), "Size is");
@@ -1905,21 +1905,21 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser2.clear();
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
-		print_std_map("    sysMap2: ", mapSys2);
-		print_ft_map("   userMap2: ", mapUser2);
+		printMap("    sysMap2: ", mapSys2);
+		printMap("   userMap2: ", mapUser2);
 
 		mapSys.swap(mapSys2);
 		mapUser.swap(mapUser2);
 		
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 
-		print_std_map("    sysMap2: ", mapSys2);
-		print_ft_map("   userMap2: ", mapUser2);
+		printMap("    sysMap2: ", mapSys2);
+		printMap("   userMap2: ", mapUser2);
 		
 		testFunc(testNmb++, mapSys.size(), 			mapUser.size(), "Size is");
 
@@ -1939,8 +1939,8 @@ void				modifiers_map(int testNmb, int testAll)
 		std::map <int, int> mapSys1;
 		ft::map <int, int> mapUser1;
 		
-		print_std_map("     sysMap: ", mapSys1);
-		print_ft_map("    userMap: ", mapUser1);
+		printMap("     sysMap: ", mapSys1);
+		printMap("    userMap: ", mapUser1);
 
 		getchar();
 		system("clear");
@@ -1995,8 +1995,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (105, 0) );
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 		
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		
@@ -2004,8 +2004,8 @@ void				modifiers_map(int testNmb, int testAll)
 		mapUser.clear();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_map("     sysMap: ", mapSys);
-		print_ft_map("    userMap: ", mapUser);
+		printMap("     sysMap: ", mapSys);
+		printMap("    userMap: ", mapUser);
 		
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 
@@ -2517,10 +2517,235 @@ void 				operations_map(int testNmb, int testAll)
 	}
 }
 
-// void allocator_map(int testNmb, int testAll)
-// {
+void				iterator_for_map(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** ITERATORS FOR MAP ***                          " << "\x1b[0m" << std::endl;
+
+	std::map<int, int> mapSys;
+	ft::map<int, int> mapUser;
+
+	for(int i = 0; i < 10; i++)
+	{
+		mapSys.insert(std::pair <int, int> (i, 0));
+		mapUser.insert(std::pair <int, int> (i, 0));
+	}
+
+	std::map <int, int> ::iterator iterSys0;  // X a;
+	ft::map  <int, int> ::iterator iterUser0; // X a;
+
+	std::map<int, int> ::iterator iterSysBegin(mapSys.begin());  // X b(a);
+	ft::map<int, int> ::iterator iterUserBegin(mapUser.begin()); // X b(a);
+
+	std::map<int, int> ::iterator iterSysEnd = mapSys.end();  // b = a;
+	ft::map<int, int> ::iterator iterUserEnd = mapUser.end(); // b = a;
+
+	testFunc(testNmb++, iterSysBegin == iterSysBegin, iterUserBegin == iterUserBegin, "begin == begin");
+	testFunc(testNmb++, iterSysBegin == iterSysEnd, iterUserBegin == iterUserEnd, "begin == end");
+
+	testFunc(testNmb++, iterSysBegin != iterSysBegin, iterUserBegin != iterUserBegin, "begin != begin");
+	testFunc(testNmb++, iterSysBegin != iterSysEnd, iterUserBegin != iterUserEnd, "begin != end");
+
+	testFunc(testNmb++, (*iterSysBegin).first, (*iterUserBegin).first, "*begin");
+	iterSysEnd--;
+	iterUserEnd--;
+	testFunc(testNmb++, (*iterSysEnd).first, (*iterUserEnd).first, "*end--");
+
+	testFunc(testNmb++, iterSysBegin.operator->()->first, iterUserBegin.operator->()->first, "*begin");
+	testFunc(testNmb++, iterSysEnd.operator->()->first, iterUserEnd.operator->()->first, "*begin");
 	
-// }
+	testFunc(testNmb++, (iterSysBegin++)->first, (iterUserBegin++)->first, "a++ (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "a++ (result)");
+
+	testFunc(testNmb++, (++iterSysBegin)->first, (++iterUserBegin)->first, "++a (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "++a (result)");
+
+	testFunc(testNmb++, (iterSysBegin--)->first, (iterUserBegin--)->first, "a-- (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "a-- (result)");
+
+	testFunc(testNmb++, (--iterSysBegin)->first, (--iterUserBegin)->first, "--a (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "--a (result)");
+	getchar();
+	system("clear");
+}
+
+void				const_iterator_for_map(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** CONST ITERATORS FOR MAP ***                          " << "\x1b[0m" << std::endl;
+
+	std::map<int, int> mapSys;
+	ft::map<int, int> mapUser;
+
+	for(int i = 0; i < 10; i++)
+	{
+		mapSys.insert(std::pair <int, int> (i, 0));
+		mapUser.insert(std::pair <int, int> (i, 0));
+	}
+
+	std::map <int, int> ::const_iterator iterSys0;  // X a;
+	ft::map  <int, int> ::const_iterator iterUser0; // X a;
+
+	std::map<int, int> ::const_iterator iterSysBegin(mapSys.begin());  // X b(a);
+	ft::map<int, int> ::const_iterator iterUserBegin(mapUser.begin()); // X b(a);
+
+	std::map<int, int> ::const_iterator iterSysEnd = mapSys.end();  // b = a;
+	ft::map<int, int> ::const_iterator iterUserEnd = mapUser.end(); // b = a;
+
+	testFunc(testNmb++, iterSysBegin == iterSysBegin, iterUserBegin == iterUserBegin, "begin == begin");
+	testFunc(testNmb++, iterSysBegin == iterSysEnd, iterUserBegin == iterUserEnd, "begin == end");
+
+	testFunc(testNmb++, iterSysBegin != iterSysBegin, iterUserBegin != iterUserBegin, "begin != begin");
+	testFunc(testNmb++, iterSysBegin != iterSysEnd, iterUserBegin != iterUserEnd, "begin != end");
+
+	testFunc(testNmb++, (*iterSysBegin).first, (*iterUserBegin).first, "*begin");
+	iterSysEnd--;
+	iterUserEnd--;
+	testFunc(testNmb++, (*iterSysEnd).first, (*iterUserEnd).first, "*end--");
+
+	testFunc(testNmb++, iterSysBegin.operator->()->first, iterUserBegin.operator->()->first, "*begin");
+	testFunc(testNmb++, iterSysEnd.operator->()->first, iterUserEnd.operator->()->first, "*begin");
+	
+	testFunc(testNmb++, (iterSysBegin++)->first, (iterUserBegin++)->first, "a++ (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "a++ (result)");
+
+	testFunc(testNmb++, (++iterSysBegin)->first, (++iterUserBegin)->first, "++a (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "++a (result)");
+
+	testFunc(testNmb++, (iterSysBegin--)->first, (iterUserBegin--)->first, "a-- (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "a-- (result)");
+
+	testFunc(testNmb++, (--iterSysBegin)->first, (--iterUserBegin)->first, "--a (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "--a (result)");
+	getchar();
+	system("clear");
+}
+
+void				rev_iterator_for_map(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** REVERSE ITERATORS FOR MAP ***                          " << "\x1b[0m" << std::endl;
+
+	std::map<int, int> mapSys;
+	ft::map<int, int> mapUser;
+
+	for(int i = 0; i < 10; i++)
+	{
+		mapSys.insert(std::pair <int, int> (i, 5));
+		mapUser.insert(std::pair <int, int> (i, 5));
+	}
+
+	std::map <int, int> ::reverse_iterator iterSys0;  // X a;
+	ft::map  <int, int> ::reverse_iterator iterUser0; // X a;
+
+	std::map<int, int> ::reverse_iterator iterSysBegin(mapSys.rbegin());  // X b(a);
+	ft::map<int, int> ::reverse_iterator iterUserBegin(mapUser.rbegin()); // X b(a);
+
+	std::map<int, int> ::reverse_iterator iterSysEnd = mapSys.rend();  // b = a;
+	ft::map<int, int> ::reverse_iterator iterUserEnd = mapUser.rend(); // b = a;
+
+	testFunc(testNmb++, iterSysBegin == iterSysBegin, iterUserBegin == iterUserBegin, "begin == begin");
+	testFunc(testNmb++, iterSysBegin == iterSysEnd, iterUserBegin == iterUserEnd, "begin == end");
+
+	testFunc(testNmb++, iterSysBegin != iterSysBegin, iterUserBegin != iterUserBegin, "begin != begin");
+	testFunc(testNmb++, iterSysBegin != iterSysEnd, iterUserBegin != iterUserEnd, "begin != end");
+
+	testFunc(testNmb++, (*iterSysBegin).first, (*iterUserBegin).first, "*begin");
+	
+	iterSysEnd--;
+	iterUserEnd--;
+	testFunc(testNmb++, (*iterSysEnd).first, (*iterUserEnd).first, "*end--");
+
+	iterSysEnd--;
+	iterUserEnd--;
+	testFunc(testNmb++, (*iterSysEnd).first, (*iterUserEnd).first, "*end--");
+	
+	iterSysEnd--;
+	iterUserEnd--;
+	testFunc(testNmb++, (*iterSysEnd).first, (*iterUserEnd).first, "*end--");
+
+	iterSysEnd--;
+	iterUserEnd--;
+	testFunc(testNmb++, (*iterSysEnd).first, (*iterUserEnd).first, "*end--");
+
+	testFunc(testNmb++, iterSysBegin.operator->()->first, iterUserBegin.operator->()->first, "*begin");
+	testFunc(testNmb++, iterSysEnd.operator->()->first, iterUserEnd.operator->()->first, "*begin");
+	
+	testFunc(testNmb++, (iterSysBegin++)->first, (iterUserBegin++)->first, "a++ (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "a++ (result)");
+
+	testFunc(testNmb++, (++iterSysBegin)->first, (++iterUserBegin)->first, "++a (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "++a (result)");
+
+	testFunc(testNmb++, (iterSysBegin--)->first, (iterUserBegin--)->first, "a-- (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "a-- (result)");
+
+	testFunc(testNmb++, (--iterSysBegin)->first, (--iterUserBegin)->first, "--a (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "--a (result)");
+	getchar();
+	system("clear");
+}
+
+void				rev_const_iterator_for_map(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** REVERSE CONST ITERATORS FOR MAP ***                          " << "\x1b[0m" << std::endl;
+
+	std::map<int, int> mapSys;
+	ft::map<int, int> mapUser;
+
+	for(int i = 0; i < 10; i++)
+	{
+		mapSys.insert(std::pair <int, int> (i, 0));
+		mapUser.insert(std::pair <int, int> (i, 0));
+	}
+
+	std::map <int, int> ::const_reverse_iterator iterSys0;  // X a;
+	ft::map  <int, int> ::const_reverse_iterator iterUser0; // X a;
+
+	std::map<int, int> ::const_reverse_iterator iterSysBegin(mapSys.rbegin());  // X b(a);
+	ft::map<int, int> ::const_reverse_iterator iterUserBegin(mapUser.rbegin()); // X b(a);
+
+	std::map<int, int> ::const_reverse_iterator iterSysEnd = mapSys.rend();  // b = a;
+	ft::map<int, int> ::const_reverse_iterator iterUserEnd = mapUser.rend(); // b = a;
+
+	testFunc(testNmb++, iterSysBegin == iterSysBegin, iterUserBegin == iterUserBegin, "begin == begin");
+	testFunc(testNmb++, iterSysBegin == iterSysEnd, iterUserBegin == iterUserEnd, "begin == end");
+
+	testFunc(testNmb++, iterSysBegin != iterSysBegin, iterUserBegin != iterUserBegin, "begin != begin");
+	testFunc(testNmb++, iterSysBegin != iterSysEnd, iterUserBegin != iterUserEnd, "begin != end");
+
+	testFunc(testNmb++, (*iterSysBegin).first, (*iterUserBegin).first, "*begin");
+	
+	iterSysEnd--;
+	iterUserEnd--;
+	testFunc(testNmb++, (*iterSysEnd).first, (*iterUserEnd).first, "*end--");
+
+	iterSysEnd--;
+	iterUserEnd--;
+	testFunc(testNmb++, (*iterSysEnd).first, (*iterUserEnd).first, "*end--");
+	
+	iterSysEnd--;
+	iterUserEnd--;
+	testFunc(testNmb++, (*iterSysEnd).first, (*iterUserEnd).first, "*end--");
+
+	iterSysEnd--;
+	iterUserEnd--;
+	testFunc(testNmb++, (*iterSysEnd).first, (*iterUserEnd).first, "*end--");
+
+	testFunc(testNmb++, iterSysBegin.operator->()->first, iterUserBegin.operator->()->first, "*begin");
+	testFunc(testNmb++, iterSysEnd.operator->()->first, iterUserEnd.operator->()->first, "*begin");
+	
+	testFunc(testNmb++, (iterSysBegin++)->first, (iterUserBegin++)->first, "a++ (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "a++ (result)");
+
+	testFunc(testNmb++, (++iterSysBegin)->first, (++iterUserBegin)->first, "++a (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "++a (result)");
+
+	testFunc(testNmb++, (iterSysBegin--)->first, (iterUserBegin--)->first, "a-- (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "a-- (result)");
+
+	testFunc(testNmb++, (--iterSysBegin)->first, (--iterUserBegin)->first, "--a (action)");
+	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "--a (result)");
+	getchar();
+	system("clear");
+}
 
 void map_test()
 {
@@ -2545,5 +2770,11 @@ void map_test()
 	modifiers_map(testNmb, testAll);						// +
 	observers_map(testNmb, testAll);						// +
 	operations_map(testNmb, testAll);						// +
-	// allocator_map(testNmb, testAll);
+
+	/* extra */
+	iterator_for_map(testNmb);
+	const_iterator_for_map(testNmb);
+
+	rev_iterator_for_map(testNmb);
+	rev_const_iterator_for_map(testNmb);
 }

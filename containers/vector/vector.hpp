@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:11:15 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/06 18:26:23 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/13 18:15:04 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ namespace ft
 				_size = n;
 				_capacity = n;
 				_vector = _alloc.allocate(n);
+
+				pointer tmp = _vector;
 				
 				for (size_t i = 0; i < n; i++)
-					_vector[i] = val;
+					_alloc.construct(tmp++, val);
 			}
 
 			template <class InputIterator>
@@ -68,7 +70,12 @@ namespace ft
 				_capacity = _size;
 				_vector = _alloc.allocate(_size);
 
-				for (int i = 0; first != last; first++)
+				pointer tmp = _vector;
+
+				for ( ; first != last; first++)
+					_alloc.construct(tmp++, *first);
+
+				for (int i = 0; first != last; first++)	
 					_vector[i++] = *first;
 			}
 
@@ -84,6 +91,7 @@ namespace ft
 			~vector() 
 			{
 				_alloc.deallocate(_vector, _capacity);
+				_alloc.destroy(_vector);
 			}
 
 			/*
@@ -97,8 +105,10 @@ namespace ft
 				_capacity = x._capacity;
 				_vector = _alloc.allocate(_capacity);
 
+				pointer tmp = _vector;
+
 				for (size_t i = 0; i < _size; i++)
-					_vector[i] = x._vector[i];
+					_alloc.construct(tmp++, x._vector[i]);
 				return *this;
 			}
 			
@@ -135,10 +145,11 @@ namespace ft
 				else
 					reserve(_capacity * 2);
 			}
-				
+			
+			pointer tmp = _vector + _size;
 
 			for (size_type i = (_size); i < n; i++ )
-				_vector[i] = val;
+				_alloc.construct(tmp++, val);
 			_size = n;
 		}
 
@@ -152,14 +163,15 @@ namespace ft
 				return;
 				
 			pointer tmp = _alloc.allocate(n);
+			pointer tmp2 = tmp;
 			
 			for (size_t i = 0; i < _size; i++)
-				tmp[i] = _vector[i];
+				_alloc.construct(tmp2++, _vector[i]);
 			
 			if (_capacity)
 				_alloc.deallocate(_vector, _capacity);
+				
 			_vector = tmp;
-
 			_capacity = n;
 		}
 
@@ -203,7 +215,8 @@ namespace ft
 					resize((_size + 1), val);
 				else
 				{
-					_vector[_size] = val;
+					pointer tmp = _vector + _size;
+					_alloc.construct(tmp, val);
 					_size++;
 				}
 			}
@@ -213,7 +226,7 @@ namespace ft
 			iterator insert (iterator position, const value_type& val)
 			{
 				pointer tmp;
-				pointer posVector = position.getptr();
+				pointer posVector = position.ptr;
 
 				int dealCapacity = _capacity;
 				
@@ -227,14 +240,20 @@ namespace ft
 					
 				
 				size_t i = 0;
-				for ( ; &_vector[i] != &posVector[0]; i++)
-					tmp[i] = _vector[i];
+
+				pointer tmp2 = tmp;
+				
+				for ( ; &_vector[i] != posVector; i++)
+					_alloc.construct(tmp2++, _vector[i]);
 					
-				tmp[i] = val;
+				_alloc.construct(tmp2, val);
+
+				tmp2++;
+				
 				int rem = i;
 				
 				for ( ; i != _size; i++)
-					tmp[i + 1] = _vector[i];
+					_alloc.construct(tmp2++, _vector[i]);
 
 				_alloc.deallocate(_vector, dealCapacity);
 				
@@ -247,7 +266,7 @@ namespace ft
 			void insert (iterator position, size_type n, const value_type& val)
 			{
 				pointer tmp;
-				pointer posVector = position.getptr();
+				pointer posVector = position.ptr;
 				int dealCapacity = _capacity;
 				
 				if (_capacity < (_size + n))
@@ -282,8 +301,8 @@ namespace ft
 			void insert (iterator position, InputIterator first, InputIterator last,
 												typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
-				pointer tmp = nullptr;
-				pointer posVector = position.getptr();
+				pointer tmp = NULL;
+				pointer posVector = position.ptr;
 				size_t sum = _capacity;
 
 				int n = distance(first, last);
@@ -303,7 +322,7 @@ namespace ft
 
 				for (size_t j = 0; first != last; j++)
 				{
-					tmp[i + j] = *(first.getptr());
+					tmp[i + j] = *(first.ptr);
 					first++;
 				}
 				for ( ; i != _size; i++)
@@ -319,7 +338,7 @@ namespace ft
 
 			iterator erase (iterator position)
 			{
-				pointer posVector = position.getptr();
+				pointer posVector = position.ptr;
 				
 				size_t i = 0;
 				while (&_vector[i] != &posVector[0] && i < _size)
@@ -330,40 +349,34 @@ namespace ft
 
 				int rem = i;
 				
-				if (i + 1 < _size)
+				while (i + 1 < _size)
 				{
-					while (i < _size) 
-					{
-						_vector[i] = _vector[i + 1];
-						i++;
-					}
+					_vector[i] = _vector[i + 1];
+					i++;
 				}
-					
 				_size--;
+				
 				return iterator(&_vector[rem]);
 			}
 			
 			iterator erase (iterator first, iterator last)
 			{
-				pointer posVector = first.getptr();
+				pointer posVector = first.ptr;
 				int dist = distance(first, last);
 				
 				size_t i = 0;
 				while (&_vector[i] != &posVector[0] && i < _size)
 					i++;
 				
-				if (i == _size) // delete
+				if (i == _size)
 					return iterator(&_vector[0]);
 
 				int rem = i;
 				
-				if (i + dist < _size)
+				while (i + dist < _size)
 				{
-					while (i < _size) 
-					{
-						_vector[i] = _vector[i + dist];
-						i++;
-					}
+					_vector[i] = _vector[i + dist];
+					i++;
 				}
 					
 				_size -= dist;
@@ -379,10 +392,6 @@ namespace ft
 			}
 
 			void clear() { _size = 0; }
-			
-	/* Allocator */
-
-			allocator_type get_allocator() const { return _alloc; }
 
 		private:
 			

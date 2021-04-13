@@ -114,13 +114,16 @@ void				constructor(int testNmb, int testAll)
 
 		std::list <int>::const_iterator const_s_s = sysListConst.begin(); 
 		ft::list <int>::const_iterator const_m_s = userListConst.begin();
+
 		std::list <int>::const_iterator const_s_f  = sysListConst.end();
 		ft::list <int>::const_iterator const_m_f = userListConst.end();
 
-		testFunc(testNmb++, *const_s_s, *const_m_s, "Const test begin");
+		const_s_f--;
+		const_m_f--;
 
+		testFunc(testNmb++, *const_s_s, *const_m_s, "Const test begin");
 		testFunc(testNmb++, *const_s_f, *const_m_f, "Const test end");
-		
+
 		getchar();
 	}
 	
@@ -128,11 +131,20 @@ void				constructor(int testNmb, int testAll)
 	{
 		std::cout << std::endl << "\x1b[33m" << "                              *** CONST REVERSE***                          " << "\x1b[0m" << std::endl;
 		
-		const ft::list  <int> userListConst1(7,2);
-		const std::list <int> sysListConst1(7,2);
+		const ft::list  <int> userListConst(5,4);
+		const std::list <int> sysListConst(5,4);
 
-		testFunc(testNmb++, *(sysListConst1.rbegin()), *(userListConst1.rbegin()), "Const test rbegin");
-		testFunc(testNmb++, *(sysListConst1.rend()), *(userListConst1.rend()), "Const test rend");
+		std::list <int>::const_reverse_iterator const_s_s = sysListConst.rbegin(); 
+		ft::list <int>::const_reverse_iterator const_m_s = userListConst.rbegin();
+
+		std::list <int>::const_reverse_iterator const_s_f  = sysListConst.rend();
+		ft::list <int>::const_reverse_iterator const_m_f = userListConst.rend();
+
+		const_s_f--;
+		const_m_f--;
+
+		testFunc(testNmb++, *const_s_s, *const_m_s, "Const test begin");
+		testFunc(testNmb++, *const_s_f, *const_m_f, "Const test end");
 
 		getchar();
 		std::system("clear");
@@ -153,9 +165,9 @@ void				constructor(int testNmb, int testAll)
 		}
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListTest:", sysList);
+		printContainer(" sysListTest:", sysList);
 		std::cout << std::endl;
-		print_ft_list("userListTest:", userList);
+		printContainer("userListTest:", userList);
 		std::cout << std::endl;
 		
 		testFunc(testNmb++, sysList.size(), userList.size(), "Constructor with iterator list(size, value)");
@@ -211,18 +223,18 @@ void				operEquall(int testNmb, int testAll)
 		}
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
+		printContainer(" sysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("userList:", userList);
+		printContainer("userList:", userList);
 		std::cout << std::endl;
 
 		sysList = sysList2;
 		userList = userList2;
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
+		printContainer(" SysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("UserList:", userList);
+		printContainer("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -244,11 +256,11 @@ void				operEquall(int testNmb, int testAll)
 		std::list<int> second2 (5);     // list of 5 zero-initialized ints
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" first2:", first2);
-		print_std_list(" second2:", second2);
+		printContainer(" first2:", first2);
+		printContainer(" second2:", second2);
 		std::cout << std::endl;
-		print_ft_list("first:", first);
-		print_ft_list("second:", second);
+		printContainer("first:", first);
+		printContainer("second:", second);
 		std::cout << std::endl;
 
 		second = first;
@@ -268,11 +280,11 @@ void				operEquall(int testNmb, int testAll)
 		std::list<int> second2x (5, 1);     // list of 5 zero-initialized ints
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" first2:", first2x);
-		print_std_list(" second2:", second2x);
+		printContainer(" first2:", first2x);
+		printContainer(" second2:", second2x);
 		std::cout << std::endl;
-		print_ft_list("first:", firstx);
-		print_ft_list("second:", secondx);
+		printContainer("first:", firstx);
+		printContainer("second:", secondx);
 		std::cout << std::endl;
 
 		secondx = firstx;
@@ -298,6 +310,7 @@ void				iterators(int testNmb, int testAll)
 	{
 		std::cout << std::endl << "\x1b[33m" << "                                 *** RBEGIN REND ***                          " << "\x1b[0m" << std::endl;
 		
+		/* test 1 */
 		ft::list <int> userList;
 		std::list <int> sysList;
 		
@@ -310,7 +323,37 @@ void				iterators(int testNmb, int testAll)
 		sysList.push_back(7);
 		
 		testFunc(testNmb++, *(sysList.rbegin()), *(userList.rbegin()), "Operators reverse rbegin test *a");
-		testFunc(testNmb++, *(sysList.rend()), *(userList.rend()), "Operators reverse rend test *a");
+		// testFunc(testNmb++, *(sysList.rend()), *(userList.rend()), "Operators reverse rend test *a");
+
+
+		/* test 2 */
+		userList.clear();
+		sysList.clear();
+
+		std::list <int>::iterator s_s = sysList.begin(); 
+		ft::list <int>::iterator m_s = userList.begin();
+
+		std::list <int>::iterator s_f  = sysList.end();
+		ft::list <int>::iterator m_f = userList.end();
+
+		testFunc(testNmb++, *s_s, *m_s, "begin (empty list)");
+		testFunc(testNmb++, *s_f, *m_f, "end (empty list)");
+
+		
+
+		/* test 3 */
+		std::cout << "\x1b[31mTEST DOES NOT WORK\x1b[0m" << std::endl;
+		// userList.clear();
+		// sysList.clear();
+
+		// std::list <int>::const_iterator const_s_s = sysList.begin(); 
+		// ft::list <int>::const_iterator const_m_s = userList.begin();
+
+		// std::list <int>::const_iterator const_s_f  = sysList.end();
+		// ft::list <int>::const_iterator const_m_f = userList.end();
+
+		// testFunc(testNmb++, *const_s_s, *const_m_s, "begin (empty list)");
+		// testFunc(testNmb++, *const_s_f, *const_m_f, "end (empty list)");
 
 		getchar();
 		std::system("clear");
@@ -345,6 +388,32 @@ void				capacity(int testNmb, int testAll)
 	{
 		std::cout << std::endl << "\x1b[33m" << "                                 *** SIZE ***                          " << "\x1b[0m" << std::endl;
 		
+		std::cout << std::endl << "\x1b[33m" << "Size of list STRING" << "\x1b[0m" << std::endl;
+
+		ft::list <std::string> testMyListStr;
+		std::list <std::string> testOriginalListStr;
+
+		testMyListStr.push_back("string1");
+		testOriginalListStr.push_back("string1");
+
+		testFunc(testNmb++, testOriginalListStr.size(), testMyListStr.size(), "Size test");
+		testFunc(testNmb++, testOriginalListStr.empty(), testMyListStr.empty(), "Empty list - false");
+
+		testMyListStr.push_back("string2");
+		testOriginalListStr.push_back("string2");
+
+		testFunc(testNmb++, testOriginalListStr.size(), testMyListStr.size(), "Size test free list");
+		testFunc(testNmb++, testOriginalListStr.empty(), testMyListStr.empty(), "Empty list - false");
+
+		testMyListStr.push_back("string3");
+		testOriginalListStr.push_back("string3");
+
+		testFunc(testNmb++, testOriginalListStr.size(), testMyListStr.size(), "Size test free list");
+		testFunc(testNmb++, testOriginalListStr.empty(), testMyListStr.empty(), "Empty list - false");
+		
+		/*		Size of list CHAR		*/
+		std::cout << std::endl << "\x1b[33m" << "Size of list INT" << "\x1b[0m" << std::endl;
+		
 		testMyList.push_front(10);
 		testOriginalList.push_front(10);
 		testFunc(testNmb++, testMyList.size(), testOriginalList.size(), "Size test");
@@ -365,20 +434,18 @@ void				capacity(int testNmb, int testAll)
 		ft::list <char> userListChar;
 		std::list <char> sysListChar;
 		
-		for (int i = 0; i < 33; i++)
+		for (int i = 0; i < 43; i++)
 		{
-			sysListChar.push_back('a');			
-			userListChar.push_back('a');
+			sysListChar.push_back(i);			
+			userListChar.push_back(i);
 		}
 
-		std::list <char> :: iterator sysIteratorChar = sysListChar.begin();
-		ft::list <char> :: iterator userIteratorChar  = userListChar.begin();
+		std::list <char> :: iterator sysIteratorChar = sysListChar.end();
+		ft::list <char> :: iterator userIteratorChar  = userListChar.end();
 
-		for (int i = 0; i < 33; i++)
-		{
-			sysIteratorChar++;
-			userIteratorChar++;
-		}
+		sysIteratorChar--;
+		userIteratorChar--;
+
 		testFunc(testNmb++, userListChar.size(), userListChar.size(), "Size is <char>");
 		testFunc(testNmb++, *sysIteratorChar, *userIteratorChar, "Size of list <char>");
 		getchar();
@@ -459,16 +526,16 @@ void				modifiers(int testNmb, int testAll)
 		/*		assign 1		*/
 		std::cout << std::endl << "\x1b[33m" << "assign 1" << "\x1b[0m" << std::endl;
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" Sys Erase:", sysList);
-		print_ft_list("User Erase:", userList);
+		printContainer(" Sys Erase:", sysList);
+		printContainer("User Erase:", userList);
 		std::cout << std::endl;
 		
 		userList.assign(5, 21);
 		sysList.assign(5, 21);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" Sys Erase:", sysList);
-		print_ft_list("User Erase:", userList);
+		printContainer(" Sys Erase:", sysList);
+		printContainer("User Erase:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (assign 1)");
@@ -486,8 +553,8 @@ void				modifiers(int testNmb, int testAll)
 		sysList.push_back(222222);
 
 		std::cout << "*** LIST FOR ASSIGN FUNC ***" << std::endl;
-		print_std_list(" Sys Erase:", sysList);
-		print_ft_list("User Erase:", userList);
+		printContainer(" Sys Erase:", sysList);
+		printContainer("User Erase:", userList);
 		std::cout << std::endl;
 
 		ft::list<int> newUserList;
@@ -497,16 +564,16 @@ void				modifiers(int testNmb, int testAll)
 		newSysList.assign(8, 10);
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" Sys Erase:", newSysList);
-		print_ft_list("User Erase:", newUserList);
+		printContainer(" Sys Erase:", newSysList);
+		printContainer("User Erase:", newUserList);
 		std::cout << std::endl;
 
 		newUserList.assign(userList.begin(), userList.end());
 		newSysList.assign(sysList.begin(), sysList.end());
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" Sys Erase:", newSysList);
-		print_ft_list("User Erase:", newUserList);
+		printContainer(" Sys Erase:", newSysList);
+		printContainer("User Erase:", newUserList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, newSysList.size(), newUserList.size(), "Size is");
@@ -519,16 +586,16 @@ void				modifiers(int testNmb, int testAll)
 		int myints[] = { 1776, 7, 4 };
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" Sys assign:", newSysList);
-		print_ft_list("User assign:", newUserList);
+		printContainer(" Sys assign:", newSysList);
+		printContainer("User assign:", newUserList);
 		std::cout << std::endl;
 		
 		newSysList.assign (myints, myints + 3);
 		newUserList.assign(myints, myints + 3);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" Sys assign:", newSysList);
-		print_ft_list("User assign:", newUserList);
+		printContainer(" Sys assign:", newSysList);
+		printContainer("User assign:", newUserList);
 		std::cout << std::endl;
 		
 		testFunc(testNmb++, newSysList.size(), newUserList.size(), "Size is");
@@ -557,16 +624,16 @@ void				modifiers(int testNmb, int testAll)
 		userList.push_front(3);
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" Sys Erase:", sysList);
-		print_ft_list("User Erase:", userList);
+		printContainer(" Sys Erase:", sysList);
+		printContainer("User Erase:", userList);
 		std::cout << std::endl;
 	
 		sysList.pop_front();
 		userList.pop_front();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" Sys Erase:", sysList);
-		print_ft_list("User Erase:", userList);
+		printContainer(" Sys Erase:", sysList);
+		printContainer("User Erase:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (pop_front and push_front)");
@@ -583,16 +650,16 @@ void				modifiers(int testNmb, int testAll)
 		userList.push_front(1);
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" Sys Erase:", sysList);
-		print_ft_list("User Erase:", userList);
+		printContainer(" Sys Erase:", sysList);
+		printContainer("User Erase:", userList);
 		std::cout << std::endl;
 	
 		sysList.pop_front();
 		userList.pop_front();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" Sys Erase:", sysList);
-		print_ft_list("User Erase:", userList);
+		printContainer(" Sys Erase:", sysList);
+		printContainer("User Erase:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (pop_front and push_front(one element))");
@@ -622,16 +689,16 @@ void				modifiers(int testNmb, int testAll)
 		userList.push_back(3);
 
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 	
 		sysList.pop_back();
 		userList.pop_back();
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (pop_back and push_back)");
@@ -651,8 +718,8 @@ void				modifiers(int testNmb, int testAll)
 		// userList.push_back(2);
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" Sys Erase:", sysList);
-		print_ft_list("User Erase:", userList);
+		printContainer(" Sys Erase:", sysList);
+		printContainer("User Erase:", userList);
 		std::cout << std::endl;
 	
 		sysList.pop_back();
@@ -662,8 +729,8 @@ void				modifiers(int testNmb, int testAll)
 		// userList.pop_back();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" Sys Erase:", sysList);
-		print_ft_list("User Erase:", userList);
+		printContainer(" Sys Erase:", sysList);
+		printContainer("User Erase:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (pop_back and push_back(one element))");
@@ -737,8 +804,8 @@ void				modifiers(int testNmb, int testAll)
 		ft::list <int> :: iterator userIteratorEnd = userList2.end();
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" Sys Erase:", sysList);
-		print_ft_list("User Erase:", userList);
+		printContainer(" Sys Erase:", sysList);
+		printContainer("User Erase:", userList);
 		std::cout << std::endl;
 
 		std::list <int> :: iterator whereAddSys = sysList.begin();
@@ -754,8 +821,8 @@ void				modifiers(int testNmb, int testAll)
 		userList.insert(whereAddUser, userIterator1, userIteratorEnd);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" Sys Erase:", sysList);
-		print_ft_list("User Erase:", userList);
+		printContainer(" Sys Erase:", sysList);
+		printContainer("User Erase:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (insert 2)");
@@ -786,16 +853,16 @@ void				modifiers(int testNmb, int testAll)
 		userList.push_back(3);
 
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 	
 		sysIterator = sysList.erase(sysList.begin());
 		userIterator = userList.erase(userList.begin());
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 1)");
@@ -812,16 +879,16 @@ void				modifiers(int testNmb, int testAll)
 		userList.push_back(1);
 
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 	
 		sysIterator = sysList.erase(sysList.begin());
 		userIterator = userList.erase(userList.begin());
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 1.1)");
@@ -844,8 +911,8 @@ void				modifiers(int testNmb, int testAll)
 		userList.push_back(3);
 		
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 	
 		sysIterator = sysList.begin();
@@ -855,8 +922,8 @@ void				modifiers(int testNmb, int testAll)
 		userIterator = userList.erase(userList.begin(), userIterator);
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 2)");
@@ -879,8 +946,8 @@ void				modifiers(int testNmb, int testAll)
 		userList.push_back(3);
 		
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 	
 		sysIterator = sysList.begin();
@@ -893,8 +960,8 @@ void				modifiers(int testNmb, int testAll)
 		userIterator = userList.erase(userList.begin(), userIterator);
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 2.0)");
@@ -917,8 +984,8 @@ void				modifiers(int testNmb, int testAll)
 		userList.push_back(3);
 		
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 	
 		sysIterator = sysList.begin();
@@ -933,8 +1000,8 @@ void				modifiers(int testNmb, int testAll)
 		userIterator = userList.erase(userList.begin(), userIterator);
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 2.1)");
@@ -957,8 +1024,8 @@ void				modifiers(int testNmb, int testAll)
 		userList.push_back(3);
 		
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 	
 		sysIterator = sysList.begin();
@@ -975,8 +1042,8 @@ void				modifiers(int testNmb, int testAll)
 		userIterator = userList.erase(userList.begin(), userIterator);
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 2.2)");
@@ -999,8 +1066,8 @@ void				modifiers(int testNmb, int testAll)
 		userList.push_back(7);
 		
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 	
 		sysIterator = sysList.begin();
@@ -1022,8 +1089,8 @@ void				modifiers(int testNmb, int testAll)
 		userIterator = userList.erase(userList.begin(), userIterator);
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (erase 2.3)");
@@ -1076,22 +1143,22 @@ void				modifiers(int testNmb, int testAll)
 		userListSwap2.push_back(9);
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" SysListSwap1:", sysListSwap1);
-		print_std_list(" SysListSwap2:", sysListSwap2);
+		printContainer(" SysListSwap1:", sysListSwap1);
+		printContainer(" SysListSwap2:", sysListSwap2);
 		std::cout << std::endl;
-		print_ft_list("UserListSwap1:", userListSwap1);
-		print_ft_list("UserListSwap2:", userListSwap2);
+		printContainer("UserListSwap1:", userListSwap1);
+		printContainer("UserListSwap2:", userListSwap2);
 		std::cout << std::endl;
 
 		sysListSwap1.swap(sysListSwap2);
 		userListSwap1.swap(userListSwap2);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysListSwap1:", sysListSwap1);
-		print_std_list(" SysListSwap2:", sysListSwap2);
+		printContainer(" SysListSwap1:", sysListSwap1);
+		printContainer(" SysListSwap2:", sysListSwap2);
 		std::cout << std::endl;
-		print_ft_list("UserListSwap1:", userListSwap1);
-		print_ft_list("UserListSwap2:", userListSwap2);
+		printContainer("UserListSwap1:", userListSwap1);
+		printContainer("UserListSwap2:", userListSwap2);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysListSwap1.size(), userListSwap1.size(), "Size is (swap)");
@@ -1117,16 +1184,16 @@ void				modifiers(int testNmb, int testAll)
 		userList.clear();
 		
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		sysList.resize(3, 9);
 		userList.resize(3, 9);
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (resize 1)");
@@ -1150,16 +1217,16 @@ void				modifiers(int testNmb, int testAll)
 		userList.push_back(7);
 		
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		sysList.resize(3, 9);
 		userList.resize(3, 9);
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (resize 2)");
@@ -1183,16 +1250,16 @@ void				modifiers(int testNmb, int testAll)
 		userList.push_back(7);
 		
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		sysList.resize(5, 9);
 		userList.resize(5, 9);
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (resize 3)");
@@ -1217,16 +1284,16 @@ void				modifiers(int testNmb, int testAll)
 		userList.push_back(7);
 		
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		sysList.resize(1, 9);
 		userList.resize(1, 9);
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" Sys Erase:", sysList);
-		// print_ft_list("User Erase:", userList);
+		// printContainer(" Sys Erase:", sysList);
+		// printContainer("User Erase:", userList);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is (resize 4)");
@@ -1296,22 +1363,22 @@ void				operations(int testNmb, int testAll)
 		}
 
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" SysListSplice1:", sysListSplice1);
-		// print_std_list(" SysListSplice2:", sysListSplice2);
+		// printContainer(" SysListSplice1:", sysListSplice1);
+		// printContainer(" SysListSplice2:", sysListSplice2);
 		// std::cout << std::endl;
-		// print_ft_list("UserListSplice1:", userListSplice1);
-		// print_ft_list("UserListSplice2:", userListSplice2);
+		// printContainer("UserListSplice1:", userListSplice1);
+		// printContainer("UserListSplice2:", userListSplice2);
 		// std::cout << std::endl;
 
 		sysListSplice1.splice(sysListSplice1.begin(), sysListSplice2);
 		userListSplice1.splice(userListSplice1.begin(), userListSplice2);
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" SysListSplice1:", sysListSplice1);
-		// print_std_list(" SysListSplice2:", sysListSplice2);
+		// printContainer(" SysListSplice1:", sysListSplice1);
+		// printContainer(" SysListSplice2:", sysListSplice2);
 		// std::cout << std::endl;
-		// print_ft_list("UserListSplice1:", userListSplice1);
-		// print_ft_list("UserListSplice2:", userListSplice2);
+		// printContainer("UserListSplice1:", userListSplice1);
+		// printContainer("UserListSplice2:", userListSplice2);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysListSplice1.size(), userListSplice1.size(), "Size is (Splice 1)");
@@ -1347,11 +1414,11 @@ void				operations(int testNmb, int testAll)
 		}
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" SysListSplice1:", sysListSplice1);
-		print_std_list(" SysListSplice2:", sysListSplice2);
+		printContainer(" SysListSplice1:", sysListSplice1);
+		printContainer(" SysListSplice2:", sysListSplice2);
 		std::cout << std::endl;
-		print_ft_list("UserListSplice1:", userListSplice1);
-		print_ft_list("UserListSplice2:", userListSplice2);
+		printContainer("UserListSplice1:", userListSplice1);
+		printContainer("UserListSplice2:", userListSplice2);
 		std::cout << std::endl;
 
 		sysIter = sysListSplice2.begin();
@@ -1373,11 +1440,11 @@ void				operations(int testNmb, int testAll)
 		userListSplice1.splice(userWhereAdd1, userListSplice2, userIter);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysListSplice1:", sysListSplice1);
-		print_std_list(" SysListSplice2:", sysListSplice2);
+		printContainer(" SysListSplice1:", sysListSplice1);
+		printContainer(" SysListSplice2:", sysListSplice2);
 		std::cout << std::endl;
-		print_ft_list("UserListSplice1:", userListSplice1);
-		print_ft_list("UserListSplice2:", userListSplice2);
+		printContainer("UserListSplice1:", userListSplice1);
+		printContainer("UserListSplice2:", userListSplice2);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysListSplice1.size(), userListSplice1.size(), "Size is (Splice 2.1)");
@@ -1412,11 +1479,11 @@ void				operations(int testNmb, int testAll)
 		}
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" SysListSplice1:", sysListSplice1);
-		print_std_list(" SysListSplice2:", sysListSplice2);
+		printContainer(" SysListSplice1:", sysListSplice1);
+		printContainer(" SysListSplice2:", sysListSplice2);
 		std::cout << std::endl;
-		print_ft_list("UserListSplice1:", userListSplice1);
-		print_ft_list("UserListSplice2:", userListSplice2);
+		printContainer("UserListSplice1:", userListSplice1);
+		printContainer("UserListSplice2:", userListSplice2);
 		std::cout << std::endl;
 
 		sysIter = sysListSplice2.begin();
@@ -1438,11 +1505,11 @@ void				operations(int testNmb, int testAll)
 		userListSplice1.splice(userWhereAdd1, userListSplice2, userWhereAdd1);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysListSplice1:", sysListSplice1);
-		print_std_list(" SysListSplice2:", sysListSplice2);
+		printContainer(" SysListSplice1:", sysListSplice1);
+		printContainer(" SysListSplice2:", sysListSplice2);
 		std::cout << std::endl;
-		print_ft_list("UserListSplice1:", userListSplice1);
-		print_ft_list("UserListSplice2:", userListSplice2);
+		printContainer("UserListSplice1:", userListSplice1);
+		printContainer("UserListSplice2:", userListSplice2);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysListSplice1.size(), userListSplice1.size(), "Size is (Splice 2.2)");
@@ -1477,11 +1544,11 @@ void				operations(int testNmb, int testAll)
 		}
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" SysListSplice1:", sysListSplice1);
-		print_std_list(" SysListSplice2:", sysListSplice2);
+		printContainer(" SysListSplice1:", sysListSplice1);
+		printContainer(" SysListSplice2:", sysListSplice2);
 		std::cout << std::endl;
-		print_ft_list("UserListSplice1:", userListSplice1);
-		print_ft_list("UserListSplice2:", userListSplice2);
+		printContainer("UserListSplice1:", userListSplice1);
+		printContainer("UserListSplice2:", userListSplice2);
 		std::cout << std::endl;
 
 		sysIter = sysListSplice2.begin();
@@ -1503,11 +1570,11 @@ void				operations(int testNmb, int testAll)
 		userListSplice1.splice(userWhereAdd1, userListSplice2, userWhereAdd1++);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysListSplice1:", sysListSplice1);
-		print_std_list(" SysListSplice2:", sysListSplice2);
+		printContainer(" SysListSplice1:", sysListSplice1);
+		printContainer(" SysListSplice2:", sysListSplice2);
 		std::cout << std::endl;
-		print_ft_list("UserListSplice1:", userListSplice1);
-		print_ft_list("UserListSplice2:", userListSplice2);
+		printContainer("UserListSplice1:", userListSplice1);
+		printContainer("UserListSplice2:", userListSplice2);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysListSplice1.size(), userListSplice1.size(), "Size is (Splice 2.3)");
@@ -1543,11 +1610,11 @@ void				operations(int testNmb, int testAll)
 		}
 
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" SysListSplice1:", sysListSplice1);
-		// print_std_list(" SysListSplice2:", sysListSplice2);
+		// printContainer(" SysListSplice1:", sysListSplice1);
+		// printContainer(" SysListSplice2:", sysListSplice2);
 		// std::cout << std::endl;
-		// print_ft_list("UserListSplice1:", userListSplice1);
-		// print_ft_list("UserListSplice2:", userListSplice2);
+		// printContainer("UserListSplice1:", userListSplice1);
+		// printContainer("UserListSplice2:", userListSplice2);
 		// std::cout << std::endl;
 
 		std::list <int> :: iterator sysStart2 = sysListSplice2.begin();
@@ -1575,11 +1642,11 @@ void				operations(int testNmb, int testAll)
 		userListSplice1.splice(userWhereAdd, userListSplice2, userStart2, userEnd2);
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" SysListSplice1:", sysListSplice1);
-		// print_std_list(" SysListSplice2:", sysListSplice2);
+		// printContainer(" SysListSplice1:", sysListSplice1);
+		// printContainer(" SysListSplice2:", sysListSplice2);
 		// std::cout << std::endl;
-		// print_ft_list("UserListSplice1:", userListSplice1);
-		// print_ft_list("UserListSplice2:", userListSplice2);
+		// printContainer("UserListSplice1:", userListSplice1);
+		// printContainer("UserListSplice2:", userListSplice2);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysListSplice1.size(), userListSplice1.size(), "Size is (Splice 3)");
@@ -1658,12 +1725,12 @@ void				operations(int testNmb, int testAll)
 	}
 
 	// std::cout << "*** BEFORE ***" << std::endl;
-	// print_std_list(" SysListSplice1:", sysListSplice1);
-	// print_std_list(" SysListSplice2:", sysListSplice2);
+	// printContainer(" SysListSplice1:", sysListSplice1);
+	// printContainer(" SysListSplice2:", sysListSplice2);
 	// std::cout<< "pointer SysListSplice2:"<< *it_sys<<std::endl;
 	// std::cout << std::endl;
-	// print_ft_list("UserListSplice1:", userListSplice1);
-	// print_ft_list("UserListSplice2:", userListSplice2);
+	// printContainer("UserListSplice1:", userListSplice1);
+	// printContainer("UserListSplice2:", userListSplice2);
 	// std::cout<< "pointer UserListSplice2:"<< *it<<std::endl;
 	// std::cout << std::endl;
 
@@ -1671,11 +1738,11 @@ void				operations(int testNmb, int testAll)
 	userListSplice1.splice(userListSplice1.begin(), userListSplice2, it);
 
 	// std::cout << "*** AFTER ***" << std::endl;
-	// print_std_list(" SysListSplice1:", sysListSplice1);
-	// print_std_list(" SysListSplice2:", sysListSplice2);
+	// printContainer(" SysListSplice1:", sysListSplice1);
+	// printContainer(" SysListSplice2:", sysListSplice2);
 	// std::cout << std::endl;
-	// print_ft_list("UserListSplice1:", userListSplice1);
-	// print_ft_list("UserListSplice2:", userListSplice2);
+	// printContainer("UserListSplice1:", userListSplice1);
+	// printContainer("UserListSplice2:", userListSplice2);
 	// std::cout << std::endl;
 
 	testFunc(testNmb++, sysListSplice1.size(), userListSplice1.size(), "Size is (Splice 2)");
@@ -1718,12 +1785,12 @@ void				operations(int testNmb, int testAll)
 	}
 
 	// std::cout << "*** BEFORE ***" << std::endl;
-	// print_std_list(" SysListSplice1:", sysListSplice1);
-	// print_std_list(" SysListSplice2:", sysListSplice2);
+	// printContainer(" SysListSplice1:", sysListSplice1);
+	// printContainer(" SysListSplice2:", sysListSplice2);
 	// std::cout<< "pointer SysListSplice2:"<< *it_sys<<std::endl;
 	// std::cout << std::endl;
-	// print_ft_list("UserListSplice1:", userListSplice1);
-	// print_ft_list("UserListSplice2:", userListSplice2);
+	// printContainer("UserListSplice1:", userListSplice1);
+	// printContainer("UserListSplice2:", userListSplice2);
 	// std::cout<< "pointer UserListSplice2:"<< *it<<std::endl;
 	// std::cout << std::endl;
 
@@ -1735,11 +1802,11 @@ void				operations(int testNmb, int testAll)
 	userListSplice1.splice(userListSplice1.begin(), userListSplice2,it0, it);
 
 	// std::cout << "*** AFTER ***" << std::endl;
-	// print_std_list(" SysListSplice1:", sysListSplice1);
-   // print_std_list(" SysListSplice2:", sysListSplice2);
+	// printContainer(" SysListSplice1:", sysListSplice1);
+   // printContainer(" SysListSplice2:", sysListSplice2);
 	// std::cout << std::endl;
-	// print_ft_list("UserListSplice1:", userListSplice1);
-	// print_ft_list("UserListSplice2:", userListSplice2);
+	// printContainer("UserListSplice1:", userListSplice1);
+	// printContainer("UserListSplice2:", userListSplice2);
 	// std::cout << std::endl;
 
 	testFunc(testNmb++, sysListSplice1.size(), userListSplice1.size(), "Size is (Splice 3)");
@@ -1774,11 +1841,11 @@ void				operations(int testNmb, int testAll)
 		}
 
 		// std::cout << "*** BEFORE ***" << std::endl;
-		// print_std_list(" SysListSplice1:", sysListSplice1);
-		// print_std_list(" SysListSplice2:", sysListSplice2);
+		// printContainer(" SysListSplice1:", sysListSplice1);
+		// printContainer(" SysListSplice2:", sysListSplice2);
 		// std::cout << std::endl;
-		// print_ft_list("UserListSplice1:", userListSplice1);
-		// print_ft_list("UserListSplice2:", userListSplice2);
+		// printContainer("UserListSplice1:", userListSplice1);
+		// printContainer("UserListSplice2:", userListSplice2);
 		// std::cout << std::endl;
 
 		sysStart2 = sysListSplice2.begin();
@@ -1806,11 +1873,11 @@ void				operations(int testNmb, int testAll)
 		userListSplice1.splice(userWhereAdd, userListSplice2, userStart2, userEnd2);
 
 		// std::cout << "*** AFTER ***" << std::endl;
-		// print_std_list(" SysListSplice1:", sysListSplice1);
-		// print_std_list(" SysListSplice2:", sysListSplice2);
+		// printContainer(" SysListSplice1:", sysListSplice1);
+		// printContainer(" SysListSplice2:", sysListSplice2);
 		// std::cout << std::endl;
-		// print_ft_list("UserListSplice1:", userListSplice1);
-		// print_ft_list("UserListSplice2:", userListSplice2);
+		// printContainer("UserListSplice1:", userListSplice1);
+		// printContainer("UserListSplice2:", userListSplice2);
 		// std::cout << std::endl;
 
 		testFunc(testNmb++, sysListSplice1.size(), userListSplice1.size(), "Size is (Splice 3)");
@@ -1846,9 +1913,9 @@ void				operations(int testNmb, int testAll)
 		}
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
+		printContainer(" sysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("userList:", userList);
+		printContainer("userList:", userList);
 		std::cout << std::endl;
 
 		sysList.remove(0);
@@ -1858,9 +1925,9 @@ void				operations(int testNmb, int testAll)
 		userList.remove(2);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
+		printContainer(" SysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("UserList:", userList);
+		printContainer("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -1883,16 +1950,16 @@ void				operations(int testNmb, int testAll)
 		}
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" SysListSplice2:", sysListRemove);
+		printContainer(" SysListSplice2:", sysListRemove);
 		std::cout << std::endl;
-		print_ft_list("userListRemove:", userListRemove);
+		printContainer("userListRemove:", userListRemove);
 		std::cout << std::endl;
 		sysListRemove.remove(6);
 		userListRemove.remove(6);
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListRemove:", sysListRemove);
+		printContainer(" sysListRemove:", sysListRemove);
 		std::cout << std::endl;
-		print_ft_list("userListRemove:", userListRemove);
+		printContainer("userListRemove:", userListRemove);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListRemove.size(), userListRemove.size(), "Size is (Splice 3)");
@@ -1918,16 +1985,16 @@ void				operations(int testNmb, int testAll)
 		userListRemove.push_back(6);
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" SysListSplice2:", sysListRemove);
+		printContainer(" SysListSplice2:", sysListRemove);
 		std::cout << std::endl;
-		print_ft_list("userListRemove:", userListRemove);
+		printContainer("userListRemove:", userListRemove);
 		std::cout << std::endl;
 		sysListRemove.remove(6);
 		userListRemove.remove(6);
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListRemove:", sysListRemove);
+		printContainer(" sysListRemove:", sysListRemove);
 		std::cout << std::endl;
-		print_ft_list("userListRemove:", userListRemove);
+		printContainer("userListRemove:", userListRemove);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListRemove.size(), userListRemove.size(), "Size is (Splice 3)");
@@ -1953,16 +2020,16 @@ void				operations(int testNmb, int testAll)
 		userListRemove.push_back(10);
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" SysListSplice2:", sysListRemove);
+		printContainer(" SysListSplice2:", sysListRemove);
 		std::cout << std::endl;
-		print_ft_list("userListRemove:", userListRemove);
+		printContainer("userListRemove:", userListRemove);
 		std::cout << std::endl;
 		sysListRemove.remove(6);
 		userListRemove.remove(6);
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListRemove:", sysListRemove);
+		printContainer(" sysListRemove:", sysListRemove);
 		std::cout << std::endl;
-		print_ft_list("userListRemove:", userListRemove);
+		printContainer("userListRemove:", userListRemove);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListRemove.size(), userListRemove.size(), "Size is (Splice 3)");
@@ -1988,18 +2055,18 @@ void				operations(int testNmb, int testAll)
       }
 
       std::cout << "*** BEFORE ***" << std::endl;
-      print_std_list("sysListRemoveIf:", sysListRemoveIf);
+      printContainer("sysListRemoveIf:", sysListRemoveIf);
       std::cout << std::endl;
-      print_ft_list("userListRemoveIf:", userListRemoveIf);
+      printContainer("userListRemoveIf:", userListRemoveIf);
       std::cout << std::endl;
 
       sysListRemoveIf.remove_if(single_digit);
       userListRemoveIf.remove_if(single_digit);
 
       std::cout << "*** AFTER ***" << std::endl;
-      print_std_list(" sysListRemoveIf:", sysListRemoveIf);
+      printContainer(" sysListRemoveIf:", sysListRemoveIf);
       std::cout << std::endl;
-      print_ft_list("userListRemoveIf:", userListRemoveIf);
+      printContainer("userListRemoveIf:", userListRemoveIf);
       std::cout << std::endl;
 
       testFunc(testNmb++,sysListRemoveIf.size(), userListRemoveIf.size(), "Size is (remove_if)");
@@ -2028,18 +2095,18 @@ void				operations(int testNmb, int testAll)
 		}
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
+		printContainer(" sysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("userList:", userList);
+		printContainer("userList:", userList);
 		std::cout << std::endl;
 
 		sysList.unique();
 		userList.unique();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
+		printContainer(" SysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("UserList:", userList);
+		printContainer("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2072,18 +2139,18 @@ void				operations(int testNmb, int testAll)
 		}
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
+		printContainer(" sysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("userList:", userList);
+		printContainer("userList:", userList);
 		std::cout << std::endl;
 
 		sysList.unique();
 		userList.unique();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
+		printContainer(" SysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("UserList:", userList);
+		printContainer("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2113,18 +2180,18 @@ void				operations(int testNmb, int testAll)
 		}
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
+		printContainer(" sysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("userList:", userList);
+		printContainer("userList:", userList);
 		std::cout << std::endl;
 
 		sysList.unique();
 		userList.unique();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
+		printContainer(" SysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("UserList:", userList);
+		printContainer("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2145,18 +2212,18 @@ void				operations(int testNmb, int testAll)
 		userList.clear();
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
+		printContainer(" sysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("userList:", userList);
+		printContainer("userList:", userList);
 		std::cout << std::endl;
 
 		sysList.unique();
 		userList.unique();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
+		printContainer(" SysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("UserList:", userList);
+		printContainer("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2183,18 +2250,18 @@ void				operations(int testNmb, int testAll)
 		}
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
+		printContainer(" sysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("userList:", userList);
+		printContainer("userList:", userList);
 		std::cout << std::endl;
 
 		sysList.unique();
 		userList.unique();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
+		printContainer(" SysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("UserList:", userList);
+		printContainer("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2225,19 +2292,19 @@ void				operations(int testNmb, int testAll)
 		userListUnique.push_back(9);
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListUnique:", sysListUnique);
+		printContainer(" sysListUnique:", sysListUnique);
 		std::cout << std::endl;
 
-		print_ft_list("userListUnique:", userListUnique);
+		printContainer("userListUnique:", userListUnique);
 		std::cout << std::endl;
 
 		sysListUnique.unique();
 		userListUnique.unique();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListUnique:", sysListUnique);
+		printContainer(" sysListUnique:", sysListUnique);
 		std::cout << std::endl;
-		print_ft_list("userListUnique:", userListUnique);
+		printContainer("userListUnique:", userListUnique);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListUnique.size(), userListUnique.size(), "Size is (Splice 3)");
@@ -2259,18 +2326,18 @@ void				operations(int testNmb, int testAll)
 			userListUnique.push_back(i);
 		}
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListUnique:", sysListUnique);
+		printContainer(" sysListUnique:", sysListUnique);
 		std::cout << std::endl;
-		print_ft_list("userListUnique:", userListUnique);
+		printContainer("userListUnique:", userListUnique);
 		std::cout << std::endl;
 
 		sysListUnique.unique();
 		userListUnique.unique();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListUnique:", sysListUnique);
+		printContainer(" sysListUnique:", sysListUnique);
 		std::cout << std::endl;
-		print_ft_list("userListUnique:", userListUnique);
+		printContainer("userListUnique:", userListUnique);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListUnique.size(), userListUnique.size(), "Size is (Splice 3)");
@@ -2297,18 +2364,18 @@ void				operations(int testNmb, int testAll)
 		userListUnique.push_back(7);
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListUnique:", sysListUnique);
+		printContainer(" sysListUnique:", sysListUnique);
 		std::cout << std::endl;
-		print_ft_list("userListUnique:", userListUnique);
+		printContainer("userListUnique:", userListUnique);
 		std::cout << std::endl;
 
 		sysListUnique.unique(same_integral_part);
 		userListUnique.unique(same_integral_part);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListUnique:", sysListUnique);
+		printContainer(" sysListUnique:", sysListUnique);
 		std::cout << std::endl;
-		print_ft_list("userListUnique:", userListUnique);
+		printContainer("userListUnique:", userListUnique);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListUnique.size(), userListUnique.size(), "Size is (Splice 3)");
@@ -2334,17 +2401,17 @@ void				operations(int testNmb, int testAll)
 		}
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
+		printContainer(" sysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("userList:", userList);
+		printContainer("userList:", userList);
 		std::cout << std::endl;
 
 		sysList.merge(sysList);
 		userList.merge(userList);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
-		print_ft_list("UserList:", userList);
+		printContainer(" SysList:", sysList);
+		printContainer("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2380,19 +2447,19 @@ void				operations(int testNmb, int testAll)
 		}
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
-		print_std_list(" sysList:", sysList2);
+		printContainer(" sysList:", sysList);
+		printContainer(" sysList:", sysList2);
 		std::cout << std::endl;
-		print_ft_list("userList:", userList);
-		print_ft_list("userList:", userList2);
+		printContainer("userList:", userList);
+		printContainer("userList:", userList2);
 		std::cout << std::endl;
 
 		sysList.merge(sysList2);
 		userList.merge(userList2);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
-		print_ft_list("UserList:", userList);
+		printContainer(" SysList:", sysList);
+		printContainer("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2426,19 +2493,19 @@ void				operations(int testNmb, int testAll)
 			userList2.push_back(i);
 		}
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
-		print_std_list(" sysList:", sysList2);
+		printContainer(" sysList:", sysList);
+		printContainer(" sysList:", sysList2);
 		std::cout << std::endl;
-		print_ft_list("userList:", userList);
-		print_ft_list("userList:", userList2);
+		printContainer("userList:", userList);
+		printContainer("userList:", userList2);
 		std::cout << std::endl;
 
 		sysList.merge(sysList2);
 		userList.merge(userList2);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
-		print_ft_list("UserList:", userList);
+		printContainer(" SysList:", sysList);
+		printContainer("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2474,19 +2541,19 @@ void				operations(int testNmb, int testAll)
 		}
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
-		print_std_list(" sysList:", sysList2);
+		printContainer(" sysList:", sysList);
+		printContainer(" sysList:", sysList2);
 		std::cout << std::endl;
-		print_ft_list("userList:", userList);
-		print_ft_list("userList:", userList2);
+		printContainer("userList:", userList);
+		printContainer("userList:", userList2);
 		std::cout << std::endl;
 
 		sysList.merge(sysList2);
 		userList.merge(userList2);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
-		print_ft_list("UserList:", userList);
+		printContainer(" SysList:", sysList);
+		printContainer("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2521,20 +2588,20 @@ void				operations(int testNmb, int testAll)
 			userListMerge2.push_back(i);
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListMerge:", sysListMerge);
-		print_std_list(" sysListMerge2:", sysListMerge2);
+		printContainer(" sysListMerge:", sysListMerge);
+		printContainer(" sysListMerge2:", sysListMerge2);
 		std::cout << std::endl;
 
-		print_ft_list("userListMerge:", userListMerge);
-		print_ft_list(" userListMerge2:", userListMerge2);
+		printContainer("userListMerge:", userListMerge);
+		printContainer(" userListMerge2:", userListMerge2);
 		std::cout << std::endl;
 
 		sysListMerge.merge(sysListMerge2);
 		userListMerge.merge(userListMerge2);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListMerge:", sysListMerge);
-		print_ft_list("userListMerge:", userListMerge);
+		printContainer(" sysListMerge:", sysListMerge);
+		printContainer("userListMerge:", userListMerge);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListMerge.size(), userListMerge.size(), "Size is (Merge)");
@@ -2577,20 +2644,20 @@ void				operations(int testNmb, int testAll)
 		userListMerge2.push_back(-23);   // 4 -5 0 45 -50 11 0 3 10 -23
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListMerge:", sysListMerge);
-		print_std_list(" sysListMerge2:", sysListMerge2);
+		printContainer(" sysListMerge:", sysListMerge);
+		printContainer(" sysListMerge2:", sysListMerge2);
 		std::cout << std::endl;
 
-		print_ft_list("userListMerge:", userListMerge);
-		print_ft_list(" userListMerge2:", userListMerge2);
+		printContainer("userListMerge:", userListMerge);
+		printContainer(" userListMerge2:", userListMerge2);
 		std::cout << std::endl;
 
 		sysListMerge.merge(sysListMerge2);
 		userListMerge.merge(userListMerge2);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListMerge:", sysListMerge);
-		print_ft_list("userListMerge:", userListMerge);
+		printContainer(" sysListMerge:", sysListMerge);
+		printContainer("userListMerge:", userListMerge);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListMerge.size(), userListMerge.size(), "Size is (Merge)");
@@ -2624,23 +2691,23 @@ void				operations(int testNmb, int testAll)
 		userListMerge2.push_back(9);
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListMerge:", sysListMerge);
-		print_std_list(" sysListMerge2:", sysListMerge2);
+		printContainer(" sysListMerge:", sysListMerge);
+		printContainer(" sysListMerge2:", sysListMerge2);
 		std::cout << std::endl;
 
-		print_ft_list("userListMerge:", userListMerge);
-		print_ft_list(" userListMerge2:", userListMerge2);
+		printContainer("userListMerge:", userListMerge);
+		printContainer(" userListMerge2:", userListMerge2);
 		std::cout << std::endl;
 
 		sysListMerge2.merge(sysListMerge);
 		userListMerge2.merge(userListMerge);
 		
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListMerge:", sysListMerge);
-		print_ft_list("userListMerge:", userListMerge);
+		printContainer(" sysListMerge:", sysListMerge);
+		printContainer("userListMerge:", userListMerge);
 		std::cout << std::endl;
-		print_std_list(" sysListMerge:", sysListMerge2);
-		print_ft_list("userListMerge:", userListMerge2);
+		printContainer(" sysListMerge:", sysListMerge2);
+		printContainer("userListMerge:", userListMerge2);
 		std::cout << std::endl;
 
 
@@ -2671,23 +2738,23 @@ void				operations(int testNmb, int testAll)
 		}
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListMerge:", sysListMerge);
-		print_std_list(" sysListMerge2:", sysListMerge2);
+		printContainer(" sysListMerge:", sysListMerge);
+		printContainer(" sysListMerge2:", sysListMerge2);
 		std::cout << std::endl;
 
-		print_ft_list("userListMerge:", userListMerge);
-		print_ft_list(" userListMerge2:", userListMerge2);
+		printContainer("userListMerge:", userListMerge);
+		printContainer(" userListMerge2:", userListMerge2);
 		std::cout << std::endl;
 
 		sysListMerge2.merge(sysListMerge, myobject);
 		userListMerge2.merge(userListMerge, myobject);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListMerge:", sysListMerge2);
-		print_ft_list("userListMerge:", userListMerge2);
+		printContainer(" sysListMerge:", sysListMerge2);
+		printContainer("userListMerge:", userListMerge2);
 		std::cout << std::endl;
-		print_std_list(" sysListMerge:", sysListMerge);
-		print_ft_list("userListMerge:", userListMerge);
+		printContainer(" sysListMerge:", sysListMerge);
+		printContainer("userListMerge:", userListMerge);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListMerge2.size(), userListMerge2.size(), "Size is (Merge)");
@@ -2724,23 +2791,23 @@ void				operations(int testNmb, int testAll)
 		}
 		
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListMerge:", sysListMerge);
-		print_std_list(" sysListMerge2:", sysListMerge2);
+		printContainer(" sysListMerge:", sysListMerge);
+		printContainer(" sysListMerge2:", sysListMerge2);
 		std::cout << std::endl;
 
-		print_ft_list("userListMerge:", userListMerge);
-		print_ft_list(" userListMerge2:", userListMerge2);
+		printContainer("userListMerge:", userListMerge);
+		printContainer(" userListMerge2:", userListMerge2);
 		std::cout << std::endl;
 
 		sysListMerge2.merge(sysListMerge, mycomparison);
 		userListMerge2.merge(userListMerge, mycomparison);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListMerge:", sysListMerge2);
-		print_ft_list("userListMerge:", userListMerge2);
+		printContainer(" sysListMerge:", sysListMerge2);
+		printContainer("userListMerge:", userListMerge2);
 		std::cout << std::endl;
-		print_std_list(" sysListMerge:", sysListMerge);
-		print_ft_list("userListMerge:", userListMerge);
+		printContainer(" sysListMerge:", sysListMerge);
+		printContainer("userListMerge:", userListMerge);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListMerge2.size(), userListMerge2.size(), "Size is (Merge)");
@@ -2778,18 +2845,18 @@ void				operations(int testNmb, int testAll)
 		}
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
+		printContainer(" sysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("userList:", userList);
+		printContainer("userList:", userList);
 		std::cout << std::endl;
 
 		sysList.sort();
 		userList.sort();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
+		printContainer(" SysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("UserList:", userList);
+		printContainer("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2834,18 +2901,18 @@ void				operations(int testNmb, int testAll)
 		userList.push_back(150);
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysList:", sysList);
+		printContainer(" sysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("userList:", userList);
+		printContainer("userList:", userList);
 		std::cout << std::endl;
 
 		sysList.sort();
 		userList.sort();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" SysList:", sysList);
+		printContainer(" SysList:", sysList);
 		std::cout << std::endl;
-		print_ft_list("UserList:", userList);
+		printContainer("UserList:", userList);
 		std::cout << std::endl;
 
 		testFunc(testNmb++, sysList.size(), userList.size(), "Size is");
@@ -2886,17 +2953,17 @@ void				operations(int testNmb, int testAll)
 		userListSort.push_back(10);
 		userListSort.push_back(-23);   // 4 -5 0 45 -50 11 0 3 10 -23
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListSort:", sysListSort);
+		printContainer(" sysListSort:", sysListSort);
 		std::cout << std::endl;
-		print_ft_list("userListSort:", userListSort);
+		printContainer("userListSort:", userListSort);
 		std::cout << std::endl;
 		sysListSort.sort();
 		userListSort.sort();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListSort:", sysListSort);
+		printContainer(" sysListSort:", sysListSort);
 		std::cout << std::endl;
-		print_ft_list("userListSort:", userListSort);
+		printContainer("userListSort:", userListSort);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListSort.size(), userListSort.size(), "Size is (sort)");
@@ -2933,16 +3000,16 @@ void				operations(int testNmb, int testAll)
 		userListSortComp.push_back(-23);   // 4 -5 0 45 -50 11 0 3 10 -23
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListSortComp:", sysListSortComp);
-		print_ft_list("userListSort:Comp", userListSortComp);
+		printContainer(" sysListSortComp:", sysListSortComp);
+		printContainer("userListSort:Comp", userListSortComp);
 		std::cout << std::endl;
 
 		sysListSortComp.sort(myobject);
 		userListSortComp.sort(myobject);
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListSortComp:", sysListSortComp);
-		print_ft_list("userListSortComp:", userListSortComp);
+		printContainer(" sysListSortComp:", sysListSortComp);
+		printContainer("userListSortComp:", userListSortComp);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListSortComp.size(), userListSortComp.size(), "Size is (sort)");
@@ -2967,16 +3034,16 @@ void				operations(int testNmb, int testAll)
 		}
 
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListReverse:", sysListReverse);
-		print_ft_list("userListReverse:", userListReverse);
+		printContainer(" sysListReverse:", sysListReverse);
+		printContainer("userListReverse:", userListReverse);
 		std::cout << std::endl;
 
 		sysListReverse.reverse();
 		userListReverse.reverse();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListReverse:", sysListReverse);
-		print_ft_list("userListReverse:", userListReverse);
+		printContainer(" sysListReverse:", sysListReverse);
+		printContainer("userListReverse:", userListReverse);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListReverse.size(), userListReverse.size(), "Size is (Reverse)");
@@ -2998,16 +3065,16 @@ void				operations(int testNmb, int testAll)
 			userListReverse.push_back(4);
 		}
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListReverse:", sysListReverse);
-		print_ft_list("userListReverse:", userListReverse);
+		printContainer(" sysListReverse:", sysListReverse);
+		printContainer("userListReverse:", userListReverse);
 		std::cout << std::endl;
 
 		sysListReverse.reverse();
 		userListReverse.reverse();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListReverse:", sysListReverse);
-		print_ft_list("userListReverse:", userListReverse);
+		printContainer(" sysListReverse:", sysListReverse);
+		printContainer("userListReverse:", userListReverse);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListReverse.size(), userListReverse.size(), "Size is (Reverse)");
@@ -3029,16 +3096,16 @@ void				operations(int testNmb, int testAll)
 			userListReverse.push_back(4);
 		}
 		std::cout << "*** BEFORE ***" << std::endl;
-		print_std_list(" sysListReverse:", sysListReverse);
-		print_ft_list("userListReverse:", userListReverse);
+		printContainer(" sysListReverse:", sysListReverse);
+		printContainer("userListReverse:", userListReverse);
 		std::cout << std::endl;
 
 		sysListReverse.reverse();
 		userListReverse.reverse();
 
 		std::cout << "*** AFTER ***" << std::endl;
-		print_std_list(" sysListReverse:", sysListReverse);
-		print_ft_list("userListReverse:", userListReverse);
+		printContainer(" sysListReverse:", sysListReverse);
+		printContainer("userListReverse:", userListReverse);
 		std::cout << std::endl;
 
 		testFunc(testNmb++,sysListReverse.size(), userListReverse.size(), "Size is (Reverse)");
@@ -3087,18 +3154,18 @@ void				operations(int testNmb, int testAll)
 	User_f.push_back(30);
 	
 	std::cout << "*** BEFORE ***" << std::endl;
-	print_std_list(" Sys_a:", Sys_a);
-	print_std_list(" Sys_b:", Sys_b);
-	print_std_list(" Sys_c:", Sys_c);
-	print_std_list(" Sys_d:", Sys_d);
-	print_std_list(" Sys_f:", Sys_f);
+	printContainer(" Sys_a:", Sys_a);
+	printContainer(" Sys_b:", Sys_b);
+	printContainer(" Sys_c:", Sys_c);
+	printContainer(" Sys_d:", Sys_d);
+	printContainer(" Sys_f:", Sys_f);
 	std::cout << std::endl;
 	
-	print_ft_list("User_a:", User_a);
-	print_ft_list("User_b:", User_b);
-	print_ft_list("User_c:", User_c);
-	print_ft_list("User_d:", User_d);
-	print_ft_list("User_f:", User_f);
+	printContainer("User_a:", User_a);
+	printContainer("User_b:", User_b);
+	printContainer("User_c:", User_c);
+	printContainer("User_d:", User_d);
+	printContainer("User_f:", User_f);
 	std::cout << std::endl;
 
 	try
@@ -3210,27 +3277,11 @@ void				operators(int testNmb)
 	ft::list <int> testMyList;
 	std::list <int> testOriginalList;
 
-	sysData = testOriginalList.begin();
-	userData = testMyList.begin();
-	sysData++;
-	userData++;
-	testFunc(testNmb++, *sysData, *userData, "Begin value test ++a");
-	std::cout << "\x1b[31m" << "NO TEST" << "\x1b[0m" << std::endl;
-
 	sysData = sysList.end();
 	userData = userList.end();
 	sysData--;
 	userData--;
 	testFunc(testNmb++, *sysData, *userData, "End value test a--");
-
-
-	sysData = testOriginalList.end();
-	userData = testMyList.end();
-	sysData--;
-	userData--;
-	testFunc(testNmb++, *sysData, *userData, "End value test --a");
-	std::cout << "\x1b[31m" << "NO TEST" << "\x1b[0m" << std::endl;
-  
  
 	ft::list <int> testMyList1;
 	std::list <int> testOriginalList1;
@@ -3251,7 +3302,10 @@ void				operators(int testNmb)
 
 void				iterator_for_list(int testNmb)
 {
-	std::cout << std::endl << "\x1b[33m" << "                         *** ITERATORS FOR MAP ***                          " << "\x1b[0m" << std::endl;
+	std::cout << std::endl << "\x1b[33m" << "                         *** ITERATORS FOR LIST ***                          " << "\x1b[0m" << std::endl;
+
+	std::list<int> ::iterator iterSys0;
+	ft::list<int> ::iterator iterUser0;
 
 	std::list<int> listSys;
 	ft::list<int> listUser;
@@ -3261,70 +3315,404 @@ void				iterator_for_list(int testNmb)
 		listSys.push_back(i);
 		listUser.push_back(i);
 	}
-
-	std::list<int> listSys2;
-	ft::list<int> listUser2;
-
-	for(int i = 11; i < 20; i++)
-	{
-		listSys2.push_back(i);
-		listUser2.push_back(i);
-	}
-
-	std::list<int> listSys3;
-	ft::list<int> listUser3;
-
-	for(int i = 0; i < 10; i++)
-	{
-		listSys3.push_back(i);
-		listUser3.push_back(i);
-	}
-	
-	std::cout << "*** ARRAYS ***" << std::endl;
-	print_std_list(" a:", listSys);
-	print_std_list(" b:", listSys2);
-	print_std_list(" c:", listSys3);
-	std::cout<< std::endl;
-	print_ft_list(" a:", listUser);
-	print_ft_list(" b:", listUser2);
-	print_ft_list(" c:", listUser3);
 		
-	std::list<int> ::iterator iterSys = listSys.begin();
-	ft::list<int> ::iterator iterUser = listUser.begin();
+	std::list<int> ::iterator tmpSys  = listSys.begin();
+	ft::list<int> ::iterator  tmpUser = listUser.begin();
 
-	std::list<int> ::iterator iterSysSecond = listSys2.begin();
-	ft::list<int> ::iterator iterUserSecond = listUser2.begin();
+	std::list<int> ::iterator iterSys(tmpSys);
+	ft::list<int> ::iterator iterUser(tmpUser);
 
-	std::list<int> ::iterator iterSysThird = listSys2.begin();
-	ft::list<int> ::iterator iterUserThird = listUser2.begin();
+	testFunc(testNmb++, *iterSys, *iterUser, "Value");
 
-	std::cout << std::endl << "\x1b[33m" << "iterator: constructor copy" << "\x1b[0m" << std::endl;
-	std::list<int> ::iterator iterSys2(iterSys);
-	ft::list<int> ::iterator iterUser2(iterUser);
+	testFunc(testNmb++, listSys.begin() == listSys.begin(), listUser.begin() == listUser.begin() , "begin == begin");
+	testFunc(testNmb++, listSys.begin() == listSys.end(), listUser.begin() == listUser.end() , "begin == end");
+	testFunc(testNmb++, listSys.end() == listSys.begin(), listUser.end() == listUser.begin() , "end == begin");
 
-	testFunc(testNmb++, *iterSys2, *iterUser2, "begin");
-
-	std::cout << std::endl << "\x1b[33m" << "iterator: operator =" << "\x1b[0m" << std::endl;
-	std::list<int> ::iterator iterSys3 = iterSys;
-	ft::list<int> ::iterator iterUser3 = iterUser;
+	testFunc(testNmb++, listSys.begin() != listSys.begin(), listUser.begin() != listUser.begin() , "begin != begin");
+	testFunc(testNmb++, listSys.begin() != listSys.end(), listUser.begin() != listUser.end() , "begin != end");
+	testFunc(testNmb++, listSys.end() != listSys.begin(), listUser.end() != listUser.begin() , "end != begin");
 	
-	testFunc(testNmb++, *iterSys3, *iterUser3, "begin");
-	
-	testFunc(testNmb++, *iterSys == *iterSys2, *iterUser == *iterUser , "a == a(true)");
-	testFunc(testNmb++, *iterSys == *iterSysSecond, *iterUser == *iterUserSecond , "a == b(false)");
-	testFunc(testNmb++, *iterSys == *iterSysThird, *iterUser == *iterUserThird , "a == c");
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
 
-	testFunc(testNmb++, *iterSys != *iterSys2, *iterUser != *iterUser , "a != a(true)");
-	testFunc(testNmb++, *iterSys != *iterSysSecond, *iterUser != *iterUserSecond , "a != b(false)");
-	testFunc(testNmb++, *iterSys != *iterSysThird, *iterUser != *iterUserThird , "a != c");
-	
-
-	testFunc(testNmb++, *iterSys, *iterUser , "a");
+	*iterSys = 5;
+	*iterUser = 5;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a = t");
 
 	testFunc(testNmb++, *iterSys++, *iterUser++ , "a++");
 	testFunc(testNmb++, *++iterSys, *++iterUser , "++a");
+
+	*iterSys++;
+	*iterUser++;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++");
+
+	*iterSys++;
+	*iterUser++;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++");
+
 	testFunc(testNmb++, *iterSys--, *iterUser-- , "a--");
 	testFunc(testNmb++, *--iterSys, *--iterUser , "--a");
+
+	*iterSys--;
+	*iterUser--;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a--");
+
+	*iterSys--;
+	*iterUser--;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a--");
+	getchar();
+	std::system("clear");
+}
+
+void				const_iterator_for_list(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** CONST ITERATORS FOR LIST ***                          " << "\x1b[0m" << std::endl;
+
+	std::list<int> ::const_iterator iterSys0;
+	ft::list<int> ::const_iterator iterUser0;
+
+	std::list<int> listSys;
+	ft::list<int> listUser;
+
+	for(int i = 0; i < 10; i++)
+	{
+		listSys.push_back(i);
+		listUser.push_back(i);
+	}
+		
+	std::list<int> ::const_iterator tmpSys  = listSys.begin();
+	ft::list<int> ::const_iterator  tmpUser = listUser.begin();
+
+	std::list<int> ::const_iterator iterSys(tmpSys);
+	ft::list<int> ::const_iterator iterUser(tmpUser);
+
+	testFunc(testNmb++, *iterSys, *iterUser, "Value");
+
+	testFunc(testNmb++, listSys.begin() == listSys.begin(), listUser.begin() == listUser.begin() , "begin == begin");
+	testFunc(testNmb++, listSys.begin() == listSys.end(), listUser.begin() == listUser.end() , "begin == end");
+	testFunc(testNmb++, listSys.end() == listSys.begin(), listUser.end() == listUser.begin() , "end == begin");
+
+	testFunc(testNmb++, listSys.begin() != listSys.begin(), listUser.begin() != listUser.begin() , "begin != begin");
+	testFunc(testNmb++, listSys.begin() != listSys.end(), listUser.begin() != listUser.end() , "begin != end");
+	testFunc(testNmb++, listSys.end() != listSys.begin(), listUser.end() != listUser.begin() , "end != begin");
+	
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+
+	testFunc(testNmb++, *iterSys++, *iterUser++ , "a++");
+	testFunc(testNmb++, *++iterSys, *++iterUser , "++a");
+
+	*iterSys++;
+	*iterUser++;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++");
+
+	*iterSys++;
+	*iterUser++;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++");
+
+	testFunc(testNmb++, *iterSys--, *iterUser-- , "a--");
+	testFunc(testNmb++, *--iterSys, *--iterUser , "--a");
+
+	*iterSys--;
+	*iterUser--;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a--");
+
+	*iterSys--;
+	*iterUser--;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a--");
+	getchar();
+	std::system("clear");
+}
+
+void				rev_iterator_for_list(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** REVERSE ITERATORS FOR LIST ***                          " << "\x1b[0m" << std::endl;
+
+	std::list<int> ::reverse_iterator iterSys0;
+	ft::list<int> ::reverse_iterator iterUser0;
+
+	std::list<int> listSys;
+	ft::list<int> listUser;
+
+	for(int i = 0; i < 10; i++)
+	{
+		listSys.push_back(i);
+		listUser.push_back(i);
+	}
+		
+	std::list<int> ::reverse_iterator tmpSys  = listSys.rbegin();
+	ft::list<int> ::reverse_iterator  tmpUser = listUser.rbegin();
+
+	std::list<int> ::reverse_iterator iterSys(tmpSys);
+	ft::list<int> ::reverse_iterator iterUser(tmpUser);
+
+	testFunc(testNmb++, *iterSys, *iterUser, "Value");
+
+	testFunc(testNmb++, listSys.rbegin() == listSys.rbegin(), listUser.rbegin() == listUser.rbegin() , "rbegin == rbegin");
+	testFunc(testNmb++, listSys.rbegin() == listSys.rend(), listUser.rbegin() == listUser.rend() , "rbegin == rend");
+	testFunc(testNmb++, listSys.rend() == listSys.rbegin(), listUser.rend() == listUser.rbegin() , "rend == rbegin");
+
+	testFunc(testNmb++, listSys.rbegin() != listSys.rbegin(), listUser.rbegin() != listUser.rbegin() , "rbegin != rbegin");
+	testFunc(testNmb++, listSys.rbegin() != listSys.rend(), listUser.rbegin() != listUser.rend() , "rbegin != rend");
+	testFunc(testNmb++, listSys.rend() != listSys.rbegin(), listUser.rend() != listUser.rbegin() , "rend != rbegin");
+	
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+
+	*iterSys = 5;
+	*iterUser = 5;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a = t");
+
+	testFunc(testNmb++, *iterSys++, *iterUser++ , "a++");
+	testFunc(testNmb++, *++iterSys, *++iterUser , "++a");
+
+	*iterSys++;
+	*iterUser++;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++");
+
+	*iterSys++;
+	*iterUser++;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++");
+
+	testFunc(testNmb++, *iterSys--, *iterUser-- , "a--");
+	testFunc(testNmb++, *--iterSys, *--iterUser , "--a");
+
+	*iterSys--;
+	*iterUser--;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a--");
+
+	*iterSys--;
+	*iterUser--;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a--");
+	getchar();
+	std::system("clear");
+}
+
+void				rev_const_iterator_for_list(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** CONST REVERSE ITERATORS FOR LIST ***                          " << "\x1b[0m" << std::endl;
+
+	std::list<int> ::const_reverse_iterator iterSys0;
+	ft::list<int> ::const_reverse_iterator iterUser0;
+
+	std::list<int> listSys;
+	ft::list<int> listUser;
+
+	for(int i = 0; i < 10; i++)
+	{
+		listSys.push_back(i);
+		listUser.push_back(i);
+	}
+		
+	std::list<int> ::const_reverse_iterator tmpSys  = listSys.rbegin();
+	ft::list<int> ::const_reverse_iterator  tmpUser = listUser.rbegin();
+
+	std::list<int> ::const_reverse_iterator iterSys(tmpSys);
+	ft::list<int> ::const_reverse_iterator iterUser(tmpUser);
+
+	testFunc(testNmb++, *iterSys, *iterUser, "Value");
+
+	testFunc(testNmb++, listSys.rbegin() == listSys.rbegin(), listUser.rbegin() == listUser.rbegin() , "rbegin == rbegin");
+	testFunc(testNmb++, listSys.rbegin() == listSys.rend(), listUser.rbegin() == listUser.rend() , "rbegin == rend");
+	testFunc(testNmb++, listSys.rend() == listSys.rbegin(), listUser.rend() == listUser.rbegin() , "rend == rbegin");
+
+	testFunc(testNmb++, listSys.rbegin() != listSys.rbegin(), listUser.rbegin() != listUser.rbegin() , "rbegin != rbegin");
+	testFunc(testNmb++, listSys.rbegin() != listSys.rend(), listUser.rbegin() != listUser.rend() , "rbegin != rend");
+	testFunc(testNmb++, listSys.rend() != listSys.rbegin(), listUser.rend() != listUser.rbegin() , "rend != rbegin");
+	
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
+
+	testFunc(testNmb++, *iterSys++, *iterUser++ , "a++");
+	testFunc(testNmb++, *++iterSys, *++iterUser , "++a");
+
+	*iterSys++;
+	*iterUser++;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++");
+
+	*iterSys++;
+	*iterUser++;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a++");
+
+	testFunc(testNmb++, *iterSys--, *iterUser-- , "a--");
+	testFunc(testNmb++, *--iterSys, *--iterUser , "--a");
+
+	*iterSys--;
+	*iterUser--;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a--");
+
+	*iterSys--;
+	*iterUser--;
+	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a--");
+	getchar();
+	std::system("clear");
+}
+
+void				different_types_list(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** DIFFERENT TYPES ***                          " << "\x1b[0m" << std::endl;
+	
+	/* string */
+	std::cout << std::endl << "\x1b[33m" << "STRING" << "\x1b[0m" << std::endl;
+
+	ft::list <std::string> userString;
+	std::list <std::string> sysString;
+
+	userString.push_back("string1");
+	sysString.push_back("string1");
+
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty list");
+	testFunc(testNmb++, *sysString.begin(), *userString.begin(), "begin list");
+	testFunc(testNmb++, sysString.max_size(), userString.max_size(), "max_size list");
+
+	userString.push_back("string2");
+	sysString.push_back("string2");
+
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty list");
+	testFunc(testNmb++, sysString.front(), userString.front(), "front list");
+	testFunc(testNmb++, sysString.back(), userString.back(), "back list");
+
+	sysString.erase(sysString.begin());
+	userString.erase(userString.begin());
+
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty list");
+	testFunc(testNmb++, *sysString.begin(), *userString.begin(), "begin list");
+
+	sysString.pop_back();
+	userString.pop_back();
+
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty list");
+	testFunc(testNmb++, *sysString.begin(), *userString.begin(), "begin list");
+	
+	getchar();
+	std::system("clear");
+
+	/* char */
+	std::cout << std::endl << "\x1b[33m" << "CHAR" << "\x1b[0m" << std::endl;
+			
+	ft::list <char> userChar;
+	std::list <char> sysChar;
+			
+	for (int i = 33; i < 57; i++)
+	{
+		sysChar.push_back(i);
+		userChar.push_back(i);
+	}
+
+	std::list <char> :: iterator sysIteratorChar = sysChar.end();
+	ft::list <char> :: iterator userIteratorChar  = userChar.end();
+
+	sysIteratorChar--;
+	userIteratorChar--;
+
+	testFunc(testNmb++, userChar.size(), userChar.size(), "Size is <char>");
+	testFunc(testNmb++, *sysIteratorChar, *userIteratorChar, "Size of list <char>");
+	getchar();
+	std::system("clear");
+
+	/* const char */
+	// std::cout << std::endl << "\x1b[33m" << "CONST CHAR" << "\x1b[0m" << std::endl;
+			
+	// ft::list <const char> userConstChar;
+	// std::list  <const char> sysConstChar;
+			
+	// for (int i = 33; i < 57; i++)
+	// {
+	// 	sysConstChar.push_back(i);
+	// 	userConstChar.push_back(i);
+	// }
+
+	// std::list <const char> :: iterator sysIteratorConstChar = sysConstChar.begin();
+	// ft::list <const char> :: iterator userIteratorConstChar = userConstChar.begin();
+
+	// testFunc(testNmb++, userConstChar.size(), userConstChar.size(), "Size is <char>");
+	// testFunc(testNmb++, *sysIteratorChar, *userIteratorChar, "Size of list <char>");
+	// getchar();
+	// std::system("clear");
+
+	/* for next test */
+	ft::list <char> userChar2;
+	std::list <char> sysChar2;
+			
+	for (int i = 57; i < 122; i++)
+	{
+		sysChar2.push_back(i);
+		userChar2.push_back(i);
+	}
+	/* for next test */
+
+	/* std::list */
+	std::cout << std::endl << "\x1b[33m" << "std::list <char> / ft::list <char>" << "\x1b[0m" << std::endl;
+
+	ft::list <std::list <char> > userStdListChar;
+	std::list <ft::list <char> > sysStdListChar;
+
+	userStdListChar.push_back(sysChar);
+	sysStdListChar.push_back(userChar);
+
+	testFunc(testNmb++, sysStdListChar.size(), userStdListChar.size(), "Size");
+	testFunc(testNmb++, sysStdListChar.empty(), userStdListChar.empty(), "Empty list");
+	testFunc(testNmb++, *sysStdListChar.begin()->begin(), *userStdListChar.begin()->begin(), "begin list");
+
+	userStdListChar.push_back(sysChar);
+	sysStdListChar.push_back(userChar);
+
+	testFunc(testNmb++, sysStdListChar.size(), userStdListChar.size(), "Size");
+	testFunc(testNmb++, sysStdListChar.empty(), userStdListChar.empty(), "Empty list");
+	testFunc(testNmb++, *sysStdListChar.begin()->begin(), *userStdListChar.begin()->begin(), "begin list");
+
+	sysStdListChar.erase(sysStdListChar.begin());
+	userStdListChar.erase(userStdListChar.begin());
+
+	testFunc(testNmb++, sysStdListChar.size(), userStdListChar.size(), "Size");
+	testFunc(testNmb++, sysStdListChar.empty(), userStdListChar.empty(), "Empty list");
+	testFunc(testNmb++, *sysStdListChar.begin()->begin(), *userStdListChar.begin()->begin(), "begin list");
+
+	sysStdListChar.pop_back();
+	userStdListChar.pop_back();
+
+	testFunc(testNmb++, sysStdListChar.size(), userStdListChar.size(), "Size");
+	testFunc(testNmb++, sysStdListChar.empty(), userStdListChar.empty(), "Empty list");
+	getchar();
+	std::system("clear");
+
+	/* float */
+	std::cout << std::endl << "\x1b[33m" << "FLOAT" << "\x1b[0m" << std::endl;
+
+	ft::list <float> userFloat;
+	std::list <float> sysFloat;
+
+	userFloat.push_back(-9.5);
+	sysFloat.push_back(-9.5);
+
+	testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
+	testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
+	testFunc(testNmb++, *sysFloat.begin(), *userFloat.begin(), "begin list");
+	testFunc(testNmb++, sysFloat.max_size(), userFloat.max_size(), "max_size list");
+
+	userFloat.push_back(42.5);
+	sysFloat.push_back(42.5);
+
+	testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
+	testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
+	testFunc(testNmb++, sysFloat.front(), userFloat.front(), "front list");
+	testFunc(testNmb++, sysFloat.back(), userFloat.back(), "back list");
+
+	sysFloat.erase(sysFloat.begin());
+	userFloat.erase(userFloat.begin());
+
+	testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
+	testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
+	testFunc(testNmb++, *sysFloat.begin(), *userFloat.begin(), "begin list");
+
+	sysFloat.pop_back();
+	userFloat.pop_back();
+
+	testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
+	testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
+	testFunc(testNmb++, *sysFloat.begin(), *userFloat.begin(), "begin list");
+	getchar();
+	std::system("clear");
 }
 
 void				list_test()
@@ -3353,7 +3741,14 @@ void				list_test()
 	operations(testNmb, testAll);
 	overloads(testNmb);
 
-	// /* extra */
+	/* extra */
 	operators(testNmb);
+
 	iterator_for_list(testNmb);
+	const_iterator_for_list(testNmb);
+
+	rev_iterator_for_list(testNmb);
+	rev_const_iterator_for_list(testNmb);
+
+	different_types_list(testNmb);
 }

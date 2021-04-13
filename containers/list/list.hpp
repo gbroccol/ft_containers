@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/06 20:08:52 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/12 20:17:36 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ namespace ft
 			typedef Alloc									allocator_type;
 			typedef size_t									size_type;
 			typedef value_type&								reference;
+			typedef const value_type&						const_reference;
 			typedef ft::iterator<T>							iterator;
 			typedef ft::const_iterator <T>					const_iterator;
 			typedef ft::reverse_iterator<T>					reverse_iterator;
@@ -45,8 +46,7 @@ namespace ft
 
 				_Tail->next = _Tail;
 				_Tail->pre  = _Tail;
-				_Tail->data = 0;
-				
+				_size = 0;
 				_Node = _Tail;
 			}
 			
@@ -56,8 +56,9 @@ namespace ft
 
 				_Tail->next = _Tail;
 				_Tail->pre  = _Tail;
-				_Tail->data = 0;
-				
+
+				_size = 0;
+
 				for ( ; n; n--)
 					push_back(val);
 					
@@ -71,10 +72,9 @@ namespace ft
 				_Tail = new Node <T> ();
 				_Tail->next = _Tail;
 				_Tail->pre  = _Tail;
-				_Tail->data = 0;
-
+				_size = 0;
 				for ( ; first != last; first++)
-					push_back(first.getptr()->data);
+					push_back(first.ptr->data);
 				_Node = _Tail->next;
 			}
 
@@ -83,7 +83,7 @@ namespace ft
 				_Tail = new struct Node <T>;
 				_Tail->pre  = _Tail;
 				_Tail->next = _Tail;
-				_Tail->data = 0;
+				_size = 0;
 				*this = x;
 				return ;
 			}
@@ -104,12 +104,11 @@ namespace ft
 
 			list&         operator=(const list& x)
 			{
-				// _Tail->data = 0;
-				if (_Tail->data)
+				if (this->size() > 0)
 					clear();
 				
 				struct Node <T> *list_tmp = x._Tail->next;
-				if (x._Tail->data > 0)
+				if (x.size() > 0)
 				{
 					while (list_tmp != x._Tail)
 					{
@@ -140,17 +139,27 @@ namespace ft
 
 	/* Capacity */
 
-			bool empty() const { return (_Tail->data == 0 ? true : false); }
-			size_type size() const { return (size_t)_Tail->data; }
-			size_type max_size() const { return (std::numeric_limits<size_type>::max() / (sizeof(Node <T>))); }
+			bool empty() const
+			{
+				return (size() == 0 ? true : false);
+			}
+			
+			size_type size() const
+			{
+				return _size;
+			}
+			size_type max_size() const
+			{
+				return (std::numeric_limits<size_type>::max() / (sizeof(Node <T>)));
+			}
 
 	/* Element access */
 
 			reference front() { return this->_Tail->next->data; }
-			// const_reference front() const { return this->_Tail->next->data; }
+			const_reference front() const { return this->_Tail->next->data; }
 
 			reference back() { return this->_Tail->pre->data; }
-			// const_reference back() const { return this->_Tail->pre->data; }
+			const_reference back() const { return this->_Tail->pre->data; }
 
 	/* Modifiers */
 
@@ -158,24 +167,6 @@ namespace ft
  			void assign (InputIterator first, InputIterator last,
 						typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
-
-
-
-				// if (checkin(begin(), end(), first) || checkin(begin(), end(), last))		// проверка на принадлежность этому листу ?????
-				// 	return ;
-
-
-				// if (checkin(x.begin(), x.end(), first) == false)
-				// 	return ;
-
-			
-
-
-
-
-
-
-
 				clear();
 				for ( ; first != last; first++)
 					push_back(*first);
@@ -198,21 +189,14 @@ namespace ft
 
 				_Tail->next->pre = tmp;
 				_Tail->next = tmp;
-				_Tail->data++;
 
-
-				// Node <T> *ptr = new Node <T> (val);
-				// ptr->pre = this->head;
-				// ptr->next = this->head->next;
-				// this->head->next->pre = ptr;
-				// this->head->next = ptr;
-				// this->length++;
+				_size++;
 			}
 			
 			void pop_front()
 			{
 				Node <T> *tmp = _Tail->next;
-				if(_Tail->data == 1)
+				if(size() == 1)
 				{
 					_Tail->next = _Tail;
 					_Tail->pre = _Tail;
@@ -223,7 +207,8 @@ namespace ft
 					tmp->next->pre = _Tail;
 				}
 				delete tmp;
-				_Tail->data--;
+
+				_size--;
 			}
 
 			void push_back(const T &val)
@@ -231,13 +216,12 @@ namespace ft
 				Node <T> * tmp = new Node< T>;          
 				tmp->data = val;
 				
-				if(_Tail->data == 0)
+				if(size() == 0)
 				{
 					_Tail->next  = tmp;
 					_Tail->pre  = tmp;
 					tmp->next = _Tail;
 					tmp->pre = _Tail;
-					_Tail->data++;
 				}
 				else
 				{
@@ -245,14 +229,14 @@ namespace ft
 					tmp->next = _Tail;
 					_Tail->pre->next = tmp;
 					_Tail->pre = tmp;
-					_Tail->data++;
 				}
+				_size++;
 			}
 
 			void pop_back()
 			{
 				Node <T> *tmp  = _Tail->pre;
-				if (_Tail->data == 1)
+				if (size() == 1)
                 {
                     _Tail->pre = _Tail;
                     _Tail->next = _Tail;
@@ -263,7 +247,7 @@ namespace ft
                     _Tail->pre->next =_Tail;
                 }
 				delete tmp;
-            	_Tail->data--;
+				_size--;
 			}
 
 			iterator insert (iterator position, const value_type& val) // insert before position
@@ -271,16 +255,15 @@ namespace ft
 				Node <T> * newElem = new Node <T>();
 				newElem->data = val;
 				
-				newElem->pre  = position.getptr()->pre;
-				newElem->next = position.getptr();
+				newElem->pre  = position.ptr->pre;
+				newElem->next = position.ptr;
 				
 				newElem->pre->next  = newElem;
 				newElem->next->pre  = newElem;
-				
-				_Tail->data++;
+				_size++;
 				return iterator(newElem);
 			}
-			
+		
 			void insert (iterator position, size_type n, const value_type& val)
 			{
 				for ( ; n > 0; n--)
@@ -292,20 +275,20 @@ namespace ft
 						typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
 				for ( ; first != last; first++)
-					insert(position, first.getptr()->data);
+					insert(position, first.ptr->data);
 			}
 
 			iterator erase (iterator position)
 			{
-				if (_Tail->data)
+				if (size() > 0)
 				{
-					Node <T> *delElem = position.getptr();
+					Node <T> *delElem = position.ptr;
 					
 					delElem->pre->next = delElem->next;
 					delElem->next->pre = delElem->pre;
 					position++;
 					delete delElem;
-					_Tail->data--;
+					_size--;
 				}
 				return position;
 			}
@@ -322,26 +305,21 @@ namespace ft
 				ft::itemswap(this->_Node, x._Node);
 				ft::itemswap(this->_Tail, x._Tail);
 				ft::itemswap(this->_Alloc, x._Alloc);
+				ft::itemswap(this->_size, x._size);
 			}
 
 			void resize (size_type n, value_type val = value_type())
 			{
-				while (_Tail->data < (T)n)
+				while (size() < n)
 					push_back(val);
-				while (_Tail->data > (T)n)
+				while (size() > n)
 					pop_back();
 			}
 			
 			void clear()
 			{
-				// if (_Tail->data == 0)
-				// 	std::cout << "*** CLEAR = 0 = " << _Tail->data << " ***" << std::endl;
-				// std::cout << "*** CLEAR " << _Tail->data << " ***" << std::endl;
-				while (_Tail->data > 0)
-				{
-					// std::cout << "-> "<< _Tail->data << std::endl;
+				while (size() > 0)
 					pop_back();
-				}
 			}
 
 	/* Operations */
@@ -363,15 +341,16 @@ namespace ft
 					return ;
 					
 				/* find first and last Nodes to ADD THEM */
-				Node <T> * firstNodeX = first.getptr();
-				Node <T> * lastNodeX = last.getptr();
+				Node <T> * firstNodeX = first.ptr;
+				Node <T> * lastNodeX = last.ptr;
 
 				/* change Size */
 				int	diff = ft::distance(first, last);
-				x._Tail->data -= diff;
-				this->_Tail->data += diff;
 
-				Node <T> * WhereAdd = position.getptr();
+				x._size -= diff;
+				_size += diff;
+
+				Node <T> * WhereAdd = position.ptr;
 				Node <T> * lastelemx = lastNodeX->pre;
 
 				firstNodeX->pre->next = lastNodeX;
@@ -392,14 +371,12 @@ namespace ft
 				
 				for ( ; tmp != this->end(); tmp++)
 				{
-					node = tmp.getptr();
+					node = tmp.ptr;
 					if (node->data == val)
 					{
 						node->pre->next = node->next;
 						node->next->pre = node->pre;
-
-						this->_Tail->data--;
-					
+						_size--;
 						delete node;
 					}
 				}
@@ -429,14 +406,12 @@ namespace ft
 				
 				for ( ; tmp != this->end(); tmp++)
 				{
-					node = tmp.getptr();
+					node = tmp.ptr;
 					if (node->data == node->pre->data)
 					{
 						node->pre->next = node->next;
 						node->next->pre = node->pre;
-
-						this->_Tail->data--;
-					
+						_size--;
 						delete node;
 					}
 				}
@@ -449,7 +424,7 @@ namespace ft
 				it++;
 				while (it != end())
 				{
-					if (binary_pred(*it, it.getpre()->data))
+					if (binary_pred(*it, it.ptr->pre->data))
 						it = erase(it);
 					else
 						it++;
@@ -468,7 +443,7 @@ namespace ft
 				{
 					while (itx != x.end() && *it > *itx)
 					{
-						insert(it, itx.getptr()->data);
+						insert(it, itx.ptr->data);
 						itx++;
 					}
 					it++;
@@ -491,7 +466,7 @@ namespace ft
 				{
 					while (itx != x.end() && comp(*itx, *it))
 					{
-						insert(it, itx.getptr()->data);
+						insert(it, itx.ptr->data);
 						itx++;
 					}
 					it++;
@@ -510,9 +485,9 @@ namespace ft
 				
 				while (it != end())
 				{
-					if (*it < it.getpre()->data)
+					if (*it < it.ptr->pre->data)
 					{
-						ft::itemswap(it.getptr()->data, it.getpre()->data);
+						ft::itemswap(it.ptr->data, it.ptr->pre->data);
 						it = begin();
 					}
 					it++;
@@ -527,9 +502,9 @@ namespace ft
 				
 				while (it != end())
 				{
-					if (comp(*it, it.getpre()->data))
+					if (comp(*it, it.ptr->pre->data))
 					{
-						ft::itemswap(it.getptr()->data, it.getpre()->data);
+						ft::itemswap(it.ptr->data, it.ptr->pre->data);
 						it = begin();
 					}
 					it++;
@@ -543,7 +518,7 @@ namespace ft
 
 				while (itBegin != itEnd)
 				{
-					ft::itemswap(itBegin.getptr()->data, itEnd.getpre()->data);
+					ft::itemswap(itBegin.ptr->data, itEnd.ptr->pre->data);
 					
 					itBegin++;
 					if (itBegin == itEnd)
@@ -561,6 +536,8 @@ namespace ft
 			Node <T>		*_Node;
 			Node <T>		*_Tail;
 			allocator_type	_Alloc;
+
+			size_t			_size;
 			
     }; 
 
