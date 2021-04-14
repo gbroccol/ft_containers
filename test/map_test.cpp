@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:48:16 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/13 18:09:49 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/14 15:37:46 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1207,9 +1207,6 @@ void				modifiers_map(int testNmb, int testAll)
 
 		testFunc(testNmb++, mapSys2.begin()->first, mapUser2.begin()->first, "begin");
 		testFunc(testNmb++, mapSys2.size(), mapUser2.size(), "Size is");
-		
-		testFunc(testNmb++, mapSys.begin()->first, mapUser.begin()->first, "begin");
-		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 
 		getchar();
 		system("clear");
@@ -2747,6 +2744,107 @@ void				rev_const_iterator_for_map(int testNmb)
 	system("clear");
 }
 
+void				different_types_map(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** DIFFERENT TYPES ***                          " << "\x1b[0m" << std::endl;
+	
+	/* string */
+	std::cout << std::endl << "\x1b[33m" << "STRING" << "\x1b[0m" << std::endl;
+
+	ft::map <std::string, std::string> userString;
+	std::map <std::string, std::string> sysString;
+
+	userString.insert(std::pair <std::string, std::string> ("120", "Hello"));
+	sysString.insert(std::pair <std::string, std::string> ("120", "Hello"));
+
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty");
+	testFunc(testNmb++, sysString.begin()->first, userString.begin()->first, "first");
+	testFunc(testNmb++, sysString.begin()->second, userString.begin()->second, "second");
+
+	userString.insert(std::pair <std::string, std::string> ("125", "World"));
+	sysString.insert(std::pair <std::string, std::string> ("125", "World"));
+
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty");
+	testFunc(testNmb++, sysString.begin()->first, userString.begin()->first, "first");
+	testFunc(testNmb++, sysString.begin()->second, userString.begin()->second, "second");
+
+	sysString.erase(sysString.begin());
+	userString.erase(userString.begin());
+
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty");
+	testFunc(testNmb++, sysString.begin()->first, userString.begin()->first, "first");
+	testFunc(testNmb++, sysString.begin()->second, userString.begin()->second, "second");
+
+	sysString.erase(sysString.begin());
+	userString.erase(userString.begin());
+
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty");
+	
+	getchar();
+	std::system("clear");
+
+	// /* const char */
+	// std::cout << std::endl << "\x1b[33m" << "CONST CHAR" << "\x1b[0m" << std::endl;
+			
+	// ft::map <int, const char> userConstChar;
+	// std::map  <int, const char> sysConstChar;
+			
+	// for (int i = 33; i < 57; i++)
+	// {
+	// 	userConstChar.insert(std::pair <int, const char> (125, 'a'));
+	// 	sysConstChar.insert(std::pair <int, const char> (125, 'a'));
+	// }
+
+	// std::map <int, const char> :: iterator sysIteratorConstChar = sysConstChar.begin();
+	// ft::map <int, const char> :: iterator userIteratorConstChar = userConstChar.begin();
+
+	// testFunc(testNmb++, userConstChar.size(), userConstChar.size(), "Size is <char>");
+	// testFunc(testNmb++, sysIteratorConstChar->first, userIteratorConstChar->first, "first");
+	// testFunc(testNmb++, sysIteratorConstChar->second, userIteratorConstChar->second, "second");
+	// getchar();
+	// std::system("clear");
+
+	/* for next test */
+	ft::list <char> userChar;
+	std::list <char> sysChar;
+			
+	for (int i = 58; i < 122; i++)
+	{
+		sysChar.push_back(i);
+		userChar.push_back(i);
+	}
+
+	ft::list <char> userChar2;
+	std::list <char> sysChar2;
+			
+	for (int i = 33; i < 57; i++)
+	{
+		sysChar2.push_back(i);
+		userChar2.push_back(i);
+	}
+	/* for next test */
+
+	/* std::list */
+	std::cout << std::endl << "\x1b[33m" << "std::list <char> / ft::list <char>" << "\x1b[0m" << std::endl;
+
+	ft::map <ft::list <char>, ft::list <char> > userStdListChar;
+	std::map <std::list <char>, std::list <char> > sysStdListChar;
+
+	userStdListChar.insert(std::pair <ft::list <char>, ft::list <char> > (userChar, userChar2));
+	sysStdListChar.insert(std::pair <std::list <char>, std::list <char> > (sysChar, sysChar2));
+
+	testFunc(testNmb++, sysStdListChar.size(), userStdListChar.size(), "Size");
+	testFunc(testNmb++, sysStdListChar.empty(), userStdListChar.empty(), "Empty");
+	testFunc(testNmb++, *sysStdListChar.begin()->first.begin(), *userStdListChar.begin()->first.begin(), "begin");
+	testFunc(testNmb++, *sysStdListChar.begin()->second.begin(), *userStdListChar.begin()->second.begin(), "begin");
+	getchar();
+	std::system("clear");
+}
+
 void map_test()
 {
 	int testNmb = 0;
@@ -2777,4 +2875,6 @@ void map_test()
 
 	rev_iterator_for_map(testNmb);
 	rev_const_iterator_for_map(testNmb);
+
+	different_types_map(testNmb);
 }

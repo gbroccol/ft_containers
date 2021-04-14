@@ -339,21 +339,18 @@ void				iterators(int testNmb, int testAll)
 		testFunc(testNmb++, *s_s, *m_s, "begin (empty list)");
 		testFunc(testNmb++, *s_f, *m_f, "end (empty list)");
 
-		
-
 		/* test 3 */
-		std::cout << "\x1b[31mTEST DOES NOT WORK\x1b[0m" << std::endl;
-		// userList.clear();
-		// sysList.clear();
+		userList.clear();
+		sysList.clear();
 
-		// std::list <int>::const_iterator const_s_s = sysList.begin(); 
-		// ft::list <int>::const_iterator const_m_s = userList.begin();
+		std::list <int>::const_iterator const_s_s = sysList.begin(); 
+		ft::list <int>::const_iterator const_m_s = userList.begin();
 
-		// std::list <int>::const_iterator const_s_f  = sysList.end();
-		// ft::list <int>::const_iterator const_m_f = userList.end();
+		std::list <int>::const_iterator const_s_f  = sysList.end();
+		ft::list <int>::const_iterator const_m_f = userList.end();
 
-		// testFunc(testNmb++, *const_s_s, *const_m_s, "begin (empty list)");
-		// testFunc(testNmb++, *const_s_f, *const_m_f, "end (empty list)");
+		testFunc(testNmb++, *const_s_s, *const_m_s, "begin (empty list)");
+		testFunc(testNmb++, *const_s_f, *const_m_f, "end (empty list)");
 
 		getchar();
 		std::system("clear");
@@ -2868,7 +2865,7 @@ void				operations(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
 
 		getchar();
-		// std::system("clear");
+		std::system("clear");
     
     	/*		sort 2		*/
 		std::cout << std::endl << "\x1b[33m" << "sort 2" << "\x1b[0m" << std::endl;
@@ -2924,7 +2921,7 @@ void				operations(int testNmb, int testAll)
 		testFunc(testNmb++, sysList.back(), userList.back(), "Back value is");
 
 		getchar();
-		// std::system("clear");
+		std::system("clear");
     
 		/*		sort 3		*/
 		std::cout << std::endl << "\x1b[33m" << "LENA sort 3" << "\x1b[0m" << std::endl;

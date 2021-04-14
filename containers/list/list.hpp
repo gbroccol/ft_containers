@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/12 20:17:36 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/14 17:14:33 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,11 +340,9 @@ namespace ft
 				if (checkin(x.begin(), x.end(), first) == false)
 					return ;
 					
-				/* find first and last Nodes to ADD THEM */
 				Node <T> * firstNodeX = first.ptr;
 				Node <T> * lastNodeX = last.ptr;
 
-				/* change Size */
 				int	diff = ft::distance(first, last);
 
 				x._size -= diff;
@@ -480,18 +478,22 @@ namespace ft
 
 			void sort()
 			{
-				iterator it = begin();
-				it++;
+				iterator itEnd = end();
+				itEnd--;
+				quickSort(begin(), itEnd);
+
+				// iterator it = begin();
+				// it++;
 				
-				while (it != end())
-				{
-					if (*it < it.ptr->pre->data)
-					{
-						ft::itemswap(it.ptr->data, it.ptr->pre->data);
-						it = begin();
-					}
-					it++;
-				}
+				// while (it != end())
+				// {
+				// 	if (*it < it.ptr->pre->data)
+				// 	{
+				// 		ft::itemswap(it.ptr->data, it.ptr->pre->data);
+				// 		it = begin();
+				// 	}
+				// 	it++;
+				// }
 			}
 			
 			template <class Compare>
@@ -538,6 +540,41 @@ namespace ft
 			allocator_type	_Alloc;
 
 			size_t			_size;
+
+			void quickSort(iterator min, iterator max)
+			{
+				iterator i = min;
+				iterator j = max;
+				iterator middle = min;
+				size_t len = 0;
+
+				for ( ; middle != j; middle++)
+					len++;
+				len = len / 2;
+				
+				middle = min;
+				for (size_t ind = 0; ind < len; ind++)
+					middle++;
+	
+				while (i.ptr <= j.ptr)
+				{
+					while (*i < *middle)
+						i++;
+					while (*j > *middle)
+						j--;		
+					
+					if (i.ptr <= j.ptr)
+					{
+						ft::itemswap(i.ptr->data, j.ptr->data);
+						i++;
+						j--;
+					}
+				}
+				if (j.ptr > min.ptr)
+					quickSort(min, j);
+				if (i.ptr < max.ptr)
+					quickSort(i, max);
+			}
 			
     }; 
 

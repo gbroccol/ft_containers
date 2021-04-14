@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:45:56 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/13 19:36:05 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/14 17:11:38 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,17 @@ void				testFunc(int testNmb, T sysValue, T userValue, std::string testName)
 		std::cout << "\x1b[31m" << "WRONG" << "\x1b[0m" << std::endl;
 		std::cout << std::setw(87) << "Expected answer: " << sysValue << std::endl;
 		std::cout << std::setw(87) << "Your answer: " << userValue << std::endl;
+		getchar();
+		getchar();
+		getchar();
+		getchar();
+		getchar();
+		getchar();
+		getchar();
+		getchar();
+		getchar();
+		getchar();
+		
 	}	
 }
 

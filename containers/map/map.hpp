@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:19 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/13 18:17:59 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/14 17:02:36 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,856 +69,833 @@ namespace ft
 		** -------------------------------- CONSTRUCTOR --------------------------------
 		*/
 
-		explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
-		{
-			_alloc = alloc;
-			_comp = comp;
+			explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
+			{
+				_alloc = alloc;
+				_comp = comp;
 
-			_TSTART = new nodeMap;
-			_TSTART->parent = NULL;
-			_TSTART->right = NULL;
-			_TSTART->left = NULL;
-			_TSTART->color = FIRST;
-			_TSTART->data.first = 1;
-			_TSTART->data.second = 1;
-			
-			_TNULL = new nodeMap;
-			_TNULL->parent = NULL;
-			_TNULL->right = NULL;
-			_TNULL->left = NULL;
-			_TNULL->color = LAST;
-			_TNULL->data.first = 1;
-			_TNULL->data.second = 1;
-
-			_map = NULL;
-			_TSTART->parent = NULL;
-			_TNULL->parent = NULL;
-			_root = NULL;
-			_size = 0;
-		}
-
-		template <class InputIterator>
-		map (InputIterator first, InputIterator last, const key_compare & comp = key_compare(),
-														const allocator_type& alloc = allocator_type(), 
-														typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
-		{
-			_alloc = alloc;
-			_comp = comp;
-
-			_TSTART = new nodeMap;
-			_TSTART->parent = NULL;
-			_TSTART->right = NULL;
-			_TSTART->left = NULL;
-			_TSTART->color = FIRST;
-			_TSTART->data.first = 1;
-			_TSTART->data.second = 1;
-
-			_TNULL = new nodeMap;
-			_TNULL->parent = NULL;
-			_TNULL->right = NULL;
-			_TNULL->left = NULL;
-			_TNULL->color = LAST;
-			_TNULL->data.first = 1;
-			_TNULL->data.second = 1;
-
-			_map = NULL;
-			_TSTART->parent = NULL;
-			_TNULL->parent = NULL;
-			_root = NULL;
-			_size = 0;
-
-			this->insert(first, last);
-
-			
-		}
-
-		map (const map& x)
-		{
-			_TNULL = new nodeMap;
-			_TSTART = new nodeMap;
-
-			*this = x;
-		}
-
-		/*
-			** -------------------------------- DESTRUCTOR --------------------------------
-			*/
-
-		~map()
-		{
-			this->clear();
-			delete this->_TNULL;
-			delete this->_TSTART;
-		}
-
-		/*
-			** --------------------------------- OVERLOAD ---------------------------------
-			*/
-
-		map& operator= (const map& x)
-		{
-			_TNULL->parent = NULL;
-			_TNULL->right = NULL;
-			_TNULL->left = NULL;
-			_TNULL->color = LAST;
-			_TNULL->data.first = 1;
-			_TNULL->data.second = 1;
-
-			_map = NULL;
-			_TSTART->parent = NULL;
-			_TNULL->parent = NULL;
-			_root = NULL;
-			_size = 0;
-
-			this->clear();
-			
-			if (x._size)
-				this->insert(x.begin(), x.end());
+				_TSTART = new nodeMap;
+				_TSTART->parent = NULL;
+				_TSTART->right = NULL;
+				_TSTART->left = NULL;
+				_TSTART->color = FIRST;
 				
-			return (*this);
-		}
+				_TNULL = new nodeMap;
+				_TNULL->parent = NULL;
+				_TNULL->right = NULL;
+				_TNULL->left = NULL;
+				_TNULL->color = LAST;
+
+				_map = NULL;
+				_TSTART->parent = NULL;
+				_TNULL->parent = NULL;
+				_root = NULL;
+				_size = 0;
+			}
+
+			template <class InputIterator>
+			map (InputIterator first, InputIterator last, const key_compare & comp = key_compare(),
+															const allocator_type& alloc = allocator_type(), 
+															typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
+			{
+				_alloc = alloc;
+				_comp = comp;
+
+				_TSTART = new nodeMap;
+				_TSTART->parent = NULL;
+				_TSTART->right = NULL;
+				_TSTART->left = NULL;
+				_TSTART->color = FIRST;
+
+				_TNULL = new nodeMap;
+				_TNULL->parent = NULL;
+				_TNULL->right = NULL;
+				_TNULL->left = NULL;
+				_TNULL->color = LAST;
+
+				_map = NULL;
+				_TSTART->parent = NULL;
+				_TNULL->parent = NULL;
+				_root = NULL;
+				_size = 0;
+
+				this->insert(first, last);
+			}
+
+			map (const map& x)
+			{
+				_TNULL = new nodeMap;
+				_TSTART = new nodeMap;
+				*this = x;
+			}
 
 		/*
-			** --------------------------------- METHODS ----------------------------------
-			*/
+		** -------------------------------- DESTRUCTOR --------------------------------
+		*/
+			~map()
+			{
+				this->clear();
+				delete this->_TNULL;
+				delete this->_TSTART;
+			}
+		/*
+		** --------------------------------- OVERLOAD ---------------------------------
+		*/
+
+			map& operator= (const map& x)
+			{
+				_TNULL->parent = NULL;
+				_TNULL->right = NULL;
+				_TNULL->left = NULL;
+				_TNULL->color = LAST;
+
+				_map = NULL;
+				_TSTART->parent = NULL;
+				_TNULL->parent = NULL;
+				_root = NULL;
+				_size = 0;
+
+				this->clear();
+				
+				if (x._size)
+					this->insert(x.begin(), x.end());
+					
+				return (*this);
+			}
+
+		/*
+		** --------------------------------- METHODS ----------------------------------
+		*/
 
 		/* Iterators */
 
-		iterator begin()
-		{
-			if (_size == 0)
-				return _TNULL;
-			return _TSTART->parent;
-		}
-		
-		const_iterator begin() const
-		{
-			if (_size == 0)
-				return _TNULL;
-			return _TSTART->parent;
-		}
+			iterator begin()
+			{
+				if (_size == 0)
+					return _TNULL;
+				return _TSTART->parent;
+			}
+			const_iterator begin() const
+			{
+				if (_size == 0)
+					return _TNULL;
+				return _TSTART->parent;
+			}
 
-		iterator end()
-		{
-			if (_size == 0)
-				return _TNULL;
-			return _TNULL->parent->right;
-		}
-		
-		const_iterator end() const
-		{
-			if (_size == 0)
-				return _TNULL;
-			return _TNULL->parent->right;
-		}
+			iterator end()
+			{
+				if (_size == 0)
+					return _TNULL;
+				return _TNULL->parent->right;
+			}
+			const_iterator end() const
+			{
+				if (_size == 0)
+					return _TNULL;
+				return _TNULL->parent->right;
+			}
 
-		reverse_iterator rbegin()
-		{
-			if (_size == 0)
-				return _TNULL;
-			return _TNULL->parent;
-		}
-		
-		const_reverse_iterator rbegin() const
-		{
-			if (_size == 0)
-				return _TNULL;
-			return _TNULL->parent;
-		}
+			reverse_iterator rbegin()
+			{
+				if (_size == 0)
+					return _TNULL;
+				return _TNULL->parent;
+			}
+			const_reverse_iterator rbegin() const
+			{
+				if (_size == 0)
+					return _TNULL;
+				return _TNULL->parent;
+			}
 
-		reverse_iterator rend() { return _TSTART; }
-		const_reverse_iterator rend() const { return _TSTART; }
+			reverse_iterator rend() { return _TSTART; }
+			const_reverse_iterator rend() const { return _TSTART; }
 
 		/* Capacity */
 
-		bool empty() const { return (_size == 0 ? true : false); }
-		size_type size() const { return this->_size; }
-		size_type max_size() const { return (std::numeric_limits<size_type>::max() / (sizeof(nodeMap))); }
+			bool empty() const { return (_size == 0 ? true : false); }
+			size_type size() const { return this->_size; }
+			size_type max_size() const { return (std::numeric_limits<size_type>::max() / (sizeof(nodeMap))); }
 
 		/* Element access */
 
-		mapped_type &operator[](const key_type &key)
-		{
-			return insert(std::make_pair(key, mapped_type())).first->second;
-		}
+			mapped_type &operator[](const key_type &key)
+			{
+				return insert(std::make_pair(key, mapped_type())).first->second;
+			}
 
 		/* Modifiers */
 
-		std::pair<iterator, bool> insert(const value_type &val)
-		{
-			if (_size == 0)
-				return (createFirstNode(val));
-
-			nodeMap *whereAdd = findNode(val, _root);
-
-			if (whereAdd->data.first == val.first)
-				return std::make_pair(iterator(whereAdd), false); // rewrite
-			else
+			std::pair<iterator, bool> insert(const value_type &val)
 			{
-				nodeMap *newNode = new nodeMap;
-				newNode->color = RED;
-				newNode->data = val;
-				newNode->parent = whereAdd;
-				newNode->right = NULL;
-				newNode->left = NULL;
+				if (_size == 0)
+					return (createFirstNode(val));
 
-				if (whereAdd->data.first > val.first)
+				nodeMap *whereAdd = findNode(val, _root);
+
+				if (whereAdd->data.first == val.first)
+					return std::make_pair(iterator(whereAdd), false);
+				else
 				{
-					whereAdd->left = newNode;
-					if (newNode->data.first < _TSTART->parent->data.first)
-						_TSTART->parent = newNode;
-
-					// std::cout << "NEW VALUE [" << std::setw(3) << newNode->data.first << "]     " << std::setw(4) << newNode->data.first << "   <   " << whereAdd->data.first  << std::endl;
-				}
-				else if (whereAdd->data.first < val.first)
-				{
-					if (whereAdd->right == _TNULL)
-					{
-						newNode->right = _TNULL;
-						_TNULL->parent = newNode;
-					}
-					whereAdd->right = newNode;
-					if (newNode->data.first > _TNULL->parent->data.first)
-					{
-						_TNULL->parent = newNode;
-					}
-					// std::cout << "NEW VALUE [" << std::setw(3) << newNode->data.first << "]     " << std::setw(4) << newNode->data.first  << "   >   " << whereAdd->data.first << std::endl;
-				}
-				_size++;
-				insertFix(newNode);
-				return std::make_pair(iterator(newNode), true); // 11 st
-			}
-			return std::make_pair(iterator(this->_root), true); // 11 st
-		}
-
-
-		bool	checkTruePositionForKey(nodeMap *node, const value_type &val)
-		{
-			if (val.first < node->data.first)
-			{
-				while (node->parent && node->parent->left == node && node->parent->data.first > val.first)
-					node = node->parent;
-					
-				if (node->parent == NULL)
-					return true;
-				else if (node->parent && node->parent->right == node && node->parent->data.first < val.first)
-					return true;
-			}
-			else if (val.first > node->data.first)
-			{
-				while (node->parent && node->parent->right == node && node->parent->data.first < val.first)
-					node = node->parent;
-					
-				if (node->parent == NULL)
-					return true;
-				else if (node->parent && node->parent->left == node && node->parent->data.first > val.first)
-					return true;
-			}
-			return false;
-		}
-
-
-		iterator insert(iterator position, const value_type &val)
-		{
-			nodeMap *whereAdd = position.ptr;
-
-			if (checkTruePositionForKey(whereAdd, val))
-			{
-				whereAdd = findNode(val, whereAdd);
-				if (whereAdd->data.first > val.first && whereAdd->left == NULL)
-				{
-					nodeMap *newNode = createNode(val);
-					newNode->parent = whereAdd;
+					nodeMap *newNode = new nodeMap;
 					newNode->color = RED;
-
-					whereAdd->left = newNode;
-
-					if (_TSTART->parent == whereAdd)
-						_TSTART->parent = newNode;
-					_size++;
-					insertFix(newNode);
-					return (iterator)newNode;
-				}
-				else if (whereAdd->data.first < val.first && (whereAdd->right == NULL || whereAdd->right == _TNULL))
-				{
-					nodeMap *newNode = createNode(val);
+					newNode->data = val;
 					newNode->parent = whereAdd;
-					newNode->color = RED;
+					newNode->right = NULL;
+					newNode->left = NULL;
 
-					whereAdd->right = newNode;
-
-					if (_TNULL->parent == whereAdd)
+					if (whereAdd->data.first > val.first)
 					{
-						_TNULL->parent = newNode;
-						newNode->right = _TNULL;
-						_TNULL->parent = newNode;
+						whereAdd->left = newNode;
+						if (newNode->data.first < _TSTART->parent->data.first)
+							_TSTART->parent = newNode;
+					}
+					else if (whereAdd->data.first < val.first)
+					{
+						if (whereAdd->right == _TNULL)
+						{
+							newNode->right = _TNULL;
+							_TNULL->parent = newNode;
+						}
+						whereAdd->right = newNode;
+						if (newNode->data.first > _TNULL->parent->data.first)
+						{
+							_TNULL->parent = newNode;
+						}
 					}
 					_size++;
 					insertFix(newNode);
-					return (iterator)newNode;
+					return std::make_pair(iterator(newNode), true);
 				}
+				return std::make_pair(iterator(this->_root), true);
 			}
-			return (insert(val).first);
-		}
 
-		template <class InputIterator>
-		void insert (InputIterator first, InputIterator last,
-										typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
-		{
-			for ( ; first != last; first++)
-				insert(first.ptr->data);
-		}
-
-		void erase(iterator position)
-		{
-			nodeMap *x;
-			nodeMap *y;
-			nodeMap *nodeToBeDeleted = position.ptr;
-			int originalColor = nodeToBeDeleted->color;
-	
-			if (nodeToBeDeleted->left == NULL)
+			iterator insert(iterator position, const value_type &val)
 			{
-				x = nodeToBeDeleted->right;
-				rbTransplant(nodeToBeDeleted, x);
+				nodeMap *whereAdd = position.ptr;
 
-				if (nodeToBeDeleted == _TSTART->parent)
+				if (checkTruePositionForKey(whereAdd, val))
 				{
-					if (x)
-						_TSTART->parent = minimum(x);
-					else
-						_TSTART->parent = nodeToBeDeleted->parent;
+					whereAdd = findNode(val, whereAdd);
+					if (whereAdd->data.first > val.first && whereAdd->left == NULL)
+					{
+						nodeMap *newNode = createNode(val);
+						newNode->parent = whereAdd;
+						newNode->color = RED;
+
+						whereAdd->left = newNode;
+
+						if (_TSTART->parent == whereAdd)
+							_TSTART->parent = newNode;
+						_size++;
+						insertFix(newNode);
+						return (iterator)newNode;
+					}
+					else if (whereAdd->data.first < val.first && (whereAdd->right == NULL || whereAdd->right == _TNULL))
+					{
+						nodeMap *newNode = createNode(val);
+						newNode->parent = whereAdd;
+						newNode->color = RED;
+
+						whereAdd->right = newNode;
+
+						if (_TNULL->parent == whereAdd)
+						{
+							_TNULL->parent = newNode;
+							newNode->right = _TNULL;
+							_TNULL->parent = newNode;
+						}
+						_size++;
+						insertFix(newNode);
+						return (iterator)newNode;
+					}
 				}
-				if (nodeToBeDeleted == _TNULL->parent)
-					_TNULL->parent = _TNULL->parent;
+				return (insert(val).first);
 			}
-			else if (nodeToBeDeleted->right == NULL)
-			{
-				x = nodeToBeDeleted->left;
-				rbTransplant(nodeToBeDeleted, x);
-			}
-			else
-			{
-				y = minimum(nodeToBeDeleted->right);
-				
-				x = y->right;
 
-				if (y->parent == nodeToBeDeleted)
+			template <class InputIterator>
+			void insert (InputIterator first, InputIterator last,
+											typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
+			{
+				for ( ; first != last; first++)
+					insert(first.ptr->data);
+			}
+
+			void erase(iterator position)
+			{
+				nodeMap *x;
+				nodeMap *y;
+				nodeMap *nodeToBeDeleted = position.ptr;
+				int originalColor = nodeToBeDeleted->color;
+		
+				if (nodeToBeDeleted->left == NULL)
 				{
-					x->parent = y;
+					x = nodeToBeDeleted->right;
+					rbTransplant(nodeToBeDeleted, x);
+
+					if (nodeToBeDeleted == _TSTART->parent)
+					{
+						if (x)
+							_TSTART->parent = minimum(x);
+						else
+							_TSTART->parent = nodeToBeDeleted->parent;
+					}
+					if (nodeToBeDeleted == _TNULL->parent)
+						_TNULL->parent = _TNULL->parent;
+				}
+				else if (nodeToBeDeleted->right == NULL)
+				{
+					x = nodeToBeDeleted->left;
+					rbTransplant(nodeToBeDeleted, x);
 				}
 				else
 				{
-					rbTransplant(y, y->right);
-					y->right = nodeToBeDeleted->right;
-					y->right->parent = y;
+					y = minimum(nodeToBeDeleted->right);
+					
+					x = y->right;
+
+					if (y->parent == nodeToBeDeleted)
+					{
+						x->parent = y;
+					}
+					else
+					{
+						rbTransplant(y, y->right);
+						y->right = nodeToBeDeleted->right;
+						y->right->parent = y;
+					}
+
+					rbTransplant(nodeToBeDeleted, y);
+					y->left = nodeToBeDeleted->left;
+					y->left->parent = y;
 				}
 
-				rbTransplant(nodeToBeDeleted, y);
-				y->left = nodeToBeDeleted->left;
-				y->left->parent = y;
+				if (originalColor == BLACK)
+				{
+					deleteFix(x);
+				}
+				_TNULL->color = LAST;
+				delete nodeToBeDeleted;
+				_size--;
 			}
 
-			if (originalColor == BLACK)
+			size_type erase(const key_type &key)
 			{
-				deleteFix(x);
+				nodeMap *findNoda = NULL;
+				findNoda = findNodaKey(key);
+
+				if (findNoda == NULL || findNoda == _TNULL)
+					return 0;
+
+				erase(iterator(findNoda));
+				return 1;
 			}
-			_TNULL->color = LAST;
-			delete nodeToBeDeleted;
-			_size--;
-		}
 
-		size_type erase(const key_type &key)
-		{
-			nodeMap *findNoda = NULL;
-			findNoda = findNodaKey(key);
-
-			if (findNoda == NULL || findNoda == _TNULL)
-				return 0;
-
-			erase(iterator(findNoda));
-			return 1;
-		}
-
-		void erase (iterator first, iterator last)
-		{
-			while (_size && first != last)
+			void erase (iterator first, iterator last)
 			{
-				erase(first);
-				first++;
+				while (_size && first != last)
+				{
+					erase(first);
+					first++;
+				}
 			}
-		}
 
-		void swap(map &x)
-		{
-			ft::itemswap(this->_alloc, x._alloc);
-			ft::itemswap(this->_comp, x._comp);
-			ft::itemswap(this->_map, x._map);
-			ft::itemswap(this->_root, x._root);
-			ft::itemswap(this->_size, x._size);
-			ft::itemswap(this->_TNULL, x._TNULL);
-			ft::itemswap(this->_TSTART, x._TSTART);
-		}
+			void swap(map &x)
+			{
+				ft::itemswap(this->_alloc, x._alloc);
+				ft::itemswap(this->_comp, x._comp);
+				ft::itemswap(this->_map, x._map);
+				ft::itemswap(this->_root, x._root);
+				ft::itemswap(this->_size, x._size);
+				ft::itemswap(this->_TNULL, x._TNULL);
+				ft::itemswap(this->_TSTART, x._TSTART);
+			}
 
-		void clear()
-		{
-			if (empty())
-				return;
-				
-			_TNULL->parent->right = NULL;
-			this->clear(this->_root);
-			_map = NULL;
-			_TSTART->parent = NULL;
-			_TNULL->parent = NULL;
-			_root = NULL;
-			_size = 0;
-			_TNULL->parent = NULL;
-		}
+			void clear()
+			{
+				if (empty())
+					return;
+					
+				_TNULL->parent->right = NULL;
+				this->clear(this->_root);
+				_map = NULL;
+				_TSTART->parent = NULL;
+				_TNULL->parent = NULL;
+				_root = NULL;
+				_size = 0;
+				_TNULL->parent = NULL;
+			}
 
 		/* Observers */
 
-		key_compare key_comp() const { return this->_comp; }
-
-		value_compare value_comp() const { return value_compare(this->_comp); }
+			key_compare key_comp() const { return this->_comp; }
+			value_compare value_comp() const { return value_compare(this->_comp); }
 
 		/* Operations */
 
-		iterator find (const key_type& key)
-		{
-			nodeMap * tmp = _root;
-			int flag = 1;
-
-			while (flag)
+			iterator find (const key_type& key)
 			{
-				flag = 0;
-				for (; tmp->data.first > key && tmp->left != NULL; flag++)
-					tmp = tmp->left;
+				nodeMap * tmp = _root;
+				int flag = 1;
 
-				for (; tmp->data.first < key && tmp->right != NULL; flag++)
-					tmp = tmp->right;
+				while (flag)
+				{
+					flag = 0;
+					for (; tmp->data.first > key && tmp->left != NULL; flag++)
+						tmp = tmp->left;
+
+					for (; tmp->data.first < key && tmp->right != NULL; flag++)
+						tmp = tmp->right;
+				}
+				return (iterator)tmp;
 			}
-			return (iterator)tmp;
-		}
-		
-		const_iterator find (const key_type& key) const
-		{
-			nodeMap * tmp = _root;
-			int flag = 1;
-
-			while (flag)
+			
+			const_iterator find (const key_type& key) const
 			{
-				flag = 0;
-				for (; tmp->data.first > key && tmp->left != NULL; flag++)
-					tmp = tmp->left;
+				nodeMap * tmp = _root;
+				int flag = 1;
 
-				for (; tmp->data.first < key && tmp->right != NULL; flag++)
-					tmp = tmp->right;
+				while (flag)
+				{
+					flag = 0;
+					for (; tmp->data.first > key && tmp->left != NULL; flag++)
+						tmp = tmp->left;
+
+					for (; tmp->data.first < key && tmp->right != NULL; flag++)
+						tmp = tmp->right;
+				}
+				return (const_iterator)tmp;
 			}
-			return (const_iterator)tmp;
-		}
 
-		size_type count (const key_type& k) const
-		{
-			if (find(k).ptr->color == LAST)
-				return (0);
-			return (1);
-		}
+			size_type count (const key_type& k) const
+			{
+				if (find(k).ptr->color == LAST)
+					return (0);
+				return (1);
+			}
 
-		iterator lower_bound (const key_type& k)
-		{
-			iterator it = find(k);
-			if (it.ptr == _TNULL)
+			iterator lower_bound (const key_type& k)
+			{
+				iterator it = find(k);
+				if (it.ptr == _TNULL)
+					return (it);
+				if (it.ptr->data.first < k)
+				{
+					it++;
+					return (it);
+				}
 				return (it);
-			if (it.ptr->data.first < k)
+			}
+			
+			const_iterator lower_bound (const key_type& k) const
 			{
+				const_iterator it = find(k);
+				if (it.ptr == _TNULL)
+					return (it);
+				if (it.ptr->data.first < k)
+				{
+					it++;
+					return (it);
+				}
+				return (it);
+			}
+
+			iterator upper_bound (const key_type& k)
+			{
+				iterator it = find(k);
+				if (it.ptr == _TNULL)
+					return (it);
 				it++;
 				return (it);
 			}
-			return (it);
-		}
-		
-		const_iterator lower_bound (const key_type& k) const
-		{
-			const_iterator it = find(k);
-			if (it.ptr == _TNULL)
-				return (it);
-			if (it.ptr->data.first < k)
+			
+			const_iterator upper_bound (const key_type& k) const
 			{
+				const_iterator it = find(k);
+				if (it.ptr == _TNULL)
+					return (it);
 				it++;
 				return (it);
 			}
-			return (it);
-		}
 
-		iterator upper_bound (const key_type& k)
-		{
-			iterator it = find(k);
-			if (it.ptr == _TNULL)
-				return (it);
-			it++;
-			return (it);
-		}
+			std::pair <const_iterator, const_iterator> equal_range (const key_type& k) const
+			{
+				return std::make_pair(const_iterator(lower_bound(k)), const_iterator(upper_bound(k)));
+			}
+					
+			std::pair <iterator, iterator> equal_range (const key_type& k)
+			{
+				return std::make_pair(iterator(lower_bound(k)), iterator(upper_bound(k)));
+			}
+
+			// void printHelper(nodeMap *root, std::string indent, bool last)
+			// {
+			// 	if (root && root != _TNULL)
+			// 	{
+			// 		std::cout << indent;
+			// 		if (last)
+			// 		{
+			// 			std::cout << "R----";
+			// 			indent += "   ";
+			// 		}
+			// 		else
+			// 		{
+			// 			std::cout << "L----";
+			// 			indent += "|  ";
+			// 		}
+
+			// 		std::string sColor = root->color ? "\x1b[34;1m" : "\x1b[31;1m";
+			// 		std::cout << sColor << root->data.first << "\x1b[0m" << std::endl;
+			// 		printHelper(root->left, indent, false);
+			// 		printHelper(root->right, indent, true);
+			// 	}
+			// }
+
+			// void printTree()
+			// {
+			// 	if (_root)
+			// 	{
+			// 		std::cout << std::endl;
+			// 		printHelper(this->_root, "", true);
+			// 		std::cout << std::endl;
+			// 	}
+			// }
+
+		private:
 		
-		const_iterator upper_bound (const key_type& k) const
-		{
-			const_iterator it = find(k);
-			if (it.ptr == _TNULL)
-				return (it);
-			it++;
-			return (it);
-		}
+			allocator_type _alloc;
+			key_compare _comp;
+			nodeMap *_map;
+			nodeMap *_root;
+			size_type _size;
+			nodeMap *_TNULL;
+			nodeMap *_TSTART;
+			// enum color {BLACK, RED, LAST, FIRST};
 
-		std::pair <const_iterator, const_iterator> equal_range (const key_type& k) const
-		{
-			return std::make_pair(const_iterator(lower_bound(k)), const_iterator(upper_bound(k)));
-		}
-				
-		std::pair <iterator, iterator> equal_range (const key_type& k)
-		{
-			return std::make_pair(iterator(lower_bound(k)), iterator(upper_bound(k)));
-		}
-
-		// void printHelper(nodeMap *root, std::string indent, bool last)
-		// {
-		// 	if (root && root != _TNULL)
-		// 	{
-		// 		std::cout << indent;
-		// 		if (last)
-		// 		{
-		// 			std::cout << "R----";
-		// 			indent += "   ";
-		// 		}
-		// 		else
-		// 		{
-		// 			std::cout << "L----";
-		// 			indent += "|  ";
-		// 		}
-
-		// 		std::string sColor = root->color ? "\x1b[34;1m" : "\x1b[31;1m";
-		// 		std::cout << sColor << root->data.first << "\x1b[0m" << std::endl;
-		// 		printHelper(root->left, indent, false);
-		// 		printHelper(root->right, indent, true);
-		// 	}
-		// }
-
-		// void printTree()
-		// {
-		// 	if (_root)
-		// 	{
-		// 		std::cout << std::endl;
-		// 		printHelper(this->_root, "", true);
-		// 		std::cout << std::endl;
-		// 	}
-		// }
-
-	private:
-		allocator_type _alloc;
-		key_compare _comp;
-		nodeMap *_map;
-		nodeMap *_root;
-		size_type _size;
-		nodeMap *_TNULL;
-		nodeMap *_TSTART;
-		// enum color {BLACK, RED, LAST, FIRST};
-
-		std::pair<iterator, bool> createFirstNode(const value_type &val)
-		{
-			_map = new nodeMap;
-
-			_map->parent = NULL;
-			_map->right = _TNULL;
-			_map->left = NULL;
-
-			_map->data = val;
-			_map->color = BLACK;
-
-			_TSTART->parent = _map;
-			_TNULL->parent = _map;
-			_root = _map;
-			_size++;
-
-			_TNULL->parent = _map;
-			return std::make_pair(iterator(this->_root), true);
-		}
-
-		nodeMap *createNode(const value_type &val)
-		{
-			nodeMap *newNode = new nodeMap;
-
-			newNode->parent = NULL;
-			newNode->right = NULL;
-			newNode->left = NULL;
-
-			newNode->data = val;
-			newNode->color = BLACK;
-
-			return newNode;
-		}
-
-		nodeMap *findNode(const value_type &value, nodeMap *whereAdd) 
-		{
-			int flag = 1;
-
-			while (flag)
+			std::pair<iterator, bool> createFirstNode(const value_type &val)
 			{
-				flag = 0;
-				for (; whereAdd->data.first > value.first && whereAdd->left != NULL; flag++)
-					whereAdd = whereAdd->left;
+				_map = new nodeMap;
 
-				for (; whereAdd->data.first < value.first && whereAdd->right != NULL; flag++)
-					whereAdd = whereAdd->right;
+				_map->parent = NULL;
+				_map->right = _TNULL;
+				_map->left = NULL;
+
+				_map->data = val;
+				_map->color = BLACK;
+
+				_TSTART->parent = _map;
+				_TNULL->parent = _map;
+				_root = _map;
+				_size++;
+
+				_TNULL->parent = _map;
+				return std::make_pair(iterator(this->_root), true);
 			}
-			if (whereAdd == _TNULL)
-				whereAdd = _TNULL->parent;
-			return (whereAdd);
-		}
 
-		void turnLeft(nodeMap *node)
-		{
-			nodeMap *y = node->right;
-			node->right = y->left;
-			if (y->left != NULL)
+			nodeMap *createNode(const value_type &val)
 			{
-				y->left->parent = node;
-			}
-			y->parent = node->parent;
-			if (node->parent == NULL)
-			{
-				_root = y;
-			}
-			else if (node == node->parent->left)
-			{
-				node->parent->left = y;
-			}
-			else
-			{
-				node->parent->right = y;
-			}
-			y->left = node;
-			node->parent = y;
-		}
+				nodeMap *newNode = new nodeMap;
 
-		void turnRight(nodeMap *node)
-		{
-			nodeMap *y = node->left;
-			node->left = y->right;
-			if (y->right != NULL)
-			{
-				y->right->parent = node;
-			}
-			y->parent = node->parent;
-			if (node->parent == NULL)
-			{
-				_root = y;
-			}
-			else if (node == node->parent->right)
-			{
-				node->parent->right = y;
-			}
-			else
-			{
-				node->parent->left = y;
-			}
-			y->right = node;
-			node->parent = y;
-		}
+				newNode->parent = NULL;
+				newNode->right = NULL;
+				newNode->left = NULL;
 
-		void insertFix(nodeMap *node)
-		{
-			nodeMap *tmp;
+				newNode->data = val;
+				newNode->color = BLACK;
 
-			while (node->parent->color == RED) // пока родитель ноды красный мы в цикле
+				return newNode;
+			}
+
+			nodeMap *findNode(const value_type &value, nodeMap *whereAdd) 
 			{
-				if (node->parent->parent->left == node->parent) // если родитель ноды является
-				{												//  левым элементом бабушки
-					tmp = node->parent;
-					if (tmp->parent->right && tmp->parent->right->color == RED) //и правый элемент бабушки красный
-					{
-						tmp->parent->right->color = BLACK; //делаем дочерние элементы бабушки(а значит и родителя черн)
-						tmp->color = BLACK;
-						tmp->parent->color = RED;
-						node = node->parent->parent; // переходит к ноде бабушки
-					}
-					else
-					{
-						if (node == node->parent->right) // иначе если нода  правый ребенок
-						{
-							node = node->parent; // переходим на родителя
-							turnLeft(node);		 //и переварачиваем влево
-						}
-						node->parent->color = BLACK;	   //делаем родителя черным
-						node->parent->parent->color = RED; // а бабушку красным
-						turnRight(node->parent->parent);   //поворачиваем бабушку вправо
-					}
+				int flag = 1;
+
+				while (flag)
+				{
+					flag = 0;
+					for (; whereAdd->data.first > value.first && whereAdd->left != NULL; flag++)
+						whereAdd = whereAdd->left;
+
+					for (; whereAdd->data.first < value.first && whereAdd->right != NULL; flag++)
+						whereAdd = whereAdd->right;
+				}
+				if (whereAdd == _TNULL)
+					whereAdd = _TNULL->parent;
+				return (whereAdd);
+			}
+
+			void turnLeft(nodeMap *node)
+			{
+				nodeMap *y = node->right;
+				node->right = y->left;
+				if (y->left != NULL)
+				{
+					y->left->parent = node;
+				}
+				y->parent = node->parent;
+				if (node->parent == NULL)
+				{
+					_root = y;
+				}
+				else if (node == node->parent->left)
+				{
+					node->parent->left = y;
 				}
 				else
 				{
-					if (node->parent->parent->right == node->parent)
-					{
+					node->parent->right = y;
+				}
+				y->left = node;
+				node->parent = y;
+			}
+
+			void turnRight(nodeMap *node)
+			{
+				nodeMap *y = node->left;
+				node->left = y->right;
+				if (y->right != NULL)
+				{
+					y->right->parent = node;
+				}
+				y->parent = node->parent;
+				if (node->parent == NULL)
+				{
+					_root = y;
+				}
+				else if (node == node->parent->right)
+				{
+					node->parent->right = y;
+				}
+				else
+				{
+					node->parent->left = y;
+				}
+				y->right = node;
+				node->parent = y;
+			}
+
+			void insertFix(nodeMap *node)
+			{
+				nodeMap *tmp;
+
+				while (node->parent->color == RED)
+				{
+					if (node->parent->parent->left == node->parent)
+					{												
 						tmp = node->parent;
-						if (tmp->parent->left && tmp->parent->left->color == RED) //и левый элемент бабушки красный
+						if (tmp->parent->right && tmp->parent->right->color == RED) 
 						{
-							tmp->parent->left->color = BLACK; //делаем дочерние элементы бабушки(а значит и родителя черн)
+							tmp->parent->right->color = BLACK; 
 							tmp->color = BLACK;
 							tmp->parent->color = RED;
-							node = node->parent->parent; // переходит к ноде бабушки
+							node = node->parent->parent; 
 						}
 						else
 						{
-							if (node == node->parent->left) // иначе если нода  левый ребенок
+							if (node == node->parent->right) 
 							{
-								node = node->parent; //переходим к родителю
-								turnRight(node);	 // поворачиваем вправо
+								node = node->parent; 
+								turnLeft(node);		 
 							}
-							node->parent->color = BLACK;	   //делаем родителя черным
-							node->parent->parent->color = RED; // а бабушку красным
-							turnLeft(node->parent->parent);	   //поворачиваем бабушку влево
+							node->parent->color = BLACK;	   
+							node->parent->parent->color = RED; 
+							turnRight(node->parent->parent);   
 						}
-					}
-				}
-				if (node == _root)
-					break;
-			}
-			_root->color = BLACK;
-		}
-
-		void rbTransplant(nodeMap *nodeToBeDeleted, nodeMap *x) // z , y
-		{
-			if (nodeToBeDeleted->parent == NULL)
-				_root = x;
-			else if (nodeToBeDeleted == nodeToBeDeleted->parent->left)
-				nodeToBeDeleted->parent->left = x;
-			else if (nodeToBeDeleted == nodeToBeDeleted->parent->right)
-				nodeToBeDeleted->parent->right = x;
-			
-			if (x)
-				x->parent = nodeToBeDeleted->parent;
-		}
-
-		void deleteFix(nodeMap *x)
-		{
-			nodeMap *s;
-
-			if (x == NULL)
-				return;
-
-			while (x && x != _root && x->color == BLACK)
-			{
-				if (x->parent && x == x->parent->left)
-				{
-					s = x->parent->right;
-					if (s && s->color == RED)
-					{
-						s->color = BLACK;
-						x->parent->color = RED;
-						turnLeft(x->parent);
-						s = x->parent->right;
-					}
-
-					if (s && s->left && s->right && s->left->color == BLACK && s->right->color == BLACK)
-					{
-						s->color = RED;
-						x = x->parent;
 					}
 					else
 					{
-						if (s && s->right && s->right->color == BLACK)
+						if (node->parent->parent->right == node->parent)
 						{
-							s->left->color = BLACK;
-							s->color = RED;
-							turnRight(s);
+							tmp = node->parent;
+							if (tmp->parent->left && tmp->parent->left->color == RED) 
+							{
+								tmp->parent->left->color = BLACK; 
+								tmp->color = BLACK;
+								tmp->parent->color = RED;
+								node = node->parent->parent; 
+							}
+							else
+							{
+								if (node == node->parent->left) 
+								{
+									node = node->parent; 
+									turnRight(node);	 
+								}
+								node->parent->color = BLACK;	   
+								node->parent->parent->color = RED; 
+								turnLeft(node->parent->parent);	   
+							}
+						}
+					}
+					if (node == _root)
+						break;
+				}
+				_root->color = BLACK;
+			}
+
+			void rbTransplant(nodeMap *nodeToBeDeleted, nodeMap *x) 
+			{
+				if (nodeToBeDeleted->parent == NULL)
+					_root = x;
+				else if (nodeToBeDeleted == nodeToBeDeleted->parent->left)
+					nodeToBeDeleted->parent->left = x;
+				else if (nodeToBeDeleted == nodeToBeDeleted->parent->right)
+					nodeToBeDeleted->parent->right = x;
+				
+				if (x)
+					x->parent = nodeToBeDeleted->parent;
+			}
+
+			void deleteFix(nodeMap *x)
+			{
+				nodeMap *s;
+
+				if (x == NULL)
+					return;
+
+				while (x && x != _root && x->color == BLACK)
+				{
+					if (x->parent && x == x->parent->left)
+					{
+						s = x->parent->right;
+						if (s && s->color == RED)
+						{
+							s->color = BLACK;
+							x->parent->color = RED;
+							turnLeft(x->parent);
 							s = x->parent->right;
 						}
 
-						s->color = x->parent->color;
-						x->parent->color = BLACK;
-						s->right->color = BLACK;
-						turnLeft(x->parent);
-						x = _root;
-					}
-				}
-				else
-				{
-					s = x->parent->left;
-					if (s && s->color == RED)
-					{
-						s->color = BLACK;
-						x->parent->color = RED;
-						turnRight(x->parent);
-						s = x->parent->left;
-					}
+						if (s && s->left && s->right && s->left->color == BLACK && s->right->color == BLACK)
+						{
+							s->color = RED;
+							x = x->parent;
+						}
+						else
+						{
+							if (s && s->right && s->right->color == BLACK)
+							{
+								s->left->color = BLACK;
+								s->color = RED;
+								turnRight(s);
+								s = x->parent->right;
+							}
 
-					if (s && s->right && s->right->color == BLACK && s->right->color == BLACK)
-					{
-						s->color = RED;
-						x = x->parent;
+							s->color = x->parent->color;
+							x->parent->color = BLACK;
+							s->right->color = BLACK;
+							turnLeft(x->parent);
+							x = _root;
+						}
 					}
 					else
 					{
-						if (s && s->left && s->left->color == BLACK)
+						s = x->parent->left;
+						if (s && s->color == RED)
 						{
-							s->right->color = BLACK;
-							s->color = RED;
-							turnLeft(s);
+							s->color = BLACK;
+							x->parent->color = RED;
+							turnRight(x->parent);
 							s = x->parent->left;
 						}
 
-						s->color = x->parent->color;
-						x->parent->color = BLACK;
-						s->left->color = BLACK;
-						turnRight(x->parent);
-						x = _root;
+						if (s && s->right && s->right->color == BLACK && s->right->color == BLACK)
+						{
+							s->color = RED;
+							x = x->parent;
+						}
+						else
+						{
+							if (s && s->left && s->left->color == BLACK)
+							{
+								s->right->color = BLACK;
+								s->color = RED;
+								turnLeft(s);
+								s = x->parent->left;
+							}
+
+							s->color = x->parent->color;
+							x->parent->color = BLACK;
+							s->left->color = BLACK;
+							turnRight(x->parent);
+							x = _root;
+						}
 					}
 				}
+				x->color = BLACK;
 			}
-			x->color = BLACK;
-		}
 
-		nodeMap *minimum(nodeMap *node)
-		{
-			while (node->left != NULL)
-				node = node->left;
-			return node;
-		}
-
-		nodeMap *maximum(nodeMap *node)
-		{
-			while (node->right != NULL && node->right != _TNULL)
-				node = node->right;
-			return node;
-		}
-
-		void clear(nodeMap *position)
-		{
-			if (!position)
-				return;
-			clear(position->left);
-			clear(position->right);
-			delete position;
-			_size--;
-		}
-
-		nodeMap *findNodaKey(const key_type &key)
-		{
-			nodeMap *findNoda = NULL;
-			nodeMap *begin = _root;
-
-			while (begin != _TNULL && begin != NULL)
+			nodeMap *minimum(nodeMap *node)
 			{
-				if (begin->data.first == key)
-				{
-					findNoda = begin;
-					break;
-				}
-				else if (begin->data.first <= key)
-					begin = begin->right;
-				else
-					begin = begin->left;
+				while (node->left != NULL)
+					node = node->left;
+				return node;
 			}
-			if (findNoda == NULL || findNoda == _TNULL)
-				return NULL;
-			return findNoda;
-		}
-	};
+
+			nodeMap *maximum(nodeMap *node)
+			{
+				while (node->right != NULL && node->right != _TNULL)
+					node = node->right;
+				return node;
+			}
+
+			void clear(nodeMap *position)
+			{
+				if (!position)
+					return;
+				clear(position->left);
+				clear(position->right);
+				delete position;
+				_size--;
+			}
+
+			nodeMap *findNodaKey(const key_type &key)
+			{
+				nodeMap *findNoda = NULL;
+				nodeMap *begin = _root;
+
+				while (begin != _TNULL && begin != NULL)
+				{
+					if (begin->data.first == key)
+					{
+						findNoda = begin;
+						break;
+					}
+					else if (begin->data.first <= key)
+						begin = begin->right;
+					else
+						begin = begin->left;
+				}
+				if (findNoda == NULL || findNoda == _TNULL)
+					return NULL;
+				return findNoda;
+			}
+
+			bool	checkTruePositionForKey(nodeMap *node, const value_type &val)
+				{
+					if (val.first < node->data.first)
+					{
+						while (node->parent && node->parent->left == node && node->parent->data.first > val.first)
+							node = node->parent;
+							
+						if (node->parent == NULL)
+							return true;
+						else if (node->parent && node->parent->right == node && node->parent->data.first < val.first)
+							return true;
+					}
+					else if (val.first > node->data.first)
+					{
+						while (node->parent && node->parent->right == node && node->parent->data.first < val.first)
+							node = node->parent;
+							
+						if (node->parent == NULL)
+							return true;
+						else if (node->parent && node->parent->left == node && node->parent->data.first > val.first)
+							return true;
+					}
+					return false;
+				}
+		};
 
 }
 #endif
