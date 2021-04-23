@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:11:27 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/12 14:35:06 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:10:47 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ namespace ft
 		value1 = value2;
 		value2 = tmp;
 	}
+
+	template<bool, typename T = void>
+	struct enable_if
+	{ };
+
+	template<typename T>
+	struct enable_if <true, T>
+	{ typedef T type; };
 }
 
 #endif

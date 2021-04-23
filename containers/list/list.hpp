@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/14 17:14:33 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:51:01 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,50 +39,64 @@ namespace ft
 			/*
 			** -------------------------------- CONSTRUCTOR --------------------------------
 			*/
-		
-			explicit list (const allocator_type& alloc = allocator_type()) : _Alloc(alloc)
-			{
-				_Tail = new Node <T> ();
 
-				_Tail->next = _Tail;
-				_Tail->pre  = _Tail;
+			
+		
+			explicit list (const allocator_type& alloc = allocator_type()) : _alloc(alloc)
+			{
+				T dataTail;
+				bzero(&dataTail, sizeof(T));
+				// _tail = new Node <T> ();
+				_tail = (Node <T> *)::operator new(sizeof(Node <T>));
+				// this->_alloc.construct(&(_tail->data), value_type(0));
+			
+				_tail->next = _tail;
+				_tail->pre  = _tail;
 				_size = 0;
-				_Node = _Tail;
+				_node = _tail;
 			}
 			
-			explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _Alloc(alloc)
+			explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _alloc(alloc)
 			{
-				_Tail = new Node <T> ();
+				// _tail = new Node <T> ();
+				_tail = (Node <T> *)::operator new(sizeof(Node <T>));
+				// this->_alloc.construct(&(_tail->data), value_type(0));
 
-				_Tail->next = _Tail;
-				_Tail->pre  = _Tail;
+				_tail->next = _tail;
+				_tail->pre  = _tail;
 
 				_size = 0;
 
 				for ( ; n; n--)
 					push_back(val);
 					
-				_Node = _Tail->next;
+				_node = _tail->next;
 			}
 			
 			template <class InputIterator>
 			list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
-											typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0) : _Alloc(alloc)
+											typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0) : _alloc(alloc)
 			{
-				_Tail = new Node <T> ();
-				_Tail->next = _Tail;
-				_Tail->pre  = _Tail;
+				// _tail = new Node <T> ();
+				_tail = (Node <T> *)::operator new(sizeof(Node <T>));
+				// this->_alloc.construct(&(_tail->data), value_type(0));
+				
+				_tail->next = _tail;
+				_tail->pre  = _tail;
 				_size = 0;
 				for ( ; first != last; first++)
 					push_back(first.ptr->data);
-				_Node = _Tail->next;
+				_node = _tail->next;
 			}
 
 			list (const list& x)
 			{
-				_Tail = new struct Node <T>;
-				_Tail->pre  = _Tail;
-				_Tail->next = _Tail;
+				// _tail = new struct Node <T>;
+				_tail = (Node <T> *)::operator new(sizeof(Node <T>));
+				// this->_alloc.construct(&(_tail->data), value_type(0));
+				
+				_tail->pre  = _tail;
+				_tail->next = _tail;
 				_size = 0;
 				*this = x;
 				return ;
@@ -94,8 +108,10 @@ namespace ft
 
 			~list()
 			{
+				std::cout << _size << std::endl;
 				clear();
-				delete _Tail;
+				this->_alloc.destroy(&(_tail->data));
+				delete _tail;
 			}
 
 			/*
@@ -107,10 +123,10 @@ namespace ft
 				if (this->size() > 0)
 					clear();
 				
-				struct Node <T> *list_tmp = x._Tail->next;
+				struct Node <T> *list_tmp = x._tail->next;
 				if (x.size() > 0)
 				{
-					while (list_tmp != x._Tail)
+					while (list_tmp != x._tail)
 					{
 						push_back(list_tmp->data);
 						list_tmp = list_tmp->next;
@@ -125,17 +141,17 @@ namespace ft
 
 	/* Iterators */
 
-			iterator begin() { return (iterator (_Tail->next)); }
-			const_iterator begin() const { return (const_iterator (_Tail->next)); }
+			iterator begin() { return (iterator (_tail->next)); }
+			const_iterator begin() const { return (const_iterator (_tail->next)); }
 
-			iterator end() { return (iterator (_Tail)); }
-			const_iterator end() const { return (const_iterator (_Tail)); }
+			iterator end() { return (iterator (_tail)); }
+			const_iterator end() const { return (const_iterator (_tail)); }
 
-			reverse_iterator rbegin() { return (reverse_iterator (_Tail->pre)); }
-			const_reverse_iterator rbegin() const { return (const_reverse_iterator (_Tail->pre)); }
+			reverse_iterator rbegin() { return (reverse_iterator (_tail->pre)); }
+			const_reverse_iterator rbegin() const { return (const_reverse_iterator (_tail->pre)); }
 
-			reverse_iterator rend(){ return (reverse_iterator (_Tail)); } 
-			const_reverse_iterator rend() const { return (const_reverse_iterator (_Tail)); }
+			reverse_iterator rend(){ return (reverse_iterator (_tail)); } 
+			const_reverse_iterator rend() const { return (const_reverse_iterator (_tail)); }
 
 	/* Capacity */
 
@@ -155,17 +171,17 @@ namespace ft
 
 	/* Element access */
 
-			reference front() { return this->_Tail->next->data; }
-			const_reference front() const { return this->_Tail->next->data; }
+			reference front() { return this->_tail->next->data; }
+			const_reference front() const { return this->_tail->next->data; }
 
-			reference back() { return this->_Tail->pre->data; }
-			const_reference back() const { return this->_Tail->pre->data; }
+			reference back() { return this->_tail->pre->data; }
+			const_reference back() const { return this->_tail->pre->data; }
 
 	/* Modifiers */
 
 			template <class InputIterator>
  			void assign (InputIterator first, InputIterator last,
-						typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
+						typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
 				clear();
 				for ( ; first != last; first++)
@@ -181,80 +197,96 @@ namespace ft
 
 			void push_front (const value_type& val)
 			{
-				Node <T> *tmp = new Node <T>();
-				tmp->data = val;
 
-				tmp->pre = _Tail;
-				tmp->next = _Tail->next;
+				Node <T> * tmp = (Node <T> *)::operator new(sizeof(Node <T>));
+   				this->_alloc.construct(&(tmp->data), val);
 
-				_Tail->next->pre = tmp;
-				_Tail->next = tmp;
+				tmp->pre = _tail;
+				tmp->next = _tail->next;
+
+				_tail->next->pre = tmp;
+				_tail->next = tmp;
 
 				_size++;
 			}
 			
 			void pop_front()
 			{
-				Node <T> *tmp = _Tail->next;
-				if(size() == 1)
+				if (_size > 0)
 				{
-					_Tail->next = _Tail;
-					_Tail->pre = _Tail;
+					Node <T> *tmp = _tail->next;
+					
+					if (_size)
+						this->_alloc.destroy(&(_tail->next->data));
+						
+					if(size() == 1)
+					{
+						_tail->next = _tail;
+						_tail->pre = _tail;
+					}
+					else
+					{
+						_tail->next = tmp->next;
+						tmp->next->pre = _tail;
+					}
+					delete tmp;
+					_size--;
 				}
-				else
-				{
-					_Tail->next = tmp->next;
-					tmp->next->pre = _Tail;
-				}
-				delete tmp;
-
-				_size--;
 			}
 
 			void push_back(const T &val)
 			{
-				Node <T> * tmp = new Node< T>;          
-				tmp->data = val;
+				Node <T> * tmp = (Node <T> *)::operator new(sizeof(Node <T>));
+   				this->_alloc.construct(&(tmp->data), val);
 				
 				if(size() == 0)
 				{
-					_Tail->next  = tmp;
-					_Tail->pre  = tmp;
-					tmp->next = _Tail;
-					tmp->pre = _Tail;
+					_tail->next  = tmp;
+					_tail->pre  = tmp;
+					tmp->next = _tail;
+					tmp->pre = _tail;
 				}
 				else
 				{
-					tmp->pre  = _Tail->pre;
-					tmp->next = _Tail;
-					_Tail->pre->next = tmp;
-					_Tail->pre = tmp;
+					tmp->pre  = _tail->pre;
+					tmp->next = _tail;
+					_tail->pre->next = tmp;
+					_tail->pre = tmp;
 				}
 				_size++;
 			}
 
 			void pop_back()
 			{
-				Node <T> *tmp  = _Tail->pre;
-				if (size() == 1)
-                {
-                    _Tail->pre = _Tail;
-                    _Tail->next = _Tail;
-                }
-                else
-                {
-                    _Tail->pre = _Tail->pre->pre;
-                    _Tail->pre->next =_Tail;
-                }
-				delete tmp;
-				_size--;
+				if (_size > 0)
+				{
+					Node <T> *tmp  = _tail->pre;
+				
+					if (_size)
+						this->_alloc.destroy(&(_tail->pre->data));
+						
+					if (size() == 1)
+					{
+						_tail->pre = _tail;
+						_tail->next = _tail;
+					}
+					else
+					{
+						_tail->pre = _tail->pre->pre;
+						_tail->pre->next =_tail;
+					}
+
+					delete tmp;
+					_size--;
+				}
+				
 			}
 
 			iterator insert (iterator position, const value_type& val) // insert before position
 			{
-				Node <T> * newElem = new Node <T>();
-				newElem->data = val;
-				
+				Node <T> * newElem = (Node <T> *)::operator new(sizeof(Node <T>));
+   				this->_alloc.construct(&(newElem->data), val);
+
 				newElem->pre  = position.ptr->pre;
 				newElem->next = position.ptr;
 				
@@ -272,7 +304,7 @@ namespace ft
 
 			template <class InputIterator>
     		void insert (iterator position, InputIterator first, InputIterator last,
-						typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
+						typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
 				for ( ; first != last; first++)
 					insert(position, first.ptr->data);
@@ -287,6 +319,8 @@ namespace ft
 					delElem->pre->next = delElem->next;
 					delElem->next->pre = delElem->pre;
 					position++;
+					
+					this->_alloc.destroy(&(delElem->data));
 					delete delElem;
 					_size--;
 				}
@@ -302,9 +336,9 @@ namespace ft
 
 			void swap (list & x)
 			{
-				ft::itemswap(this->_Node, x._Node);
-				ft::itemswap(this->_Tail, x._Tail);
-				ft::itemswap(this->_Alloc, x._Alloc);
+				ft::itemswap(this->_node, x._node);
+				ft::itemswap(this->_tail, x._tail);
+				ft::itemswap(this->_alloc, x._alloc);
 				ft::itemswap(this->_size, x._size);
 			}
 
@@ -375,6 +409,7 @@ namespace ft
 						node->pre->next = node->next;
 						node->next->pre = node->pre;
 						_size--;
+						this->_alloc.destroy(&(node->data));
 						delete node;
 					}
 				}
@@ -410,6 +445,7 @@ namespace ft
 						node->pre->next = node->next;
 						node->next->pre = node->pre;
 						_size--;
+						this->_alloc.destroy(&(node->data));
 						delete node;
 					}
 				}
@@ -478,22 +514,22 @@ namespace ft
 
 			void sort()
 			{
-				iterator itEnd = end();
-				itEnd--;
-				quickSort(begin(), itEnd);
+				// iterator itEnd = end();
+				// itEnd--;
+				// quickSort(begin(), itEnd);
 
-				// iterator it = begin();
-				// it++;
+				iterator it = begin();
+				it++;
 				
-				// while (it != end())
-				// {
-				// 	if (*it < it.ptr->pre->data)
-				// 	{
-				// 		ft::itemswap(it.ptr->data, it.ptr->pre->data);
-				// 		it = begin();
-				// 	}
-				// 	it++;
-				// }
+				while (it != end())
+				{
+					if (*it < it.ptr->pre->data)
+					{
+						ft::itemswap(it.ptr->data, it.ptr->pre->data);
+						it = begin();
+					}
+					it++;
+				}
 			}
 			
 			template <class Compare>
@@ -535,46 +571,46 @@ namespace ft
 
 		private:
 			
-			Node <T>		*_Node;
-			Node <T>		*_Tail;
-			allocator_type	_Alloc;
+			Node <T>		*_node;
+			Node <T>		*_tail;
+			allocator_type	_alloc;
 
 			size_t			_size;
 
-			void quickSort(iterator min, iterator max)
-			{
-				iterator i = min;
-				iterator j = max;
-				iterator middle = min;
-				size_t len = 0;
+			// void quickSort(iterator min, iterator max)
+			// {
+			// 	iterator i = min;
+			// 	iterator j = max;
+			// 	iterator middle = min;
+			// 	size_t len = 0;
 
-				for ( ; middle != j; middle++)
-					len++;
-				len = len / 2;
+			// 	for ( ; middle != j; middle++)
+			// 		len++;
+			// 	len = len / 2;
 				
-				middle = min;
-				for (size_t ind = 0; ind < len; ind++)
-					middle++;
+			// 	middle = min;
+			// 	for (size_t ind = 0; ind < len; ind++)
+			// 		middle++;
 	
-				while (i.ptr <= j.ptr)
-				{
-					while (*i < *middle)
-						i++;
-					while (*j > *middle)
-						j--;		
+			// 	while (i.ptr <= j.ptr)
+			// 	{
+			// 		while (*i < *middle)
+			// 			i++;
+			// 		while (*j > *middle)
+			// 			j--;		
 					
-					if (i.ptr <= j.ptr)
-					{
-						ft::itemswap(i.ptr->data, j.ptr->data);
-						i++;
-						j--;
-					}
-				}
-				if (j.ptr > min.ptr)
-					quickSort(min, j);
-				if (i.ptr < max.ptr)
-					quickSort(i, max);
-			}
+			// 		if (i.ptr <= j.ptr)
+			// 		{
+			// 			ft::itemswap(i.ptr->data, j.ptr->data);
+			// 			i++;
+			// 			j--;
+			// 		}
+			// 	}
+			// 	if (j.ptr > min.ptr)
+			// 		quickSort(min, j);
+			// 	if (i.ptr < max.ptr)
+			// 		quickSort(i, max);
+			// }
 			
     }; 
 

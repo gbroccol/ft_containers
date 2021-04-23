@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:11:15 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/14 17:07:22 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:11:33 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ namespace ft
 
 				template <class InputIterator>
 				vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
-												typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0) : _alloc(alloc)
+												typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0) : _alloc(alloc)
 				{
 					_size = ft::distance(first, last);
 					_capacity = _size;
@@ -187,7 +187,7 @@ namespace ft
 		
 			template <class InputIterator>
 			void assign (InputIterator first, InputIterator last,
-										typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
+										typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
 				if (checkin(begin(), end(), first) || checkin(begin(), end(), last))
 					return ;
@@ -293,7 +293,7 @@ namespace ft
 
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last,
-													typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
+													typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
 				pointer tmp = NULL;
 				pointer posVector = position.ptr;

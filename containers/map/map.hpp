@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:19 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/14 17:02:36 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:11:26 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ namespace ft
 			template <class InputIterator>
 			map (InputIterator first, InputIterator last, const key_compare & comp = key_compare(),
 															const allocator_type& alloc = allocator_type(), 
-															typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
+															typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
 				_alloc = alloc;
 				_comp = comp;
@@ -315,7 +315,7 @@ namespace ft
 
 			template <class InputIterator>
 			void insert (InputIterator first, InputIterator last,
-											typename std::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
+											typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
 				for ( ; first != last; first++)
 					insert(first.ptr->data);
