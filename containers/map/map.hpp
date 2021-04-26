@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:19 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/23 15:11:26 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/26 19:51:04 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 namespace ft
 {
 	template <class Key, class T, class Compare = std::less<Key>,
-			  class Alloc = std::allocator<std::pair<const Key, T> > >
+			  class Alloc = ft::allocator<std::pair<const Key, T> > >
 	class map
 	{
 	public:
@@ -31,7 +31,7 @@ namespace ft
 		typedef T 										mapped_type;
 		typedef std::pair<const Key, T> 				value_type;
 		typedef std::less<key_type> 					key_compare;
-		typedef std::allocator<value_type> 				allocator_type;
+		typedef ft::allocator<value_type> 				allocator_type;
 		typedef value_type &							reference;
 		typedef const value_type &						const_reference;
 		typedef value_type *							pointer;
@@ -44,7 +44,6 @@ namespace ft
 		typedef size_t 									size_type;
 
 		typedef struct nodeMap<Key, T> 					nodeMap;
-		
 		
 		class value_compare
 		{
@@ -119,7 +118,7 @@ namespace ft
 				_root = NULL;
 				_size = 0;
 
-				this->insert(first, last);
+				insert(first, last);
 			}
 
 			map (const map& x)
@@ -134,9 +133,9 @@ namespace ft
 		*/
 			~map()
 			{
-				this->clear();
-				delete this->_TNULL;
-				delete this->_TSTART;
+				clear();
+				delete _TNULL;
+				delete _TSTART;
 			}
 		/*
 		** --------------------------------- OVERLOAD ---------------------------------
@@ -155,10 +154,10 @@ namespace ft
 				_root = NULL;
 				_size = 0;
 
-				this->clear();
+				clear();
 				
 				if (x._size)
-					this->insert(x.begin(), x.end());
+					insert(x.begin(), x.end());
 					
 				return (*this);
 			}
@@ -214,7 +213,7 @@ namespace ft
 		/* Capacity */
 
 			bool empty() const { return (_size == 0 ? true : false); }
-			size_type size() const { return this->_size; }
+			size_type size() const { return _size; }
 			size_type max_size() const { return (std::numeric_limits<size_type>::max() / (sizeof(nodeMap))); }
 
 		/* Element access */
@@ -237,9 +236,10 @@ namespace ft
 					return std::make_pair(iterator(whereAdd), false);
 				else
 				{
-					nodeMap *newNode = new nodeMap;
+					nodeMap *newNode = (nodeMap *)::operator new(sizeof(nodeMap));
+					_alloc.construct(&(newNode->data), val);
+					
 					newNode->color = RED;
-					newNode->data = val;
 					newNode->parent = whereAdd;
 					newNode->right = NULL;
 					newNode->left = NULL;
@@ -267,7 +267,7 @@ namespace ft
 					insertFix(newNode);
 					return std::make_pair(iterator(newNode), true);
 				}
-				return std::make_pair(iterator(this->_root), true);
+				return std::make_pair(iterator(_root), true);
 			}
 
 			iterator insert(iterator position, const value_type &val)
@@ -402,13 +402,13 @@ namespace ft
 
 			void swap(map &x)
 			{
-				ft::itemswap(this->_alloc, x._alloc);
-				ft::itemswap(this->_comp, x._comp);
-				ft::itemswap(this->_map, x._map);
-				ft::itemswap(this->_root, x._root);
-				ft::itemswap(this->_size, x._size);
-				ft::itemswap(this->_TNULL, x._TNULL);
-				ft::itemswap(this->_TSTART, x._TSTART);
+				ft::itemswap(_alloc, x._alloc);
+				ft::itemswap(_comp, x._comp);
+				ft::itemswap(_map, x._map);
+				ft::itemswap(_root, x._root);
+				ft::itemswap(_size, x._size);
+				ft::itemswap(_TNULL, x._TNULL);
+				ft::itemswap(_TSTART, x._TSTART);
 			}
 
 			void clear()
@@ -417,7 +417,7 @@ namespace ft
 					return;
 					
 				_TNULL->parent->right = NULL;
-				this->clear(this->_root);
+				clear(_root);
 				_map = NULL;
 				_TSTART->parent = NULL;
 				_TNULL->parent = NULL;
@@ -428,8 +428,8 @@ namespace ft
 
 		/* Observers */
 
-			key_compare key_comp() const { return this->_comp; }
-			value_compare value_comp() const { return value_compare(this->_comp); }
+			key_compare key_comp() const { return _comp; }
+			value_compare value_comp() const { return value_compare(_comp); }
 
 		/* Operations */
 
@@ -556,7 +556,7 @@ namespace ft
 			// 	if (_root)
 			// 	{
 			// 		std::cout << std::endl;
-			// 		printHelper(this->_root, "", true);
+			// 		printHelper(_root, "", true);
 			// 		std::cout << std::endl;
 			// 	}
 			// }
@@ -570,17 +570,14 @@ namespace ft
 			size_type _size;
 			nodeMap *_TNULL;
 			nodeMap *_TSTART;
-			// enum color {BLACK, RED, LAST, FIRST};
-
+		
 			std::pair<iterator, bool> createFirstNode(const value_type &val)
 			{
-				_map = new nodeMap;
-
+				_map = (nodeMap *)::operator new(sizeof(nodeMap));
+				_alloc.construct(&(_map->data), val);
 				_map->parent = NULL;
 				_map->right = _TNULL;
 				_map->left = NULL;
-
-				_map->data = val;
 				_map->color = BLACK;
 
 				_TSTART->parent = _map;
@@ -589,18 +586,16 @@ namespace ft
 				_size++;
 
 				_TNULL->parent = _map;
-				return std::make_pair(iterator(this->_root), true);
+				return std::make_pair(iterator(_root), true);
 			}
 
 			nodeMap *createNode(const value_type &val)
 			{
-				nodeMap *newNode = new nodeMap;
-
+				nodeMap * newNode = (nodeMap *)::operator new(sizeof(nodeMap));
+				_alloc.construct(&(newNode->data), val);
 				newNode->parent = NULL;
 				newNode->right = NULL;
 				newNode->left = NULL;
-
-				newNode->data = val;
 				newNode->color = BLACK;
 
 				return newNode;
@@ -896,6 +891,80 @@ namespace ft
 					return false;
 				}
 		};
+
+		/* Non-member function overloads */
+			
+			template <class Key, class T, class Compare, class Alloc>
+			bool operator== (const ft::map <Key, T, Compare, Alloc> & lhs, const ft::map <Key, T, Compare, Alloc> & rhs)
+			{
+				if (lhs.size() == rhs.size())
+				{
+					ft::iteratorMap <Key, T> it1 = lhs.begin();
+					ft::iteratorMap <Key, T> it2 = rhs.begin();
+					
+					while (it1 != lhs.end())
+					{
+						if (*it1 != *it2)
+							return false;
+						it1++;
+						it2++;
+					}
+					return true;
+				}
+				return false;
+			}
+
+			template <class Key, class T, class Compare, class Alloc>
+			bool operator!= (const map<Key, T, Compare, Alloc> & lhs, const map<Key, T, Compare, Alloc> & rhs)
+			{
+				return !(lhs == rhs);
+			}
+
+			template <class Key, class T, class Compare, class Alloc>
+			bool operator<  (const map <Key, T, Compare, Alloc> & lhs, const map <Key, T, Compare, Alloc> & rhs)
+			{
+				if (lhs.size() == 0)
+					return true;
+				else if (rhs.size() == 0)
+					return false;
+				else
+				{
+					ft::iteratorMap <Key, T> it1 = lhs.begin();
+					ft::iteratorMap <Key, T> it2 = rhs.begin();
+						
+					while (it1 != lhs.end() && it2 != rhs.end())
+					{
+						if (*it1 < *it2)
+							return true;
+						else if (*it1 > *it2)
+							return false;
+						it1++;
+						it2++;
+					}
+				}
+				return false;
+			}
+
+			template <class Key, class T, class Compare, class Alloc>
+			bool operator>  (const map<Key, T, Compare, Alloc> & lhs, const map<Key, T, Compare, Alloc> & rhs)
+			{
+				return (rhs < lhs);
+			}
+
+			template <class Key, class T, class Compare, class Alloc>
+			bool operator<= (const map <Key, T, Compare, Alloc> & lhs, const map <Key, T, Compare, Alloc>& rhs) 
+			{
+				return !(rhs < lhs);
+			}
+
+			template <class Key, class T, class Compare, class Alloc>
+			bool operator>= (const map <Key, T, Compare, Alloc>& lhs, const map <Key, T, Compare, Alloc>& rhs)
+			{
+				return 	!(lhs < rhs);
+			}
+
+			template <class Key, class T, class Compare, class Alloc>
+			void swap (map <Key, T, Compare, Alloc> & x, map <Key, T, Compare, Alloc> & y) { x.swap(y); }
 
 }
 #endif

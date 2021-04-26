@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:44:26 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/23 17:41:36 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/26 16:43:06 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,57 +14,42 @@
 
 int main()
 {
-	// std::string 	command;
+	std::string 	command;
 
-	// while (1)
-	// {
-	// 	std::cout << "\x1b[34mChoose сontainer (list, map, queue, stack, vector) for testing or type exit: \x1b[0m";
-	// 	std::cin.clear();
+	while (1)
+	{
+		std::cout << "\x1b[34mChoose сontainer (list, map, queue, stack, vector) for testing or type exit: \x1b[0m";
+		std::cin.clear();
 		
-	// 	std::cout << "\x1b[32m";
-	// 	std::getline(std::cin, command);
-	// 	std::cout << "\x1b[0m";
+		std::cout << "\x1b[32m";
+		std::getline(std::cin, command);
+		std::cout << "\x1b[0m";
 		
-	// 	if (std::cin.eof())
-	// 	{
-	// 		std::cout << std::endl << "\x1b[1;31mExit\x1b[0m" << std::endl;
-	// 		return (0);
-	// 	}
-	// 	if ("list" == command)
+		if (std::cin.eof())
+		{
+			std::cout << std::endl << "\x1b[1;31mExit\x1b[0m" << std::endl;
+			return (0);
+		}
+		if ("list" == command)
 			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-			list_test();
-	// 	else if ("map" == command)
-	// 		map_test();
-	// 	else if ("queue" == command)
-	// 		queue_test();
-	// 	else if ("stack" == command)
-	// 		stack_test();
-	// 	else if ("vector" == command)
-	// 		vector_test();	
-	// 	else if ("exit" == command)
-	// 		return (0);
-	// 	else if (command.empty())
-	// 		continue ;
-	// 	else if (!std::cin.eof())
-	// 		std::cout << "\x1b[31mThere is no such command\x1b[0m" << std::endl;
-	// 	if (std::cin.eof())
-	// 		return (0);
-	// }
+		else if ("map" == command)
+			map_test();
+		else if ("queue" == command)
+			queue_test();
+		else if ("stack" == command)
+			stack_test();
+		else if ("vector" == command)
+			vector_test();	
+		else if ("exit" == command)
+			return (0);
+		else if (command.empty())
+			continue ;
+		else if (!std::cin.eof())
+			std::cout << "\x1b[31mThere is no such command\x1b[0m" << std::endl;
+		if (std::cin.eof())
+			return (0);
+	}
+
+	getchar();
 	return (0);
 }

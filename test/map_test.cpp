@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:48:16 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/14 15:37:46 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/26 19:39:35 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void				constructor_map(int testNmb, int testAll)
 		printMap("    userMap: ", mapUser);
 
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 
 	if (InputIteratorC)
@@ -93,8 +93,8 @@ void				constructor_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSysChar2.size(), mapUserChar2.size(), "Size is");
 		testFunc(testNmb++, IterSys->first, IterUser->first, "end");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* constructor InputIterator */
 		std::cout << std::endl << "\x1b[33m" << "constructor InputIterator" << "\x1b[0m" << std::endl;
@@ -129,8 +129,8 @@ void				constructor_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSysChar22.size(), mapUserChar2.size(), "Size is");
 		testFunc(testNmb++, IterSys->first, IterUser->first, "end");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* constructor InputIterator */
 		std::cout << std::endl << "\x1b[33m" << "constructor InputIterator" << "\x1b[0m" << std::endl;
@@ -148,8 +148,8 @@ void				constructor_map(int testNmb, int testAll)
 
 		testFunc(testNmb++, mapSysChar3.size(), mapUserChar3.size(), "Size is");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 
 	if (copyC)
@@ -187,8 +187,8 @@ void				constructor_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys2.size(), mapUser2.size(), "Size is");
 		testFunc(testNmb++, IterSys->first, IterUser->first, "end");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* copy constructor 2 */
 		std::cout << std::endl << "\x1b[33m" << "copy constructor 2" << "\x1b[0m" << std::endl;
@@ -205,8 +205,8 @@ void				constructor_map(int testNmb, int testAll)
 
 		testFunc(testNmb++, mapSys4.size(), mapUser4.size(), "Size is");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 	
 }
@@ -251,7 +251,7 @@ void				iterators_map(int testNmb, int testAll)
 		iterUserBeginEnd--;
 		testFunc(testNmb++, iterSysBeginEnd->first, iterUserBeginEnd->first, "end");
 		
-		getchar();
+		// getchar();
 
 		iterSysBeginEnd = mapSys.begin();
 		iterSysBeginEnd++;
@@ -267,7 +267,7 @@ void				iterators_map(int testNmb, int testAll)
 		iterUserBeginEnd--;
 		testFunc(testNmb++, iterSysBeginEnd->first, iterUserBeginEnd->first, "--end");
 		
-		getchar();
+		// getchar();
 
 		std::cout << std::endl << "\x1b[33m" << "const begin and end" << "\x1b[0m" << std::endl;
 
@@ -283,7 +283,7 @@ void				iterators_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSysConst.begin()->first, mapUserConst.begin()->first, "const begin");
 		testFunc(testNmb++,  iterSysBeginEndConst->first, iterUserBeginEndConst->first, "const end");
 
-		getchar();
+		// getchar();
 
 		iterSysBeginEnd = mapSys.begin();
 		iterSysBeginEnd++;
@@ -298,9 +298,9 @@ void				iterators_map(int testNmb, int testAll)
 		iterUserBeginEnd--;
 		iterUserBeginEnd--;
 		testFunc(testNmb++, iterSysBeginEnd->first, iterUserBeginEnd->first, "--end");
-		getchar();
+		// getchar();
 		
-		system("clear");
+		// system("clear");
 	}
 
 	/* ************************** REVERSE BEGIN AND END *********************** */
@@ -374,7 +374,7 @@ void				iterators_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSysConst.rbegin()->first, mapUserConst.rbegin()->first, "const rbegin");
 		testFunc(testNmb++,  iterSysBeginEndConstRev->first, iterUserBeginEndConstRev->first, "const rend");
 
-		getchar();
+		// getchar();
 
 		iterSysBeginEndRev = mapSys.rbegin();
 		iterSysBeginEndRev++;
@@ -390,8 +390,8 @@ void				iterators_map(int testNmb, int testAll)
 		iterUserBeginEndRev--;
 		testFunc(testNmb++, iterSysBeginEndRev->first, iterUserBeginEndRev->first, "--rend");
 	
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 }
 
@@ -441,8 +441,8 @@ void				capacity_map(int testNmb, int testAll)
 		mapUser.insert ( std::pair <int, int> (1, 10) );
 
 		testFunc(testNmb++, mapSys.empty(), mapUser.empty(), "Empty");
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 }
 
@@ -510,8 +510,8 @@ void				element_access_map(int testNmb, int testAll)
 		printMap("     sysMap: ", mapSys);
 		printMap("    userMap: ", mapUser);
 		
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 	
 }
@@ -611,8 +611,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		testFunc(testNmb++, IterSys->first, IterUser->first, "end");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 		
 		/* insert 2 */
 		std::cout << std::endl << "\x1b[33m" << "insert 2 (print it inverted tree)" << "\x1b[0m" << std::endl;
@@ -622,8 +622,8 @@ void				modifiers_map(int testNmb, int testAll)
 
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		std::cout << std::endl << "\x1b[33m" << "insert 3" << "\x1b[0m" << std::endl;
 		
@@ -660,8 +660,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		testFunc(testNmb++, IterSys->first, IterUser->first, "end");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 
 	if(insert2)
@@ -726,8 +726,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, IterSys->first, IterUser->first, "Return value is");
 		testFunc(testNmb++, IterSys->second, IterUser->second, "Return value is");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert 2.0 */
 		std::cout << std::endl << "\x1b[33m" << "insert 2.0 (true position - add -150 to begin())" << "\x1b[0m" << std::endl;
@@ -761,8 +761,8 @@ void				modifiers_map(int testNmb, int testAll)
 		IterUser--;
 		testFunc(testNmb++, IterSys->first, IterUser->first, "Return value (first) is");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert 2.0 */
 		std::cout << std::endl << "\x1b[33m" << "insert 2.0 (true position - add -150 to begin())" << "\x1b[0m" << std::endl;
@@ -843,8 +843,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, IterSys->first, IterUser->first, "Return value is");
 		testFunc(testNmb++, IterSys->second, IterUser->second, "Return value is");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert 2.1 */
 		std::cout << std::endl << "\x1b[33m" << "insert 2.1 (true position - add 110 to end())" << "\x1b[0m" << std::endl;
@@ -870,8 +870,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, IterSys->first, IterUser->first, "Return value is");
 		testFunc(testNmb++, IterSys->second, IterUser->second, "Return value is");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert 2.2 */
 		std::cout << std::endl << "\x1b[33m" << "insert 2.2 (false position - add 35 to end()--)" << "\x1b[0m" << std::endl;
@@ -897,8 +897,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, IterSys->first, IterUser->first, "Return value is");
 		testFunc(testNmb++, IterSys->second, IterUser->second, "Return value is");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert 2.3 */
 		std::cout << std::endl << "\x1b[33m" << "insert 2.3 (there is such key(35))" << "\x1b[0m" << std::endl;
@@ -918,16 +918,16 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, IterSys->first, IterUser->first, "Return value is");
 		testFunc(testNmb++, IterSys->second, IterUser->second, "Return value is");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert 2.4 */
 		std::cout << std::endl << "\x1b[33m" << "insert 2.4 (position from another map (add 11) - sega)" << "\x1b[0m" << std::endl;
 
 		// mapSys.insert(mapSys2.begin(), std::pair<int,int>(11, 11));
 		// mapSys.insert(mapUser2.begin(), std::pair<int,int>(-150,300));
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 
 	if (insert3)
@@ -975,8 +975,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys2.begin()->first, mapUser2.begin()->first, "begin");
 		testFunc(testNmb++, mapSys2.size(), mapUser2.size(), "Size is");
 		testFunc(testNmb++, IterSys->first, IterUser->first, "end");
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 		
 		/* insert 2 */
 		std::cout << std::endl << "\x1b[33m" << "insert 2 ((InputIterator first, InputIterator last);)" << "\x1b[0m" << std::endl;
@@ -1032,8 +1032,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys2.size(), mapUser2.size(), "Size is");
 		testFunc(testNmb++, IterSys->first, IterUser->first, "end");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert 3 */
 		std::cout << std::endl << "\x1b[33m" << "insert 3 ((InputIterator first, InputIterator last);)" << "\x1b[0m" << std::endl;
@@ -1083,8 +1083,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys2.size(), mapUser2.size(), "Size is");
 		testFunc(testNmb++, IterSys->first, IterUser->first, "end");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert 4 */
 		std::cout << std::endl << "\x1b[33m" << "insert 4 ((InputIterator first, InputIterator last);)" << "\x1b[0m" << std::endl;
@@ -1126,8 +1126,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys2.size(), mapUser2.size(), "Size is");
 		testFunc(testNmb++, IterSys->first, IterUser->first, "end");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert 5 */
 		std::cout << std::endl << "\x1b[33m" << "insert 5 ((InputIterator first, InputIterator last);) - sega" << "\x1b[0m" << std::endl;
@@ -1169,8 +1169,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys2.size(), mapUser2.size(), "Size is");
 		testFunc(testNmb++, IterSys->first, IterUser->first, "end");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert 6 */
 		std::cout << std::endl << "\x1b[33m" << "insert 6 ((InputIterator first, InputIterator last);)" << "\x1b[0m" << std::endl;
@@ -1208,8 +1208,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys2.begin()->first, mapUser2.begin()->first, "begin");
 		testFunc(testNmb++, mapSys2.size(), mapUser2.size(), "Size is");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert 7 */
 		std::cout << std::endl << "\x1b[33m" << "insert 7 ((InputIterator first, InputIterator last);)" << "\x1b[0m" << std::endl;
@@ -1254,8 +1254,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys2.size(), mapUser2.size(), "Size is");
 		testFunc(testNmb++, IterSys->first, IterUser->first, "end");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 
 	//***************************ERASE************************//
@@ -1305,8 +1305,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		testFunc(testNmb++, itSysEnd->first, itUserEnd->first, "end");
 		
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		std::cout << std::endl << "\x1b[33m" << "erase 40 (delete finish)" << "\x1b[0m" << std::endl;
 		
@@ -1349,8 +1349,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		testFunc(testNmb++, itSysEnd->first, itUserEnd->first, "end");
 		
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		std::cout << std::endl << "\x1b[33m" << "erase 41" << "\x1b[0m" << std::endl;
 		
@@ -1401,8 +1401,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		testFunc(testNmb++, itSysEnd->first, itUserEnd->first, "end");
 		
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		std::cout << std::endl << "\x1b[33m" << "erase 40" << "\x1b[0m" << std::endl;
 		
@@ -1447,8 +1447,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		testFunc(testNmb++, itSysEnd->first, itUserEnd->first, "end");
 		
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		std::cout << std::endl << "\x1b[33m" << "erase 100 (size_type erase (const key_type& k);)" << "\x1b[0m" << std::endl;
 		
@@ -1491,8 +1491,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys.begin()->first, mapUser.begin()->first, "begin");
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		testFunc(testNmb++, itSysEnd->first, itUserEnd->first, "end");
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		std::cout << std::endl << "\x1b[33m" << "erase 40 (size_type erase (const key_type& k);)" << "\x1b[0m" << std::endl;
 		
@@ -1535,8 +1535,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		testFunc(testNmb++, itSysEnd->first, itUserEnd->first, "end");
 				
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		std::cout << std::endl << "\x1b[33m" << "erase incorrect number (size_type erase (const key_type& k);)" << "\x1b[0m" << std::endl;
 		
@@ -1578,8 +1578,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		testFunc(testNmb++, itSysEnd->first, itUserEnd->first, "end");
 				
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		std::cout << std::endl << "\x1b[33m" << "erase 65" << "\x1b[0m" << std::endl;
 		
@@ -1622,8 +1622,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		testFunc(testNmb++, itSysEnd->first, itUserEnd->first, "end");
 		
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 		
 		std::cout << std::endl << "\x1b[33m" << "erase all (void erase (iterator first, iterator last))" << "\x1b[0m" << std::endl;
 		
@@ -1665,8 +1665,8 @@ void				modifiers_map(int testNmb, int testAll)
 
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 		
 		/* erase 40 */
 		std::cout << std::endl << "\x1b[33m" << "erase 40 (void erase (iterator first, iterator last))" << "\x1b[0m" << std::endl;
@@ -1720,8 +1720,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		testFunc(testNmb++, itSysEnd->first, itUserEnd->first, "end");
 		
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		std::cout << std::endl << "\x1b[33m" << "erase 75 (void erase (iterator first, iterator last))" << "\x1b[0m" << std::endl;
 		
@@ -1773,8 +1773,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		testFunc(testNmb++, itSysEnd->first, itUserEnd->first, "end");
 		
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		std::cout << std::endl << "\x1b[33m" << "erase NULL (void erase (iterator first, iterator last))" << "\x1b[0m" << std::endl;
 		
@@ -1821,8 +1821,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 		testFunc(testNmb++, itSysEnd->first, itUserEnd->first, "end");
 		
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 	
 	//***************************SWAP************************//
@@ -1881,8 +1881,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys2.begin()->first, mapUser2.begin()->first, "Begin (2)");
 		testFunc(testNmb++, mapSys2.size(), 		mapUser2.size(), "Size (2) is");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 		
 		/* swap 2 */
 		std::cout << std::endl << "\x1b[33m" << "swap 2" << "\x1b[0m" << std::endl;
@@ -1923,8 +1923,8 @@ void				modifiers_map(int testNmb, int testAll)
 		testFunc(testNmb++, mapSys2.begin()->first, mapUser2.begin()->first, "Begin (2)");
 		testFunc(testNmb++, mapSys2.size(), 		mapUser2.size(), "Size (2) is");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 	
 	//***************************CLEAR************************//
@@ -1939,8 +1939,8 @@ void				modifiers_map(int testNmb, int testAll)
 		printMap("     sysMap: ", mapSys1);
 		printMap("    userMap: ", mapUser1);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 		
 		/* clear 2 */
 		std::cout << std::endl << "\x1b[33m" << "clear" << "\x1b[0m" << std::endl;
@@ -2006,8 +2006,8 @@ void				modifiers_map(int testNmb, int testAll)
 		
 		testFunc(testNmb++, mapSys.size(), mapUser.size(), "Size is");
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 		
 	}
 }
@@ -2079,8 +2079,8 @@ void				observers_map(int testNmb, int testAll)
 			IterUser++;
 		}
 
-		getchar();
-		system("clear");	
+		// getchar();
+		// system("clear");	
 	}
 	
 	if (value_comp)
@@ -2122,8 +2122,8 @@ void				observers_map(int testNmb, int testAll)
 		}
 		testFunc(testNmb++, IterSys->first, IterUser->first, "First");
 		testFunc(testNmb++, IterSys->second, IterUser->second, "Second");
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 }
 
@@ -2169,8 +2169,8 @@ void 				operations_map(int testNmb, int testAll)
 
 		testFunc(testNmb++, iterFindSys->second, iterFindUser->second, "second value");
 		testFunc(testNmb++, iterFindSys->first, iterFindUser->first, "first value");
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 		
 		// /* find 2 */
 		// std::cout << std::endl << "\x1b[33m" << "find 2" << "\x1b[0m" << std::endl;
@@ -2194,7 +2194,7 @@ void 				operations_map(int testNmb, int testAll)
 
 		testFunc(testNmb++, iterFindSys2->second, iterFindUser2->second, "second value");
 		testFunc(testNmb++, iterFindSys2->first, iterFindUser2->first, "first value");
-		getchar();
+		// getchar();
 		
 		// /* find 4 */
 		// std::cout << std::endl << "\x1b[33m" << "find 4 (const)" << "\x1b[0m" << std::endl;
@@ -2228,8 +2228,8 @@ void 				operations_map(int testNmb, int testAll)
 		testFunc(testNmb++,  mapSys.count(30), mapUser.count(30), "return value (30)");
 		testFunc(testNmb++,  mapSys.count(42), mapUser.count(42), "return value (42)");
 		testFunc(testNmb++, mapSys.count(100), mapUser.count(100), "return value (100)");
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 
 	if(lower_bound)
@@ -2256,7 +2256,7 @@ void 				operations_map(int testNmb, int testAll)
 		testFunc(testNmb++,  iterFindSys->first,  iterFindUser->first, "iterator first");
 		testFunc(testNmb++,  iterFindSys->second,  iterFindUser->second, "iterator second");
 		
-		getchar();
+		// getchar();
 
 		/* lower_bound 2 */
 		std::cout << std::endl << "\x1b[33m" << "lower_bound (12 - first node)" << "\x1b[0m" << std::endl;
@@ -2265,7 +2265,7 @@ void 				operations_map(int testNmb, int testAll)
 		
 		testFunc(testNmb++,  iterFindSys->first,  iterFindUser->first, "iterator first");
 		testFunc(testNmb++,  iterFindSys->second,  iterFindUser->second, "iterator second");
-		getchar();
+		// getchar();
 
 		/* lower_bound 3 */
 		std::cout << std::endl << "\x1b[33m" << "lower_bound (42 - last node)" << "\x1b[0m" << std::endl;
@@ -2274,7 +2274,7 @@ void 				operations_map(int testNmb, int testAll)
 		
 		testFunc(testNmb++,  iterFindSys->first,  iterFindUser->first, "iterator first");
 		testFunc(testNmb++,  iterFindSys->second,  iterFindUser->second, "iterator second");
-		getchar();
+		// getchar();
 
 		// /* lower_bound 4 */
 		// std::cout << std::endl << "\x1b[33m" << "lower_bound (100 - there is no such key)" << "\x1b[0m" << std::endl;
@@ -2295,7 +2295,7 @@ void 				operations_map(int testNmb, int testAll)
 		std::cout << std::endl << "\x1b[33m" << "const lower_bound" << "\x1b[0m" << std::endl;
 		testFunc(testNmb++,  iterFindSys2->first,  iterFindUser2->first, "iterator first");
 		testFunc(testNmb++,  iterFindSys2->second,  iterFindUser2->second, "iterator second");
-		getchar();
+		// getchar();
 
 		/* const_lower_bound 2 */
 		iterFindUser2 = mapUser2.lower_bound(12);
@@ -2303,7 +2303,7 @@ void 				operations_map(int testNmb, int testAll)
 		
 		testFunc(testNmb++,  iterFindSys2->first,  iterFindUser2->first, "iterator first");
 		testFunc(testNmb++,  iterFindSys2->second,  iterFindUser2->second, "iterator second");
-		getchar();
+		// getchar();
 
 		// /* const_lower_bound 3 */
 		// iterFindUser2 = mapUser2.lower_bound(100);
@@ -2314,7 +2314,7 @@ void 				operations_map(int testNmb, int testAll)
 		// testFunc(testNmb++,  iterFindSys2->first,  iterFindUser2->first, "iterator first");
 		// testFunc(testNmb++,  iterFindSys2->second,  iterFindUser2->second, "iterator second");
 		// getchar();
-		system("clear");
+		// system("clear");
 	}
 	
 	if(upper_bound)
@@ -2340,7 +2340,7 @@ void 				operations_map(int testNmb, int testAll)
 		
 		testFunc(testNmb++,  iterFindSys->first,  iterFindUser->first, "iterator first");
 		testFunc(testNmb++,  iterFindSys->second,  iterFindUser->second, "iterator second");
-		getchar();
+		// getchar();
 		
 		/* upper_bound 2 */
 		std::cout << std::endl << "\x1b[33m" << "upper_bound 2 (12)" << "\x1b[0m" << std::endl;
@@ -2350,7 +2350,7 @@ void 				operations_map(int testNmb, int testAll)
 		
 		testFunc(testNmb++,  iterFindSys->first,  iterFindUser->first, "iterator first");
 		testFunc(testNmb++,  iterFindSys->second,  iterFindUser->second, "iterator second");
-		getchar();
+		// getchar();
 
 		// /* upper_bound 3 */
 		// std::cout << std::endl << "\x1b[33m" << "upper_bound 3 (42)" << "\x1b[0m" << std::endl;
@@ -2382,7 +2382,7 @@ void 				operations_map(int testNmb, int testAll)
 		
 		testFunc(testNmb++,  iterFindSys2->first,  iterFindUser2->first, "iterator first");
 		testFunc(testNmb++,  iterFindSys2->second,  iterFindUser2->second, "iterator second");
-		getchar();
+		// getchar();
 
 		/* const_upper_bound 2 */
 		std::cout << std::endl << "\x1b[33m" << "const_upper_bound 2 (12)" << "\x1b[0m" << std::endl;
@@ -2391,7 +2391,7 @@ void 				operations_map(int testNmb, int testAll)
 		
 		testFunc(testNmb++,  iterFindSys2->first,  iterFindUser2->first, "iterator first");
 		testFunc(testNmb++,  iterFindSys2->second,  iterFindUser2->second, "iterator second");
-		getchar();
+		// getchar();
 
 		// /* const_upper_bound 3 */
 		// std::cout << std::endl << "\x1b[33m" << "const_upper_bound 3 (100)" << "\x1b[0m" << std::endl;
@@ -2402,7 +2402,7 @@ void 				operations_map(int testNmb, int testAll)
 		// testFunc(testNmb++,  iterFindSys2->first,  iterFindUser2->first, "iterator first");
 		// testFunc(testNmb++,  iterFindSys2->second,  iterFindUser2->second, "iterator second");
 		// getchar();
-		system("clear");
+		// system("clear");
 	}
 	
 	if(equal_range)
@@ -2433,7 +2433,7 @@ void 				operations_map(int testNmb, int testAll)
 		testFunc(testNmb++,  iterFindSys.first->second,  iterFindUser.first->second, "iterator first->second");
 		testFunc(testNmb++,  iterFindSys.second->first,  iterFindUser.second->first, "iterator second->first");
 		testFunc(testNmb++,  iterFindSys.second->second,  iterFindUser.second->second, "iterator second->second");
-		getchar();
+		// getchar();
 
 		/* equal_range 2 */ 
 		std::cout << std::endl << "\x1b[33m" << "equal_range 2 (12)" << "\x1b[0m" << std::endl;
@@ -2445,7 +2445,7 @@ void 				operations_map(int testNmb, int testAll)
 		testFunc(testNmb++,  iterFindSys.first->second,   iterFindUser.first->second, "iterator first->second");
 		testFunc(testNmb++,  iterFindSys.second->first,   iterFindUser.second->first, "iterator second->first");
 		testFunc(testNmb++,  iterFindSys.second->second,  iterFindUser.second->second, "iterator second->second");
-		getchar();
+		// getchar();
 
 		/* equal_range 3 */ 
 		// std::cout << std::endl << "\x1b[33m" << "equal_range 3 (100)" << "\x1b[0m" << std::endl;
@@ -2469,7 +2469,7 @@ void 				operations_map(int testNmb, int testAll)
 		testFunc(testNmb++,  iterFindSys.first->second,   iterFindUser.first->second, "iterator first->second");
 		testFunc(testNmb++,  iterFindSys.second->first,   iterFindUser.second->first, "iterator second->first");
 		testFunc(testNmb++,  iterFindSys.second->second,  iterFindUser.second->second, "iterator second->second");
-		getchar();
+		// getchar();
 
 		/* const_upper_bound 1 */ 
 		std::cout << std::endl << "\x1b[33m" << "const_upper_bound 1 (30)" << "\x1b[0m" << std::endl;
@@ -2484,7 +2484,7 @@ void 				operations_map(int testNmb, int testAll)
 		testFunc(testNmb++,  iterFindSys2.first->second,  iterFindUser2.first->second, "const iterator first->second");
 		testFunc(testNmb++,  iterFindSys2.second->first,  iterFindUser2.second->first, "const iterator second->first");
 		testFunc(testNmb++,  iterFindSys2.second->second,  iterFindUser2.second->second, "const iterator second->second");
-		getchar();
+		// getchar();
 
 		/* const_upper_bound 2 */ 
 		std::cout << std::endl << "\x1b[33m" << "const upper_bound 2 (12)" << "\x1b[0m" << std::endl;
@@ -2496,7 +2496,7 @@ void 				operations_map(int testNmb, int testAll)
 		testFunc(testNmb++,  iterFindSys2.first->second,  iterFindUser2.first->second, "const iterator first->second");
 		testFunc(testNmb++,  iterFindSys2.second->first,  iterFindUser2.second->first, "const iterator second->first");
 		testFunc(testNmb++,  iterFindSys2.second->second,  iterFindUser2.second->second, "const iterator second->second");
-		getchar();
+		// getchar();
 
 
 		/* const_upper_bound 3 */ 		
@@ -2510,7 +2510,7 @@ void 				operations_map(int testNmb, int testAll)
 		// testFunc(testNmb++,  iterFindSys2.second->first,  iterFindUser2.second->first, "const iterator second->first");
 		// testFunc(testNmb++,  iterFindSys2.second->second,  iterFindUser2.second->second, "const iterator second->second");
 		// getchar();
-		system("clear");
+		// system("clear");
 	}
 }
 
@@ -2561,8 +2561,8 @@ void				iterator_for_map(int testNmb)
 
 	testFunc(testNmb++, (--iterSysBegin)->first, (--iterUserBegin)->first, "--a (action)");
 	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "--a (result)");
-	getchar();
-	system("clear");
+	// getchar();
+	// system("clear");
 }
 
 void				const_iterator_for_map(int testNmb)
@@ -2612,8 +2612,8 @@ void				const_iterator_for_map(int testNmb)
 
 	testFunc(testNmb++, (--iterSysBegin)->first, (--iterUserBegin)->first, "--a (action)");
 	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "--a (result)");
-	getchar();
-	system("clear");
+	// getchar();
+	// system("clear");
 }
 
 void				rev_iterator_for_map(int testNmb)
@@ -2676,8 +2676,8 @@ void				rev_iterator_for_map(int testNmb)
 
 	testFunc(testNmb++, (--iterSysBegin)->first, (--iterUserBegin)->first, "--a (action)");
 	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "--a (result)");
-	getchar();
-	system("clear");
+	// getchar();
+	// system("clear");
 }
 
 void				rev_const_iterator_for_map(int testNmb)
@@ -2740,8 +2740,8 @@ void				rev_const_iterator_for_map(int testNmb)
 
 	testFunc(testNmb++, (--iterSysBegin)->first, (--iterUserBegin)->first, "--a (action)");
 	testFunc(testNmb++, iterSysBegin->first, iterUserBegin->first  , "--a (result)");
-	getchar();
-	system("clear");
+	// getchar();
+	// system("clear");
 }
 
 void				different_types_map(int testNmb)
@@ -2784,27 +2784,27 @@ void				different_types_map(int testNmb)
 	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
 	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty");
 	
-	getchar();
-	std::system("clear");
+	// getchar();
+	// std::system("clear");
 
-	// /* const char */
-	// std::cout << std::endl << "\x1b[33m" << "CONST CHAR" << "\x1b[0m" << std::endl;
+	/* const char */
+	std::cout << std::endl << "\x1b[33m" << "CONST CHAR" << "\x1b[0m" << std::endl;
 			
-	// ft::map <int, const char> userConstChar;
-	// std::map  <int, const char> sysConstChar;
+	ft::map <int, const char> userConstChar;
+	std::map  <int, const char> sysConstChar;
 			
-	// for (int i = 33; i < 57; i++)
-	// {
-	// 	userConstChar.insert(std::pair <int, const char> (125, 'a'));
-	// 	sysConstChar.insert(std::pair <int, const char> (125, 'a'));
-	// }
+	for (int i = 33; i < 57; i++)
+	{
+		userConstChar.insert(std::pair <int, const char> (125, 'a'));
+		sysConstChar.insert(std::pair <int, const char> (125, 'a'));
+	}
 
-	// std::map <int, const char> :: iterator sysIteratorConstChar = sysConstChar.begin();
-	// ft::map <int, const char> :: iterator userIteratorConstChar = userConstChar.begin();
+	std::map <int, const char> :: iterator sysIteratorConstChar = sysConstChar.begin();
+	ft::map <int, const char> :: iterator userIteratorConstChar = userConstChar.begin();
 
-	// testFunc(testNmb++, userConstChar.size(), userConstChar.size(), "Size is <char>");
-	// testFunc(testNmb++, sysIteratorConstChar->first, userIteratorConstChar->first, "first");
-	// testFunc(testNmb++, sysIteratorConstChar->second, userIteratorConstChar->second, "second");
+	testFunc(testNmb++, userConstChar.size(), userConstChar.size(), "Size is <char>");
+	testFunc(testNmb++, sysIteratorConstChar->first, userIteratorConstChar->first, "first");
+	testFunc(testNmb++, sysIteratorConstChar->second, userIteratorConstChar->second, "second");
 	// getchar();
 	// std::system("clear");
 
@@ -2841,8 +2841,94 @@ void				different_types_map(int testNmb)
 	testFunc(testNmb++, sysStdListChar.empty(), userStdListChar.empty(), "Empty");
 	testFunc(testNmb++, *sysStdListChar.begin()->first.begin(), *userStdListChar.begin()->first.begin(), "begin");
 	testFunc(testNmb++, *sysStdListChar.begin()->second.begin(), *userStdListChar.begin()->second.begin(), "begin");
-	getchar();
-	std::system("clear");
+}
+
+void				overloads_map(int testNmb)
+{
+	std::cout << std::endl << "\x1b[33m" << "                         *** OVERLOADES ***                          " << "\x1b[0m" << std::endl;
+
+	std::map<int, int> Sys_a;
+	std::map<int, int> Sys_b;
+	std::map<int, int> Sys_c;
+	std::map<int, int> Sys_d;
+	std::map<int, int> Sys_f;
+
+	ft::map<int, int> User_a;
+  	ft::map<int, int> User_b;
+  	ft::map<int, int> User_c;
+	ft::map<int, int> User_d;
+	ft::map<int, int> User_f;
+
+	for (int i = 10; i < 40;)
+	{
+		Sys_a.insert(std::pair <int, int> (i, i));
+		Sys_b.insert(std::pair <int, int> (i, i));
+		User_a.insert(std::pair <int, int> (i, i));
+		User_b.insert(std::pair <int, int> (i, i));
+		i += 10;
+	}
+
+	for (int i = 30; i >= 10;)
+	{
+		Sys_c.insert(std::pair <int, int> (i, i));
+		User_c.insert(std::pair <int, int> (i, i));
+		i -= 10;
+	}
+
+	Sys_f.insert(std::pair <int, int> (100, 100));
+	User_f.insert(std::pair <int, int> (100, 100));
+
+	try
+	{
+		testFunc(testNmb++, (Sys_a == Sys_b), (User_a == User_b), "a == b");
+		testFunc(testNmb++, (Sys_b == Sys_c), (User_b == User_c), "b == c");
+		testFunc(testNmb++, (Sys_a == Sys_d), (User_a == User_d), "a == d");
+		testFunc(testNmb++, (Sys_d == Sys_c), (User_d == User_c), "d == c");
+		testFunc(testNmb++, (Sys_a == Sys_f), (User_a == User_f), "a == f");
+		testFunc(testNmb++, (Sys_f == Sys_c), (User_f == User_c), "f == c");
+
+		testFunc(testNmb++, (Sys_a != Sys_b), (User_a != User_b), "a != b");
+		testFunc(testNmb++, (Sys_b != Sys_c), (User_b != User_c), "b != c");
+		testFunc(testNmb++, (Sys_a != Sys_d), (User_a != User_d), "a != d");
+		testFunc(testNmb++, (Sys_d != Sys_c), (User_d != User_c), "d != c");
+		testFunc(testNmb++, (Sys_a != Sys_f), (User_a != User_f), "a != f");
+		testFunc(testNmb++, (Sys_f != Sys_c), (User_f != User_c), "f != c");
+
+		testFunc(testNmb++, (Sys_a < Sys_b), (User_a < User_b), "a < b");
+		testFunc(testNmb++, (Sys_b < Sys_c), (User_b < User_c), "b < c");
+		testFunc(testNmb++, (Sys_a < Sys_d), (User_a < User_d), "a < d");
+		testFunc(testNmb++, (Sys_d < Sys_c), (User_d < User_c), "d < c");
+		testFunc(testNmb++, (Sys_a < Sys_f), (User_a < User_f), "a < f");
+		testFunc(testNmb++, (Sys_f < Sys_c), (User_f < User_c), "f < c");
+
+		testFunc(testNmb++, (Sys_a > Sys_b), (User_a > User_b), "a > b");
+		testFunc(testNmb++, (Sys_b > Sys_c), (User_b > User_c), "b > c");
+		testFunc(testNmb++, (Sys_a > Sys_d), (User_a > User_d), "a > d");
+		testFunc(testNmb++, (Sys_d > Sys_c), (User_d > User_c), "d > c");
+		testFunc(testNmb++, (Sys_a > Sys_f), (User_a > User_f), "a > f");
+		testFunc(testNmb++, (Sys_f > Sys_c), (User_f > User_c), "f > c");
+
+		testFunc(testNmb++, (Sys_a <= Sys_b), (User_a <= User_b), "a <= b");
+		testFunc(testNmb++, (Sys_b <= Sys_c), (User_b <= User_c), "b <= c");
+		testFunc(testNmb++, (Sys_a <= Sys_d), (User_a <= User_d), "a <= d");
+		testFunc(testNmb++, (Sys_d <= Sys_c), (User_d <= User_c), "d <= c");
+		testFunc(testNmb++, (Sys_a <= Sys_f), (User_a <= User_f), "a <= f");
+		testFunc(testNmb++, (Sys_f <= Sys_c), (User_f <= User_c), "f <= c");
+
+		testFunc(testNmb++, (Sys_a >= Sys_b), (User_a >= User_b), "a >= b");
+		testFunc(testNmb++, (Sys_b >= Sys_c), (User_b >= User_c), "b >= c");
+		testFunc(testNmb++, (Sys_a >= Sys_d), (User_a >= User_d), "a >= d");
+		testFunc(testNmb++, (Sys_d >= Sys_c), (User_d >= User_c), "d >= c");
+		testFunc(testNmb++, (Sys_a >= Sys_f), (User_a >= User_f), "a >= f");
+		testFunc(testNmb++, (Sys_f >= Sys_c), (User_f >= User_c), "f >= c");
+
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+
+	// getchar();
 }
 
 void map_test()
@@ -2850,7 +2936,7 @@ void map_test()
 	int testNmb = 0;
 	int testAll = 1;
 
-	system("clear");
+	// system("clear");
 
 	std::cout << "\x1b[32m" << std::endl;
 	std::cout << "+ ------------------------------ +" << std::endl;
@@ -2861,13 +2947,13 @@ void map_test()
 	std::cout << "\x1b[0m";
 
 	/*			Member functions			*/
-	constructor_map(testNmb, testAll);						// +
-	iterators_map(testNmb, testAll);						// +
-	capacity_map(testNmb, testAll);							// +
-	element_access_map(testNmb, testAll);					// +
-	modifiers_map(testNmb, testAll);						// +
-	observers_map(testNmb, testAll);						// +
-	operations_map(testNmb, testAll);						// +
+	constructor_map(testNmb, testAll);
+	iterators_map(testNmb, testAll);
+	capacity_map(testNmb, testAll);	
+	element_access_map(testNmb, testAll);
+	modifiers_map(testNmb, testAll);
+	observers_map(testNmb, testAll);
+	operations_map(testNmb, testAll);
 
 	/* extra */
 	iterator_for_map(testNmb);
@@ -2877,4 +2963,6 @@ void map_test()
 	rev_const_iterator_for_map(testNmb);
 
 	different_types_map(testNmb);
+
+	overloads_map(testNmb);
 }

@@ -3044,7 +3044,7 @@ void				operations(int testNmb, int testAll)
 
 }
   
-  void				overloads(int testNmb)
+void				overloads(int testNmb)
 {
 	std::cout << std::endl << "\x1b[33m" << "                         *** OVERLOADES ***                          " << "\x1b[0m" << std::endl;
 
@@ -3475,136 +3475,115 @@ void				different_types_list(int testNmb)
 	std::cout << std::endl << "\x1b[33m" << "                         *** DIFFERENT TYPES ***                          " << "\x1b[0m" << std::endl;
 	
 	/* string */
-	// std::cout << std::endl << "\x1b[33m" << "STRING" << "\x1b[0m" << std::endl;
+	std::cout << std::endl << "\x1b[33m" << "STRING" << "\x1b[0m" << std::endl;
 
-	// ft::list <std::string> userString;
-	// std::list <std::string> sysString;
+	ft::list <std::string> userString;
+	std::list <std::string> sysString;
 
-	// userString.push_back("string1");
-	// sysString.push_back("string1");
+	userString.push_back("string1");
+	sysString.push_back("string1");
 
-	// testFunc(testNmb++, sysString.size(), userString.size(), "Size");
-	// testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty list");
-	// testFunc(testNmb++, *sysString.begin(), *userString.begin(), "begin list");
-	// testFunc(testNmb++, sysString.max_size(), userString.max_size(), "max_size list");
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty list");
+	testFunc(testNmb++, *sysString.begin(), *userString.begin(), "begin list");
+	testFunc(testNmb++, sysString.max_size(), userString.max_size(), "max_size list");
 
-	// userString.push_back("string2");
-	// sysString.push_back("string2");
+	userString.push_back("string2");
+	sysString.push_back("string2");
 
-	// testFunc(testNmb++, sysString.size(), userString.size(), "Size");
-	// testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty list");
-	// testFunc(testNmb++, sysString.front(), userString.front(), "front list");
-	// testFunc(testNmb++, sysString.back(), userString.back(), "back list");
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty list");
+	testFunc(testNmb++, sysString.front(), userString.front(), "front list");
+	testFunc(testNmb++, sysString.back(), userString.back(), "back list");
 
-	// sysString.erase(sysString.begin());
-	// userString.erase(userString.begin());
+	sysString.erase(sysString.begin());
+	userString.erase(userString.begin());
 
-	// testFunc(testNmb++, sysString.size(), userString.size(), "Size");
-	// testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty list");
-	// testFunc(testNmb++, *sysString.begin(), *userString.begin(), "begin list");
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty list");
+	testFunc(testNmb++, *sysString.begin(), *userString.begin(), "begin list");
 
-	// sysString.pop_back();
-	// userString.pop_back();
+	sysString.pop_back();
+	userString.pop_back();
 
-	// testFunc(testNmb++, sysString.size(), userString.size(), "Size");
-	// testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty list");
-	// testFunc(testNmb++, *sysString.begin(), *userString.begin(), "begin list");
+	testFunc(testNmb++, sysString.size(), userString.size(), "Size");
+	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty list");
+	testFunc(testNmb++, *sysString.begin(), *userString.begin(), "begin list");
 	
-	// // getchar();
-	// // std::system("clear");
-
-	// /* char */
-	// std::cout << std::endl << "\x1b[33m" << "CHAR" << "\x1b[0m" << std::endl;
-			
-	// ft::list <char> userChar;
-	// std::list <char> sysChar;
-			
-	// for (int i = 33; i < 57; i++)
-	// {
-	// 	sysChar.push_back(i);
-	// 	userChar.push_back(i);
-	// }
-
-	// std::list <char> :: iterator sysIteratorChar = sysChar.end();
-	// ft::list <char> :: iterator userIteratorChar  = userChar.end();
-
-	// sysIteratorChar--;
-	// userIteratorChar--;
-
-	// testFunc(testNmb++, userChar.size(), userChar.size(), "Size is <char>");
-	// testFunc(testNmb++, *sysIteratorChar, *userIteratorChar, "Size of list <char>");
 	// getchar();
 	// std::system("clear");
 
-	/* const char */
-	// std::cout << std::endl << "\x1b[33m" << "CONST CHAR" << "\x1b[0m" << std::endl;
+	/* char */
+	std::cout << std::endl << "\x1b[33m" << "CHAR" << "\x1b[0m" << std::endl;
 			
-	// ft::list <const char> userConstChar;
-	// std::list  <const char> sysConstChar;
-			
-	// for (int i = 33; i < 57; i++)
-	// {
-	// 	sysConstChar.push_back(i);
-	// 	userConstChar.push_back(i);
-	// }
-
-	// std::list <const char> :: iterator sysIteratorConstChar = sysConstChar.begin();
-	// ft::list <const char> :: iterator userIteratorConstChar = userConstChar.begin();
-
-	// testFunc(testNmb++, userConstChar.size(), userConstChar.size(), "Size is <char>");
-	// testFunc(testNmb++, *sysIteratorConstChar, *userIteratorConstChar, "Value (begin)");
-	// getchar();
-	// std::system("clear");
-
-	/* for next test */
-	// ft::list <char> userChar2;
-	// std::list <char> sysChar2;
-			
-	// for (int i = 57; i < 122; i++)
-	// {
-	// 	sysChar2.push_back(i);
-	// 	userChar2.push_back(i);
-	// }
-	/* for next test */
-
-
-
-	// ft::list <char> userChar;
+	ft::list <char> userChar;
 	std::list <char> sysChar;
 			
 	for (int i = 33; i < 57; i++)
 	{
 		sysChar.push_back(i);
-		// userChar.push_back(i);
+		userChar.push_back(i);
 	}
 
+	std::list <char> :: iterator sysIteratorChar = sysChar.end();
+	ft::list <char> :: iterator userIteratorChar  = userChar.end();
+
+	sysIteratorChar--;
+	userIteratorChar--;
+
+	testFunc(testNmb++, userChar.size(), userChar.size(), "Size is <char>");
+	testFunc(testNmb++, *sysIteratorChar, *userIteratorChar, "Size of list <char>");
+	// getchar();
+	// std::system("clear");
+
+	/* const char */
+	std::cout << std::endl << "\x1b[33m" << "CONST CHAR" << "\x1b[0m" << std::endl;
+			
+	ft::list <const char> userConstChar;
+	std::list  <const char> sysConstChar;
+			
+	for (int i = 33; i < 57; i++)
+	{
+		sysConstChar.push_back(i);
+		userConstChar.push_back(i);
+	}
+
+	std::list <const char> :: iterator sysIteratorConstChar = sysConstChar.begin();
+	ft::list <const char> :: iterator userIteratorConstChar = userConstChar.begin();
+
+	testFunc(testNmb++, userConstChar.size(), userConstChar.size(), "Size is <char>");
+	testFunc(testNmb++, *sysIteratorConstChar, *userIteratorConstChar, "Value (begin)");
 
 	/* std::list */
-	std::cout << std::endl << "\x1b[33m" << "std::list <char> / ft::list <char>" << "\x1b[0m" << std::endl;
+	std::cout << std::endl << "\x1b[33m" << "std::list <std::list <char>> / ft::list <std::list <char>>" << "\x1b[0m" << std::endl;
 
 	ft::list <std::list <char> > userStdListChar;
 	std::list <std::list <char> > sysStdListChar;
 
+	// std::list <char> sysChar;
+	// for (int i = 33; i < 57; i++)
+	// 	sysChar.push_back(i);
+
 	userStdListChar.push_back(sysChar);
 	sysStdListChar.push_back(sysChar);
 
-	// testFunc(testNmb++, sysStdListChar.size(), userStdListChar.size(), "Size");
-	// testFunc(testNmb++, sysStdListChar.empty(), userStdListChar.empty(), "Empty list");
-	// testFunc(testNmb++, *sysStdListChar.begin()->begin(), *userStdListChar.begin()->begin(), "begin list");
+	testFunc(testNmb++, sysStdListChar.size(), userStdListChar.size(), "Size");
+	testFunc(testNmb++, sysStdListChar.empty(), userStdListChar.empty(), "Empty list");
+	testFunc(testNmb++, *sysStdListChar.begin()->begin(), *userStdListChar.begin()->begin(), "begin list");
 
-	// userStdListChar.push_back(sysChar);
-	// sysStdListChar.push_back(sysChar);
+	userStdListChar.push_back(sysChar);
+	sysStdListChar.push_back(sysChar);
 
-	// testFunc(testNmb++, sysStdListChar.size(), userStdListChar.size(), "Size");
-	// testFunc(testNmb++, sysStdListChar.empty(), userStdListChar.empty(), "Empty list");
-	// testFunc(testNmb++, *sysStdListChar.begin()->begin(), *userStdListChar.begin()->begin(), "begin list");
+	testFunc(testNmb++, sysStdListChar.size(), userStdListChar.size(), "Size");
+	testFunc(testNmb++, sysStdListChar.empty(), userStdListChar.empty(), "Empty list");
+	testFunc(testNmb++, *sysStdListChar.begin()->begin(), *userStdListChar.begin()->begin(), "begin list");
 
-	// sysStdListChar.erase(sysStdListChar.begin());
-	// userStdListChar.erase(userStdListChar.begin());
+	sysStdListChar.erase(sysStdListChar.begin());
+	userStdListChar.erase(userStdListChar.begin());
 
-	// testFunc(testNmb++, sysStdListChar.size(), userStdListChar.size(), "Size");
-	// testFunc(testNmb++, sysStdListChar.empty(), userStdListChar.empty(), "Empty list");
-	// testFunc(testNmb++, *sysStdListChar.begin()->begin(), *userStdListChar.begin()->begin(), "begin list");
+	testFunc(testNmb++, sysStdListChar.size(), userStdListChar.size(), "Size");
+	testFunc(testNmb++, sysStdListChar.empty(), userStdListChar.empty(), "Empty list");
+	testFunc(testNmb++, *sysStdListChar.begin()->begin(), *userStdListChar.begin()->begin(), "begin list");
 
 	sysStdListChar.pop_back();
 	userStdListChar.pop_back();
@@ -3615,42 +3594,42 @@ void				different_types_list(int testNmb)
 	// std::system("clear");
 
 	/* float */
-	// std::cout << std::endl << "\x1b[33m" << "FLOAT" << "\x1b[0m" << std::endl;
+	std::cout << std::endl << "\x1b[33m" << "FLOAT" << "\x1b[0m" << std::endl;
 
-	// ft::list <float> userFloat;
-	// std::list <float> sysFloat;
+	ft::list <float> userFloat;
+	std::list <float> sysFloat;
 
-	// userFloat.push_back(-9.5);
-	// sysFloat.push_back(-9.5);
+	userFloat.push_back(-9.5);
+	sysFloat.push_back(-9.5);
 
-	// userFloat.push_back(-9.5);
-	// sysFloat.push_back(-9.5);
+	userFloat.push_back(-9.5);
+	sysFloat.push_back(-9.5);
 
-	// testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
-	// testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
-	// testFunc(testNmb++, *sysFloat.begin(), *userFloat.begin(), "begin list");
-	// testFunc(testNmb++, sysFloat.max_size(), userFloat.max_size(), "max_size list");
+	testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
+	testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
+	testFunc(testNmb++, *sysFloat.begin(), *userFloat.begin(), "begin list");
+	testFunc(testNmb++, sysFloat.max_size(), userFloat.max_size(), "max_size list");
 
-	// userFloat.push_back(42.5);
-	// sysFloat.push_back(42.5);
+	userFloat.push_back(42.5);
+	sysFloat.push_back(42.5);
 
-	// testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
-	// testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
-	// testFunc(testNmb++, sysFloat.front(), userFloat.front(), "front list");
-	// testFunc(testNmb++, sysFloat.back(), userFloat.back(), "back list");
+	testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
+	testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
+	testFunc(testNmb++, sysFloat.front(), userFloat.front(), "front list");
+	testFunc(testNmb++, sysFloat.back(), userFloat.back(), "back list");
 
-	// sysFloat.erase(sysFloat.begin());
-	// userFloat.erase(userFloat.begin());
+	sysFloat.erase(sysFloat.begin());
+	userFloat.erase(userFloat.begin());
 
-	// testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
-	// testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
-	// testFunc(testNmb++, *sysFloat.begin(), *userFloat.begin(), "begin list");
+	testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
+	testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
+	testFunc(testNmb++, *sysFloat.begin(), *userFloat.begin(), "begin list");
 
-	// sysFloat.pop_back();
-	// userFloat.pop_back();
+	sysFloat.pop_back();
+	userFloat.pop_back();
 
-	// testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
-	// testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
+	testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
+	testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
 
 	// getchar();
 	// std::system("clear");

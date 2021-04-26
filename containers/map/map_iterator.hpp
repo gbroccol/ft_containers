@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:11:42 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/14 14:45:53 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/26 16:37:18 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,14 @@
 #define FIRST	3
 #define LAST    2
 
-// const int RED(0);
-// const int BLACK(1);
+// std::pair<const Key, T>
 
 namespace ft 
 {
 	template < class Key, class T>
 	struct			        nodeMap
 	{
-        std::pair <Key, T>  data;
+        std::pair<const Key, T>  data;
 		nodeMap		        *parent;
 		nodeMap    	    	*left;
         nodeMap	    	    *right;
@@ -43,12 +42,12 @@ namespace ft
     {
 		public: 
 			
-			typedef std::pair <Key, T>					value_type;
-			typedef std::pair <Key, T>					&reference;
-			typedef std::pair <Key, T>					*pointer;
-			typedef std::ptrdiff_t 						difference_type;
+			typedef std::pair<const Key, T>					value_type;
+			typedef std::pair<const Key, T>					&reference;
+			typedef std::pair<const Key, T>					*pointer;
+			typedef std::ptrdiff_t 							difference_type;
 
-			typedef nodeMap <Key,T> *					node_pointer;
+			typedef nodeMap <Key,T> *						node_pointer;
 			
 			nodeMap <Key, T> *ptr;
 
@@ -157,8 +156,6 @@ namespace ft
 					operator--();
 					return tmp;
 				}
-
-				// struct nodeMap <T>		*getptr() const { return ptr; }
     };
 
 	template < class Key, class T>

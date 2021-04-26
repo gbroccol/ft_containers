@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/23 17:51:01 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/26 19:49:39 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 namespace ft 
 {
-	template < class T, class Alloc = std::allocator<T> >
+	template < class T, class Alloc = ft::allocator<T> >
 	class list 
     { 
 		public: 
@@ -39,17 +39,10 @@ namespace ft
 			/*
 			** -------------------------------- CONSTRUCTOR --------------------------------
 			*/
-
-			
 		
 			explicit list (const allocator_type& alloc = allocator_type()) : _alloc(alloc)
 			{
-				T dataTail;
-				bzero(&dataTail, sizeof(T));
-				// _tail = new Node <T> ();
-				_tail = (Node <T> *)::operator new(sizeof(Node <T>));
-				// this->_alloc.construct(&(_tail->data), value_type(0));
-			
+				_tail = new Node <T> ();
 				_tail->next = _tail;
 				_tail->pre  = _tail;
 				_size = 0;
@@ -58,18 +51,12 @@ namespace ft
 			
 			explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _alloc(alloc)
 			{
-				// _tail = new Node <T> ();
-				_tail = (Node <T> *)::operator new(sizeof(Node <T>));
-				// this->_alloc.construct(&(_tail->data), value_type(0));
-
+				_tail = new Node <T> ();
 				_tail->next = _tail;
 				_tail->pre  = _tail;
-
 				_size = 0;
-
 				for ( ; n; n--)
 					push_back(val);
-					
 				_node = _tail->next;
 			}
 			
@@ -77,10 +64,7 @@ namespace ft
 			list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
 											typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0) : _alloc(alloc)
 			{
-				// _tail = new Node <T> ();
-				_tail = (Node <T> *)::operator new(sizeof(Node <T>));
-				// this->_alloc.construct(&(_tail->data), value_type(0));
-				
+				_tail = new Node <T> ();
 				_tail->next = _tail;
 				_tail->pre  = _tail;
 				_size = 0;
@@ -91,10 +75,7 @@ namespace ft
 
 			list (const list& x)
 			{
-				// _tail = new struct Node <T>;
-				_tail = (Node <T> *)::operator new(sizeof(Node <T>));
-				// this->_alloc.construct(&(_tail->data), value_type(0));
-				
+				_tail = new struct Node <T>;
 				_tail->pre  = _tail;
 				_tail->next = _tail;
 				_size = 0;
@@ -108,9 +89,7 @@ namespace ft
 
 			~list()
 			{
-				std::cout << _size << std::endl;
 				clear();
-				this->_alloc.destroy(&(_tail->data));
 				delete _tail;
 			}
 
@@ -120,7 +99,7 @@ namespace ft
 
 			list&         operator=(const list& x)
 			{
-				if (this->size() > 0)
+				if (size() > 0)
 					clear();
 				
 				struct Node <T> *list_tmp = x._tail->next;
@@ -171,11 +150,11 @@ namespace ft
 
 	/* Element access */
 
-			reference front() { return this->_tail->next->data; }
-			const_reference front() const { return this->_tail->next->data; }
+			reference front() { return _tail->next->data; }
+			const_reference front() const { return _tail->next->data; }
 
-			reference back() { return this->_tail->pre->data; }
-			const_reference back() const { return this->_tail->pre->data; }
+			reference back() { return _tail->pre->data; }
+			const_reference back() const { return _tail->pre->data; }
 
 	/* Modifiers */
 
@@ -199,7 +178,7 @@ namespace ft
 			{
 
 				Node <T> * tmp = (Node <T> *)::operator new(sizeof(Node <T>));
-   				this->_alloc.construct(&(tmp->data), val);
+   				_alloc.construct(&(tmp->data), val);
 
 				tmp->pre = _tail;
 				tmp->next = _tail->next;
@@ -217,7 +196,7 @@ namespace ft
 					Node <T> *tmp = _tail->next;
 					
 					if (_size)
-						this->_alloc.destroy(&(_tail->next->data));
+						_alloc.destroy(&(_tail->next->data));
 						
 					if(size() == 1)
 					{
@@ -237,7 +216,7 @@ namespace ft
 			void push_back(const T &val)
 			{
 				Node <T> * tmp = (Node <T> *)::operator new(sizeof(Node <T>));
-   				this->_alloc.construct(&(tmp->data), val);
+   				_alloc.construct(&(tmp->data), val);
 				
 				if(size() == 0)
 				{
@@ -263,7 +242,7 @@ namespace ft
 					Node <T> *tmp  = _tail->pre;
 				
 					if (_size)
-						this->_alloc.destroy(&(_tail->pre->data));
+						_alloc.destroy(&(_tail->pre->data));
 						
 					if (size() == 1)
 					{
@@ -285,7 +264,7 @@ namespace ft
 			iterator insert (iterator position, const value_type& val) // insert before position
 			{
 				Node <T> * newElem = (Node <T> *)::operator new(sizeof(Node <T>));
-   				this->_alloc.construct(&(newElem->data), val);
+   				_alloc.construct(&(newElem->data), val);
 
 				newElem->pre  = position.ptr->pre;
 				newElem->next = position.ptr;
@@ -320,7 +299,7 @@ namespace ft
 					delElem->next->pre = delElem->pre;
 					position++;
 					
-					this->_alloc.destroy(&(delElem->data));
+					_alloc.destroy(&(delElem->data));
 					delete delElem;
 					_size--;
 				}
@@ -336,10 +315,10 @@ namespace ft
 
 			void swap (list & x)
 			{
-				ft::itemswap(this->_node, x._node);
-				ft::itemswap(this->_tail, x._tail);
-				ft::itemswap(this->_alloc, x._alloc);
-				ft::itemswap(this->_size, x._size);
+				ft::itemswap(_node, x._node);
+				ft::itemswap(_tail, x._tail);
+				ft::itemswap(_alloc, x._alloc);
+				ft::itemswap(_size, x._size);
 			}
 
 			void resize (size_type n, value_type val = value_type())
@@ -366,7 +345,7 @@ namespace ft
 			void splice (iterator position, list& x, iterator i)
 			{
 				iterator next(i);
-				this->splice(position, x, i, ++next);
+				splice(position, x, i, ++next);
 			}
 			
 			void splice (iterator position, list& x, iterator first, iterator last)
@@ -397,11 +376,11 @@ namespace ft
 		
 			void remove (const value_type& val)
 			{
-				iterator tmp = this->begin();
+				iterator tmp = begin();
 
 				Node <T> * node;
 				
-				for ( ; tmp != this->end(); tmp++)
+				for ( ; tmp != end(); tmp++)
 				{
 					node = tmp.ptr;
 					if (node->data == val)
@@ -409,7 +388,7 @@ namespace ft
 						node->pre->next = node->next;
 						node->next->pre = node->pre;
 						_size--;
-						this->_alloc.destroy(&(node->data));
+						_alloc.destroy(&(node->data));
 						delete node;
 					}
 				}
@@ -431,13 +410,13 @@ namespace ft
 
 			void unique()
 			{
-				iterator tmp = this->begin();
+				iterator tmp = begin();
 
 				Node <T> * node;
 
 				tmp++;
 				
-				for ( ; tmp != this->end(); tmp++)
+				for ( ; tmp != end(); tmp++)
 				{
 					node = tmp.ptr;
 					if (node->data == node->pre->data)
@@ -445,7 +424,7 @@ namespace ft
 						node->pre->next = node->next;
 						node->next->pre = node->pre;
 						_size--;
-						this->_alloc.destroy(&(node->data));
+						_alloc.destroy(&(node->data));
 						delete node;
 					}
 				}
@@ -483,7 +462,7 @@ namespace ft
 					it++;
 				}
 				if (itx != x.end())
-					this->splice(end(), x, itx, x.end());
+					splice(end(), x, itx, x.end());
 				x.clear();
 			}
 
@@ -507,7 +486,7 @@ namespace ft
 				}
 				if (itx != x.end())
 				{
-					this->splice(end(), x, itx, x.end());
+					splice(end(), x, itx, x.end());
 				}
 				x.clear();
 			}
@@ -712,4 +691,4 @@ namespace ft
 			void swap (list<T, Alloc> & x, list<T, Alloc> & y) { x.swap(y); }
 }
 
-#endif //CONT_LIST_H
+#endif

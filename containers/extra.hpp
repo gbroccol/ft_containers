@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:11:27 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/23 15:10:47 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/04/26 19:54:47 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,42 @@ namespace ft
 	template<typename T>
 	struct enable_if <true, T>
 	{ typedef T type; };
+
+
+
+
+		template <typename T>
+    	class allocator: public std::allocator<T>
+    	{
+			public:
+			
+                typedef size_t size_type;
+                typedef T* pointer;
+                typedef const T* const_pointer;
+
+                template<typename _Tp1>
+                struct rebind
+                {
+                	typedef allocator<_Tp1> other;
+                };
+
+                pointer allocate(size_type n, const void *hint=0)
+                {
+                	return std::allocator<T>::allocate(n, hint);
+                }
+
+                void deallocate(pointer p, size_type n)
+                {
+                    return std::allocator<T>::deallocate(p, n);
+                }
+
+                allocator() throw(): std::allocator<T>() { fprintf(stderr, "Hello allocator!\n"); }
+                allocator(const allocator &a) throw(): std::allocator<T>(a) { }
+                
+				template <class U>                    
+                allocator(const allocator<U> &a) throw(): std::allocator<T>(a) { }
+                ~allocator() throw() { }
+        };
 }
 
 #endif
