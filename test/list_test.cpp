@@ -3311,6 +3311,12 @@ void				const_iterator_for_list(int testNmb)
 	std::list<int> ::const_iterator iterSys(tmpSys);
 	ft::list<int> ::const_iterator iterUser(tmpUser);
 
+	std::list<int> ::iterator tmpSysNC  = listSys.begin();
+	ft::list<int> ::iterator  tmpUserNC = listUser.begin();
+
+	std::list<int> ::iterator iterSysNC(tmpSysNC);
+	ft::list<int> ::iterator iterUserNC(tmpUserNC);
+
 	testFunc(testNmb++, *iterSys, *iterUser, "Value");
 
 	testFunc(testNmb++, listSys.begin() == listSys.begin(), listUser.begin() == listUser.begin() , "begin == begin");
@@ -3320,7 +3326,18 @@ void				const_iterator_for_list(int testNmb)
 	testFunc(testNmb++, listSys.begin() != listSys.begin(), listUser.begin() != listUser.begin() , "begin != begin");
 	testFunc(testNmb++, listSys.begin() != listSys.end(), listUser.begin() != listUser.end() , "begin != end");
 	testFunc(testNmb++, listSys.end() != listSys.begin(), listUser.end() != listUser.begin() , "end != begin");
-	
+
+
+	testFunc(testNmb++, tmpSys == tmpSysNC, tmpUser == tmpUserNC, "not const == const");
+	testFunc(testNmb++, tmpSys == iterSysNC, tmpUser == iterUserNC, "not const == const");
+	testFunc(testNmb++, tmpSys == listSys.end(), tmpUser == listUser.end(), "not const == const");
+	testFunc(testNmb++, tmpSys == listSys.begin(), tmpUser == listUser.begin(), "not const == const");
+
+	testFunc(testNmb++, iterSys != iterSysNC, iterUser != iterUserNC, "not const != const");
+	testFunc(testNmb++, iterSys != tmpSysNC, iterUser != tmpUserNC, "not const != const");
+	testFunc(testNmb++, tmpSys != listSys.end(), tmpUser != listUser.end(), "not const != const");
+	testFunc(testNmb++, tmpSys != listSys.begin(), tmpUser != listUser.begin(), "not const != const");
+
 	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "->");
 
 	testFunc(testNmb++, *iterSys++, *iterUser++ , "a++");

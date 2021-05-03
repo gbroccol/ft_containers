@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:04:46 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/13 19:37:11 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/03 12:55:03 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void				constructor_vector(int testNmb, int testAll)
 		testFunc(testNmb++, vSys.capacity(), vUser.capacity(), "capacity after");
 		testNmb = compareClasses(testNmb++, vSys, vUser);
 		
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* copy constructor */
 		std::cout << std::endl << "\x1b[33m" << "copy constructor" << "\x1b[0m" << std::endl;
@@ -60,8 +60,8 @@ void				constructor_vector(int testNmb, int testAll)
 		testFunc(testNmb++, vSysCopy.capacity(), vUserCopy.capacity(), "capacity after");
 		testNmb = compareClasses(testNmb++, vSysCopy, vUserCopy);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* constructor InputIterator */
 		std::cout << std::endl << "\x1b[33m" << "constructor InputIterator" << "\x1b[0m" << std::endl;
@@ -84,10 +84,10 @@ void				constructor_vector(int testNmb, int testAll)
 		testFunc(testNmb++, vSysCopy.capacity(), vUserCopy.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, vSysCopy, vUserCopy);
 		
-		getchar();
-		std::system("clear");
+		// getchar();
+		// std::system("clear");
 	}
-	system("clear");
+	// system("clear");
 }
 
 void				iterators_vector(int testNmb, int testAll)
@@ -140,7 +140,7 @@ void				iterators_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorConst.size(), userVectorConst.size(), "size");
 		testFunc(testNmb++, sysVectorConst.capacity(), userVectorConst.capacity(), "capacity");
 		
-		getchar();
+		// getchar();
 	}
 	
 	//***************************CONST RBEGIN AND CONST REND************************//
@@ -164,7 +164,7 @@ void				iterators_vector(int testNmb, int testAll)
 
 		testFunc(testNmb++, *constr_s_s, *constr_m_s, "Const reverse test begin");
 		testFunc(testNmb++, *constr_s_f, *constr_m_f, "Const reverse test end");
-		getchar();
+		// getchar();
 	}
 	
 	//***************************BEGIN AND END************************//
@@ -188,7 +188,7 @@ void				iterators_vector(int testNmb, int testAll)
 
 		testFunc(testNmb++, *simple_s_s, *simple_m_s, "test begin");
 		testFunc(testNmb++, *simple_s_f, *simple_m_f, "test end");
-		getchar();
+		// getchar();
 	}
 
 	//***************************REVERSE BEGIN AND END************************//
@@ -221,9 +221,9 @@ void				iterators_vector(int testNmb, int testAll)
 		simpler_m_f--;		
 
 		testFunc(testNmb++, *simpler_s_f, *simpler_m_f, "rend");
-		getchar();
+		// getchar();
 	}
-	system("clear");
+	// system("clear");
 }
 
 void				capacity_vector(int testNmb, int testAll)
@@ -257,7 +257,7 @@ void				capacity_vector(int testNmb, int testAll)
 		std::vector <int> sysVectorSimple(7,4);
 
 		testFunc(testNmb++, sysVectorSimple.size(), userVectorSimple.size(), "size");
-		getchar();
+		// getchar();
 	}
 
 	//***************************MAX_SIZE************************//
@@ -268,7 +268,7 @@ void				capacity_vector(int testNmb, int testAll)
 
 		std::cout << std::endl << "\x1b[33m" << "max_size" << "\x1b[0m" << std::endl;
 		testFunc(testNmb++, sysVectorSimple.max_size(), userVectorSimple.max_size(), "max_size");
-		getchar();
+		// getchar();
 	}
 
 	//***************************RESIZE************************//
@@ -291,8 +291,8 @@ void				capacity_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorResize.capacity(), userVectorResize.capacity(), "capacity after");
 		testNmb = compareClasses(testNmb++, sysVectorResize, userVectorResize);
 		
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* resize */
 		std::cout << std::endl << "\x1b[33m" << "resize 2" << "\x1b[0m" << std::endl;
@@ -311,8 +311,8 @@ void				capacity_vector(int testNmb, int testAll)
 
 		testFunc(testNmb++, sysVectorResize.size(), userVectorResize.size(), "size after");
 		testNmb = compareClasses(testNmb++, sysVectorResize, userVectorResize);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 	
 	//***************************CAPACITY************************//
@@ -323,7 +323,7 @@ void				capacity_vector(int testNmb, int testAll)
 
 		std::cout << std::endl << "\x1b[33m" << "capacity" << "\x1b[0m" << std::endl;
 		testFunc(testNmb++, sysVectorSimple.capacity(), userVectorSimple.capacity(), "capacity");
-		getchar();
+		// getchar();
 	}
 	
 	//***************************EMPTY************************//
@@ -339,7 +339,7 @@ void				capacity_vector(int testNmb, int testAll)
 		
 		testFunc(testNmb++, sysVectorSimple1.empty(), userVectorSimple1.empty(), "vector empty");
 		testFunc(testNmb++, sysVectorSimple.empty(), userVectorSimple.empty(), "vector no empty");
-		getchar();
+		// getchar();
 	}
 	
 	//***************************RESERVE************************// //ДЕЛАТЬ!!!!!!!!!
@@ -368,9 +368,9 @@ void				capacity_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorReserve.size(), userVectorReserve.size(), "size (reserve 0)");
 		testFunc(testNmb++, sysVectorReserve.capacity(), userVectorReserve.capacity(), "capacity (reserve 0)");
 		testNmb = compareClasses(testNmb++, sysVectorReserve, userVectorReserve);
-		getchar();
+		// getchar();
 	}
-	system("clear");
+	// system("clear");
 }
 
 void				elementAccess_vector(int testNmb, int testAll)
@@ -410,7 +410,7 @@ void				elementAccess_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorOperator.size(), userVectorOperator.size(), "size");
 		testFunc(testNmb++, sysVectorOperator.capacity(), userVectorOperator.capacity(), "capacity");
 		
-		getchar();
+		// getchar();
 	}
 
 	//***************************AT************************//
@@ -455,7 +455,7 @@ void				elementAccess_vector(int testNmb, int testAll)
 		{
 			std::cout << "EXCEPTOIN: Out of Range error:" <<std::cerr << e.what() << '\n';
 		}
-		getchar();
+		// getchar();
 	}
 	
 	//***************************FRONT************************//
@@ -501,7 +501,7 @@ void				elementAccess_vector(int testNmb, int testAll)
 		sysVectorFront.clear();
 		
 		testFunc(testNmb++, sysVectorFront.front(), userVectorFront.front(), "front");
-		getchar();
+		// getchar();
 	}
 	
 	//***************************BACK************************//
@@ -525,7 +525,7 @@ void				elementAccess_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVect.back(), userVect.back(),  "back");
 		testFunc(testNmb++, sysVect.back() - 1, userVect.back() - 1,  "back - 1");
 		testFunc(testNmb++, sysVect.back() - 2, userVect.back() - 2,  "back - 2");
-		getchar();
+		// getchar();
 
 		/* back const */
 		std::cout << std::endl << "\x1b[33m" << "back const" << "\x1b[0m" << std::endl;
@@ -540,9 +540,9 @@ void				elementAccess_vector(int testNmb, int testAll)
 		}
 
 		testFunc(testNmb++, sysVect.back() - 1, userVect.back() - 1, "back const");
-		getchar();
+		// getchar();
 	}
-	system("clear");
+	// system("clear");
 }
 
 void				modifiers_vector(int testNmb, int testAll)
@@ -594,8 +594,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorAssign.size(), userVectorAssign.size(), "size");
 		testFunc(testNmb++, sysVectorAssign.capacity(), userVectorAssign.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVectorAssign, userVectorAssign);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 		
 		/* assign 2 */
 		std::cout << std::endl << "\x1b[33m" << "assign 2" << "\x1b[0m" << std::endl;
@@ -609,8 +609,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorAssign.size(), userVectorAssign.size(), "size");
 		testFunc(testNmb++, sysVectorAssign.capacity(), userVectorAssign.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVectorAssign, userVectorAssign);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* assign 3 */
 		std::cout << std::endl << "\x1b[33m" << "assign 3 InputIterator" << "\x1b[0m" << std::endl;
@@ -644,8 +644,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorAssign2.capacity(), userVectorAssign2.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVectorAssign2, userVectorAssign2);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* assign InputIterator */
 		std::cout << std::endl << "\x1b[33m" << "assign 4 InputIterator" << "\x1b[0m" << std::endl;
@@ -663,8 +663,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorAssign2.capacity(), userVectorAssign2.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVectorAssign2, userVectorAssign2);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* assign InputIterator */
 		std::cout << std::endl << "\x1b[33m" << "assign 5 InputIterator empty" << "\x1b[0m" << std::endl;
@@ -683,8 +683,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorAssign2.capacity(), userVectorAssign2.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVectorAssign2, userVectorAssign2);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* assign InputIterator */
 		std::cout << std::endl << "\x1b[33m" << "assign 6 InputIterator" << "\x1b[0m" << std::endl;
@@ -703,8 +703,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorAssign2.capacity(), userVectorAssign2.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVectorAssign2, userVectorAssign2);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* assign InputIterator */
 		std::cout << std::endl << "\x1b[33m" << "assign 7 InputIterator empty" << "\x1b[0m" << std::endl;
@@ -722,8 +722,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorAssign2.capacity(), userVectorAssign2.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVectorAssign2, userVectorAssign2);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 
 	//***************************PUSH_BACK************************//
@@ -764,8 +764,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		userVect.push_back(25);
 		testNmb = compareClasses(testNmb++, sysVect, userVect);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 
 	//***************************POP_BACK************************//
@@ -822,8 +822,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVect, userVect);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 
 	//***************************INSERT************************//
@@ -852,8 +852,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
 		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert */
 		std::cout << std::endl << "\x1b[33m" << "insert 2" << "\x1b[0m" << std::endl;
@@ -875,8 +875,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
 		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	
 		/* insert */
 		std::cout << std::endl << "\x1b[33m" << "insert 3" << "\x1b[0m" << std::endl;
@@ -891,8 +891,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
 		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	
 		/* insert */
 		std::cout << std::endl << "\x1b[33m" << "insert 4 (into clear vector)" << "\x1b[0m" << std::endl;
@@ -910,8 +910,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
 		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert */
 		std::cout << std::endl << "\x1b[33m" << "insert 5 void insert (iterator position, size_type n, const value_type& val)" << "\x1b[0m" << std::endl;
@@ -931,8 +931,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
 		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert */
 		std::cout << std::endl << "\x1b[33m" << "insert 6" << "\x1b[0m" << std::endl;
@@ -958,8 +958,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
 		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert */
 		std::cout << std::endl << "\x1b[33m" << "insert 7" << "\x1b[0m" << std::endl;
@@ -985,8 +985,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
 		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert */
 		std::cout << std::endl << "\x1b[33m" << "insert 8" << "\x1b[0m" << std::endl;
@@ -1012,8 +1012,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
 		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert */
 		std::cout << std::endl << "\x1b[33m" << "insert 9" << "\x1b[0m" << std::endl;
@@ -1045,8 +1045,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
 		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* insert */
 		std::cout << std::endl << "\x1b[33m" << "insert InputIterator" << "\x1b[0m" << std::endl;
@@ -1077,8 +1077,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVect2.size(), userVect2.size(), "size");
 		testNmb = compareClasses(testNmb++, sysVect2, userVect2);
 		
-		getchar();
-		system("clear");		
+		// getchar();
+		// system("clear");		
 
 		/* insert */
 		std::cout << std::endl << "\x1b[33m" << "insert InputIterator 2" << "\x1b[0m" << std::endl;
@@ -1103,8 +1103,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 		
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 		
 	}
 
@@ -1139,8 +1139,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVect, userVect);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 		
 		/* erase */
 		std::cout << std::endl << "\x1b[33m" << "erase 2" << "\x1b[0m" << std::endl;
@@ -1162,8 +1162,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVect.size(), userVect.size(), "size");
 		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVect, userVect);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* erase */
 		std::cout << std::endl << "\x1b[33m" << "erase 3" << "\x1b[0m" << std::endl;
@@ -1179,8 +1179,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVect.size(), userVect.size(), "size");
 		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVect, userVect);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* erase */
 		std::cout << std::endl << "\x1b[33m" << "erase 4" << "\x1b[0m" << std::endl;
@@ -1214,8 +1214,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVect, userVect);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* erase */
 		std::cout << std::endl << "\x1b[33m" << "erase 5 one element" << "\x1b[0m" << std::endl;
@@ -1243,8 +1243,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVect, userVect);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* erase */
 		std::cout << std::endl << "\x1b[33m" << "erase 6" << "\x1b[0m" << std::endl;
@@ -1278,8 +1278,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVect, userVect);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		
 		/* erase */
@@ -1311,8 +1311,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVect, userVect);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* erase */
 		std::cout << std::endl << "\x1b[33m" << "erase 8 iterator erase (iterator first, iterator last)" << "\x1b[0m" << std::endl;
@@ -1344,8 +1344,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVect, userVect);
 
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 	
 	//***************************SWAP************************//
@@ -1393,8 +1393,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorSwap2.size(), userVectorSwap2.size(), "size");
 		testFunc(testNmb++, sysVectorSwap2.capacity(), userVectorSwap2.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVectorSwap2, userVectorSwap2);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		std::cout << std::endl << "\x1b[33m" << "swap 2" << "\x1b[0m" << std::endl;
 
@@ -1431,8 +1431,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorSwap2.size(), userVectorSwap2.size(), "size");
 		testFunc(testNmb++, sysVectorSwap2.capacity(), userVectorSwap2.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVectorSwap2, userVectorSwap2);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 
 		/* swap */
 		std::cout << std::endl << "\x1b[33m" << "swap empty" << "\x1b[0m" << std::endl;
@@ -1464,8 +1464,8 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorSwap2.size(), userVectorSwap2.size(), "size");
 		testFunc(testNmb++, sysVectorSwap2.capacity(), userVectorSwap2.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVectorSwap2, userVectorSwap2);
-		getchar();
-		system("clear");
+		// getchar();
+		// system("clear");
 	}
 	
 	//***************************CLEAR************************//
@@ -1486,9 +1486,9 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, sysVectorClear.capacity(), userVectorClear.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysVectorClear, userVectorClear);
 
-		getchar();
+		// getchar();
 	}
-	system("clear");
+	// system("clear");
 }
 
 void				overloads_vector(int testNmb)
@@ -1550,7 +1550,7 @@ void				overloads_vector(int testNmb)
 		testFunc(testNmb++, (Sys_a == Sys_f), (User_a == User_f), "a == f");
 		testFunc(testNmb++, (Sys_f == Sys_c), (User_f == User_c), "f == c");
 
-		getchar();
+		// getchar();
 
 		testFunc(testNmb++, (Sys_a != Sys_b), (User_a != User_b), "a != b");
 		testFunc(testNmb++, (Sys_b != Sys_c), (User_b != User_c), "b != c");
@@ -1559,7 +1559,7 @@ void				overloads_vector(int testNmb)
 		testFunc(testNmb++, (Sys_a != Sys_f), (User_a != User_f), "a != f");
 		testFunc(testNmb++, (Sys_f != Sys_c), (User_f != User_c), "f != c");
 
-		getchar();
+		// getchar();
 
 		testFunc(testNmb++, (Sys_a < Sys_b), (User_a < User_b), "a < b");
 		testFunc(testNmb++, (Sys_b < Sys_c), (User_b < User_c), "b < c");
@@ -1568,7 +1568,7 @@ void				overloads_vector(int testNmb)
 		testFunc(testNmb++, (Sys_a < Sys_f), (User_a < User_f), "a < f");
 		testFunc(testNmb++, (Sys_f < Sys_c), (User_f < User_c), "f < c");
 
-		getchar();
+		// getchar();
 
 		testFunc(testNmb++, (Sys_a > Sys_b), (User_a > User_b), "a > b");
 		testFunc(testNmb++, (Sys_b > Sys_c), (User_b > User_c), "b > c");
@@ -1577,7 +1577,7 @@ void				overloads_vector(int testNmb)
 		testFunc(testNmb++, (Sys_a > Sys_f), (User_a > User_f), "a > f");
 		testFunc(testNmb++, (Sys_f > Sys_c), (User_f > User_c), "f > c");
 
-		getchar();
+		// getchar();
 
 		testFunc(testNmb++, (Sys_a <= Sys_b), (User_a <= User_b), "a <= b");
 		testFunc(testNmb++, (Sys_b <= Sys_c), (User_b <= User_c), "b <= c");
@@ -1586,7 +1586,7 @@ void				overloads_vector(int testNmb)
 		testFunc(testNmb++, (Sys_a <= Sys_f), (User_a <= User_f), "a <= f");
 		testFunc(testNmb++, (Sys_f <= Sys_c), (User_f <= User_c), "f <= c");
 
-		getchar();
+		// getchar();
 
 		testFunc(testNmb++, (Sys_a >= Sys_b), (User_a >= User_b), "a >= b");
 		testFunc(testNmb++, (Sys_b >= Sys_c), (User_b >= User_c), "b >= c");
@@ -1601,8 +1601,8 @@ void				overloads_vector(int testNmb)
 		std::cerr << e.what() << '\n';
 	}
 	
-	getchar();
-	system("clear");
+	// getchar();
+	// system("clear");
 	
 	std::cout << std::endl << "\x1b[33m" << "                         *** SWAP ***                          " << "\x1b[0m" << std::endl;
 	
@@ -1636,8 +1636,8 @@ void				overloads_vector(int testNmb)
 	testFunc(testNmb++, SysV2.size(), UserV2.size(), "size");
 	testFunc(testNmb++, *SysV2.begin(), *UserV2.begin(), "begin");
 
-	getchar();
-	system("clear");
+	// getchar();
+	// system("clear");
 }
 
 void				iterator_for_vector(int testNmb)
@@ -1745,8 +1745,8 @@ void				iterator_for_vector(int testNmb)
 	testFunc(testNmb++, *iterSys--.operator->(), *iterUser--.operator->(), "*a-- (action)");
 	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a-- (result)");
 
-	getchar();
-	std::system("clear");
+	// getchar();
+	// std::system("clear");
 
 }
 
@@ -1855,8 +1855,8 @@ void				const_iterator_for_vector(int testNmb)
 	testFunc(testNmb++, *iterSys--.operator->(), *iterUser--.operator->(), "*a-- (action)");
 	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a-- (result)");
 
-	getchar();
-	std::system("clear");
+	// getchar();
+	// std::system("clear");
 
 }
 
@@ -1968,8 +1968,8 @@ void				rev_iterator_for_vector(int testNmb)
 	testFunc(testNmb++, *iterSys--.operator->(), *iterUser--.operator->(), "*a-- (action)");
 	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a-- (result)");
 
-	getchar();
-	std::system("clear");
+	// getchar();
+	// std::system("clear");
 
 }
 
@@ -2071,8 +2071,8 @@ void				rev_const_iterator_for_vector(int testNmb)
 	testFunc(testNmb++, *iterSys--.operator->(), *iterUser--.operator->(), "*a-- (action)");
 	testFunc(testNmb++, *(iterSys.operator->()), *(iterUser.operator->()), "*a-- (result)");
 
-	getchar();
-	std::system("clear");
+	// getchar();
+	// std::system("clear");
 
 }
 
@@ -2122,8 +2122,8 @@ void				different_types_vector(int testNmb)
 	testFunc(testNmb++, sysString.empty(), userString.empty(), "Empty");
 	testFunc(testNmb++, *sysString.begin(), *userString.begin(), "begin");
 	
-	getchar();
-	std::system("clear");
+	// getchar();
+	// std::system("clear");
 
 	/* char */
 	std::cout << std::endl << "\x1b[33m" << "CHAR" << "\x1b[0m" << std::endl;
@@ -2145,8 +2145,8 @@ void				different_types_vector(int testNmb)
 
 	testFunc(testNmb++, userChar.size(), userChar.size(), "Size <char>");
 	testFunc(testNmb++, *sysIteratorChar, *userIteratorChar, "Value <char>");
-	getchar();
-	std::system("clear");
+	// getchar();
+	// std::system("clear");
 
 	/* const char */
 	std::cout << std::endl << "\x1b[33m" << "CONST CHAR" << "\x1b[0m" << std::endl;
@@ -2157,8 +2157,8 @@ void				different_types_vector(int testNmb)
 	testFunc(testNmb++, *sysConstChar.begin(), *userConstChar.begin(), "Begin <char>");
 	testFunc(testNmb++, userConstChar.size(), userConstChar.size(), "Size is <char>");
 	testFunc(testNmb++, *sysIteratorChar, *userIteratorChar, "Value <char>");
-	getchar();
-	std::system("clear");
+	// getchar();
+	// std::system("clear");
 
 	/* const string */
 	std::cout << std::endl << "\x1b[33m" << "CONST STD::STRING" << "\x1b[0m" << std::endl;
@@ -2168,8 +2168,8 @@ void				different_types_vector(int testNmb)
 			
 	testFunc(testNmb++, *sysConstString.begin(), *userConstString.begin(), "Begin <char>");
 	testFunc(testNmb++, userConstString.size(), userConstString.size(), "Size is <char>");
-	getchar();
-	std::system("clear");
+	// getchar();
+	// std::system("clear");
 
 	/* for next test */
 	ft::vector <char> userChar2;
@@ -2267,8 +2267,8 @@ void				different_types_vector(int testNmb)
 	testFunc(testNmb++, sysFloat.size(), userFloat.size(), "Size");
 	testFunc(testNmb++, sysFloat.empty(), userFloat.empty(), "Empty list");
 	testFunc(testNmb++, *sysFloat.begin(), *userFloat.begin(), "begin list");
-	getchar();
-	std::system("clear");
+	// getchar();
+	// std::system("clear");
 }
 
 void				vector_test()
@@ -2276,7 +2276,7 @@ void				vector_test()
 	int testNmb = 0;
 	int testAll = 1;
 
-	system("clear");
+	// system("clear");
 	
 	std::cout << "\x1b[33m" << std::endl;
 	std::cout << "+ ------------------------------ +" << std::endl;

@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:48:18 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/06 15:52:53 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/03 12:51:11 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void memberFunc_queue(int testNmb,  int testAll)
 		testFunc(testNmb++,  queueSys1.size(), queueUser1.size(), "size");
 		testFunc(testNmb++, queueSys1.front(), queueUser1.front(), "front");
 		testFunc(testNmb++, queueSys1.back(), queueUser1.back(), "back");
-		getchar();
-		std::system("clear");
+		// getchar();
+		// std::system("clear");
 	}
 
 	if(empty)
@@ -81,8 +81,8 @@ void memberFunc_queue(int testNmb,  int testAll)
 		}
 		testFunc(testNmb++,  queueEmptySys.empty(), queueEmpty.empty(), "empty");
 		
-		getchar();
-		std::system("clear");
+		// getchar();
+		// std::system("clear");
 	}
 	
 	if(push)
@@ -97,8 +97,8 @@ void memberFunc_queue(int testNmb,  int testAll)
 		testFunc(testNmb++, queuePushSys.front(), queuePush.front(), "front");
 		testFunc(testNmb++, queuePushSys.back(), queuePush.back(), "back");
 
-		getchar();
-		std::system("clear");
+		// getchar();
+		// std::system("clear");
 	}
 
 	if(pop)
@@ -116,8 +116,8 @@ void memberFunc_queue(int testNmb,  int testAll)
 		testFunc(testNmb++,  queuePopSys.size(), queuePop.size(), "size");
 		testFunc(testNmb++, queuePopSys.front(), queuePop.front(), "front");
 		testFunc(testNmb++, queuePopSys.back(), queuePop.back(), "back");
-		getchar();
-		std::system("clear");
+		// getchar();
+		// std::system("clear");
 	}
 	
 	if(size)
@@ -131,8 +131,8 @@ void memberFunc_queue(int testNmb,  int testAll)
 			 queueSizeSys.push(i);
 		}
 		testFunc(testNmb++,  queueSizeSys.size(), queueSize.size(), "size");
-		getchar();
-		std::system("clear");
+		// getchar();
+		// std::system("clear");
 	}
 
 	if(front)
@@ -149,8 +149,8 @@ void memberFunc_queue(int testNmb,  int testAll)
 		testFunc(testNmb++,  queueFrontSys.size(), queueFront.size(), "size");
 		testFunc(testNmb++,  queueFrontSys.front(), queueFront.front(), "front");
 
-		getchar();
-		std::system("clear");
+		// getchar();
+		// std::system("clear");
 	}
 
 	if(back)
@@ -167,8 +167,8 @@ void memberFunc_queue(int testNmb,  int testAll)
 		testFunc(testNmb++,  queueBackSys.size(), queueBack.size(), "size");
 		testFunc(testNmb++,  queueBackSys.back(), queueBack.back(), "back");
 		
-		getchar();
-		std::system("clear");
+		// getchar();
+		// std::system("clear");
 	}
 }
 
@@ -233,7 +233,7 @@ void non_memberFunc_queue(int testNmb)
     testFunc(testNmb++, (queueSys_d >= queueSys_c), (queue_d >= queue_c), "d >= c");
     testFunc(testNmb++, (queueSys_a >= queueSys_f), (queue_a >= queue_f), "a >= f");
     testFunc(testNmb++, (queueSys_f >= queueSys_c), (queue_f >= queue_c), "f >= c");
-    getchar();
+    // getchar();
 }
 
 void queue_test()

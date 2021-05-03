@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:48:20 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/07 15:11:08 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/03 12:51:45 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void memberFunc_stack(int testNmb,  int testAll)
 		testFunc(testNmb++,  second2.size(), second.size(), "size");
 		testFunc(testNmb++,  second2.top(), second.top(), "top");
 
-		getchar();
-		std::system("clear");
+		// getchar();
+		// std::system("clear");
 	}
 
 	if(empty)
@@ -74,8 +74,8 @@ void memberFunc_stack(int testNmb,  int testAll)
 		}
 		testFunc(testNmb++,  stackEmptySys.empty(), stackEmpty.empty(), "empty");
 		
-		getchar();
-		std::system("clear");
+		// getchar();
+		// std::system("clear");
 	}
 	
 	if(push)
@@ -89,8 +89,8 @@ void memberFunc_stack(int testNmb,  int testAll)
 		testFunc(testNmb++,  stackPushSys.size(), stackPush.size(), "size");
 		testFunc(testNmb++,  stackPushSys.top(), stackPush.top(), "top");
 
-		getchar();
-		std::system("clear");
+		// getchar();
+		// std::system("clear");
 	}
 
 	if(pop)
@@ -107,8 +107,8 @@ void memberFunc_stack(int testNmb,  int testAll)
 		stackPopSys.pop();
 		testFunc(testNmb++,  stackPopSys.size(), stackPop.size(), "size");
 		testFunc(testNmb++,  stackPopSys.top(), stackPop.top(), "top");
-		getchar();
-		std::system("clear");
+		// getchar();
+		// std::system("clear");
 	}
 	
 	if(size)
@@ -122,8 +122,8 @@ void memberFunc_stack(int testNmb,  int testAll)
 			 stackSizeSys.push(i);
 		}
 		testFunc(testNmb++,  stackSizeSys.size(), stackSize.size(), "size");
-		getchar();
-		std::system("clear");
+		// getchar();
+		// std::system("clear");
 	}
 }
 
