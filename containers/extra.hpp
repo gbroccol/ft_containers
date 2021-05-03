@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:11:27 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/03 13:16:21 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/03 18:30:23 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ namespace ft
 	}
 
 	template<typename Iterator>
-	int distance(Iterator first, Iterator last)
+	int distance_my(Iterator first, Iterator last)
 	{
 		int dist = 0;
 

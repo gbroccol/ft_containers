@@ -6,18 +6,11 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:04:46 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/03 12:55:03 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/03 16:53:35 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../containers/vector/vector.hpp"
 #include "containers_test.hpp"
-
-#include <string>
-#include <cassert>
-#include <algorithm>
-#include <iostream>
-#include <vector>
 
 void				constructor_vector(int testNmb, int testAll)
 {

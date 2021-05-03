@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:11:15 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/03 16:45:36 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/03 18:33:49 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ namespace ft
 				vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
 												typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0) : _alloc(alloc)
 				{
-					_size = ft::distance(first, last);
+					_size = ft::distance_my(first, last);
 					_capacity = _size;
 					_vector = _alloc.allocate(_size);
 
@@ -189,8 +189,8 @@ namespace ft
 			void assign (InputIterator first, InputIterator last,
 										typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
-				if (checkin(begin(), end(), first) || checkin(begin(), end(), last))
-					return ;
+				// if (checkin(begin(), end(), first) || checkin(begin(), end(), last))
+				// 	return ;
 
 				clear();
 				for ( ; first != last; first++)
@@ -299,7 +299,7 @@ namespace ft
 				pointer posVector = position.ptr;
 				size_t sum = _capacity;
 
-				int n = distance(first, last);
+				int n = distance_my(first, last);
 				
 				if (sum < (_size + n))
 				{
@@ -356,7 +356,7 @@ namespace ft
 			iterator erase (iterator first, iterator last)
 			{
 				pointer posVector = first.ptr;
-				int dist = distance(first, last);
+				int dist = distance_my(first, last);
 				
 				size_t i = 0;
 				while (&_vector[i] != &posVector[0] && i < _size)
@@ -393,6 +393,7 @@ namespace ft
 				size_type			_size;
 				size_type			_capacity;
 				pointer 			_vector;
+
     };
 	
 	/* Non-member function overloads */

@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:45:56 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/23 15:46:02 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/03 16:53:09 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 #include <cstdio>
 #include <string>
 
-#include "../containers/list/list.hpp"
-#include "../containers/vector/vector.hpp"
-#include "../containers/map/map.hpp"
-#include "../containers/queue/queue.hpp"
-#include "../containers/stack/stack.hpp"
+#include "../containers/list.hpp"
+#include "../containers/vector.hpp"
+#include "../containers/map.hpp"
+#include "../containers/queue.hpp"
+#include "../containers/stack.hpp"
 
 void		list_test(void);
 void		map_test(void);

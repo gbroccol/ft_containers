@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/03 16:37:05 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/03 18:30:23 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,7 +357,7 @@ namespace ft
 				Node <T> * firstNodeX = first.ptr;
 				Node <T> * lastNodeX = last.ptr;
 
-				int	diff = ft::distance(first, last);
+				int	diff = ft::distance_my(first, last);
 
 				x._size -= diff;
 				_size += diff;
