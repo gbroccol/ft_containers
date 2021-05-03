@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:19 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/03 12:50:03 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/03 16:37:46 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 
 #include <iterator>
 #include <iostream>
-#include "map_iterator.hpp"
-#include "map_reverse_iterator.hpp"
-#include "../extra.hpp"
+#include "iterator/map_iterator.hpp"
+#include "iterator/map_reverse_iterator.hpp"
+#include "extra.hpp"
+#include "allocator.hpp"
 
 namespace ft
 {
 	template <class Key, class T, class Compare = std::less<Key>,
-			  class Alloc = std::allocator<std::pair<const Key, T> > >
+			  class Alloc = ft::allocator<std::pair<const Key, T> > >
 	class map
 	{
 	public:

@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/03 13:16:37 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/03 16:37:05 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 #include <iterator>
 #include <iostream>
-#include "list_iterator.hpp"
-#include "list_reverse_iterator.hpp"
-#include "../extra.hpp"
-#include "../allocator.hpp"
+#include "iterator/list_iterator.hpp"
+#include "iterator/list_reverse_iterator.hpp"
+#include "extra.hpp"
+#include "allocator.hpp"
 
 namespace ft 
 {

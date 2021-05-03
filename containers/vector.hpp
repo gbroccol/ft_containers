@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:11:15 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/26 19:51:26 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/03 16:45:36 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 
 #include <iterator>
 #include <iostream>
-#include "vector_iterator.hpp"
-#include "vector_reverse_iteraor.hpp"
-#include "../extra.hpp"
+#include "iterator/vector_iterator.hpp"
+#include "iterator/vector_reverse_iteraor.hpp"
+#include "extra.hpp"
+#include "allocator.hpp"
 
 namespace ft 
 {
-	template < class T, class Alloc = std::allocator<T> >
+	template < class T, class Alloc = ft::allocator<T> >
 	class vector 
     { 
 		public: 
@@ -88,7 +89,6 @@ namespace ft
 				~vector() 
 				{
 					_alloc.deallocate(_vector, _capacity);
-					_alloc.destroy(_vector);
 				}
 			/*
 			** --------------------------------- OVERLOAD ---------------------------------
