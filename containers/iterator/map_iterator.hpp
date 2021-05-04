@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:11:42 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/26 16:37:18 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/04 12:38:56 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 #include <iostream>
 #include <string>
 
-#define BLACK   1
-#define RED     0
+#define BLACK_TREE		1
+#define RED_TREE	0
 
-#define FIRST	3
-#define LAST    2
+#define FIRST		3
+#define LAST		2
 
 // std::pair<const Key, T>
 

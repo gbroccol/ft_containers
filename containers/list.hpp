@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/03 18:30:23 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/04 12:35:57 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ namespace ft
 				_tail->pre  = _tail;
 				_size = 0;
 				for ( ; first != last; first++)
-					push_back(first.ptr->data);
+					push_back(*first); // push_back(first.ptr->data);
 				_node = _tail->next;
 			}
 
@@ -287,7 +287,7 @@ namespace ft
 						typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
 				for ( ; first != last; first++)
-					insert(position, first.ptr->data);
+					insert(position, *first); // insert(position, first.ptr->data);
 			}
 
 			iterator erase (iterator position)

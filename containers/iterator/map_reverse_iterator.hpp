@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 12:25:08 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/26 16:37:39 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/04 12:46:48 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 #include <iostream>
 #include <string>
 
-#define BLACK   1
-#define RED     0
-#define LAST    2
-#define FIRST	3
+#define RED_TREE	0
+#define BLACK_TREE	1
+
+#define LAST    	2
+#define FIRST		3
 
 namespace ft 
 {

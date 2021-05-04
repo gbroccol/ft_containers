@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:19 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/03 16:37:46 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/04 12:45:35 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ namespace ft
 					nodeMap *newNode = (nodeMap *)::operator new(sizeof(nodeMap));
 					_alloc.construct(&(newNode->data), val);
 					
-					newNode->color = RED;
+					newNode->color = RED_TREE;
 					newNode->parent = whereAdd;
 					newNode->right = NULL;
 					newNode->left = NULL;
@@ -282,7 +282,7 @@ namespace ft
 					{
 						nodeMap *newNode = createNode(val);
 						newNode->parent = whereAdd;
-						newNode->color = RED;
+						newNode->color = RED_TREE;
 
 						whereAdd->left = newNode;
 
@@ -296,7 +296,7 @@ namespace ft
 					{
 						nodeMap *newNode = createNode(val);
 						newNode->parent = whereAdd;
-						newNode->color = RED;
+						newNode->color = RED_TREE;
 
 						whereAdd->right = newNode;
 
@@ -319,7 +319,7 @@ namespace ft
 											typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
 				for ( ; first != last; first++)
-					insert(first.ptr->data);
+					insert(*first); // insert(first.ptr->data);
 			}
 
 			void erase(iterator position)
@@ -371,7 +371,7 @@ namespace ft
 					y->left->parent = y;
 				}
 
-				if (originalColor == BLACK)
+				if (originalColor == BLACK_TREE)
 				{
 					deleteFix(x);
 				}
@@ -562,6 +562,26 @@ namespace ft
 			// 	}
 			// }
 
+			void _print_tree()
+			{
+				std::cout << "_print_tree" << " |";
+				iterator itSys = begin();
+				for ( ; itSys != end(); itSys++)
+				{
+					std::cout << "" << std::setw(7) << itSys->first << "    | ";
+				}
+				std::cout << "\x1b[33;1m " << itSys->first << "\x1b[0m | ";
+				std::cout << '\n' << "              |" ;
+
+				itSys = begin();
+				for (; itSys != end(); itSys++)
+				{
+					std::cout << "" << std::setw(7) << itSys->second << "    | ";
+				}
+				// std::cout << "\x1b[33;1m " << itSys->second << "\x1b[0m | ";
+				std::cout << '\n' << '\n';
+			}
+
 		private:
 		
 			allocator_type _alloc;
@@ -579,7 +599,7 @@ namespace ft
 				_map->parent = NULL;
 				_map->right = _TNULL;
 				_map->left = NULL;
-				_map->color = BLACK;
+				_map->color = BLACK_TREE;
 
 				_TSTART->parent = _map;
 				_TNULL->parent = _map;
@@ -597,7 +617,7 @@ namespace ft
 				newNode->parent = NULL;
 				newNode->right = NULL;
 				newNode->left = NULL;
-				newNode->color = BLACK;
+				newNode->color = BLACK_TREE;
 
 				return newNode;
 			}
@@ -674,16 +694,16 @@ namespace ft
 			{
 				nodeMap *tmp;
 
-				while (node->parent->color == RED)
+				while (node->parent->color == RED_TREE)
 				{
 					if (node->parent->parent->left == node->parent)
 					{												
 						tmp = node->parent;
-						if (tmp->parent->right && tmp->parent->right->color == RED) 
+						if (tmp->parent->right && tmp->parent->right->color == RED_TREE) 
 						{
-							tmp->parent->right->color = BLACK; 
-							tmp->color = BLACK;
-							tmp->parent->color = RED;
+							tmp->parent->right->color = BLACK_TREE; 
+							tmp->color = BLACK_TREE;
+							tmp->parent->color = RED_TREE;
 							node = node->parent->parent; 
 						}
 						else
@@ -693,8 +713,8 @@ namespace ft
 								node = node->parent; 
 								turnLeft(node);		 
 							}
-							node->parent->color = BLACK;	   
-							node->parent->parent->color = RED; 
+							node->parent->color = BLACK_TREE;	   
+							node->parent->parent->color = RED_TREE; 
 							turnRight(node->parent->parent);   
 						}
 					}
@@ -703,11 +723,11 @@ namespace ft
 						if (node->parent->parent->right == node->parent)
 						{
 							tmp = node->parent;
-							if (tmp->parent->left && tmp->parent->left->color == RED) 
+							if (tmp->parent->left && tmp->parent->left->color == RED_TREE) 
 							{
-								tmp->parent->left->color = BLACK; 
-								tmp->color = BLACK;
-								tmp->parent->color = RED;
+								tmp->parent->left->color = BLACK_TREE; 
+								tmp->color = BLACK_TREE;
+								tmp->parent->color = RED_TREE;
 								node = node->parent->parent; 
 							}
 							else
@@ -717,8 +737,8 @@ namespace ft
 									node = node->parent; 
 									turnRight(node);	 
 								}
-								node->parent->color = BLACK;	   
-								node->parent->parent->color = RED; 
+								node->parent->color = BLACK_TREE;	   
+								node->parent->parent->color = RED_TREE; 
 								turnLeft(node->parent->parent);	   
 							}
 						}
@@ -726,7 +746,7 @@ namespace ft
 					if (node == _root)
 						break;
 				}
-				_root->color = BLACK;
+				_root->color = BLACK_TREE;
 			}
 
 			void rbTransplant(nodeMap *nodeToBeDeleted, nodeMap *x) 
@@ -749,37 +769,37 @@ namespace ft
 				if (x == NULL)
 					return;
 
-				while (x && x != _root && x->color == BLACK)
+				while (x && x != _root && x->color == BLACK_TREE)
 				{
 					if (x->parent && x == x->parent->left)
 					{
 						s = x->parent->right;
-						if (s && s->color == RED)
+						if (s && s->color == RED_TREE)
 						{
-							s->color = BLACK;
-							x->parent->color = RED;
+							s->color = BLACK_TREE;
+							x->parent->color = RED_TREE;
 							turnLeft(x->parent);
 							s = x->parent->right;
 						}
 
-						if (s && s->left && s->right && s->left->color == BLACK && s->right->color == BLACK)
+						if (s && s->left && s->right && s->left->color == BLACK_TREE && s->right->color == BLACK_TREE)
 						{
-							s->color = RED;
+							s->color = RED_TREE;
 							x = x->parent;
 						}
 						else
 						{
-							if (s && s->right && s->right->color == BLACK)
+							if (s && s->right && s->right->color == BLACK_TREE)
 							{
-								s->left->color = BLACK;
-								s->color = RED;
+								s->left->color = BLACK_TREE;
+								s->color = RED_TREE;
 								turnRight(s);
 								s = x->parent->right;
 							}
 
 							s->color = x->parent->color;
-							x->parent->color = BLACK;
-							s->right->color = BLACK;
+							x->parent->color = BLACK_TREE;
+							s->right->color = BLACK_TREE;
 							turnLeft(x->parent);
 							x = _root;
 						}
@@ -787,38 +807,38 @@ namespace ft
 					else
 					{
 						s = x->parent->left;
-						if (s && s->color == RED)
+						if (s && s->color == RED_TREE)
 						{
-							s->color = BLACK;
-							x->parent->color = RED;
+							s->color = BLACK_TREE;
+							x->parent->color = RED_TREE;
 							turnRight(x->parent);
 							s = x->parent->left;
 						}
 
-						if (s && s->right && s->right->color == BLACK && s->right->color == BLACK)
+						if (s && s->right && s->right->color == BLACK_TREE && s->right->color == BLACK_TREE)
 						{
-							s->color = RED;
+							s->color = RED_TREE;
 							x = x->parent;
 						}
 						else
 						{
-							if (s && s->left && s->left->color == BLACK)
+							if (s && s->left && s->left->color == BLACK_TREE)
 							{
-								s->right->color = BLACK;
-								s->color = RED;
+								s->right->color = BLACK_TREE;
+								s->color = RED_TREE;
 								turnLeft(s);
 								s = x->parent->left;
 							}
 
 							s->color = x->parent->color;
-							x->parent->color = BLACK;
-							s->left->color = BLACK;
+							x->parent->color = BLACK_TREE;
+							s->left->color = BLACK_TREE;
 							turnRight(x->parent);
 							x = _root;
 						}
 					}
 				}
-				x->color = BLACK;
+				x->color = BLACK_TREE;
 			}
 
 			nodeMap *minimum(nodeMap *node)

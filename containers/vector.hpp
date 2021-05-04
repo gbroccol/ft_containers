@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:11:15 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/03 18:33:49 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/04 12:34:29 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,7 +316,7 @@ namespace ft
 
 				for (size_t j = 0; first != last; j++)
 				{
-					tmp[i + j] = *(first.ptr);
+					tmp[i + j] = *(first);
 					first++;
 				}
 				for ( ; i != _size; i++)
@@ -329,6 +329,45 @@ namespace ft
 				_size += n;
 				
 			}
+
+			// template <class InputIterator>
+			// void insert (iterator position, InputIterator first, InputIterator last,
+			// 										typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
+			// {
+			// 	pointer tmp = NULL;
+			// 	pointer posVector = position.ptr;
+			// 	size_t sum = _capacity;
+
+			// 	int n = distance_my(first, last);
+				
+			// 	if (sum < (_size + n))
+			// 	{
+			// 		while (sum < (_size + n))
+			// 			sum = sum * 2;
+			// 		tmp = _alloc.allocate(sum);
+			// 	}
+			// 	else
+			// 		tmp = _alloc.allocate(sum);
+
+			// 	size_t i = 0;
+			// 	for ( ; &_vector[i] != &posVector[0]; i++)
+			// 		tmp[i] = _vector[i];
+
+			// 	for (size_t j = 0; first != last; j++)
+			// 	{
+			// 		tmp[i + j] = *(first.ptr);
+			// 		first++;
+			// 	}
+			// 	for ( ; i != _size; i++)
+			// 		tmp[i + n] = _vector[i];
+
+			// 	_alloc.deallocate(_vector, _capacity);
+			// 	_capacity = sum;
+					
+			// 	_vector = tmp;
+			// 	_size += n;
+				
+			// }
 
 			iterator erase (iterator position)
 			{
