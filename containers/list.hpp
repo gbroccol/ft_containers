@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:17 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/04 12:35:57 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/13 20:34:18 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -625,55 +625,25 @@ namespace ft
 			template <class T, class Alloc>
 			bool operator<  (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs)
 			{
-				if (lhs.size() == 0)
-					return true;
-				else if (rhs.size() == 0)
-					return false;
-				else if (lhs.size() < rhs.size())
-					return true;
-				else
+				iterator <T> first1 = lhs.begin();
+				iterator <T> first2 = rhs.begin();
+
+				iterator <T> last1 = lhs.end();
+				iterator <T> last2 = rhs.end();
+				
+				while (first1 != last1)
 				{
-					iterator <T> it1 = lhs.begin();
-					iterator <T> it2 = rhs.begin();
-						
-					while (it1 != lhs.end() && it2 != rhs.end())
-					{
-						if (*it1 < *it2)
-							return true;
-						else if (*it1 > *it2)
-							return false;
-						it1++;
-						it2++;
-					}
+					if (first2==last2 || *first2<*first1) return false;
+					else if (*first1 < *first2) return true;
+					++first1; ++first2;
 				}
-				return false;
+				return (first2!=last2);
 			}
 
 			template <class T, class Alloc>
 			bool operator>  (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs)
-			{
-				if (lhs.size() == 0)
-					return false;
-				else if (rhs.size() == 0)
-					return true;
-				else if (lhs.size() > rhs.size())
-					return false;
-				else
-				{
-					iterator <T> it1 = lhs.begin();
-					iterator <T> it2 = rhs.begin();
-						
-					while (it1 != lhs.end() && it2 != rhs.end())
-					{
-						if (*it1 > *it2)
-							return true;
-						else if (*it1 < *it2)
-							return false;
-						it1++;
-						it2++;
-					}
-				}
-				return false;
+			{	
+				return (rhs < lhs);
 			}
 
 			template <class T, class Alloc>
