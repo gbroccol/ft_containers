@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:19 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/04 12:45:35 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/20 19:48:13 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -448,6 +448,8 @@ namespace ft
 					for (; tmp->data.first < key && tmp->right != NULL; flag++)
 						tmp = tmp->right;
 				}
+				if (tmp->data.first != key)
+					return (const_iterator)this->end();
 				return (iterator)tmp;
 			}
 			
@@ -465,6 +467,8 @@ namespace ft
 					for (; tmp->data.first < key && tmp->right != NULL; flag++)
 						tmp = tmp->right;
 				}
+				if (tmp->data.first != key)
+					return (const_iterator)this->end();
 				return (const_iterator)tmp;
 			}
 
@@ -479,7 +483,25 @@ namespace ft
 			{
 				iterator it = find(k);
 				if (it.ptr == _TNULL)
-					return (it);
+				{
+					nodeMap * tmp = _root;
+					int flag = 1;
+
+					while (flag)
+					{
+						flag = 0;
+						for (; tmp->data.first > k && tmp->left != NULL; flag++)
+							tmp = tmp->left;
+
+						for (; tmp->data.first < k && tmp->right != NULL; flag++)
+							tmp = tmp->right;
+					}
+					if (tmp->color == LAST)
+						return this->end();
+					it = (iterator)tmp;
+					it++;
+					return it;
+				}
 				if (it.ptr->data.first < k)
 				{
 					it++;
@@ -505,7 +527,27 @@ namespace ft
 			{
 				iterator it = find(k);
 				if (it.ptr == _TNULL)
-					return (it);
+				{
+					nodeMap * tmp = _root;
+					int flag = 1;
+
+					while (flag)
+					{
+						flag = 0;
+						for (; tmp->data.first > k && tmp->left != NULL; flag++)
+							tmp = tmp->left;
+
+						for (; tmp->data.first < k && tmp->right != NULL; flag++)
+							tmp = tmp->right;
+					}
+					if (tmp->color == LAST)
+						return this->end();
+					it = (iterator)tmp;
+					if (tmp->data.first < k)
+						return it;
+					it++;
+					return it;
+				}
 				it++;
 				return (it);
 			}

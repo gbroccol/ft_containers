@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 13:16:15 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/04/13 19:07:57 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/20 13:52:31 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ namespace ft
 			** --------------------------------- OVERLOAD ---------------------------------
 			*/
 
-				iteratorVector &	operator=(const iteratorVector& x) {
+				iteratorVector &			operator=(const iteratorVector& x) {
 					this->ptr = x.ptr;
 					return *this;
 				}
@@ -69,7 +69,7 @@ namespace ft
 				pointer						operator->() { return ptr; }
 				const pointer				operator->() const { return ptr; }
 
-				iteratorVector					&operator++()
+				iteratorVector				&operator++()
 				{
 					ptr++;
 					return *this;

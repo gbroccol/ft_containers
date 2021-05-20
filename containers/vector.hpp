@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:11:15 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/04 12:34:29 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/20 17:21:42 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ namespace ft
 			typedef ft::reverseIteratorVector<T>					reverse_iterator;
 			typedef ft::const_reverseIteratorVector <T>				const_reverse_iterator;
 			typedef size_t											size_type;
+			typedef	ptrdiff_t										difference_type;
 			
 			/*
 			** -------------------------------- CONSTRUCTOR --------------------------------
@@ -46,7 +47,7 @@ namespace ft
 				{
 					_size = 0;
 					_capacity = 0;
-					_vector = 0;
+					_vector = _alloc.allocate(1); // allocate for tail
 				}
 				
 				explicit vector (size_type n, const value_type& val = value_type(),
@@ -54,7 +55,7 @@ namespace ft
 				{
 					_size = n;
 					_capacity = n;
-					_vector = _alloc.allocate(n);
+					_vector = _alloc.allocate(n + 1); // + 1 for tail
 
 					pointer tmp = _vector;
 					
@@ -68,7 +69,7 @@ namespace ft
 				{
 					_size = ft::distance_my(first, last);
 					_capacity = _size;
-					_vector = _alloc.allocate(_size);
+					_vector = _alloc.allocate(_size + 1);
 
 					pointer tmp = _vector;
 
@@ -88,7 +89,7 @@ namespace ft
 			*/
 				~vector() 
 				{
-					_alloc.deallocate(_vector, _capacity);
+					_alloc.deallocate(_vector, _capacity + 1);
 				}
 			/*
 			** --------------------------------- OVERLOAD ---------------------------------
@@ -98,7 +99,7 @@ namespace ft
 					clear();
 					_size = x._size;
 					_capacity = x._capacity;
-					_vector = _alloc.allocate(_capacity);
+					_vector = _alloc.allocate(_capacity + 1);
 
 					pointer tmp = _vector;
 
@@ -174,8 +175,18 @@ namespace ft
 			reference operator[] (size_type n) { return _vector[n]; }
 			const_reference operator[] (size_type n) const { return _vector[n]; }
 
-			reference at (size_type n) { return (reference)_vector[n]; }
-			const_reference at (size_type n) const { return (const_reference)_vector[n]; }
+			reference at (size_type n)
+			{
+				if (this->size() == 0 || n >= this->size())
+					throw std::out_of_range ("out_of_range");
+				return (reference)_vector[n];
+			}
+			const_reference at (size_type n) const
+			{
+				if (this->size() == 0 || n >= this->size())
+					throw std::out_of_range ("out_of_range");
+				return (const_reference)_vector[n];
+			}
 
 			reference front() { return (reference)_vector[0]; }
 			const_reference front() const { return (const_reference)_vector[0]; }
@@ -221,71 +232,63 @@ namespace ft
 			{
 				pointer tmp;
 				pointer posVector = position.ptr;
+				int 	sum = _capacity + 1;
 
-				int dealCapacity = _capacity;
+				if (sum < (int)(_size + 1 + 1))
+					sum = sum * 2;
+				tmp = _alloc.allocate(sum); // + 1 for tail
 				
-				if (_capacity < (_size + 1))
-					{
-						tmp = _alloc.allocate(_capacity * 2);
-						_capacity *= 2;
-					}
-					else
-						tmp = _alloc.allocate(_capacity);
+				size_t  i = 0;
+				pointer tmp2 = tmp;
+					
+				for ( ; &_vector[i] != posVector; i++)
+					_alloc.construct(tmp2++, _vector[i]);
 						
-					
-					size_t i = 0;
+				_alloc.construct(tmp2, val);
 
-					pointer tmp2 = tmp;
+				tmp2++;
+				int rem = i;
 					
-					for ( ; &_vector[i] != posVector; i++)
-						_alloc.construct(tmp2++, _vector[i]);
-						
-					_alloc.construct(tmp2, val);
+				for ( ; i != _size; i++)
+					_alloc.construct(tmp2++, _vector[i]);
 
-					tmp2++;
+				_alloc.deallocate(_vector, sum);
+				_capacity = sum -1;
 					
-					int rem = i;
+				_vector = tmp;
+				_size++;
 					
-					for ( ; i != _size; i++)
-						_alloc.construct(tmp2++, _vector[i]);
-
-					_alloc.deallocate(_vector, dealCapacity);
-					
-					_vector = tmp;
-					_size++;
-					
-					return iterator(&_vector[rem]);
+				return iterator(&_vector[rem]);
 				}
 				
 			void insert (iterator position, size_type n, const value_type& val)
 			{
 				pointer tmp;
 				pointer posVector = position.ptr;
-				int dealCapacity = _capacity;
-				
-				if (_capacity < (_size + n))
+				int 	sum = _capacity + 1;
+
+				if (sum < (int)(_size + n + 1))
 				{
-					while (_capacity < (_size + n))
-					{
-						tmp = _alloc.allocate(_capacity * 2);
-						_capacity *= 2;
-					}
+					while (sum < (int)(_size + n + 1))
+						sum = sum * 2;
+					tmp = _alloc.allocate(sum); // + 1 for tail
 				}
 				else
-					tmp = _alloc.allocate(_capacity);
+					tmp = _alloc.allocate(sum); // + 1 for tail
 				
 				size_t i = 0;
 				
 				for ( ; &_vector[i] != &posVector[0]; i++)
-					tmp[i] = _vector[i];
+					_alloc.construct(&(tmp[i]), _vector[i]);
 
 				for (size_t j = 0; j < n; j++)
-					tmp[i + j] = val;
+					_alloc.construct(&(tmp[i + j]), val);
 
 				for ( ; i != _size; i++)
-					tmp[i + n] = _vector[i];
+					_alloc.construct(&(tmp[i + n]), _vector[i]);
 
-				_alloc.deallocate(_vector, dealCapacity);
+				_alloc.deallocate(_vector, _capacity + 1);
+				_capacity = sum - 1;
 					
 				_vector = tmp;
 				_size += n;
@@ -296,78 +299,38 @@ namespace ft
 													typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
 			{
 				pointer tmp = NULL;
-				pointer posVector = position.ptr;
-				size_t sum = _capacity;
+				pointer posVector = position.ptr; // указатель на вектор
+				size_t sum = _capacity + 1;
 
 				int n = distance_my(first, last);
 				
-				if (sum < (_size + n))
+				if (sum < (_size + n + 1))
 				{
-					while (sum < (_size + n))
+					while (sum < (_size + n + 1))
 						sum = sum * 2;
-					tmp = _alloc.allocate(sum);
+					tmp = _alloc.allocate(sum); // + 1 for tail
 				}
 				else
-					tmp = _alloc.allocate(sum);
+					tmp = _alloc.allocate(sum); // + 1 for tail
 
 				size_t i = 0;
 				for ( ; &_vector[i] != &posVector[0]; i++)
-					tmp[i] = _vector[i];
+					_alloc.construct(&(tmp[i]), _vector[i]);
 
 				for (size_t j = 0; first != last; j++)
 				{
-					tmp[i + j] = *(first);
+					_alloc.construct(&(tmp[i + j]), *(first));
 					first++;
 				}
 				for ( ; i != _size; i++)
-					tmp[i + n] = _vector[i];
+					_alloc.construct(&(tmp[i + n]), _vector[i]);
 
-				_alloc.deallocate(_vector, _capacity);
-				_capacity = sum;
+				_alloc.deallocate(_vector, _capacity + 1);
+				_capacity = sum - 1;
 					
 				_vector = tmp;
 				_size += n;
-				
 			}
-
-			// template <class InputIterator>
-			// void insert (iterator position, InputIterator first, InputIterator last,
-			// 										typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0)
-			// {
-			// 	pointer tmp = NULL;
-			// 	pointer posVector = position.ptr;
-			// 	size_t sum = _capacity;
-
-			// 	int n = distance_my(first, last);
-				
-			// 	if (sum < (_size + n))
-			// 	{
-			// 		while (sum < (_size + n))
-			// 			sum = sum * 2;
-			// 		tmp = _alloc.allocate(sum);
-			// 	}
-			// 	else
-			// 		tmp = _alloc.allocate(sum);
-
-			// 	size_t i = 0;
-			// 	for ( ; &_vector[i] != &posVector[0]; i++)
-			// 		tmp[i] = _vector[i];
-
-			// 	for (size_t j = 0; first != last; j++)
-			// 	{
-			// 		tmp[i + j] = *(first.ptr);
-			// 		first++;
-			// 	}
-			// 	for ( ; i != _size; i++)
-			// 		tmp[i + n] = _vector[i];
-
-			// 	_alloc.deallocate(_vector, _capacity);
-			// 	_capacity = sum;
-					
-			// 	_vector = tmp;
-			// 	_size += n;
-				
-			// }
 
 			iterator erase (iterator position)
 			{
@@ -466,28 +429,19 @@ namespace ft
 			template <class T, class Alloc>
 			bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 			{
-				if (lhs.size() == 0)
-					return true;
-				else if (rhs.size() == 0)
-					return false;
-				else if (lhs.size() < rhs.size())
-					return true;
-				else
+				ft::const_iteratorVector <T> first1 = lhs.begin();
+				ft::const_iteratorVector <T> first2 = rhs.begin();
+
+				ft::const_iteratorVector <T> last1 = lhs.end();
+				ft::const_iteratorVector <T> last2 = rhs.end();
+				
+				while (first1 != last1)
 				{
-					ft::const_iteratorVector <T> it1 = lhs.begin();
-					ft::const_iteratorVector <T> it2 = rhs.begin();
-						
-					while (it1 != lhs.end() && it2 != rhs.end())
-					{
-						if (*it1 < *it2)
-							return true;
-						else if (*it1 > *it2)
-							return false;
-						it1++;
-						it2++;
-					}
+					if (first2==last2 || *first2<*first1) return false;
+					else if (*first1 < *first2) return true;
+					++first1; ++first2;
 				}
-				return false;
+				return (first2!=last2);
 			}
 			
 			template <class T, class Alloc>
@@ -499,28 +453,7 @@ namespace ft
 			template <class T, class Alloc>
 			bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 			{
-				if (lhs.size() == 0)
-					return false;
-				else if (rhs.size() == 0)
-					return true;
-				else if (lhs.size() > rhs.size())
-					return false;
-				else
-				{
-					ft::const_iteratorVector <T> it1 = lhs.begin();
-					ft::const_iteratorVector <T> it2 = rhs.begin();
-						
-					while (it1 != lhs.end() && it2 != rhs.end())
-					{
-						if (*it1 > *it2)
-							return true;
-						else if (*it1 < *it2)
-							return false;
-						it1++;
-						it2++;
-					}
-				}
-				return false;
+				return (rhs < lhs);
 			}
 			
 			template <class T, class Alloc>
