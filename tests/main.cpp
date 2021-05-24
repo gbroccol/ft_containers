@@ -34,23 +34,22 @@ int main() {
 		cout << YELLOW << "0.  " << BLUE << "Exit" << BW << endl << endl;
 
 		int index = 11;
-		index = 3;
-		// while (1) {
-		// 	cout << YELLOW << "Enter index: " << BW;
-		// 	cin >> index;
-		// 	if (cin.eof()) {
-		// 		cout << std::endl;
-		// 		exit(0);
-		// 	}
-		// 	if (!cin || index < 0 || index > 10) {
-		// 		cout << RED << "\nIncorrect input\n" << BW << endl;
-		// 		cin.clear();
-		// 		while (cin.get() != '\n');
-		// 	} else {
-		// 		cin.ignore();
-		// 		break;
-		// 	}
-		// }
+		while (1) {
+			cout << YELLOW << "Enter index: " << BW;
+			cin >> index;
+			if (cin.eof()) {
+				cout << std::endl;
+				exit(0);
+			}
+			if (!cin || index < 0 || index > 10) {
+				cout << RED << "\nIncorrect input\n" << BW << endl;
+				cin.clear();
+				while (cin.get() != '\n');
+			} else {
+				cin.ignore();
+				break;
+			}
+		}
 		void (*last_test)() = NULL;
 	
 		if (index == ft::List) {

@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:45:56 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/20 13:18:22 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/24 13:11:12 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ int compareClasses(int testNmb, T1 & sysClass, T2 & userClass)
 	{
 		testFunc(testNmb++, true, false, "FALSE EXIT ERROR");
 	}
-	printContainer("  Sys vector: ", sysClass);	
-	printContainer (" User vector: ", userClass);
+	// printContainer("  Sys vector: ", sysClass);	
+	// printContainer (" User vector: ", userClass);
 	std::cout << std::endl;
 	return (testNmb);
 }

@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:11:15 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/20 17:21:42 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/24 13:55:20 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,9 @@ namespace ft
 
 			size_type max_size() const { return (std::numeric_limits<size_type>::max() / (sizeof(T))); }
 			
-			void resize (size_type n, value_type val = value_type())
+			void resize (size_type n, value_type val = value_type()) // n = n + 1 (for tail) don't forget to add
 			{
-				while (_capacity < n)
+				while (_capacity < n + 1)
 				{
 					if (_capacity == 0)
 						reserve(1);
@@ -143,7 +143,7 @@ namespace ft
 				
 				pointer tmp = _vector + _size;
 
-				for (size_type i = (_size); i < n; i++ )
+				for (size_type i = _size; i < n; i++ )
 					_alloc.construct(tmp++, val);
 				_size = n;
 			}
@@ -154,17 +154,20 @@ namespace ft
 			
 			void reserve (size_type n)
 			{
+
+				// std::cout << "n = " << n << " _capacity = " << _capacity << std::endl;
+				// getchar();
+				
 				if (n <= _capacity)
 					return;
 					
-				pointer tmp = _alloc.allocate(n);
+				pointer tmp = _alloc.allocate(n + 1); // +1 for tail
 				pointer tmp2 = tmp;
 				
 				for (size_t i = 0; i < _size; i++)
 					_alloc.construct(tmp2++, _vector[i]);
 				
-				if (_capacity)
-					_alloc.deallocate(_vector, _capacity);
+				_alloc.deallocate(_vector, _capacity + 1);
 					
 				_vector = tmp;
 				_capacity = n;
@@ -216,14 +219,22 @@ namespace ft
 
 			void push_back (const value_type& val)
 			{
-				if (_capacity < _size + 1)
+				if (_capacity < _size + 1) // +1 for value
+				{
+					// std::cout << "1 - resize" << std::endl;
+					// getchar();
 					resize((_size + 1), val);
+					
+				}
 				else
 				{
+					// std::cout << "1 - construct" << std::endl;
+					// getchar();
 					pointer tmp = _vector + _size;
 					_alloc.construct(tmp, val);
 					_size++;
 				}
+				// getchar();
 			}
 
 			void pop_back() { _size--; }

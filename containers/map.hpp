@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:19 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/20 19:48:13 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:22:44 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -481,84 +481,127 @@ namespace ft
 
 			iterator lower_bound (const key_type& k)
 			{
-				iterator it = find(k);
-				if (it.ptr == _TNULL)
-				{
-					nodeMap * tmp = _root;
-					int flag = 1;
+				nodeMap * tmp = _root;
+				int flag = 1;
 
-					while (flag)
-					{
-						flag = 0;
-						for (; tmp->data.first > k && tmp->left != NULL; flag++)
-							tmp = tmp->left;
-
-						for (; tmp->data.first < k && tmp->right != NULL; flag++)
-							tmp = tmp->right;
-					}
-					if (tmp->color == LAST)
-						return this->end();
-					it = (iterator)tmp;
-					it++;
-					return it;
-				}
-				if (it.ptr->data.first < k)
+				while (flag)
 				{
-					it++;
-					return (it);
+					flag = 0;
+					for (; tmp->data.first > k && tmp->left != NULL; flag++)
+						tmp = tmp->left;
+						
+					for (; tmp->data.first < k && tmp->right != NULL; flag++)
+						tmp = tmp->right;
 				}
-				return (it);
+
+				if (tmp->data.first < k)
+				{
+					iterator result = (iterator)tmp;
+					result++;
+					return result;
+				}
+				return (iterator)tmp;
 			}
 			
 			const_iterator lower_bound (const key_type& k) const
 			{
-				const_iterator it = find(k);
-				if (it.ptr == _TNULL)
-					return (it);
-				if (it.ptr->data.first < k)
+
+				nodeMap * tmp = _root;
+				int flag = 1;
+
+				while (flag)
 				{
-					it++;
-					return (it);
+					flag = 0;
+					for (; tmp->data.first > k && tmp->left != NULL; flag++)
+						tmp = tmp->left;
+						
+					for (; tmp->data.first < k && tmp->right != NULL; flag++)
+						tmp = tmp->right;
 				}
-				return (it);
+
+				if (tmp->data.first < k)
+				{
+					const_iterator result = (const_iterator)tmp;
+					result++;
+					return result;
+				}
+				return (const_iterator)tmp;
+
+				
+				// const_iterator it = find(k);
+				// if (it.ptr == _TNULL)
+				// 	return (it);
+				// if (it.ptr->data.first < k)
+				// {
+				// 	it++;
+				// 	return (it);
+				// }
+				// return (it);
 			}
 
 			iterator upper_bound (const key_type& k)
 			{
-				iterator it = find(k);
-				if (it.ptr == _TNULL)
+				nodeMap * tmp = _root;
+				int flag = 1;
+
+				// std::cout << "start " << tmp->data.first << " key " << k << std::endl;
+
+				while (flag)
 				{
-					nodeMap * tmp = _root;
-					int flag = 1;
+					flag = 0;
+					for (; tmp->data.first > k && tmp->left != NULL; flag++)
+						tmp = tmp->left;
 
-					while (flag)
-					{
-						flag = 0;
-						for (; tmp->data.first > k && tmp->left != NULL; flag++)
-							tmp = tmp->left;
-
-						for (; tmp->data.first < k && tmp->right != NULL; flag++)
-							tmp = tmp->right;
-					}
-					if (tmp->color == LAST)
-						return this->end();
-					it = (iterator)tmp;
-					if (tmp->data.first < k)
-						return it;
-					it++;
-					return it;
+					for (; tmp->data.first < k && tmp->right != NULL; flag++)
+						tmp = tmp->right;
+					
+					// std::cout << "---> " << tmp->data.first << std::endl;
 				}
-				it++;
-				return (it);
+				
+				if (tmp->data.first != k && k < tmp->data.first)
+					return (iterator)tmp;
+				
+				iterator result = (iterator)tmp;
+				result++;
+				
+				return result;
 			}
 			
 			const_iterator upper_bound (const key_type& k) const
 			{
-				const_iterator it = find(k);
-				if (it.ptr == _TNULL)
-					return (it);
-				it++;
-				return (it);
+
+				nodeMap * tmp = _root;
+				int flag = 1;
+
+				// std::cout << "start " << tmp->data.first << " key " << k << std::endl;
+
+				while (flag)
+				{
+					flag = 0;
+					for (; tmp->data.first > k && tmp->left != NULL; flag++)
+						tmp = tmp->left;
+
+					for (; tmp->data.first < k && tmp->right != NULL; flag++)
+						tmp = tmp->right;
+					
+					// std::cout << "---> " << tmp->data.first << std::endl;
+				}
+				
+				if (tmp->data.first != k && k < tmp->data.first)
+					return (const_iterator)tmp;
+				
+				const_iterator result = (const_iterator)tmp;
+				result++;
+				
+				return result;
+				
+				// return (const_iterator)upper_bound(k);
+				
+				// const_iterator it = find(k);
+				// if (it.ptr == _TNULL)
+				// 	return (it);
+				// it++;
+				// return (it);
 			}
 
 			std::pair <const_iterator, const_iterator> equal_range (const key_type& k) const

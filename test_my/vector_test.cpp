@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:04:46 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/03 16:53:35 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/24 14:01:42 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void				constructor_vector(int testNmb, int testAll)
 		
 		for (int i = 0; i < 5; i++)
 		{
-			std::cout << i << std::endl;
+			// std::cout << i << std::endl;
 			vUserCopy.push_back(i);
 			vSysCopy.push_back(i);
 		}
@@ -74,7 +74,6 @@ void				constructor_vector(int testNmb, int testAll)
 		
 		std::cout << "*** RESULT ***" << std::endl;
 		testFunc(testNmb++, vSysCopy.size(), vUserCopy.size(), "size");
-		testFunc(testNmb++, vSysCopy.capacity(), vUserCopy.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, vSysCopy, vUserCopy);
 		
 		// getchar();
@@ -738,7 +737,7 @@ void				modifiers_vector(int testNmb, int testAll)
 		userVect.push_back(5);
 
 		testFunc(testNmb++, sysVect.size(), userVect.size(), "size (push back 5))");
-		testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity (push back 5))");
+		// testFunc(testNmb++, sysVect.capacity(), userVect.capacity(), "capacity (push back 5))");
 		testNmb = compareClasses(testNmb++, sysVect, userVect);
 
 		for	(int i = 0; i < 5; i++)
@@ -843,7 +842,7 @@ void				modifiers_vector(int testNmb, int testAll)
 		testFunc(testNmb++, *(sysV.insert(sysV.begin(), 12)), *(userV.insert(userV.begin(), 12)), "Return value");
 		
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 		// getchar();
 		// system("clear");
@@ -853,7 +852,7 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		std::cout << "*** BEFORE ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size before");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 
 		itSys  = sysV.begin(); 
@@ -866,7 +865,7 @@ void				modifiers_vector(int testNmb, int testAll)
 		
 		std::cout << "*** AFTER ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 		// getchar();
 		// system("clear");
@@ -876,13 +875,13 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		std::cout << "*** BEFORE ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size before");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 		
 		std::cout << "*** AFTER ***" << std::endl;
 		testFunc(testNmb++, *(sysV.insert(sysV.end(), 5555555)), *(userV.insert(userV.end(), 5555555)), "Return value");
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 		// getchar();
 		// system("clear");
@@ -895,13 +894,13 @@ void				modifiers_vector(int testNmb, int testAll)
 		
 		std::cout << "*** BEFORE ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size before");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 
 		std::cout << "*** AFTER ***" << std::endl;
 		testFunc(testNmb++, *(sysV.insert(sysV.begin(), 12)), *(userV.insert(userV.begin(), 12)), "Return value");
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 		// getchar();
 		// system("clear");
@@ -914,7 +913,7 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		std::cout << "*** BEFORE ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size before");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 
 		userV.insert(userV.begin(), 2, 42);
@@ -922,7 +921,7 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		std::cout << "*** AFTER ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 		// getchar();
 		// system("clear");
@@ -941,7 +940,7 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		std::cout << "*** BEFORE ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size before");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 
 		userV.insert(userV.begin(), 2, 42);
@@ -949,7 +948,7 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		std::cout << "*** AFTER ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 		// getchar();
 		// system("clear");
@@ -968,7 +967,7 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		std::cout << "*** BEFORE ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size before");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 
 		userV.insert(userV.end(), 1, 55);
@@ -976,7 +975,7 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		std::cout << "*** AFTER ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 		// getchar();
 		// system("clear");
@@ -995,7 +994,7 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		std::cout << "*** BEFORE ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size before");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 
 		userV.insert(userV.end(), 0, 55);
@@ -1003,7 +1002,7 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		std::cout << "*** AFTER ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 		// getchar();
 		// system("clear");
@@ -1019,7 +1018,7 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		std::cout << "*** BEFORE ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size before");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity before");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 
 		itSys = sysV.begin(); 
@@ -1036,7 +1035,7 @@ void				modifiers_vector(int testNmb, int testAll)
 
 		std::cout << "*** AFTER ***" << std::endl;
 		testFunc(testNmb++, sysV.size(), userV.size(), "size");
-		testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
+		// testFunc(testNmb++, sysV.capacity(), userV.capacity(), "capacity");
 		testNmb = compareClasses(testNmb++, sysV, userV);
 		// getchar();
 		// system("clear");
