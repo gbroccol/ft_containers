@@ -6,7 +6,7 @@
 /*   By: gbroccol <gbroccol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:32:19 by gbroccol          #+#    #+#             */
-/*   Updated: 2021/05/24 15:22:44 by gbroccol         ###   ########.fr       */
+/*   Updated: 2021/05/24 18:59:55 by gbroccol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,18 +182,8 @@ namespace ft
 				return _TSTART->parent;
 			}
 
-			iterator end()
-			{
-				if (_size == 0)
-					return _TNULL;
-				return _TNULL->parent->right;
-			}
-			const_iterator end() const
-			{
-				if (_size == 0)
-					return _TNULL;
-				return _TNULL->parent->right;
-			}
+			iterator end() { return _TNULL; }
+			const_iterator end() const { return _TNULL; }
 
 			reverse_iterator rbegin()
 			{
@@ -328,6 +318,8 @@ namespace ft
 				nodeMap *y;
 				nodeMap *nodeToBeDeleted = position.ptr;
 				int originalColor = nodeToBeDeleted->color;
+
+				// _TNULL->parent->right = NULL;
 		
 				if (nodeToBeDeleted->left == NULL)
 				{
@@ -344,10 +336,24 @@ namespace ft
 					if (nodeToBeDeleted == _TNULL->parent)
 						_TNULL->parent = _TNULL->parent;
 				}
-				else if (nodeToBeDeleted->right == NULL)
+				else if (nodeToBeDeleted->right == NULL || nodeToBeDeleted->right == _TNULL)
 				{
 					x = nodeToBeDeleted->left;
 					rbTransplant(nodeToBeDeleted, x);
+
+					if (nodeToBeDeleted == _TNULL->parent)
+					{
+						if (x)
+						{
+							_TNULL->parent = maximum(x);
+							_TNULL->parent->right = _TNULL;
+						}
+						else
+						{
+							_TNULL->parent = nodeToBeDeleted->parent;
+							nodeToBeDeleted->parent->right = _TNULL;
+						}
+					}
 				}
 				else
 				{
@@ -355,7 +361,7 @@ namespace ft
 					
 					x = y->right;
 
-					if (y->parent == nodeToBeDeleted)
+					if (x && y->parent == nodeToBeDeleted)
 					{
 						x->parent = y;
 					}
@@ -363,18 +369,19 @@ namespace ft
 					{
 						rbTransplant(y, y->right);
 						y->right = nodeToBeDeleted->right;
-						y->right->parent = y;
+						if (y->right)
+							y->right->parent = y;
 					}
 
 					rbTransplant(nodeToBeDeleted, y);
 					y->left = nodeToBeDeleted->left;
-					y->left->parent = y;
+					if (y->left)
+						y->left->parent = y;
 				}
 
 				if (originalColor == BLACK_TREE)
-				{
 					deleteFix(x);
-				}
+
 				_TNULL->color = LAST;
 				delete nodeToBeDeleted;
 				_size--;
@@ -394,10 +401,22 @@ namespace ft
 
 			void erase (iterator first, iterator last)
 			{
-				while (_size && first != last)
+				if (first == this->begin() && last == this->end())
+					this->clear();
+				else
 				{
-					erase(first);
-					first++;
+					iterator next;
+					
+					while (first != last)
+					{
+						first++;
+						next = first;
+						first--;
+						
+						erase(first);
+						
+						first = next;
+					}
 				}
 			}
 
@@ -649,14 +668,14 @@ namespace ft
 
 			void _print_tree()
 			{
-				std::cout << "_print_tree" << " |";
+				std::cout << "_print_tree " << " |";
 				iterator itSys = begin();
 				for ( ; itSys != end(); itSys++)
 				{
 					std::cout << "" << std::setw(7) << itSys->first << "    | ";
 				}
 				std::cout << "\x1b[33;1m " << itSys->first << "\x1b[0m | ";
-				std::cout << '\n' << "              |" ;
+				std::cout << '\n' << "             |" ;
 
 				itSys = begin();
 				for (; itSys != end(); itSys++)
@@ -838,9 +857,9 @@ namespace ft
 			{
 				if (nodeToBeDeleted->parent == NULL)
 					_root = x;
-				else if (nodeToBeDeleted == nodeToBeDeleted->parent->left)
+				else if (nodeToBeDeleted == nodeToBeDeleted->parent->left) // удаляемая нода левая
 					nodeToBeDeleted->parent->left = x;
-				else if (nodeToBeDeleted == nodeToBeDeleted->parent->right)
+				else if (nodeToBeDeleted == nodeToBeDeleted->parent->right) // удаляемая нода правая
 					nodeToBeDeleted->parent->right = x;
 				
 				if (x)
@@ -881,10 +900,13 @@ namespace ft
 								turnRight(s);
 								s = x->parent->right;
 							}
-
+							
+							if (s)
 							s->color = x->parent->color;
+							if (x->parent)
 							x->parent->color = BLACK_TREE;
-							s->right->color = BLACK_TREE;
+							if (s->right)
+								s->right->color = BLACK_TREE;
 							turnLeft(x->parent);
 							x = _root;
 						}
@@ -916,8 +938,10 @@ namespace ft
 							}
 
 							s->color = x->parent->color;
+							if (x->parent)
 							x->parent->color = BLACK_TREE;
-							s->left->color = BLACK_TREE;
+							if (s->left)
+								s->left->color = BLACK_TREE;
 							turnRight(x->parent);
 							x = _root;
 						}
